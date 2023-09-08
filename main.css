@@ -1,12 +1,3 @@
-body {
-    font-family: Arial, sans-serif;
-    margin: 20px;
-    background: linear-gradient(45deg, cyan, rgb(61,149,238), green);
-    background-repeat: no-repeat;
-    height: 100vw;
-    overflow-y: hidden;
-}
-
 .Title {
     text-align: center;
 }
@@ -17,34 +8,14 @@ table, th, td {
   }
 
 .TopTable {
-    width: 1800px;
+    width: 100%;
     text-align: center;
 }
 
-.LeftT {
-    text-align: right;
-    padding: 5px;
-    padding-right: 25px; 
+.Pages {
+    width: 20%;
 }
-.RightT {
-    text-align: left;
-    padding: 5px;
-    padding-left: 20px; 
-}
-
-td:nth-child(2) {
-    width: 75%;
-}
-td:nth-child(3) {
-    width: 25%;
-}
-
 
 h2 {
     color: #333;
-}
-
-.CService{
-    max-width: 25%;
-    height: auto;
 }

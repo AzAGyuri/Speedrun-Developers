@@ -5,48 +5,19 @@ body {
     background-repeat: no-repeat;
     height: 100vw;
 }
-#fooldal{
-    overflow: hidden;
+
+.CloudServiceModel {
+    border: 0px;
 }
 
-.Title {
-    text-align: center;
-}
-
-table, th, td {
-    border: 1px solid;
-    border-top: 0px;
-  }
-
-.TopTable {
-    width: 1800px;
-    text-align: center;
-}
-
-.LeftT {
-    text-align: right;
-    padding: 5px;
-    padding-right: 25px; 
-}
-.RightT {
-    text-align: left;
-    padding: 5px;
-    padding-left: 20px; 
-}
-
-td:nth-child(2) {
-    width: 75%;
-}
-td:nth-child(3) {
-    width: 25%;
-}
-
-
-h2 {
-    color: #333;
-}
-
-.CService{
-    max-width: 25%;
+.CSMimage {
+    margin-top: 30px;
+    margin-left: 100px;
+    margin-right: 0px;
+    max-width: 70%;
     height: auto;
+}
+
+td:last-child {
+    width: 55%;
 }
