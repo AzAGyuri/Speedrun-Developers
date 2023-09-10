@@ -1,3 +1,10 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+    background: linear-gradient(45deg, cyan, rgb(61,149,238), green);
+    background-repeat: no-repeat;
+    height: 100vw;
+}
 .Title {
     text-align: center;
 }
@@ -10,10 +17,12 @@ table, th, td {
 .TopTable {
     width: 100%;
     text-align: center;
+    color: red;
 }
 
 .Pages {
     width: 20%;
+    color: rgb(156, 0, 100);
 }
 
 h2 {
