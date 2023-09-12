@@ -1,3 +1,4 @@
+
 .CloudServiceModel {
     border: 0px;
 }
@@ -13,6 +14,7 @@
 td:last-child {
     width: 55%;
 }
+
 #hatrany{
 color: crimson;
 }
