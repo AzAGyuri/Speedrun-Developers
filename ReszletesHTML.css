@@ -1,5 +1,13 @@
+@font-face {
+    font-family: "Rubik";
+    src: url(fonts/Rubik_Iso/RubikIso-Regular.ttf) format('truetype');
+}
+body{   
+font-family: "Rubik",cursive, fantasy, sans-serif;
+font-size: x-large ;
+}
 .CloudServiceModel {
-    border: 0px;
+    border: 0px; 
 }
 
 .CSMimage {
