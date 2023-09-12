@@ -2,4 +2,5 @@ body{
     background-image: url(hatter.jpg);
     background-size: cover;
     background-attachment: fixed;
+    height:100%;
 }
