@@ -10,12 +10,54 @@ font-size: x-large ;
     border: 0px; 
 }
 
-.CSMimage {
+#CSMimage0 {
     margin-top: 30px;
     margin-left: 100px;
     margin-right: 0px;
     max-width: 70%;
     height: auto;
+}
+
+#CSMimage1 {
+    margin-top: 30px;
+    margin-left: 100px;
+    margin-right: 0px;
+    max-width: 70%;
+    height: auto;
+    clip-path: circle(50% at 50% 50%);
+}
+
+#CSMimage2 {
+    margin-top: 30px;
+    margin-left: 100px;
+    margin-right: 0px;
+    max-width: 70%;
+    height: auto;
+    clip-path: polygon(25% 0%, 100% 0%, 100% 100%, 25% 100%, 0% 50%);
+}
+#CSMimage3 {
+    margin-top: 30px;
+    margin-left: 100px;
+    margin-right: 0px;
+    max-width: 70%;
+    height: auto;
+    clip-path: polygon(40% 0%, 40% 20%, 100% 20%, 100% 80%, 40% 80%, 40% 100%, 0% 50%);
+}
+#CSMimage4 {
+    margin-top: 30px;
+    margin-left: 100px;
+    margin-right: 0px;
+    max-width: 70%;
+    height: auto;
+    clip-path: polygon(0% 0%, 100% 0%, 100% 75%, 75% 75%, 75% 100%, 50% 75%, 0% 75%);
+}
+#CSMimage5 {
+    margin-top: 30px;
+    margin-left: 100px;
+    margin-right: 0px;
+    max-width: 70%;
+    height: auto;
+    clip-path: polygon(78% 83%, 44% 51%, 55% 39%, 31% 59%, 72% 48%, 39% 83%, 20% 18%, 59% 11%);
 }
 
 td:last-child {
