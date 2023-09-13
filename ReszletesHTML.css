@@ -4,17 +4,20 @@
 }
 body{   
 font-family: "Rubik",cursive, fantasy, sans-serif;
-font-size: x-large ;
 }
 .CloudServiceModel {
     border: 0px; 
+}
+
+#reszletMeret{
+    font-size: x-large;
 }
 
 #CSMimage0 {
     margin-top: 30px;
     margin-left: 100px;
     margin-right: 0px;
-    max-width: 100%;
+    max-width: 70%;
     height: auto;
 }
 
