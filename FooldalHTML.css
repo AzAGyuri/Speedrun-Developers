@@ -2,3 +2,32 @@ body {
     overflow-y: hidden;
     height: 100vw;
 }
+
+#kepAnim{
+    width: 20px;
+    height: 20px;
+
+    animation-name: anim;
+    animation-duration: 10s;
+
+
+}
+
+
+@keyframes anim{
+0%{
+    margin-left: 0vw;
+}
+25%{
+    margin-left: 25vw;
+}
+50%{
+    margin-left: 50vw;
+}
+75%{
+    margin-left: 75vw;
+}
+100%{
+    margin-left: 100vw;
+}
+}

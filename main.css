@@ -20,7 +20,8 @@ table, th, td {
 
 .Pages {
     width: 20%;
-    color: rgb(156, 0, 100);
+    color: blue;
+    text-shadow: 10px;
 }
 
 h2 {
