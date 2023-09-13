@@ -18,6 +18,9 @@ body{
     -webkit-text-fill-color: transparent;
     -webkit-background-clip: text;
 }
+#jelmagyarazat{
+font-size: large;
+}
 
 .indent{
     text-indent: 10px;
