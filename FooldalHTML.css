@@ -1,6 +1,13 @@
 body {
     overflow-y: hidden;
+    overflow-x: hidden;
     height: 100vw;
+}
+#shrek{
+    margin-left: -50vw;
+    margin-top: 0vw;
+    animation: shrekAnim 13s 31s ;
+    margin-top: 0vw;
 }
 .stage {
     width: 300px;
@@ -18,7 +25,11 @@ body {
     border-radius: 50%;
     position: relative;
     background: radial-gradient(circle at 50% 120%, #323232, #ffffff 80%, #ffffff 100%);
-    animation: anim 10s infinite 10s;
+    animation-name: anim, shrekEyeAnim;
+    animation-iteration-count: 3, 1;
+    animation-duration: 10.25s, 13s; 
+    animation-delay: 0s, 30.5s;
+    margin-left: 300vw;
   }
 
   .iris {
@@ -53,13 +64,33 @@ body {
     background: rgba(255, 255, 255, 0.2);
   }
 
+  @keyframes shrekAnim{
+    0%, 50%{
+        margin-left: -50vw;
+        margin-top: 0vw;
+    }
+    50%, 100%{
+        margin-left: 150vw;
+        margin-top: 0vw;
+    }
+  }
+  @keyframes shrekEyeAnim{
+    0%{
+        margin-left: 40vw;
+        margin-top: 0vw;
+    }
+    50%, 100%{
+        margin-left: 300vw;
+        margin-top: 0vw;
+    }
+  }
 
   @keyframes move-eye-skew {
     0% {
-      transform: translateX(0px) translateY( 60px) skewX(15deg) skewY(-10deg) scale(0.95);
+      transform: translateX(0px) translateY( 20px) skewX(0deg) skewY(0deg) scale(0.95);
     }
     20% {
-      transform: translateX(-68px) translateY(30px) skewX(15deg) skewY(-10deg) scale(0.95);
+      transform: translateX(-68px) translateY(10px) skewX(15deg) skewY(-10deg) scale(0.95);
     }
     25%, 44% {
       transform: translateX(30px) translateY(-68px) skewX(-10deg) skewY(15deg) scale(0.95);
@@ -71,10 +102,10 @@ body {
         transform: translateX(50px) translateY(-60px) skewX(5deg) skewY(2deg) scaleX(0.95);
     }
     83%, 93%{
-        transform: none;
+        transform: translateX(50px) translateY( 40px) skewX(0deg) skewY(0deg) scale(0.95)
     }
     95%, 100% {
-      transform: translateX(0px) translateY( 60px) skewX(15deg) skewY(-10deg) scale(0.95);
+      transform: translateX(0px) translateY( 20px) skewX(0deg) skewY(0deg) scale(0.95);
     }
   }
 
