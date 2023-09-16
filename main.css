@@ -20,8 +20,17 @@ table, th, td {
 
 .Pages {
     width: 20%;
-    color: blue;
+    color: white;
     text-shadow: 10px;
+}
+a:link{
+    color: black;
+}
+a:hover{
+    color: darkviolet;
+}
+a:visited{
+    color: darkgreen;
 }
 
 h2 {

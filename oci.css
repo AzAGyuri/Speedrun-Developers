@@ -6,22 +6,23 @@ body{
     animation-name: anim;
     animation-duration: 10s;
     animation-iteration-count: infinite;
-    
+    overflow-x: hidden;
 }
-
 #gyoker{
     position: absolute;
     top: 20%;
-    font-size: 40px;
+    font-size: 30px;
     font-family: Arial, Helvetica, sans-serif;
     background: linear-gradient(to right, red, orange, yellow,lime,cyan,blue,magenta,red );
     -webkit-text-fill-color: transparent;
     -webkit-background-clip: text;
 }
+.TopTable{
+    width: 98%;
+}
 #jelmagyarazat{
 font-size: large;
 }
-
 .indent{
     text-indent: 10px;
 }
@@ -30,4 +31,9 @@ font-size: large;
     0% {background-color: rgb(0,0,0)}
     50% {background-color: rgb(255, 255, 250)}
     100% {background-color: rgb(0,0,0);}
-  }
+}
+.ociLink{
+    -webkit-text-fill-color: red;
+    background:linear-gradient(to left, black, white);
+    text-decoration-line: underline;
+}
