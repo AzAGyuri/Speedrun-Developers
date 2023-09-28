@@ -11,7 +11,7 @@
 </head>
 
 <body>
-    <div>
+    <div id="table">
         <header>
             <table class="TopTable">
                 <tr>
@@ -32,10 +32,10 @@
     <main id="gyoker">
         <section id="oci">
             <h2>Oracle Cloud Infrastructure</h2>
-            <p>Az Oracle Cloud Infrastructure (továbbá oci) az egy IaaS típusú felhőszolgáltatás. Szervereket, hálózati
-                erőforrásokat, és tárolókat adnak bérbe. <a href="http://oracle.com/cloud">Ismertető oldaluk</a> legelső
+            <p>Az Oracle Cloud Infrastructure (továbbá oci) az egy IaaS típusú felhőszolgáltatás. <br> Szervereket, hálózati
+                erőforrásokat, és tárolókat adnak bérbe. <a class="ociLink" href="http://oracle.com/cloud">Ismertető oldaluk</a> legelső
                 szlogenje:</p>
-            <span id="szlogen">"Az új generációs felhő bármely alkalmazás működtetésére dizájnolva, hogy gyorsan és
+            <span id="szlogen">"Az új generációs felhő bármely alkalmazás működtetésére dizájnolva, hogy gyorsan és <br>
                 biztonságosan működjön, olcsóbban</span>
         </section>
         <section id="miertoci">
@@ -43,15 +43,15 @@
             <ol>
                 <li>
                     <div>Multicloud
-                        <div class="indent">OCI képes integrálni több más felhőszolgáltatóval, mint Microsoft Azure
-                            adatbázis szolgáltatása mindezt nagy teljesítményű hálózati csatlakozással.</div>
+                        <div class="indent">OCI képes integrálni több más felhőszolgáltatóval, mint Microsoft Azure <br>
+                             adatbázis szolgáltatása mindezt nagy teljesítményű hálózati csatlakozással.</div>
                     </div>
                 </li>
                 <li>
                     <div>
                         Publikus felhő
                         <div class="indent">Szolgáltatások tárháza alacsony árakkal több kereskedelmi és kormányzati
-                            felhő régiókon keresztül.</div>
+                           <br> felhő régiókon keresztül.</div>
                     </div>
                 </li>
                 <li>
@@ -65,7 +65,7 @@
                 <li>
                     <div>
                         Dedikált felhő
-                        <div class="indent">Az OCI Dedicated Region és az Oracle Alloy több mint 100 felhőszolgáltatást
+                        <div class="indent">Az OCI Dedicated Region és az Oracle Alloy több mint 100 felhőszolgáltatást <br>
                             biztosít publikus felhő árakkal teljes egészében a saját adatközpontunkban.</div>
                     </div>
                 </li>
@@ -74,33 +74,33 @@
         <section id="mirehasznaljuk">
             <div id="eroforrasok">
                 <h2>Mire használjuk mi az OCI-t?</h2>
-                <p>Az OCI az ingyenes hozzáférésében is biztosít számunkra igen hasznos eszközöket, szolgáltatásokat. Az
+                <p>Az OCI az ingyenes hozzáférésében is biztosít számunkra igen hasznos eszközöket, szolgáltatásokat. <br> Az
                     "Always Free", avagy "Mindig ingyenes" szinten is egy ügyfél kap hozzáférést:</p>
                 <ul>
                     <li>
-                        <div>két VM.Standard.E2.1.Micro "formájú"<sup>1</sup> virtuális gépet, amely egy AMD EPYC 7551
-                            (Nápoly) 2.0 GHz-es gépen alapszik, 1 "OCPU"<sup>2</sup>-val, 1 GB memóriával, és egy 480
+                        <div>két VM.Standard.E2.1.Micro "formájú"<sup>1</sup> virtuális gépet, amely egy AMD EPYC 7551 <br>
+                            (Nápoly) 2.0 GHz-es gépen alapszik, 1 "OCPU"<sup>2</sup>-val, 1 GB memóriával, és egy 480 <br>
                             Mbps-es hálózati kapcsolattal, és csak "block"<sup>3</sup> tárhellyel.</div>
                     </li>
                     <li>
                         <div>
-                            a VM.Standard.A1.Flex formájú virtuális géphez, amelyhez van 3000 "OCPU-óra"<sup>4</sup> és
-                            18 000 "GB-óra"<sup>5</sup> processzor és RAM hozzáférésünk. Ez a forma egy Ampere Altra 80C
-                            ARM processzoron alapszik, mely 3.0 GHz órajelen fut 80 processzor maggal, és maximum 512 GB
-                            memóriával, 1 Gbps-es hálózati kapcsolattal per OCPU, maximum 40 Gbps kapcsolattal. Ez felér
-                            maximum egy 4 virtualizált magos 24 GB-os ARM géppel, 4 Gbps-es internet kapcsolattal,
+                            a VM.Standard.A1.Flex formájú virtuális géphez, amelyhez van 3000 "OCPU-óra"<sup>4</sup> és <br>
+                            18 000 "GB-óra"<sup>5</sup> processzor és RAM hozzáférésünk. Ez a forma egy Ampere Altra 80C <br>
+                            ARM processzoron alapszik, mely 3.0 GHz órajelen fut 80 processzor maggal, és maximum 512 GB <br>
+                            memóriával, 1 Gbps-es hálózati kapcsolattal per OCPU, maximum 40 Gbps kapcsolattal. Ez felér <br>
+                            maximum egy 4 virtualizált magos 24 GB-os ARM géppel, 4 Gbps-es internet kapcsolattal, <br>
                             amelyet felbonthatunk több kisebb részre is.
                         </div>
                     </li>
                     <li>
                         <div>
-                            block tárhelyből maximum 200 GB-hoz van hozzáférésünk, amelyet használhatunk általános
+                            block tárhelyből maximum 200 GB-hoz van hozzáférésünk, amelyet használhatunk általános <br>
                             tárhelynek, valamint "boot volume"<sup>6</sup>-nak. Egy boot volume legkisebb mérete 50 GB.
                         </div>
                     </li>
                     <li>
                         <div>
-                            maximum 5 biztonsági mentés összesen a block tárhelyekből. Külön egyedeknek a biztonsági mentései is külön számolandóak, így ha 4 külön block tárhely egységeink vannak, akkor azok biztonsági mentései is külön vannak számolva, nem pedig az összes 200 GB maximális tárhelyünket menti.
+                            maximum 5 biztonsági mentés összesen a block tárhelyekből. <br> Külön egyedeknek a biztonsági mentései is külön számolandóak, így ha 4 külön block tárhely egységeink <br> vannak, akkor azok biztonsági mentései is külön vannak számolva, nem pedig az összes 200 GB maximális tárhelyünket menti.
                         </div>
                     </li>
                 </ul>
@@ -111,7 +111,7 @@
                     <li>
                         <div>Forma:
                             <div class="indent">Ez a kifejezés egy általános megnevezése a különböző alapú virtualizált
-                                gépeknek. További informáió a virtuális gép formákról <a
+                                gépeknek. További informáió a virtuális gép formákról <a class="ociLink"
                                     href="http://https://docs.oracle.com/en-us/iaas/Content/Compute/References/computeshapes.htm"
                                     title="Oracle Cloud Infrastructure Documentation - Compute Shapes" id="ociFormak">itt.</a></div>
                         </div>
@@ -158,18 +158,19 @@
             <div id="felhasznalasa">
                 <p>Az erőforrásainkat 3 szerverre osztjuk fel:</p>
                 <ul>
-                    <li>egy 4 magos, 24 GB memóriával, 4 Gbps hálózati kapcsolattal rendelkező szerver, 100 GB boot volume-mal az A1.flex formával, "mcServer" néven</li>
-                    <li>egy-egy E2.1.Micro formájú szerver, 1 mag, 1 GB ram, 480 Mbps hálózati sebességgel, 50-50 GB boot volume-okkal külön-külön, "monitoringVM és vpn-and-webserver nevekkel</li>
+                    <li>egy 4 magos, 24 GB memóriával, 4 Gbps hálózati kapcsolattal rendelkező szerver, <br> 100 GB boot volume-mal az A1.flex formával, "mcServer" néven</li>
+                    <li>egy-egy E2.1.Micro formájú szerver, 1 mag, 1 GB ram, 480 Mbps hálózati sebességgel, <br> 50-50 GB boot volume-okkal külön-külön, "monitoringVM és vpn-and-webserver nevekkel</li>
                 </ul>
                 <div>
-                    <img src="dashboard.png" alt="OCI szervényfal nézet az instance-ekről" id="dashboard" title="OCI szervényfal nézet az instance-ekről">
-                    <p>Láthatjuk a képen is a 3 futó szervert, státuszát, publikus ip címeit - amelyeket eltakarja egy-egy duckdns.org alapú webcím -, és a szerverek formáját</p>
+                    <img itemid="dashKep" src="dashboard.png" alt="OCI szervényfal nézet az instance-ekről" id="dashboard" title="OCI szervényfal nézet az instance-ekről">
+                    <p>Láthatjuk a képen is a 3 futó szervert, státuszát, publikus ip címeit - <br> amelyeket eltakarja egy-egy duckdns.org alapú webcím -, és a szerverek formáját</p>
                 </div>
                 <p>Ahogy a nevük is utal rá, a szervereknek külön feladatai vannak:</p>
                 <ol>
                     <li>
                         <div>
                             mcServer
+<<<<<<< HEAD
                             <div class="indent">Ezen a szerveren általában egy Minecraft szerver fut, és annak, illetve esetleg több másik, pillanatnyilag nem futó szerver fájljai találhatóak meg.</div>
                             <div class="indent">Néhány megtalálható szoftver:</div>
                             <ul>
@@ -180,6 +181,16 @@
                                     <div>Java: legalább egy JRE vagy JDK, és legalább 8-as verziójú</div>
                                 </li>
                             </ul>
+=======
+                            <div class="indent">Ezen a szerveren egy Minecraft szerver fut, és annak, <br> illetve esetleg több másik szerver fájljai találhatóak meg.</div>
+                            <div class="indent">Néhány megtalálható szoftver:</div>
+                            <ul>
+                                <li>
+                                    <div>sdkman: kezelő szoftver a különböző verziójú szoftver fejlesztő csomagokhoz; <br> főleg a különböző Java verziók kezelésére van, a különböző Minecraft verziójú szerverekhez</div>
+                                    <div>Java: legalább egy JRE vagy JDK, és legalább 8-as verziójú</div>
+                                </li>
+                            </ul>
+>>>>>>> 63ac7fad4f92a1c02d7d5f02862b380571323d90
                         </div>
                     </li>
                     <li>

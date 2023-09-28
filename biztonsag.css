@@ -1,6 +1,6 @@
 @font-face {
     font-family: "Sacra";
-    src: url(fonts/utilik/utilik-bold.ttf);
+    src: url(\utilik-bold.ttf);
 }
 body{
     font-family: 'Sacra', Georgia, 'Times New Roman', Times, serif;

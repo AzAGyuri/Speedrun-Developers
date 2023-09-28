@@ -4,9 +4,10 @@ body {
     height: 100vw;
 }
 #shrek{
+  position: absolute;
     margin-left: -50vw;
     margin-top: 0vw;
-    animation: shrekAnim 13s 31s ;
+    animation: shrekAnim 13s 21s infinite;
     margin-top: 0vw;
 }
 .stage {
@@ -26,9 +27,9 @@ body {
     position: relative;
     background: radial-gradient(circle at 50% 120%, #323232, #ffffff 80%, #ffffff 100%);
     animation-name: anim, shrekEyeAnim;
-    animation-iteration-count: 3, 1;
+    animation-iteration-count: infinite, infinite;
     animation-duration: 10.25s, 13s; 
-    animation-delay: 0s, 30.5s;
+    animation-delay: 0s, 20.5s;
     margin-left: 300vw;
   }
 
