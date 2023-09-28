@@ -170,21 +170,28 @@
                     <li>
                         <div>
                             mcServer
-                            <div class="indent">Ezen a szerveren egy Minecraft szerver fut, és annak, illetve esetleg több másik szerver fájljai találhatóak meg.</div>
+                            <div class="indent">Ezen a szerveren általában egy Minecraft szerver fut, és annak, illetve esetleg több másik, pillanatnyilag nem futó szerver fájljai találhatóak meg.</div>
                             <div class="indent">Néhány megtalálható szoftver:</div>
                             <ul>
                                 <li>
                                     <div>sdkman: kezelő szoftver a különböző verziójú szoftver fejlesztő csomagokhoz; főleg a különböző Java verziók kezelésére van, a különböző Minecraft verziójú szerverekhez</div>
+                                </li>
+                                <li>
                                     <div>Java: legalább egy JRE vagy JDK, és legalább 8-as verziójú</div>
                                 </li>
                             </ul>
-                            <div class="indent">Szerver jelenleg OOS - out-of-service. Korábbi iterációja az infrastruktúrának ez a szerver felhasználta az összes tárhelyet, és </div>
                         </div>
                     </li>
                     <li>
                         <div>
                             monitoringVM
-                            <div class="indent"></div>
+                            <div class="indent">OOS szerver - out-of-service -; későbbiekben monitoráló, megfigyelő szoftvert fog futtatni, amely felügyelni fogja a másik kettő szervert.</div>
+                        </div>
+                    </li>
+                    <li>
+                        <div>
+                            vpn-and-webserver
+                            <div class="indent">Szintúgy OOS, erre egy szkript által fog települni egy VPN szerver, valamint ezt a weboldalt vagy későbbi nagy munkánk frontend, web-es felületét tudná felügyelni.</div>
                         </div>
                     </li>
                 </ol>
