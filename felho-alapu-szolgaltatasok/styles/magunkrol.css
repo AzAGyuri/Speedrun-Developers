@@ -10,7 +10,7 @@ body{
 }
 
 .PersonIMG1 {
-    padding: 50px;
+    padding-top: 50px;
     height: auto;
     display: block;
     text-align: left;
@@ -20,7 +20,6 @@ body{
 }
 .PersonIMG2 {
     display: block;
-    align-content: end;
     height: auto;
     text-align: right;
 }
@@ -28,7 +27,6 @@ body{
     width: 650px;
 }
 .PersonIMG3 {
-    padding: 50px;
     height: auto;
     display: block;
     text-align: left;
@@ -36,31 +34,6 @@ body{
 #PersonImage3{
     width: 650px;
 }
-
-
-
-
-
-
-/*
-.PersonIMG1 {
-    padding: 50px;
-    height: 250px;
-}
-.PersonIMG2 {
-    display: block;
-    align-content: end;
-    height: auto;
-    text-align: right;
-}
-.PersonIMG3 {
-    margin-top: 30px;
-    margin-left: 100px;
-    margin-right: 100%;
-    max-width: 100%;
-    height: auto;
-}
-*/
 
 .PersonDesc1 {
     text-align: right;
