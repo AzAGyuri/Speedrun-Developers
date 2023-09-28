@@ -1,5 +1,4 @@
 body{
-    background-image: url(hatter.jpg);
     background-size: cover;
     background-attachment: fixed;
     height:100%;
@@ -7,44 +6,72 @@ body{
 
 .PersonTable {
     border: 0px;
+    width: 100%;
 }
 
-#PersonIMG1 {
-    margin-top: 30px;
-    margin-left: 100px;
-    margin-right: 100%;
-    max-width: 100%;
+.PersonIMG1 {
+    padding: 50px;
     height: auto;
+    display: block;
+    text-align: left;
 }
-#PersonIMG2 {
-    margin-top: 30px;
-    margin-left: 100%;
-    margin-right: 0px;
-    max-width: 100%;
-    height: auto;
+#PersonImage1{
+    width: 650px;
 }
-#PersonIMG3 {
-    margin-top: 30px;
-    margin-left: 100px;
-    margin-right: 100%;
-    max-width: 100%;
+.PersonIMG2 {
+    display: block;
+    align-content: end;
     height: auto;
+    text-align: right;
+}
+#PersonImage2{
+    width: 650px;
+}
+.PersonIMG3 {
+    padding: 50px;
+    height: auto;
+    display: block;
+    text-align: left;
+}
+#PersonImage3{
+    width: 650px;
 }
 
-.TableTXT1{
+
+
+
+
+
+/*
+.PersonIMG1 {
+    padding: 50px;
+    height: 250px;
+}
+.PersonIMG2 {
+    display: block;
+    align-content: end;
+    height: auto;
+    text-align: right;
+}
+.PersonIMG3 {
     margin-top: 30px;
     margin-left: 100px;
     margin-right: 100%;
+    max-width: 100%;
+    height: auto;
 }
-.TableTXT2{
-    margin-top: 20px;
-    margin-left: 100px;
-    margin-right: 0px;
+*/
+
+.PersonDesc1 {
+    text-align: right;
 }
-.TableTXT3{
-    margin-top: 30px;
-    margin-left: 100px;
-    margin-right: 100%;
+
+.PersonDesc2{
+    text-align: left;
+} 
+
+.PersonDesc3{
+    text-align: right;
 }
 
 td:nth-child(7){

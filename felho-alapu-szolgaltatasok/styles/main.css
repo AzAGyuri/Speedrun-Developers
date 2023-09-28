@@ -24,7 +24,7 @@ table, th, td {
     text-shadow: 10px;
 }
 a:link{
-    color: black;
+    color: firebrick;
 }
 a:hover{
     color: darkviolet;
