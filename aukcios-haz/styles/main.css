@@ -27,22 +27,26 @@ body {
     padding-bottom: 5px;
 
     background-color: rgb(223, 224, 212);
+
+    text-align: center;
 }
 
-td:nth-child(1){
+/*td:nth-child(1){
+    width: 550px;
     text-align: right;
 }
 td:nth-child(2){
-    width: 7%;
+    width: 70px;
     text-align: center;
 }
 td:nth-child(3){
-    width: 7%;
+    width: 70px;
     text-align: center;
 }
 td:nth-child(4){
+    width: 550px;
     text-align: left;
-}
+}*/
 
 .hammerPages{
     height: 15px;
