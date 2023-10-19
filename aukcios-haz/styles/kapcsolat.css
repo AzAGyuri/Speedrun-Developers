@@ -12,20 +12,16 @@
 }
 
 #textNev{
-
+    width: 350px;
 }
 #textEmail{
     width: 350px;
 }
 #textTelefonszam{
-
+    width: 350px;
 }
 #textTargy{
-
-}
-#textUzenet{
-    width: 100%;
-    height: 150px;
+    width: 350px;
 }
 
 #gombKuld{
