@@ -23,3 +23,11 @@
          }
      }
  });
+
+ const uploadButton = document.getElementById('uploadButton');
+
+        uploadButton.addEventListener('click', () => {
+            const titleValue = document.getElementById('title').value;
+            const priceValue = document.getElementById('price').value;
+            alert(`Terméke sikeresen feltöltésre került a weboldalon!\nTermék neve: ${titleValue}\nÁra: ${priceValue}Ft`);
+        });
