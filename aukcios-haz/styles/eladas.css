@@ -1,0 +1,10 @@
+#imageDisplay {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+#imageDisplay img {
+    max-width: 200px;
+    max-height: 200px;
+    margin: 10px;
+}
