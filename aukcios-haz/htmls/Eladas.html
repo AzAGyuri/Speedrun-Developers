@@ -33,10 +33,22 @@
         </table>
     </nav>
 
-    <main>
-        <section>
 
-        </section>
-    </main>
+    <h2>Kérem adja meg a termékének adatait</h2>
+
+    <!-- Multiple Image Upload Form -->
+    <form action="#" method="post" enctype="multipart/form-data" id="imageForm">
+        <label for="images">Válassza ki a képeit:</label>
+        <input type="file" name="images" id="images" accept="image/*" multiple>
+        <input type="submit" value="Feltöltés">
+    </form>
+
+    <!-- Display Uploaded Images -->
+    <div id="imageDisplay">
+    </div>
+
+
+    <script src="../scripts/eladas.js"></script>
+
 </body>
 </html>
