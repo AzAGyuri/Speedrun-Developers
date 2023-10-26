@@ -37,40 +37,37 @@
  <div id="div1">
     <table>
         <tr>
-            <td class="kepBalJobb"><img src="E:\AGyuriEsATobbiek-master10\AGyuriEsATobbiek-master\aukcios-haz\testTermek\balKep.jpg" alt="Bal Kep"></td>
+        
             <td><h2>Kérem adja meg a termékének adatait</h2>
 
                 <form action="#" method="post" enctype="multipart/form-data" id="imageForm">
-                    <label for="images">Choose multiple images:</label>
+                    <label for="images">Kérem válassza ki a termékéről készült képeket:</label>
                     <input type="file" name="images" id="images" accept="image/*" multiple>
-                    <input type="submit" value="Upload">
+                    <input type="submit" value="Feltöltés">
                     <br><br><br>    
                 </form>
             
-                <!-- Display Uploaded Images -->
                 <div id="imageDisplay">
                 </div>
             
             
                     <form action="#" method="post" enctype="multipart/form-data">
                         <br><br><br>
-                        <label for="title">Product Title:</label>
+                        <label for="title">Termék neve: <br></label>
                         <input type="text" name="title" id="title" required>
                         <br><br><br>
-                        <label for="description">Product Description:</label>
+                        <label for="description">Termék leírása: <br></label>
                         <textarea name="description" id="description" rows="4" required></textarea>
                         <br><br><br>
-                        <label for="price">Set Price:</label>
+                        <label for="price">Termék ára: <br></label>
                         <input type="number" name="price" id="price" min="1" max="10000000" step="1" value="0">
                         <br>
                         <br><br><br>
-                        <button type="button" id="uploadButton">Upload</button>
+                        <button type="button" id="uploadButton">Termék meghírdetése</button>
                 </form>
             
-                <!-- Display Uploaded Images -->
                 <div id="imageDisplay">
                 </div></td>
-                <td class="kepBalJobb"><img src="E:\AGyuriEsATobbiek-master10\AGyuriEsATobbiek-master\aukcios-haz\testTermek\hobbKep.jpg" alt="Jobb Kep"></td>
         </tr>
     </table>
 

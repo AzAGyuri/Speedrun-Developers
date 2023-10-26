@@ -38,40 +38,87 @@
             <table>
                 <tr>
                     <td> <h2 id="szoveg">Kiválasztható Termékek</h2></td>
-                    <td> <img id="kosar" src="E:\AGyuriEsATobbiek-master10\AGyuriEsATobbiek-master\aukcios-haz\images\kosar-01.png"" alt="he" onclick="window.alert('Az ár: 32131240 ft')""></td>
+                    <td> <img id="kosar" src="../images/kosar-01.png"" alt="he" onclick="showTotal()"></td>
                 </tr>
             </table>
         
             <ul>
                 <li>
-                    <h3>Termék 1</h3>
-                    <p>Leírás a termékről és kép</p>
-                    <button>Licitálás</button>
+                    <h3>Steam Deck</h3>
+                    <table class="description">
+                        <tr>
+                            <td>
+                                <img src="../images/products/steamDeck.jpg" alt="Steam Deck" title="Steam Deck" class="image">
+                            </td>
+                            <td>
+                                <table class="specs">
+                                    <tr><td>Specifikáció</td></tr>
+                                    <tr><td>Processzor: CPU: Aerith AMD SOC, Zen 2, 4 mag/8 szál, akár 3.5 GHz; GPU: 8 RDNA 2-es CU, akár 1.6 GHz; Teljesítmény: 4-15W</td></tr>
+                                    <tr><td>RAM: 16 GB LPDDR5 forrasztott, 5500 MHz</td></tr>
+                                    <tr><td>Tárhely: 64 GB eMMC, vagy 256 GB NVMe vagy 512 GB NVMe SSD (M.2 2230 formájú) opciók</td></tr>
+                                    <tr><td>Irányítás: Általános XBOX kontroller, kapacitív analóg karokkal, HD rezgéssel, trackpadok és mozgásérzékelőkkel</td></tr>
+                                    <tr><td>Kijelző: 1280x800 (16:10), IPS, 7", 400 nit fényerejű, 60 Hz-es, érintőképernyő, környezeti fény szenzorral</td></tr>
+                                    <tr><td>Csatlakozás: Bluetooth 5.0, és Wifi 5 (2*2, 802.11ac, 2.4 és 5 GHz)</td></tr>
+                                    <tr><td>Hang: Sztereó DSP-vel, két mikrofontömb, 3.5mm jack csatlakozó, Multichannel hanggal Displayport-on keresztül USB-C-n, Bluetooth, és USB-C analóg mód hang kimenetek</td></tr>
+                                    <tr><td>Tápellátás: 45W USB-C PD3.0 tápegység és tápbemenet, 40WHr akkumulátor (2-8 óra játék)</td></tr>
+                                    <tr><td>Bővítés: MicroSD/SDHC/SDXC, UHS-I, USB 3.2 Gen 2 képes USB-C, DisplayPort 1.4 Alt-Mode-dal, (8k@60Hz, vagy 4k@120Hz DSC-vel)</td></tr>
+                                    <tr><td>Méret: 298 mm x 117 mm x 49 mm; Súly: 669 gramm</td></tr>
+                                    <tr><td>Szoftver: SteamOS 3.0 (Arch Linux alapú) a KDE Plasma asztali kezelővel</td></tr>
+                                    <tr><td><br>Ár: 359</td></tr>
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
+                    <button onclick="addToOsszes(359)">Kosárba rakom</button>
                 </li>
                 <li>
-                    <h3>Termék 2</h3>
-                    <p>Leírás a termékről és kép</p>
-                    <button>Licitálás</button>
+                    <h3>ASUS ROG Ally</h3>
+                    <table class="description">
+                        <tr>
+                            <td>
+                                <img src="../images/products/asusRogAlly.jpg" alt="ASUS ROG Ally" title="ASUS ROG Ally" class="image">
+                            </td>
+                            <td>
+                                <table class="specs">
+                                    <tr><td>Specifikáció</td></tr>
+                                    <tr><td>Operációs rendszer: Windows 11 Home</td></tr>
+                                    <tr><td>Processzor: CPU: AMD Ryzen Z1 Extreme processzor (Zen 4, 4nm, 8 mag/16 szál, 24 MB gyorsítótár, akár 5.1 GHz bosst sebesség); GPU: 12 RDNA 3-as CU, akár 2.7 GHz és 8,6 Tflops/s; Teljesítmény: 9-30W</td></tr>
+                                    <tr><td>Kijelző: 7", FHD, 1080p (16:9), IPS, fényvisszaverő, sRGB 100%, Adobe RGB: 75.35%, Gorilla Glass DXC és Victus, érintőképernyő, 120Hz, 7ms válaszidó, 500 nit fényerő, Freesync Preemium</td></tr>
+                                    <tr><td>RAM: 16 GB LPDDR5 forrasztott 6400 MHz dual-channel</td></tr>
+                                    <tr><td>Tárhely: 512 GB PCIe 4.0</td></tr>
+                                    <tr><td><br>Ár: 600</td></tr>
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
+                    <button onclick="addToOsszes(600)">Kosárba rakom</button>
                 </li>
-                <!-- További termékek... -->
-            </ul>
-        </section>
-
-        <section>
-            <h2>Aukciók</h2>
-            <ul>
                 <li>
-                    <h3>Aukció 1</h3>
-                    <p>Leírás az aukcióról és részletek</p>
-                    <button>Részletek</button>
+                    <h3>AyaNeo Air Plus</h3>
+                    <table class="description">
+                        <tr>
+                            <td>
+                                <img src="../images/products/ayaNeoAirPlus.jpg" alt="AyaNeo Air Plus" title="AyaNeo Air Plus" class="image">
+                            </td>
+                        </tr>
+                    </table>
+                    <button onclick="addToOsszes(800)">Kosárba rakom</button>
                 </li>
                 <li>
-                    <h3>Aukció 2</h3>
-                    <p>Leírás az aukcióról és részletek</p>
-                    <button>Részletek</button>
+                    <h3>Nintendo Switch OLED</h3>
+                    <table class="description">
+                        <tr>
+                            <td>
+                                <img src="../images/products/nintendoSwitchOLED.jpg" alt="Nintendo Switch OLED" title="Nintendo Switch OLED" class="image">
+                            </td>
+                        </tr>
+                    </table>
+                    <button onclick="addToOsszes(350)">Kosárba rakom</button>
                 </li>
             </ul>
         </section>
     </main>
+    
+    <script src="../scripts/vetel.js"></script>
 </body>
 </html>
