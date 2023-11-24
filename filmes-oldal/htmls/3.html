@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A hold cápái</title>
+    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="../styles/htmlFilmek.css">
+</head>
+<body>
+    <div class="text">A hold cápái</div>
+    <div style="position: relative;"><a href="../htmls/oldalHarom.html  "><img id="logoFilmek" src="../images/logo.png" alt=""></a></div>
+   <img class="filmKep" src="../images/3.jpg" alt="egy" id="tabla">
+   <div class="text" style="text-align: center;">Évtizedekkel ezelőtt a Szovjetunió megölhetetlen cápákat fejlesztett ki, és felbocsátotta őket a Holdra. Ma egy csapat amerikai űrhajós fogja megvívni élete harcát.</div>
+<div><iframe width="560" height="315" src="https://www.youtube.com/embed/6DKVDjLKy8g?si=LC6j6jvoRCyICbNL" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen style="margin-left: 35vw;margin-right: 30vw;"></iframe></div>
+    <form style="text-align: center;" action="#" method="post" enctype="multipart/form-data">
+        <br><br><br>
+        <label for="title">Jegy vásárlójának neve: <br></label>
+        <input type="text" name="title" id="title" required>
+        <br><br><br>
+        <label for="title">Jegy vásárlójának e-mail címe: <br></label>
+        <input type="email" name="email" id="email" required>
+        <br><br><br>
+        <label for="title">Melyik dátumon szeretné nézni a filmet?<br></label>
+        <input type="date" name="datum" id="datum" required>
+        <br><br><br>
+        <label for="title">Melyik időpontban szeretné nézni a filmet?<br></label>
+        <input type="time" name="ido" id="ido" required>
+        <br><br><br>
+        <label for="price">Hány darab jegyet szeretne a filmre?<br></label>
+        <input type="number" name="price" id="price" min="1" max="10000000" step="1" value="1" required>
+        <br>
+        <br><br><br>
+        <button type="button" id="uploadButton">Foglalás (2000 ft/fő)</button> 
+</form>
+
+<script src="../js/foglalas.js"></script>
+</body>
+</html> 

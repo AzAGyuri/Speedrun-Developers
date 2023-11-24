@@ -1,0 +1,55 @@
+body{
+    background-size: cover;
+    background-attachment: fixed;
+    height:100%;
+}
+
+.PersonTable {
+    border: 0px;
+    width: 98%;
+}
+
+.PersonIMG1 {
+    padding-top: 50px;
+    height: auto;
+    display: block;
+    text-align: left;
+}
+#PersonImage1{
+    width: 650px;
+}
+.PersonIMG2 {
+    display: block;
+    height: auto;
+    text-align: right;
+}
+#PersonImage2{
+    width: 650px;
+}
+.PersonIMG3 {
+    height: auto;
+    display: block;
+    text-align: left;
+}
+#PersonImage3{
+    width: 650px;
+}
+
+.PersonDesc1 {
+    text-align: right;
+    font-size: 25px;
+}
+
+.PersonDesc2{
+    text-align: left;
+    font-size: 25px;
+} 
+
+.PersonDesc3{
+    text-align: right;
+    font-size: 25px;
+}
+
+td:nth-child(7){
+    width: 100%;
+}

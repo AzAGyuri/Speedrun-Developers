@@ -1,0 +1,12 @@
+body{
+    overflow-x: hidden;
+    overflow-y: hidden;
+}
+#borito{
+    width: 100px;
+    height: 100px;
+}
+#nagyKep{
+    max-width: 100%;
+    max-height: 100%;
+}
