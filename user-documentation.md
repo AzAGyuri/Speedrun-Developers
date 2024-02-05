@@ -1,4 +1,4 @@
 # Felhasználói dokumentáció
 
 ## Funkcionális specifikációk
-[Vadászok kezelése](#hunter-functional-spec.md)
+[Vadászok kezelése](hunter-functional-spec.md)
