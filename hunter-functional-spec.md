@@ -83,7 +83,7 @@ ide jön kép:
 | Funkció                      |                                                                Esemény                                                                | Megjegyzés |
 |:-----------------------------|:-------------------------------------------------------------------------------------------------------------------------------------:|-----------:|
 | Törlés gombra kattintás      | Végrehajtásra kerül az UC_HR_Delete, Vadász törlése használati eset.<br/> A frontend a Vadász listázója megjelenítése oldalra navigál |          - |
-| Szerkesztés gombra kattintás |                                           A frontend a Vadász szerkesztése oldalra navigál                                            |          - |
+| Szerkesztés gombra kattintás |                                         A frontend a Vadász szerkesztése oldalra navigál                                              |          - |
 
 
 ### Szerkesztő felület
