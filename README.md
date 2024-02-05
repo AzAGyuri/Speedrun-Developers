@@ -15,7 +15,7 @@ Az éves kilövések alapján a győztesek kihirdetése
 állandóan verekedésbe torkollik.
 
 
-[Felhasználói dokumentáció](user-documentation.md) <br>
+[Felhasználói dokumentáció](user-documentation.md) <br> 
 
 
 
