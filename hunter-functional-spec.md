@@ -18,6 +18,12 @@ Kiegészítő funkciók:
 7. Vadász állatkilövés rögzítése
 8. Győzte vadászok megjelenítése
 
+
+### Használati eset diagram
+![Használati eset diagram](vadasz_kezeles.png)
+
+
+
 ### Használati esetek rövid leírása
 
 | #                          | Új vadász rögzítése                                                                                                                            |
