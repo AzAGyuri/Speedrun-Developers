@@ -93,12 +93,16 @@ ide jön kép:
 
 ### Listázó felület
 
+### Arculat
+![Használati eset diagram](vadasz_listazasa.png)
+
+
+
 #### A felületen lévő mezők
 
-| Mező neve   |  Típusa          |
-|:------------|:----------------:|
-| Vadász neve | Táblázat oszlop  |
-| Valami más  | Táblázat oszlop  |
+| Mező neve   |     Típusa      |
+|:------------|:---------------:|
+| Vadász neve | Táblázat oszlop |
 
 
 #### A felületről elérhető műveletek
@@ -109,12 +113,15 @@ ide jön kép:
 
 ### Megtekintő felület
 
+### Arculat
+
+![Használati eset diagram](vadasz_megjelenites.png)
+
 #### A felületen lévő mezők
 
 | Mező neve   | Típusa |
 |:------------|:------:|
 | Vadász neve | Címke  |
-| Valami más  | Címke  |
 
 
 #### A felületről elérhető műveletek
@@ -127,12 +134,14 @@ ide jön kép:
 
 
 ### Szerkesztő felület
+ ### Arculat
+![Használati eset diagram](vadasz_szerkesztese.png)
 
 #### A felületen lévő mezők
-| Mező neve   |       Típusa        | Értékkészlet | Kötelező | Szerkeszthető |
-|:------------|:-------------------:|:------------:|:--------:| :--------:|
-| Vadász neve | Szöveges input mező |      -       |    I     | I |
-| Valami más  |    Lenyíló lista    |  férfi, nő   |    N     | I |
+| Mező neve  |       Típusa        | Értékkészlet | Kötelező | Szerkeszthető |
+|:-----------|:-------------------:|:------------:|:--------:| :--------:|
+| Vezetéknév | Szöveges input mező |      -       |    I     | I |
+| Utónév     |    Szöveges input mező    |  férfi, nő   |    N     | I |
 
 #### A felületről elérhető műveletek
 
