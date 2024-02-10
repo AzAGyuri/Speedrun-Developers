@@ -14,7 +14,7 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import SuliLogo from './resources/logo.png';
 import App from './App';
-import SignInSide from './SignInSide';
+import SignIn from './SignIn';
 import { useNavigate } from 'react-router-dom';
 import { BrowserRouter as Router, Route, Routes, Outlet, useParams } from 'react-router-dom';
 import { useState } from 'react';
@@ -56,14 +56,14 @@ export function ResAppBar() {
       <AppBar position="static">
         <Container maxWidth="xl">
           <Toolbar disableGutters>
-          <Link color="inherit" href="SigInSide.js">
+          
             <img
               alt='Sulipedia logója'
               id='suliLogo'
               sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }}
-              src={SuliLogo}
+              src={SuliLogo} onClick={handleClick}
             />
-            </Link>{' '}
+            
             {showComponent && <App />}
                         <Typography
               variant="h6"

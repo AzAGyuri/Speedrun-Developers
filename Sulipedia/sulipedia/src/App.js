@@ -1,14 +1,17 @@
 import './App.css';
 import { AppBar, ResAppBar } from './ResAppBar';
-import SignInSide from './SignInSide';  
+import SignIn from './SignIn';  
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Link from '@mui/material/Link';
+import SignUp from './SignUp';
 
 function App() {
   return (
     <>
-    <ResAppBar></ResAppBar>
+        <ResAppBar></ResAppBar>
+    <SignIn></SignIn>
+    <SignUp></SignUp>
     <Copyright></Copyright>
     </>
   )
