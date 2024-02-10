@@ -9,6 +9,8 @@ import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
@@ -31,12 +33,14 @@ export default function SignUp() {
   const [lastNameError, setLastNameError] = React.useState(false);
   const [firstNameError, setFirstNameError] = React.useState(false);
   const [phoneError, setPhoneError] = React.useState(false);
+  const [showPassword, setShowPassword] = React.useState(false);
 
   const handleSubmit = (event) => {
     event.preventDefault();
     validateForm();
     if (isFormValid()) {
       console.log(formData);
+      // Add logic to submit the form data
     }
   };
 
@@ -47,6 +51,7 @@ export default function SignUp() {
       [name]: type === 'checkbox' ? checked : value,
     }));
 
+    // Reset error state when the user types
     if (name === 'email') {
       setEmailError(false);
     } else if (name === 'password') {
@@ -61,24 +66,29 @@ export default function SignUp() {
   };
 
   const validateForm = () => {
+    // Validation logic for email
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(formData.email)) {
       setEmailError(true);
     }
 
+    // Validation logic for password
     const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
     if (!passwordRegex.test(formData.password)) {
       setPasswordError(true);
     }
 
+    // Validation logic for last name
     if (formData.lastName.length < 3) {
       setLastNameError(true);
     }
 
+    // Validation logic for first name
     if (formData.firstName.length < 3) {
       setFirstNameError(true);
     }
 
+    // Validation logic for phone number
     const phoneRegex = /^\d{11}$/;
     if (formData.phone && !phoneRegex.test(formData.phone)) {
       setPhoneError(true);
@@ -86,7 +96,12 @@ export default function SignUp() {
   };
 
   const isFormValid = () => {
+    // Check the error state for each field
     return !emailError && !passwordError && !lastNameError && !firstNameError && !phoneError;
+  };
+
+  const handleTogglePasswordVisibility = () => {
+    setShowPassword((prevShowPassword) => !prevShowPassword);
   };
 
   return (
@@ -121,7 +136,7 @@ export default function SignUp() {
                   value={formData.lastName}
                   onChange={handleChange}
                   error={lastNameError}
-                  helperText={lastNameError ? 'A vezetéknév legalább 3 karakter hosszú kell legyen' : ''}
+                  helperText={lastNameError ? 'Vezetéknév legalább 3 karakter hosszú kell legyen' : ''}
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
@@ -137,7 +152,7 @@ export default function SignUp() {
                   value={formData.firstName}
                   onChange={handleChange}
                   error={firstNameError}
-                  helperText={firstNameError ? 'A keresztnév legalább 3 karakter hosszú kell legyen' : ''}
+                  helperText={firstNameError ? 'Keresztnév legalább 3 karakter hosszú kell legyen' : ''}
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
@@ -169,7 +184,7 @@ export default function SignUp() {
                   fullWidth
                   name="password"
                   label="Password"
-                  type="password"
+                  type={showPassword ? 'text' : 'password'}
                   id="password"
                   autoComplete="new-password"
                   value={formData.password}
@@ -180,6 +195,13 @@ export default function SignUp() {
                       ? 'A jelszónak legalább 8 karakter hosszúnak kell lennie, tartalmaznia kell kis- és nagybetűt, számot, valamint speciális karaktert (@$!%*?&)'
                       : ''
                   }
+                  InputProps={{
+                    endAdornment: (
+                      <Link onClick={handleTogglePasswordVisibility} style={{ cursor: 'pointer' }}>
+                        {showPassword ? <VisibilityOff /> : <Visibility />}
+                      </Link>
+                    ),
+                  }}
                 />
               </Grid>
               <Grid item xs={12}>

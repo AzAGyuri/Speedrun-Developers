@@ -1,15 +1,23 @@
 import './App.css';
 import { AppBar, ResAppBar } from './ResAppBar';
 import SignIn from './SignIn';  
+import {Tests} from './Tests';  
+import {Curriculums} from './Curriculums';  
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Link from '@mui/material/Link';
 import SignUp from './SignUp';
+import { MyGroups } from './MyGroups';
+import { Settings } from './Settings';
 
 function App() {
   return (
     <>
-        <ResAppBar></ResAppBar>
+    <Settings></Settings>
+    <ResAppBar></ResAppBar>
+    <MyGroups></MyGroups>
+    <Tests></Tests>
+    <Curriculums></Curriculums>
     <SignIn></SignIn>
     <SignUp></SignUp>
     <Copyright></Copyright>

@@ -15,10 +15,12 @@ import MenuItem from '@mui/material/MenuItem';
 import SuliLogo from './resources/logo.png';
 import App from './App';
 import SignIn from './SignIn';
+import SignUp from './SignUp';
 import { useNavigate } from 'react-router-dom';
 import { BrowserRouter as Router, Route, Routes, Outlet, useParams } from 'react-router-dom';
 import { useState } from 'react';
 import Link from '@mui/material/Link';
+import { Curriculums } from './Curriculums';
 
 
 const pages = ['Tananyagok', 'Tesztek', 'Csoportjaim'];
@@ -64,7 +66,7 @@ export function ResAppBar() {
               src={SuliLogo} onClick={handleClick}
             />
             
-            {showComponent && <App />}
+            {showComponent && <Curriculums />}
                         <Typography
               variant="h6"
               noWrap
