@@ -3,7 +3,7 @@
 ### Készítette
 * Polyák
 * Seres Marcell
-* Zagyi Krisztián Zsolt <br>
+* Zagyi Krisztián Zsolt
 
 
 ## Igény az alkalmazásra
