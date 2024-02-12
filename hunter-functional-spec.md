@@ -4,11 +4,13 @@
 
 Alapfunkciók: Vadászok rögzítése a rendszerbe.Vadászok adatainak kezelése.
 Kiegészítő funkciók:
+
 * Vadász jelentkezésre vadászatra
 * Vadász állakilővés rögzitése
 * Győztes vadászok megjelenítése
 
 ## Használati esetek
+
 1. Új vadász rögzítése
 2. Vadász adatainak megjeneítése
 3. Vadász adatainak módosítása
@@ -18,11 +20,9 @@ Kiegészítő funkciók:
 7. Vadász állatkilövés rögzítése
 8. Győzte vadászok megjelenítése
 
-
 ### Használati eset diagram
+
 ![Használati eset diagram](vadasz_kezeles.png)
-
-
 
 ### Használati esetek rövid leírása
 
@@ -37,26 +37,26 @@ Kiegészítő funkciók:
 | Eredmény                   | A felhasználó az új vadászt kezelni tudja                                                                                                      |
 | Használati eset realizáció | Technikai model        <br/>                                                                                                                   |
 
-| #                         | Vadász adatainak megjelenítése                                                                                                 |
-|---------------------------|--------------------------------------------------------------------------------------------------------------------------------|
-| Azonosító                 | UC_HR_Read                                                                                                                     |
-| Leírás                    | Vadász adatainak megjelenítése                                                                                                 |
-| Kiváltó esemény           | A felhasználó meg kívánja nézni egy kiválasztott vadász adatait                                                                |
-| Elsődleges lefutás        | A felhasználó a Vadászok listázása felületen áll <br/>Megnyomja a Részletek gombot <br/> A rendszer lekérdezi a vadász adatait |
-| Alternatívák és kivételek | E1: A keresett vadász nem létezik.                                                                                             |
-| Utófeltétel               | A rendszer lekérdezte a vadász adatait<br/>E1: A lekérdezés nem sikerült                                                       |
-| Eredmény                  | A felhasználó látja a vadász adatait                                                                                           |
+| #                          | Vadász adatainak megjelenítése                                                                                                 |
+|----------------------------|--------------------------------------------------------------------------------------------------------------------------------|
+| Azonosító                  | UC_HR_Read                                                                                                                     |
+| Leírás                     | Vadász adatainak megjelenítése                                                                                                 |
+| Kiváltó esemény            | A felhasználó meg kívánja nézni egy kiválasztott vadász adatait                                                                |
+| Elsődleges lefutás         | A felhasználó a Vadászok listázása felületen áll <br/>Megnyomja a Részletek gombot <br/> A rendszer lekérdezi a vadász adatait |
+| Alternatívák és kivételek  | E1: A keresett vadász nem létezik.                                                                                             |
+| Utófeltétel                | A rendszer lekérdezte a vadász adatait<br/>E1: A lekérdezés nem sikerült                                                       |
+| Eredmény                   | A felhasználó látja a vadász adatait                                                                                           |
 | Használati eset realizáció | Technikai model       <br/>                                                                                                    |
 
-| #                         | Vadász adatainak módosítása                                                                                                                                            |
-|---------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| Azonosító                 | UC_HR_Update                                                                                                                                                           |
-| Leírás                    | Vadász nevének módosítása                                                                                                                                              |
-| Kiváltó esemény           | A felhasználó meg kívánja nézni egy kiválasztott vadász nevét                                                                                                          |
-| Elsődleges lefutás        | A felhasználó a Vadász szerkesztése felületen áll <br/>Megadja a változtatni kívánt adatokat<br/>Megnyomja a Mentés gombot <br/> A rendszer módosítja a vadász adatait |
-| Alternatívák és kivételek | E1: A keresett vadász nem létezik.                                                                                                                                                                       |
-| Utófeltétel               | A rendszer módosította a vadász adatait<br/>E1: A módosítás nem sikerült                                                                                               |
-| Eredmény                  | A felhasználó látja a vadász módosított adatait                                                                                                                        |
+| #                          | Vadász adatainak módosítása                                                                                                                                            |
+|----------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Azonosító                  | UC_HR_Update                                                                                                                                                           |
+| Leírás                     | Vadász nevének módosítása                                                                                                                                              |
+| Kiváltó esemény            | A felhasználó meg kívánja nézni egy kiválasztott vadász nevét                                                                                                          |
+| Elsődleges lefutás         | A felhasználó a Vadász szerkesztése felületen áll <br/>Megadja a változtatni kívánt adatokat<br/>Megnyomja a Mentés gombot <br/> A rendszer módosítja a vadász adatait |
+| Alternatívák és kivételek  | E1: A keresett vadász nem létezik.                                                                                                                                     |
+| Utófeltétel                | A rendszer módosította a vadász adatait<br/>E1: A módosítás nem sikerült                                                                                               |
+| Eredmény                   | A felhasználó látja a vadász módosított adatait                                                                                                                        |
 | Használati eset realizáció | Technikai model        <br/>                                                                                                                                           |
 
 | #                          | Vadász törlése                                                                                                                       |
@@ -81,29 +81,42 @@ Kiegészítő funkciók:
 | Eredmény                   | A felhasználó átja a Vadászok adatait                                    |
 | Használati eset realizáció | Technikai modell                                                         |
 
-
-
 ## Felületi terv
 
 ### Teljes design
-ide jön kép: 
+
+ide jön kép:
+
 * listázó
 * megtekintő
-* szerkesztő felületről 
+* szerkesztő felületről
 
 ### Listázó felület
 
 ### Arculat
+
+![Vadászat rögzítése](new_hunter_form.png)
+
+#### A felületen lévő mezők
+
+| Mező neve  |     Típusa     | Szerkeszthető | Kötelező |
+|:-----------|:--------------:|---------------|----------|
+| Vezetéknév | Szöveges inupt | I             | I        |
+| Utónév     | Szöveges input | I             | N        |
+
+#### A felületről elérhető műveletek
+
+| Funkció                    |                                Esemény                                 | Megjegyzés |
+|:---------------------------|:----------------------------------------------------------------------:|-----------:|
+| Részletek gombra kattintás | Végrehajtásra kerül az UC_HR_Create, Vadász rögzítése használati eset. |          - |
+
 ![Használati eset diagram](vadasz_listazasa.png)
-
-
 
 #### A felületen lévő mezők
 
 | Mező neve   |     Típusa      |
 |:------------|:---------------:|
 | Vadász neve | Táblázat oszlop |
-
 
 #### A felületről elérhető műveletek
 
@@ -123,28 +136,27 @@ ide jön kép:
 |:------------|:------:|
 | Vadász neve | Címke  |
 
-
 #### A felületről elérhető műveletek
-
 
 | Funkció                      |                                                                Esemény                                                                | Megjegyzés |
 |:-----------------------------|:-------------------------------------------------------------------------------------------------------------------------------------:|-----------:|
 | Törlés gombra kattintás      | Végrehajtásra kerül az UC_HR_Delete, Vadász törlése használati eset.<br/> A frontend a Vadász listázója megjelenítése oldalra navigál |          - |
-| Szerkesztés gombra kattintás |                                         A frontend a Vadász szerkesztése oldalra navigál                                              |          - |
-
+| Szerkesztés gombra kattintás |                                           A frontend a Vadász szerkesztése oldalra navigál                                            |          - |
 
 ### Szerkesztő felület
- ### Arculat
+
+### Arculat
+
 ![Használati eset diagram](vadasz_szerkesztese.png)
 
 #### A felületen lévő mezők
+
 | Mező neve  |       Típusa        | Értékkészlet | Kötelező | Szerkeszthető |
-|:-----------|:-------------------:|:------------:|:--------:| :--------:|
-| Vezetéknév | Szöveges input mező |      -       |    I     | I |
-| Utónév     |    Szöveges input mező    |  férfi, nő   |    N     | I |
+|:-----------|:-------------------:|:------------:|:--------:|:-------------:|
+| Vezetéknév | Szöveges input mező |      -       |    I     |       I       |
+| Utónév     | Szöveges input mező |  férfi, nő   |    N     |       I       |
 
 #### A felületről elérhető műveletek
-
 
 | Funkció                 |                                                                 Esemény                                                                 |                                     Megjegyzés |
 |:------------------------|:---------------------------------------------------------------------------------------------------------------------------------------:|-----------------------------------------------:|
