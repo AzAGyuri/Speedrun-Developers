@@ -17,8 +17,6 @@ Az éves kilövések alapján a győztesek kihirdetése
 
 [Felhasználói dokumentáció](user-documentation.md)
 
-Ezt írom ide mert miért ne írnám? bdhfdgfdrgf
-
 [Fejlesztői dokumentáció](developer-documentation.md)
 
 
