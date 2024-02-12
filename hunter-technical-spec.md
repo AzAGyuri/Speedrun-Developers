@@ -13,7 +13,7 @@ A frontend
 
 meghívja
 
-* a POST /hunter azonosítójú,"Új vadász rögzítése (REST)" elnevezésű végpontot
+* a POST /hunter azonosítójú,"[Új vadász rögzítése (REST)](rest-hunter-create.md)" elnevezésű végpontot
 
 az alábbi mapping megvalósításával:
 
