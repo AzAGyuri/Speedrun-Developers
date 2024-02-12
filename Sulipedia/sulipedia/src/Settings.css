@@ -1,0 +1,62 @@
+/* Settings.css */
+.Settings-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+  }
+  
+  .Settings-paper {
+    padding: 20px;
+  }
+  
+  .Settings-section {
+    margin-bottom: 20px;
+  }
+  
+  .Theme-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+  }
+  
+  .light-theme {
+    background-color: #ffffff;
+    color: #000000;
+  }
+  
+  .dark-theme {
+    background-color: #333333;
+    color: #ffffff;
+  }
+  
+  .blue-theme {
+    background-color: #2196f3;
+    color: #ffffff;
+  }
+  
+  .green-theme {
+    background-color: #4caf50;
+    color: #ffffff;
+  }
+  
+  .purple-theme {
+    background-color: #673ab7;
+    color: #ffffff;
+  }
+  
+  .orange-theme {
+    background-color: #ff9800;
+    color: #ffffff;
+  }
+  
+  .red-theme {
+    background-color: #f44336;
+    color: #ffffff;
+  }
+  
+  .cyan-theme {
+    background-color: #00bcd4;
+    color: #ffffff;
+  }
+  
