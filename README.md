@@ -1,7 +1,7 @@
 # Vizsgaremek dokumentáció
 
 ### Készítette
-* Polyák György
+* Polyák
 * Seres Marcell
 * Zagyi Krisztián Zsolt <br>
 
