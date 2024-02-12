@@ -34,7 +34,7 @@ Ha a validáció sikertelen, a folyamat leáll, a response hibaüzenetet küld.
 
 ## Müködése
 
-1. A kapott adatok alapján rögzítése kerül egy új Hunter entitás
+1. A kapott adatok alapján rögzítése kerül egy új [Hunter](entity-hunter.md) entitás
 2. | mező | érték                                        |
    |------|----------------------------------------------|
    | name | request: lastname + " " + request+ firstName |
@@ -45,3 +45,4 @@ Ha a validáció sikertelen, a folyamat leáll, a response hibaüzenetet küld.
    | id                   | hunter.id                                |
    | name                 | hunter.lastName + " " + hunter.firstName |
 4. A response elküldése
+5. 
