@@ -45,4 +45,3 @@ Ha a validáció sikertelen, a folyamat leáll, a response hibaüzenetet küld.
    | id                   | hunter.id                                |
    | name                 | hunter.lastName + " " + hunter.firstName |
 4. A response elküldése
-5. 
