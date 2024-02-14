@@ -32,14 +32,5 @@ Vadász törlése a rendszerből.
 
 ## Müködése
 
-1. A kapott adatok alapján rögzítése kerül egy új [Hunter](entity-hunter.md) entitás
-2. | mező | érték                                        |
-      |------|----------------------------------------------|
-   | name | request: lastname + " " + request+ firstName |
-3. Összeállításra kerül a response
-
-   | response paraméterek | érték                                    |
-      |----------------------|------------------------------------------|
-   | id                   | hunter.id                                |
-   | name                 | hunter.lastName + " " + hunter.firstName |
-4. A response elküldése
+1. A kapott adatok alapján rögzítése kerül egy új [Hunter](entity-hunter.md) entitás törlésre kerül az adatbázisból
+2. Sikeres törlés esetén a response egy true érték

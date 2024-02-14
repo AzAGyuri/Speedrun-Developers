@@ -1,16 +1,16 @@
-# Vadász módosítása
+# Vadász lekérdezése
 
 | #                 | alapadatok                 |
 |-------------------|----------------------------|
-| Elnevezés         | Vadász módosítása          |
+| Elnevezés         | Vadász lekérdezése         |
 | Adatküldés formája | REST                       |
-| Http method       | PUT                        |
+| Http method       | GET                        |
 | url               | localhost:8080/hunter/{id} |
 | útvonal változó   | id = Vadászazonosító       |
 
 ## A végpont célja
 
-Kiválasztott vadász adatainak módosítása
+Kiválasztott vadász adatainak lekérdezése
 
 ## A végpont működése
 
@@ -18,35 +18,22 @@ Kiválasztott vadász adatainak módosítása
 | request paraméterek | leírás                    |
 |---------------------|---------------------------|
 | id                  | Vadász egyedi azonosítója |
-| firstName           | Vadász keresztneve        |
-| lastName            | Vadász vezetékneve        |
-
 ### Validáció
 
 * a kapott id alapján kell, hogy legyen rögzítve Vadász a rendszerben
-* a request: firstName nem lehet üres
+  Validációs hiba esetén a folyamat leáll, a response hibaüzenetet küld
 
-Validációs hiba esetén a folyamat leáll, a response hibaüzenetet küld
-
-| faultType                          | leírás                        |
-|------------------------------------|-------------------------------|
-| HUNTER_NOT_FOUND                   | A keresett vadász nem létezik |
-| HUNTER_FIRSTNAME_MUST_NOT_BE_EMPTY | Vadász keresztneve hiányzik   |
+  | faultType        | leírás                        |
+    |------------------|-------------------------------|
+  | HUNTER_NOT_FOUND | A keresett vadász nem létezik |
 
 ### Működés
 
 1. A request: id alapján lekérdezésere kerül a vadász az adatbázisból.
-2. A [Hunter](entity-hunter.md) entitás módosításra kerül
-
-
-| mező | érték                                        |
-|------|----------------------------------------------|
-| name | request: lastName + " " + request: firstName |
-
 2. A response összeállítása
 
 | response paraméterek | érték                                    |
-|----------------------|------------------------------------------|
+   |----------------------|------------------------------------------|
 | id                   | hunter.id                                |
 | name                 | hunter.lastName + " " + hunter.firstName |
 
