@@ -62,7 +62,6 @@ export function ResAppBar() {
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <div>
-            {/*//szándékosan piros a to="kezdo", csak így működik az a linkelés */}
             <Link to="/kezdo" rel="noreferrer">
               <img
                 alt='Sulipedia logója'
@@ -87,7 +86,7 @@ export function ResAppBar() {
               textDecoration: 'none',
             }}
           >
-            {/*//szándékosan piros a to="kezdo", csak így működik az a linkelés */}
+            
              <Link to="/kezdo" rel="noreferrer" style={{ textDecoration: 'none', color:"white" }} underline="none"> 
               Sulipedia
               </Link>
