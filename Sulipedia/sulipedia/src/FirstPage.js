@@ -1,5 +1,5 @@
 import Box from '@mui/material/Box';
-import './Kezdo.css';
+import './FirstPage.css';
 export function Kezdo(){
 return(
     <>

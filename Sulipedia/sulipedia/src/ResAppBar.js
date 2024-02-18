@@ -23,7 +23,7 @@ import { Curriculums } from './Curriculums';
 import { Tests } from './Tests';
 import { MyGroups } from './MyGroups';
 import { Link } from "react-router-dom";
-import { Kezdo } from './Kezdo';
+import { Kezdo } from './FirstPage';
 
 const settings = ['Profilom', 'Beállítások', 'Be/Kijelentkezés'];
 
@@ -32,15 +32,6 @@ export function ResAppBar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
   const [showComponent, setShowComponent] = useState(false);
-
-  <Router>
-  <ResAppBar />
-  <Routes>
-    <Route path="/Curriculums" element={<Curriculums />} />
-    <Route path="/Tests" element={<Tests />} />
-    <Route path="/MyGroups" element={<MyGroups />} />
-  </Routes>
-</Router>
 
 
   const handleClick = () => {
@@ -71,7 +62,8 @@ export function ResAppBar() {
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <div>
-            <Link to="/App" to="/kezdo" rel="noreferrer">
+            {/*//szándékosan piros a to="kezdo", csak így működik az a linkelés */}
+            <Link to="/kezdo" rel="noreferrer">
               <img
                 alt='Sulipedia logója'
                 id='suliLogo'
@@ -80,8 +72,6 @@ export function ResAppBar() {
               />
             </Link>
           </div>
-
-          {showComponent && <Curriculums />}
           <Typography
             variant="h6"
             noWrap
@@ -97,29 +87,12 @@ export function ResAppBar() {
               textDecoration: 'none',
             }}
           >
-            Sulipedia
+            {/*//szándékosan piros a to="kezdo", csak így működik az a linkelés */}
+             <Link to="/kezdo" rel="noreferrer" style={{ textDecoration: 'none', color:"white" }} underline="none"> 
+              Sulipedia
+              </Link>
           </Typography>
 
-        
-
-          <Typography
-            variant="h5"
-            noWrap
-            component="a"
-            href="#app-bar-with-responsive-menu"
-            sx={{
-              mr: 2,
-              display: { xs: 'flex', md: 'none' },
-              flexGrow: 1,
-              fontFamily: 'monospace',
-              fontWeight: 700,
-              letterSpacing: '.3rem',
-              color: 'inherit',
-              textDecoration: 'none',
-            }}
-          >
-            Sulipedia
-          </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
               <Button className='menuk' sx={{ my: 2, color: 'white', display: 'block' }}>
                 <Link  style={{ textDecoration: 'none',color:"white" }} to="/Curriculums" underline="none" rel="noreferrer"  color="inherit">
@@ -127,9 +100,9 @@ export function ResAppBar() {
                 </Link>
               </Button>
               <Button className='menuk' sx={{ my: 2, color: 'white', display: 'block' }}>
-              <Link  style={{ textDecoration: 'none',color:"white" }} to="/Tests" underline="none" rel="noreferrer"  color="inherit">
-                Tesztek
-                </Link>
+                <Link  style={{ textDecoration: 'none',color:"white" }} to="/Tests" underline="none" rel="noreferrer"  color="inherit">
+                  Tesztek
+                  </Link>
               </Button>
               <Button className='menuk' sx={{ my: 2, color: 'white', display: 'block' }}>
               <Link  style={{ textDecoration: 'none', color:"white" }} to="/MyGroups" underline="none" rel="noreferrer"  color="inherit">
@@ -148,28 +121,48 @@ export function ResAppBar() {
                 <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
               </IconButton>
             </Tooltip>
+
+
             <Menu
-              sx={{ mt: '45px' }}
-              id="menu-appbar"
-              anchorEl={anchorElUser}
-              anchorOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              open={Boolean(anchorElUser)}
-              onClose={handleCloseUserMenu}
-            >
-              {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
-                </MenuItem>
-              ))}
-            </Menu>
+  sx={{ mt: '45px' }}
+  id="menu-appbar"
+  anchorEl={anchorElUser}
+  anchorOrigin={{
+    vertical: 'top',
+    horizontal: 'right',
+  }}
+  keepMounted
+  transformOrigin={{
+    vertical: 'top',
+    horizontal: 'right',
+  }}
+  open={Boolean(anchorElUser)}
+  onClose={handleCloseUserMenu}
+>
+  <MenuItem onClick={handleCloseUserMenu}>
+    <Typography textAlign="center"> 
+    <Link  style={{ textDecoration: 'none',color:"black" }} to="/MyProfile" underline="none" rel="noreferrer"  color="inherit">
+                  Profilom
+                </Link>
+                </Typography>
+  </MenuItem>
+  <MenuItem onClick={handleCloseUserMenu}>
+    <Typography textAlign="center"><Link  style={{ textDecoration: 'none',color:"black" }} to="/Settings" underline="none" rel="noreferrer"  color="inherit">
+                  Beállítások
+                </Link></Typography>
+  </MenuItem>
+  <MenuItem onClick={handleCloseUserMenu}>
+    <Typography textAlign="center"><Link  style={{ textDecoration: 'none',color:"black" }} to="SignIn" underline="none" rel="noreferrer"  color="inherit">
+                  Be/Kijelentkezés
+                </Link></Typography>
+  </MenuItem>
+  <MenuItem onClick={handleCloseUserMenu}>
+    <Typography textAlign="center"><Link  style={{ textDecoration: 'none',color:"black" }} to="AboutUs" underline="none" rel="noreferrer"  color="inherit">
+                  Rólunk, a készítőkről
+                </Link></Typography>
+  </MenuItem>
+</Menu>
+
           </Box>
         </Toolbar>
       </Container>

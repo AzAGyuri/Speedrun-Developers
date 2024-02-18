@@ -5,17 +5,18 @@ import {Tests} from './Tests';
 import {Curriculums} from './Curriculums';  
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import Link from '@mui/material/Link';
+import { Link } from "react-router-dom";
 import SignUp from './SignUp';
 import { MyGroups } from './MyGroups';
 import { MyProfile } from './MyProfile';
 import ReactDOM from "react-dom/client";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { Settings } from './Settings';
-import { Kezdo } from './Kezdo';
+import { Kezdo } from './FirstPage';
+import { AboutUs } from './AboutUs';
 
 function App() {
-  return (
+  return (  
     <>
     <Router>
       <ResAppBar />
@@ -28,6 +29,7 @@ function App() {
         <Route path="/signIn" element={<SignIn />} />
         <Route path="/signUp" element={<SignUp />} />
         <Route path="/kezdo" element={<Kezdo />} />
+        <Route path="/aboutUs" element={<AboutUs />} />
       </Routes>
       <Copyright />
     </Router>
@@ -40,7 +42,7 @@ function Copyright(props) {
   return (
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
       {'Copyright © '}
-      <Link color="inherit" href="App.js">
+      <Link color="inherit" to="/kezdo">
         Sulipedia
       </Link>{' '}
       {new Date().getFullYear()}

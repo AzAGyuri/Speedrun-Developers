@@ -220,7 +220,7 @@ function getThemeObject(selectedTheme) {
     case 'orange':
       return themeOrange;
     case 'red':
-      return themeYellow;
+      return themeRed;
     case 'cyan':
       return themeCyan;
     default:
