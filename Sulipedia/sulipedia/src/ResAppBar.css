@@ -1,5 +1,17 @@
 #suliLogo{
-    width: 5%;
+    width: 12%;
     height: auto;
-    margin-right: 20px;
+}
+
+#tananyagok{
+    width: auto;
+    height: 50px;
+}
+#tesztek{
+    width: auto;
+    height: 50px;
+}
+#csoportjaim{
+    width: auto;
+    height: 50px;
 }

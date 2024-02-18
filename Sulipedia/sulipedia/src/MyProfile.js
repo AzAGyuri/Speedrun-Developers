@@ -1,3 +1,7 @@
-export function myProfile(){
-    
+export function MyProfile(){
+    return(
+        <>
+        ge
+        </>
+    )
 }

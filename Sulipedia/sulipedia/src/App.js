@@ -8,21 +8,32 @@ import Typography from '@mui/material/Typography';
 import Link from '@mui/material/Link';
 import SignUp from './SignUp';
 import { MyGroups } from './MyGroups';
+import { MyProfile } from './MyProfile';
+import ReactDOM from "react-dom/client";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { Settings } from './Settings';
+import { Kezdo } from './Kezdo';
 
 function App() {
   return (
     <>
-    <Settings></Settings>
-    <ResAppBar></ResAppBar>
-    <MyGroups></MyGroups>
-    <Tests></Tests>
-    <Curriculums></Curriculums>
-    <SignIn></SignIn>
-    <SignUp></SignUp>
-    <Copyright></Copyright>
+    <Router>
+      <ResAppBar />
+      <Routes>
+        <Route path="/curriculums" element={<Curriculums />} />
+        <Route path="/tests" element={<Tests />} />
+        <Route path="/mygroups" element={<MyGroups />} />
+        <Route path="/myProfile" element={<MyProfile />} />
+        <Route path="/settings" element={<Settings />} />
+        <Route path="/signIn" element={<SignIn />} />
+        <Route path="/signUp" element={<SignUp />} />
+        <Route path="/kezdo" element={<Kezdo />} />
+      </Routes>
+      <Copyright />
+    </Router>
     </>
-  )
+    
+  );
 }
 
 function Copyright(props) {

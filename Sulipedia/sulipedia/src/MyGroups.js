@@ -1,4 +1,11 @@
 import { AppBar, ResAppBar } from './ResAppBar';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import './MyGroups.css';
+
 export function MyGroups(){
-<ResAppBar></ResAppBar>
+return(
+    <>
+Itt lesznek a csoportok
+</>
+)
 }
