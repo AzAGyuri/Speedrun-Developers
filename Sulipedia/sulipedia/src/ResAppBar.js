@@ -138,28 +138,40 @@ export function ResAppBar() {
   open={Boolean(anchorElUser)}
   onClose={handleCloseUserMenu}
 >
+ <Link  style={{ textDecoration: 'none',color:"black" }} to="/MyProfile" underline="none" rel="noreferrer"  color="inherit">
   <MenuItem onClick={handleCloseUserMenu}>
     <Typography textAlign="center"> 
-    <Link  style={{ textDecoration: 'none',color:"black" }} to="/MyProfile" underline="none" rel="noreferrer"  color="inherit">
+    
                   Profilom
-                </Link>
                 </Typography>
   </MenuItem>
+  </Link>
+
+  <Link  style={{ textDecoration: 'none',color:"black" }} to="/Settings" underline="none" rel="noreferrer"  color="inherit">
   <MenuItem onClick={handleCloseUserMenu}>
-    <Typography textAlign="center"><Link  style={{ textDecoration: 'none',color:"black" }} to="/Settings" underline="none" rel="noreferrer"  color="inherit">
+    <Typography textAlign="center">
                   Beállítások
-                </Link></Typography>
+                </Typography>
   </MenuItem>
+  </Link>
+
+
+  <Link  style={{ textDecoration: 'none',color:"black" }} to="/SignIn" underline="none" rel="noreferrer"  color="inherit">
   <MenuItem onClick={handleCloseUserMenu}>
-    <Typography textAlign="center"><Link  style={{ textDecoration: 'none',color:"black" }} to="SignIn" underline="none" rel="noreferrer"  color="inherit">
+    <Typography textAlign="center">
                   Be/Kijelentkezés
-                </Link></Typography>
+                </Typography>
+                
   </MenuItem>
+  </Link>
+
+  <Link  style={{ textDecoration: 'none',color:"black" }} to="/AboutUs" underline="none" rel="noreferrer"  color="inherit">
   <MenuItem onClick={handleCloseUserMenu}>
-    <Typography textAlign="center"><Link  style={{ textDecoration: 'none',color:"black" }} to="AboutUs" underline="none" rel="noreferrer"  color="inherit">
+    <Typography textAlign="center">
                   Rólunk, a készítőkről
-                </Link></Typography>
+                </Typography>
   </MenuItem>
+  </Link>
 </Menu>
 
           </Box>
