@@ -34,10 +34,8 @@ public class ShootService {
         Hunter hunter = hunterRepository.getReferenceById(createShoot.getHunterId());
         Quarry quarry = quarryRepository.getReferenceById(createShoot.getQuarryId());
         Shoot shoot = ShootConverter.convertCreateShootToShoot(hunter, quarry);
-        Shoot savedShoot = repository.save(shoot);
-        if(savedShoot!=null)
-            return true;
-        return false;
+        repository.save(shoot);
+        return true;
     }
 
     public List<ListItemShoot> listShoots(FilterShoot filterShoot) {
