@@ -52,7 +52,6 @@ const rows = [
 
 export function AboutUs() {
     return (
-        <>
             <TableContainer component={Paper}>
                 <Table sx={{ minWidth: 600 }} aria-label="customized table">
                     <TableHead>
@@ -81,6 +80,5 @@ export function AboutUs() {
                     </TableBody>
                 </Table>
             </TableContainer>
-        </>
     );
 }
