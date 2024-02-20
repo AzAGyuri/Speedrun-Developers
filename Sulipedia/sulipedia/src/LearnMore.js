@@ -55,8 +55,8 @@ export function LearnMore() {
           Szeretnének kérdést feltenni?
         </Typography>
         <Typography variant="body1">
-        Maguknak, az elnököknek lehetőségük lesz több kérdést feltenni az oldalunkkal kapcsolatban mind tőlük személyesen, vagy a fő frontend fejlesztő,
-         <Link href="mailto:polyak.gyorgy21@gmail.com"> Polyák György</Link> személyes e-mail címén!
+         Maguknak, az elnököknek lehetőségük lesz több kérdést feltenni az oldalunkkal kapcsolatban mind tőlük személyesen, mind a fő frontend fejlesztő,
+         <Link href="mailto:19c_polyakg@nyirszikszi.hu"> Polyák György</Link> személyes e-mail címén is!
         </Typography>
       </SectionContainer>
 
