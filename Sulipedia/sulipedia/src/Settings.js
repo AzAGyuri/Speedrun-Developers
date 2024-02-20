@@ -81,7 +81,8 @@ const themeCyan = createTheme({
 });
 
 export function Settings() {
-  const [theme, setTheme] = useState('light');
+  const storedTheme = localStorage.getItem('theme') || 'light'; // Retrieve theme from local storage or default to 'light'
+  const [theme, setTheme] = useState(storedTheme);
   const [notifications, setNotifications] = useState(true);
   const [email, setEmail] = useState('felhasznalo@pelda.com');
   const [phoneNumber, setPhoneNumber] = useState('123-456-7890');
@@ -100,14 +101,12 @@ export function Settings() {
 
   const handleEmailChange = (newEmail) => {
     setEmail(newEmail);
-    // Validate email format
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     setEmailError(!emailRegex.test(newEmail));
   };
 
   const handlePhoneNumberChange = (newPhoneNumber) => {
     setPhoneNumber(newPhoneNumber);
-    // Validate phone number length
     setPhoneError(newPhoneNumber.length !== 11);
   };
 
@@ -116,7 +115,6 @@ export function Settings() {
   };
 
   const handleSaveChanges = () => {
-    // Perform save logic here, for example, sending data to a server or storing in local storage
     if (!emailError && !phoneError) {
       console.log('Changes saved:', { theme, notifications, email, phoneNumber, nickname });
     } else {
@@ -124,9 +122,9 @@ export function Settings() {
     }
   };
 
-  // useEffect to apply theme class to the body element
   useEffect(() => {
     document.body.className = theme + '-theme';
+    localStorage.setItem('theme', theme);
   }, [theme]);
 
   return (

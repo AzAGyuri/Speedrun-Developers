@@ -39,3 +39,7 @@
     transform: rotate(360deg);
   }
 }
+body{
+  background: linear-gradient(#27b3de, #949ad8);
+  background-repeat: no-repeat;
+}
