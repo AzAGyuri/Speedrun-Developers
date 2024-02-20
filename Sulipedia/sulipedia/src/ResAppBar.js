@@ -93,21 +93,27 @@ export function ResAppBar() {
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+          <Link  style={{ textDecoration: 'none',color:"white" }} to="/Curriculums" underline="none" rel="noreferrer"  color="inherit">
               <Button className='menuk' sx={{ my: 2, color: 'white', display: 'block' }}>
-                <Link  style={{ textDecoration: 'none',color:"white" }} to="/Curriculums" underline="none" rel="noreferrer"  color="inherit">
+             
                   Tananyagok
-                </Link>
+               
               </Button>
+              </Link>
+              <Link  style={{ textDecoration: 'none',color:"white" }} to="/Tests" underline="none" rel="noreferrer"  color="inherit">
               <Button className='menuk' sx={{ my: 2, color: 'white', display: 'block' }}>
-                <Link  style={{ textDecoration: 'none',color:"white" }} to="/Tests" underline="none" rel="noreferrer"  color="inherit">
+                
                   Tesztek
-                  </Link>
+                  
               </Button>
-              <Button className='menuk' sx={{ my: 2, color: 'white', display: 'block' }}>
+              </Link>
               <Link  style={{ textDecoration: 'none', color:"white" }} to="/MyGroups" underline="none" rel="noreferrer"  color="inherit">
+              <Button className='menuk' sx={{ my: 2, color: 'white', display: 'block' }}>
+              
                 Csoportjaim
-                </Link>
+                
               </Button>
+              </Link>
 
 
 

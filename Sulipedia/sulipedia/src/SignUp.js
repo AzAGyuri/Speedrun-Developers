@@ -5,7 +5,7 @@ import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
-import Link from '@mui/material/Link';
+import { Link } from "react-router-dom";
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
@@ -234,21 +234,13 @@ export default function SignUp() {
             </Button>
             <Grid container justifyContent="flex-end">
               <Grid item>
-                <Link href="SignIn.js" variant="body2">
+                <Link to={"/SignIn"} variant="body2">
                   Már van profilod? Jelentkezz be!
                 </Link>
               </Grid>
             </Grid>
           </Box>
         </Box>
-        <Typography variant="body2" color="text.secondary" align="center">
-          {'Copyright © '}
-          <Link color="inherit" href="Api.js">
-            Sulipedia
-          </Link>{' '}
-          {new Date().getFullYear()}
-          {'.'}
-        </Typography>
       </Container>
     </ThemeProvider>
   );

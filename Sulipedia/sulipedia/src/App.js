@@ -14,6 +14,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { Settings } from './Settings';
 import { Kezdo } from './FirstPage';
 import { AboutUs } from './AboutUs';
+import SpeedrunLogo from './resources/logo-no-background.png';
 
 function App() {
   return (  
@@ -40,10 +41,10 @@ function App() {
 
 function Copyright(props) {
   return (
-    <Typography variant="body2" color="text.secondary" align="center" {...props}>
+    <Typography className='fontSize' style={{fontSize: 20}} variant="body2" color="text.secondary" align="center" {...props}>
       {'Copyright © '}
       <Link color="inherit" to="/kezdo">
-        Sulipedia
+        Sulipedia <img  style={{width:20}} src={SpeedrunLogo}></img>
       </Link>{' '}
       {new Date().getFullYear()}
       {'.'}

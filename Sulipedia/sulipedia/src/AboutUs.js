@@ -1,4 +1,5 @@
 import Gyuri from './resources/Gyuri.jpg';
+import Marci from './resources/Marci.jpg';
 import { styled } from '@mui/material/styles';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -45,8 +46,8 @@ const rows = [
         </>,
         <Image id="gyuriKep" alt="Gyuri" src={Gyuri} />
     ),
-    createData('Seres Marcell', "Marci bemutatkozója", "Marci idézete", "Marci képe"),
-    createData('Zagyi Krisztián Zsolt', "Zagyibemutatkozója", "Zagyi idézete", "Zagyi képe"),
+    createData('Seres Marcell', "Háttér karakter, furcsa megoldások megszállotja", <>Hogyha a bal oldalon mész, valószínűleg nem ott lesz, mert a jobb oldalon van.</>, <Image id="gyuriKep" alt="Gyuri" src={Marci} />),
+    createData('Zagyi Krisztián Zsolt', "Zagyi bemutatkozója", "Zagyi idézete", "Zagyi képe"),
 ];
 
 export function AboutUs() {
