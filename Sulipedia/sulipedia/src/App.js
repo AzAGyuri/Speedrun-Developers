@@ -2,6 +2,7 @@ import './App.css';
 import { AppBar, ResAppBar } from './ResAppBar';
 import SignIn from './SignIn';  
 import {Tests} from './Tests';  
+import {LearnMore} from './LearnMore';  
 import {Curriculums} from './Curriculums';  
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
@@ -15,7 +16,6 @@ import { Settings } from './Settings';
 import { Kezdo } from './FirstPage';
 import { AboutUs } from './AboutUs';
 import SpeedrunLogo from './resources/logo-no-background.png';
-
 function App() {
   return (  
     <>
@@ -31,6 +31,7 @@ function App() {
         <Route path="/signUp" element={<SignUp />} />
         <Route path="/kezdo" element={<Kezdo />} />
         <Route path="/aboutUs" element={<AboutUs />} />
+        <Route path="/learnMore" element={<LearnMore/>} />
       </Routes>
       <Copyright />
     </Router>

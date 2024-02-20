@@ -1,4 +1,3 @@
-// src/FirstPage.js
 import React from 'react';
 import { Container, Typography, Button, Grid } from '@mui/material';
 import { styled } from '@mui/system';
@@ -27,7 +26,7 @@ export function Kezdo() {
       <HeaderTypography variant="h4">
         Az oldalt és a hozzá tartozó funkcionalitásokat a
          <>
-         <Link  style={{ textDecoration: 'none',color:"Blue" }} to="/MyProfile" underline="none" rel="noreferrer"  color="inherit"><div>Speedrun Developers</div></Link>
+         <Link  style={{ textDecoration: 'none',color:"Blue" }} to="/aboutUs" underline="none" rel="noreferrer"  color="inherit"><div>Speedrun Developers</div></Link>
          </>
           csapata készítette!
       </HeaderTypography>
@@ -36,14 +35,13 @@ export function Kezdo() {
       </Typography>
       <ButtonGrid container justifyContent="center" spacing={2}>
         <Grid item>
-          <Button variant="contained" color="primary">
-            Get Started
-          </Button>
         </Grid>
         <Grid item>
-          <Button variant="outlined" color="primary">
-            Learn More
+        <Link style={{ textDecoration: 'none',color:"Blue" }} to="/learnMore" underline="none" rel="noreferrer"  color="inherit">
+          <Button variant="contained" color="primary">
+            Tudj meg többet célunkról!
           </Button>
+          </Link>
         </Grid>
       </ButtonGrid>
     </RootContainer>
