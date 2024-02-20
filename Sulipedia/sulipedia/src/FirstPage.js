@@ -1,4 +1,3 @@
-// src/Kezdo.js
 import React, { useState, useEffect } from 'react';
 import { Container, Typography, Drawer, List, ListItem, ListItemText, IconButton, Button } from '@mui/material';
 import { styled } from '@mui/system';
@@ -109,6 +108,67 @@ export function Kezdo() {
         Ön ezen oldal jelenlegi alfa verzióját látja. A jövőben - mint minden más oldalra is - erre is további
         fejlesztések és új funkciók várnak majd.
       </Typography>
+      <Typography variant="body1">
+        Ön ezen oldal jelenlegi alfa verzióját látja. A jövőben - mint minden más oldalra is - erre is további
+        fejlesztések és új funkciók várnak majd.
+      </Typography>
+      <Typography variant="body1">
+        Ön ezen oldal jelenlegi alfa verzióját látja. A jövőben - mint minden más oldalra is - erre is további
+        fejlesztések és új funkciók várnak majd.
+      </Typography>
+      <Typography variant="body1">
+        Ön ezen oldal jelenlegi alfa verzióját látja. A jövőben - mint minden más oldalra is - erre is további
+        fejlesztések és új funkciók várnak majd.
+      </Typography>
+      <Typography variant="body1">
+        Ön ezen oldal jelenlegi alfa verzióját látja. A jövőben - mint minden más oldalra is - erre is további
+        fejlesztések és új funkciók várnak majd.
+      </Typography>
+      <Typography variant="body1">
+        Ön ezen oldal jelenlegi alfa verzióját látja. A jövőben - mint minden más oldalra is - erre is további
+        fejlesztések és új funkciók várnak majd.
+      </Typography>
+      <Typography variant="body1">
+        Ön ezen oldal jelenlegi alfa verzióját látja. A jövőben - mint minden más oldalra is - erre is további
+        fejlesztések és új funkciók várnak majd.
+      </Typography>
+      <Typography variant="body1">
+        Ön ezen oldal jelenlegi alfa verzióját látja. A jövőben - mint minden más oldalra is - erre is további
+        fejlesztések és új funkciók várnak majd.
+      </Typography>
+      <Typography variant="body1">
+        Ön ezen oldal jelenlegi alfa verzióját látja. A jövőben - mint minden más oldalra is - erre is további
+        fejlesztések és új funkciók várnak majd.
+      </Typography>
+      <Typography variant="body1">
+        Ön ezen oldal jelenlegi alfa verzióját látja. A jövőben - mint minden más oldalra is - erre is további
+        fejlesztések és új funkciók várnak majd.
+      </Typography>
+      <Typography variant="body1">
+        Ön ezen oldal jelenlegi alfa verzióját látja. A jövőben - mint minden más oldalra is - erre is további
+        fejlesztések és új funkciók várnak majd.
+      </Typography>
+      <Typography variant="body1">
+        Ön ezen oldal jelenlegi alfa verzióját látja. A jövőben - mint minden más oldalra is - erre is további
+        fejlesztések és új funkciók várnak majd.
+      </Typography>
+      <Typography variant="body1">
+        Ön ezen oldal jelenlegi alfa verzióját látja. A jövőben - mint minden más oldalra is - erre is további
+        fejlesztések és új funkciók várnak majd.
+      </Typography>
+      <Typography variant="body1">
+        Ön ezen oldal jelenlegi alfa verzióját látja. A jövőben - mint minden más oldalra is - erre is további
+        fejlesztések és új funkciók várnak majd.
+      </Typography>
+      <Typography variant="body1">
+        Ön ezen oldal jelenlegi alfa verzióját látja. A jövőben - mint minden más oldalra is - erre is további
+        fejlesztések és új funkciók várnak majd.
+      </Typography>
+      <Typography variant="body1">
+        Ön ezen oldal jelenlegi alfa verzióját látja. A jövőben - mint minden más oldalra is - erre is további
+        fejlesztések és új funkciók várnak majd.
+      </Typography>
+
 
       <BottomButtonsContainer>
         <Button variant="contained" color="secondary" component={Link} to="/LearnMore">
