@@ -217,12 +217,6 @@ export default function SignUp() {
                   helperText={phoneError ? 'Érvénytelen telefonszám (11 számjegy szükséges)' : ''}
                 />
               </Grid>
-              <Grid item xs={12}>
-                <FormControlLabel
-                  control={<Checkbox value="allowExtraEmails" color="primary" />}
-                  label="Szeretnék hasznos e-maileket kapni új tananyagokról és hasonlókról"
-                />
-              </Grid>
             </Grid>
             <Button
               type="submit"
