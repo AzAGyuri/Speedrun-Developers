@@ -19,20 +19,8 @@ import { Kezdo } from './FirstPage';
 import { AboutUs } from './AboutUs';
 import SpeedrunLogo from './resources/logo-no-background.png';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
-
-const themeLight = createTheme({
-  palette: {
-    mode: 'light',
-  },
-});
-
-const themeDark = createTheme({
-  palette: {
-    mode: 'dark',
-  },
-});
-
-// Add more themes as needed
+import { SzakAngol } from './SzakmaiAngol';
+import { Matek } from './Matek';
 
 function App() {
   return (
@@ -48,8 +36,11 @@ function App() {
             <Route path="/signIn" element={<SignIn />} />
             <Route path="/signUp" element={<SignUp />} />
             <Route path="/kezdo" element={<Kezdo />} />
+            <Route path="/" element={<Kezdo />} />
             <Route path="/aboutUs" element={<AboutUs />} />
             <Route path="/learnMore" element={<LearnMore />} />
+            <Route path="/szakmai-angol" element={<SzakAngol/>} />
+            <Route path="/matek" element={<Matek></Matek>} />
           </Routes>
           <Copyright />
       </Router>

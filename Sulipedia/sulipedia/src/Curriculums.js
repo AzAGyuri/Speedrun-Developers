@@ -44,7 +44,7 @@ export function Curriculums() {
       title: 'Matematika',
       description:
         'A matematika tantárgy célja a logikus gondolkodás és a számolási készségek fejlesztése. Témák között szerepelnek az algebra, geometria és matematikai analízis.',
-      link: '/matematika',
+      link: '/matek',
       icon: MatematikaImage,
     },
     {
