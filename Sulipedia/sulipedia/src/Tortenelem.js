@@ -80,7 +80,7 @@ const StyledDivider = styled(Divider)({
   backgroundColor: '#7ffc03', 
 });
 
-export function Matek() {
+export function Tortenelem() {
     const [drawerOpen, setDrawerOpen] = React.useState(false);
     const [showSubMenu1, setShowSubMenu1] = React.useState(false);
     const [showSubMenu2, setShowSubMenu2] = React.useState(false);
@@ -143,8 +143,8 @@ export function Matek() {
         }
     };
 
-    return ( 
-    <>
+    return (
+        <>
             <StyledDrawerButton onClick={toggleDrawer}>
                 <MenuIcon />
             </StyledDrawerButton>
@@ -152,133 +152,114 @@ export function Matek() {
             <StyledDrawer anchor="left" open={drawerOpen} onClose={() => setDrawerOpen(false)}>
                 <List>
                     <ListItem button onClick={() => handleMenuItemClick(1)}>
-                        <ListItemText primary="Algebrai Kifejezések" />
+                        <ListItemText primary="Az őskor" />
                     </ListItem>
                     <Collapse in={showSubMenu1} timeout="auto" unmountOnExit>
                         <List component="div" disablePadding style={{ paddingLeft: '20px' }}>
                             <ListItem button onClick={() => handleSubMenuItemClick(1)}>
-                                <ListItemText primary="Polinomok" />
+                                <ListItemText primary="Az őskori civilizációk" />
                             </ListItem>
                             <Collapse in={showSubSubMenu1} timeout="auto" unmountOnExit>
                                 <List component="div" disablePadding style={{ paddingLeft: '20px' }}>
                                     <ListItem button>
-                                        <ListItemText primary="Másodfokú Egyenletek" />
+                                        <ListItemText primary="Az Egyiptomi civilizáció" />
                                     </ListItem>
                                     <ListItem button>
-                                        <ListItemText primary="Harmadfokú Egyenletek" />
+                                        <ListItemText primary="A Mezopotámiai civilizáció" />
                                     </ListItem>
                                 </List>
                             </Collapse>
                             <ListItem button onClick={() => handleSubMenuItemClick(2)}>
-                                <ListItemText primary="Exponenciális Függvények" />
+                                <ListItemText primary="Az őskori hatalmak" />
                             </ListItem>
                         </List>
                     </Collapse>
                     <ListItem button onClick={() => handleMenuItemClick(2)}>
-                        <ListItemText primary="Geometria" />
+                        <ListItemText primary="A középkor" />
                     </ListItem>
                     <Collapse in={showSubMenu2} timeout="auto" unmountOnExit>
                         <List component="div" disablePadding style={{ paddingLeft: '20px' }}>
                             <ListItem button onClick={() => handleSubMenuItemClick(3)}>
-                                <ListItemText primary="Háromszögek" />
+                                <ListItemText primary="A feudális rendszer" />
                             </ListItem>
                             <Collapse in={showSubSubMenu3} timeout="auto" unmountOnExit>
                                 <List component="div" disablePadding style={{ paddingLeft: '20px' }}>
                                     <ListItem button>
-                                        <ListItemText primary="Derékszögű Háromszögek" />
+                                        <ListItemText primary="Az Angol kereszténység" />
                                     </ListItem>
                                     <ListItem button>
-                                        <ListItemText primary="Egyenlőszárú Háromszögek" />
+                                        <ListItemText primary="Az Arab birodalom" />
                                     </ListItem>
                                 </List>
                             </Collapse>
                             <ListItem button onClick={() => handleSubMenuItemClick(4)}>
-                                <ListItemText primary="Körök" />
+                                <ListItemText primary="A keresztes háborúk" />
                             </ListItem>
                         </List>
                     </Collapse>
                     <ListItem button onClick={() => handleMenuItemClick(3)}>
-                        <ListItemText primary="Kalkulus" />
+                        <ListItemText primary="A kora újkor" />
                     </ListItem>
                     <Collapse in={showSubMenu3} timeout="auto" unmountOnExit>
                         <List component="div" disablePadding style={{ paddingLeft: '20px' }}>
                             <ListItem button>
-                                <ListItemText primary="Határérték" />
+                                <ListItemText primary="Az európai felfedezések" />
                             </ListItem>
                             <ListItem button>
-                                <ListItemText primary="Deriváltak" />
+                                <ListItemText primary="A reformáció" />
                             </ListItem>
                         </List>
                     </Collapse>
                     <ListItem button onClick={() => handleMenuItemClick(4)}>
-                        <ListItemText primary="Statisztika" />
+                        <ListItemText primary="A modern kor" />
                     </ListItem>
                     <Collapse in={showSubMenu4} timeout="auto" unmountOnExit>
                         <List component="div" disablePadding style={{ paddingLeft: '20px' }}>
                             <ListItem button onClick={() => handleSubMenuItemClick(4)}>
-                                <ListItemText primary="Inferenciális Statisztika" />
+                                <ListItemText primary="Az ipari forradalom" />
+                            </ListItem>
+                            <Collapse in={showSubSubMenu4} timeout="auto" unmountOnExit>
+                                <List component="div" disablePadding style={{ paddingLeft: '20px' }}>
+                                    <ListItem button>
+                                        <ListItemText primary="A francia forradalom" />
+                                    </ListItem>
+                                </List>
+                            </Collapse>
+                            <ListItem button>
+                                <ListItemText primary="Az első és második világháború" />
                             </ListItem>
                         </List>
                     </Collapse>
                 </List>
             </StyledDrawer>
-
-<StyledContainer>
-            <Title variant="h3">A Matematikai Fogalmakról</Title>
-            
+            <StyledContainer>
+                <Title variant="h3">A Történelemről</Title>
             </StyledContainer>
             <StyledContainer>
                 <LargeText variant="body1">
-                    Különböző matematikai fogalmak felfedezése elengedhetetlen a tantárgy szilárd megértéséhez. Merüljünk el néhány alapvető matematikai témában.
+                    A történelem tantárgy során a diákoknak lehetőségük nyílik felfedezni és megérteni különböző időszakokat és eseményeket. Az őskortól a modern korig terjedő témák segítenek abban, hogy mélyebb betekintést nyerjenek a világ múltjába.
                 </LargeText>
             </StyledContainer>
             <StyledContainer>
                 <LargeText variant="body1">
-                    Az algebrai kifejezések és egyenletek megértése, valamint a grafikus ábrázolásuk elengedhetetlen a matematikai problémák megoldásához.
+                    Az őskori civilizációk és hatalmak tanulmányozása lehetővé teszi a diákok számára, hogy megismerjék azokat az alapvető tényezőket, amelyek formálták az emberiség korai történetét. Az egyes korszakok és birodalmak részletes vizsgálata hozzájárul a diákok történelmi tudásához.
                 </LargeText>
             </StyledContainer>
             <StyledContainer>
                 <LargeText variant="body1">
-                    A geometria segít nekünk tanulmányozni az alakokat, méreteket és a tér tulajdonságait. Alapvető szerepet játszik a körülöttünk lévő világ megértésében.
+                    A középkor témakörei segítenek a diákoknak megérteni a feudális rendszert, az egyes vallások terjedését és a korszak fontos eseményeit. A keresztes háborúk és a középkori Európa sokszínű kulturális és politikai kontextusát ismerve mélyebb megértésre tesznek szert.
                 </LargeText>
             </StyledContainer>
             <StyledContainer>
                 <LargeText variant="body1">
-                    A kalkulus a határértékek és deriváltak fogalmával az analízis matematikai alapja, és széles körben használják különböző tudományos területeken.
+                    A kora újkor fókuszában az európai felfedezések és a reformáció állnak, amelyek átalakították a korszakot. A diákok ezen események tanulmányozásával megismerik az új világ térképét és a vallási változások hatásait.
                 </LargeText>
             </StyledContainer>
             <StyledContainer>
                 <LargeText variant="body1">
-                    A statisztika az adatok gyűjtésével, elemzésével, értelmezésével, prezentálásával és rendezésével foglalkozik. Kulcsfontosságú a tájékozott döntéshozatalban különböző területeken.
+                    A modern kor témái között az ipari forradalom, a francia forradalom és a világháborúk szerepelnek. Ezek a témák lehetővé teszik a diákok számára, hogy megértsék a társadalmi, gazdasági és politikai változásokat, amelyek meghatározták a 19. és 20. század történelmét.
                 </LargeText>
             </StyledContainer>
-            <StyledContainer>
-    <LargeText variant="body1">
-        A matematika tantárgyban való szilárd megértéshez elengedhetetlen különböző matematikai fogalmak felfedezése. Ebben a keretben mélyedjünk el néhány alapvető matematikai téma tanulmányozásában.
-    </LargeText>
-</StyledContainer>
-<StyledContainer>
-    <LargeText variant="body1">
-        Az algebrai kifejezések és egyenletek megértése, valamint a grafikus ábrázolásuk kulcsfontosságú a matematikai problémák hatékony megoldásához és az absztrakt gondolkodás fejlesztéséhez.
-    </LargeText>
-</StyledContainer>
-<StyledContainer>
-    <LargeText variant="body1">
-        A geometria segít nekünk megismerni az alakokat, méreteket és a tér tulajdonságait. Alapvető szerepet játszik a körülöttünk lévő világ szerkezetének megértésében és az életünkben való eligazodásban.
-    </LargeText>
-</StyledContainer>
-<StyledContainer>
-    <LargeText variant="body1">
-        A kalkulus, amely a határértékek és deriváltak fogalmával foglalkozik, az analízis matematikai alapja. Széles körben használják különböző tudományos területeken, és hozzájárul a változások és folyamatok mélyebb megértéséhez.
-    </LargeText>
-</StyledContainer>
-<StyledContainer>
-    <LargeText variant="body1">
-        A statisztika az adatok gyűjtésével, elemzésével, értelmezésével, prezentálásával és rendezésével foglalkozik. Kulcsfontosságú a tájékozott döntéshozatalban különböző területeken, és segít a világ jelenségeinek empirikus vizsgálatában.
-    </LargeText>
-</StyledContainer>
-
-           
-            </>
+        </>
     );
 }

@@ -80,7 +80,7 @@ const StyledDivider = styled(Divider)({
   backgroundColor: '#7ffc03', 
 });
 
-export function Matek() {
+export function Informatika() {
     const [drawerOpen, setDrawerOpen] = React.useState(false);
     const [showSubMenu1, setShowSubMenu1] = React.useState(false);
     const [showSubMenu2, setShowSubMenu2] = React.useState(false);
@@ -143,8 +143,8 @@ export function Matek() {
         }
     };
 
-    return ( 
-    <>
+    return (
+        <>
             <StyledDrawerButton onClick={toggleDrawer}>
                 <MenuIcon />
             </StyledDrawerButton>
@@ -152,133 +152,130 @@ export function Matek() {
             <StyledDrawer anchor="left" open={drawerOpen} onClose={() => setDrawerOpen(false)}>
                 <List>
                     <ListItem button onClick={() => handleMenuItemClick(1)}>
-                        <ListItemText primary="Algebrai Kifejezések" />
+                        <ListItemText primary="A programozás alapjai" />
                     </ListItem>
                     <Collapse in={showSubMenu1} timeout="auto" unmountOnExit>
                         <List component="div" disablePadding style={{ paddingLeft: '20px' }}>
                             <ListItem button onClick={() => handleSubMenuItemClick(1)}>
-                                <ListItemText primary="Polinomok" />
+                                <ListItemText primary="A Java programozási nyelv" />
                             </ListItem>
                             <Collapse in={showSubSubMenu1} timeout="auto" unmountOnExit>
                                 <List component="div" disablePadding style={{ paddingLeft: '20px' }}>
                                     <ListItem button>
-                                        <ListItemText primary="Másodfokú Egyenletek" />
+                                        <ListItemText primary="Az objektumorientált programozás" />
                                     </ListItem>
                                     <ListItem button>
-                                        <ListItemText primary="Harmadfokú Egyenletek" />
+                                        <ListItemText primary="A Java osztályok és metódusok" />
                                     </ListItem>
                                 </List>
                             </Collapse>
                             <ListItem button onClick={() => handleSubMenuItemClick(2)}>
-                                <ListItemText primary="Exponenciális Függvények" />
+                                <ListItemText primary="A webfejlesztés alapjai" />
                             </ListItem>
                         </List>
                     </Collapse>
                     <ListItem button onClick={() => handleMenuItemClick(2)}>
-                        <ListItemText primary="Geometria" />
+                        <ListItemText primary="Az adatbázisok és SQL" />
                     </ListItem>
                     <Collapse in={showSubMenu2} timeout="auto" unmountOnExit>
                         <List component="div" disablePadding style={{ paddingLeft: '20px' }}>
                             <ListItem button onClick={() => handleSubMenuItemClick(3)}>
-                                <ListItemText primary="Háromszögek" />
+                                <ListItemText primary="Az adatbázisok tervezése" />
                             </ListItem>
                             <Collapse in={showSubSubMenu3} timeout="auto" unmountOnExit>
                                 <List component="div" disablePadding style={{ paddingLeft: '20px' }}>
                                     <ListItem button>
-                                        <ListItemText primary="Derékszögű Háromszögek" />
+                                        <ListItemText primary="A relációs adatbázisok" />
                                     </ListItem>
                                     <ListItem button>
-                                        <ListItemText primary="Egyenlőszárú Háromszögek" />
+                                        <ListItemText primary="Az SQL lekérdezések" />
                                     </ListItem>
                                 </List>
                             </Collapse>
                             <ListItem button onClick={() => handleSubMenuItemClick(4)}>
-                                <ListItemText primary="Körök" />
+                                <ListItemText primary="Az adatbázisok kezelése" />
                             </ListItem>
                         </List>
                     </Collapse>
                     <ListItem button onClick={() => handleMenuItemClick(3)}>
-                        <ListItemText primary="Kalkulus" />
+                        <ListItemText primary="A szoftvertervezés alapjai" />
                     </ListItem>
                     <Collapse in={showSubMenu3} timeout="auto" unmountOnExit>
                         <List component="div" disablePadding style={{ paddingLeft: '20px' }}>
                             <ListItem button>
-                                <ListItemText primary="Határérték" />
+                                <ListItemText primary="Az UML diagramok" />
                             </ListItem>
                             <ListItem button>
-                                <ListItemText primary="Deriváltak" />
+                                <ListItemText primary="A tervezési minták" />
                             </ListItem>
                         </List>
                     </Collapse>
                     <ListItem button onClick={() => handleMenuItemClick(4)}>
-                        <ListItemText primary="Statisztika" />
+                        <ListItemText primary="A hálózati technológiák" />
                     </ListItem>
                     <Collapse in={showSubMenu4} timeout="auto" unmountOnExit>
                         <List component="div" disablePadding style={{ paddingLeft: '20px' }}>
                             <ListItem button onClick={() => handleSubMenuItemClick(4)}>
-                                <ListItemText primary="Inferenciális Statisztika" />
+                                <ListItemText primary="A TCP/IP protokollcsalád" />
+                            </ListItem>
+                            <Collapse in={showSubSubMenu4} timeout="auto" unmountOnExit>
+                                <List component="div" disablePadding style={{ paddingLeft: '20px' }}>
+                                    <ListItem button>
+                                        <ListItemText primary="Az IPv4 és IPv6" />
+                                    </ListItem>
+                                </List>
+                            </Collapse>
+                            <ListItem button>
+                                <ListItemText primary="A webes kommunikáció" />
                             </ListItem>
                         </List>
                     </Collapse>
                 </List>
             </StyledDrawer>
-
-<StyledContainer>
-            <Title variant="h3">A Matematikai Fogalmakról</Title>
-            
+            <StyledContainer>
+                <Title variant="h3">Az Informatikáról</Title>
             </StyledContainer>
             <StyledContainer>
                 <LargeText variant="body1">
-                    Különböző matematikai fogalmak felfedezése elengedhetetlen a tantárgy szilárd megértéséhez. Merüljünk el néhány alapvető matematikai témában.
+                    Az informatika tantárgy során a diákok megismerhetik a programozás alapjait, beleértve a Java programozási nyelvet és az objektumorientált programozást. A webfejlesztés alapjai segítenek a modern webes alkalmazások létrehozásában és megértésében.
                 </LargeText>
             </StyledContainer>
             <StyledContainer>
                 <LargeText variant="body1">
-                    Az algebrai kifejezések és egyenletek megértése, valamint a grafikus ábrázolásuk elengedhetetlen a matematikai problémák megoldásához.
+                    Az adatbázisok és SQL témaköreiben a diákok megtanulhatják az adatbázisok tervezését, a relációs adatbázisokat, valamint az SQL lekérdezéseket. Emellett megismerhetik az adatbázisok hatékony kezelésének módszereit.
                 </LargeText>
             </StyledContainer>
             <StyledContainer>
                 <LargeText variant="body1">
-                    A geometria segít nekünk tanulmányozni az alakokat, méreteket és a tér tulajdonságait. Alapvető szerepet játszik a körülöttünk lévő világ megértésében.
+                    A szoftvertervezés alapjai során az UML diagramok és tervezési minták segítenek a diákoknak a szofisztikáltabb és jól strukturált szoftverek tervezésében.
                 </LargeText>
             </StyledContainer>
             <StyledContainer>
                 <LargeText variant="body1">
-                    A kalkulus a határértékek és deriváltak fogalmával az analízis matematikai alapja, és széles körben használják különböző tudományos területeken.
-                </LargeText>
-            </StyledContainer>
-            <StyledContainer>
-                <LargeText variant="body1">
-                    A statisztika az adatok gyűjtésével, elemzésével, értelmezésével, prezentálásával és rendezésével foglalkozik. Kulcsfontosságú a tájékozott döntéshozatalban különböző területeken.
+                    A hálózati technológiák területén a diákok megismerkedhetnek a TCP/IP protokollcsaláddal, az IPv4 és IPv6 protokollokkal, valamint a webes kommunikációval és hálózatokkal.
                 </LargeText>
             </StyledContainer>
             <StyledContainer>
     <LargeText variant="body1">
-        A matematika tantárgyban való szilárd megértéshez elengedhetetlen különböző matematikai fogalmak felfedezése. Ebben a keretben mélyedjünk el néhány alapvető matematikai téma tanulmányozásában.
+        Az alapvető matematikai fogalmak elsajátítása elengedhetetlen az informatika területén. A logikai gondolkodás és a matematikai alapok segítik a diákokat a hatékony programozásban és problémamegoldásban.
     </LargeText>
 </StyledContainer>
 <StyledContainer>
     <LargeText variant="body1">
-        Az algebrai kifejezések és egyenletek megértése, valamint a grafikus ábrázolásuk kulcsfontosságú a matematikai problémák hatékony megoldásához és az absztrakt gondolkodás fejlesztéséhez.
+        Az algoritmusok és adatszerkezetek megértése nélkülözhetetlen a hatékony programfejlesztéshez. A diákok megismerik a különböző algoritmusokat és adatszerkezeteket, és tanulnak arról, hogyan válasszák ki a legmegfelelőbbet adott problémához.
     </LargeText>
 </StyledContainer>
 <StyledContainer>
     <LargeText variant="body1">
-        A geometria segít nekünk megismerni az alakokat, méreteket és a tér tulajdonságait. Alapvető szerepet játszik a körülöttünk lévő világ szerkezetének megértésében és az életünkben való eligazodásban.
+        Az operációs rendszerek és számítógéparchitektúrák témakörei segítik a diákokat abban, hogy megértsék a számítógépek működését és azok összetevőit. Ez alapvető ismereteket nyújt a szoftverek és hardverek kölcsönhatásának megértéséhez.
     </LargeText>
 </StyledContainer>
 <StyledContainer>
     <LargeText variant="body1">
-        A kalkulus, amely a határértékek és deriváltak fogalmával foglalkozik, az analízis matematikai alapja. Széles körben használják különböző tudományos területeken, és hozzájárul a változások és folyamatok mélyebb megértéséhez.
-    </LargeText>
-</StyledContainer>
-<StyledContainer>
-    <LargeText variant="body1">
-        A statisztika az adatok gyűjtésével, elemzésével, értelmezésével, prezentálásával és rendezésével foglalkozik. Kulcsfontosságú a tájékozott döntéshozatalban különböző területeken, és segít a világ jelenségeinek empirikus vizsgálatában.
+        A mesterséges intelligencia és gépi tanulás területén való elmélyülés lehetővé teszi a diákok számára, hogy megismerjék azokat a technológiákat, amelyek az intelligens rendszerek és döntéstámogató rendszerek hátterében állnak.
     </LargeText>
 </StyledContainer>
 
-           
-            </>
+        </>
     );
 }

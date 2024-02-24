@@ -21,6 +21,9 @@ import SpeedrunLogo from './resources/logo-no-background.png';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { SzakAngol } from './SzakmaiAngol';
 import { Matek } from './Matek';
+import { Magyar } from './Magyar';
+import { Tortenelem } from './Tortenelem';
+import { Informatika } from './Informatika';
 
 function App() {
   return (
@@ -41,6 +44,9 @@ function App() {
             <Route path="/learnMore" element={<LearnMore />} />
             <Route path="/szakmai-angol" element={<SzakAngol/>} />
             <Route path="/matek" element={<Matek></Matek>} />
+            <Route path="/magyar" element={<Magyar></Magyar>} />
+            <Route path="/tortenelem" element={<Tortenelem></Tortenelem>} />
+            <Route path="/informatika" element={<Informatika></Informatika>} />
           </Routes>
           <Copyright />
       </Router>

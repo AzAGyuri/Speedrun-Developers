@@ -80,7 +80,7 @@ const StyledDivider = styled(Divider)({
   backgroundColor: '#7ffc03', 
 });
 
-export function Matek() {
+export function Magyar() {
     const [drawerOpen, setDrawerOpen] = React.useState(false);
     const [showSubMenu1, setShowSubMenu1] = React.useState(false);
     const [showSubMenu2, setShowSubMenu2] = React.useState(false);
@@ -143,8 +143,8 @@ export function Matek() {
         }
     };
 
-    return ( 
-    <>
+    return (
+        <>
             <StyledDrawerButton onClick={toggleDrawer}>
                 <MenuIcon />
             </StyledDrawerButton>
@@ -152,133 +152,136 @@ export function Matek() {
             <StyledDrawer anchor="left" open={drawerOpen} onClose={() => setDrawerOpen(false)}>
                 <List>
                     <ListItem button onClick={() => handleMenuItemClick(1)}>
-                        <ListItemText primary="Algebrai Kifejezések" />
+                        <ListItemText primary="Az irodalmi műfajok" />
                     </ListItem>
                     <Collapse in={showSubMenu1} timeout="auto" unmountOnExit>
                         <List component="div" disablePadding style={{ paddingLeft: '20px' }}>
                             <ListItem button onClick={() => handleSubMenuItemClick(1)}>
-                                <ListItemText primary="Polinomok" />
+                                <ListItemText primary="Az epika" />
                             </ListItem>
                             <Collapse in={showSubSubMenu1} timeout="auto" unmountOnExit>
                                 <List component="div" disablePadding style={{ paddingLeft: '20px' }}>
                                     <ListItem button>
-                                        <ListItemText primary="Másodfokú Egyenletek" />
+                                        <ListItemText primary="Az eposz" />
                                     </ListItem>
                                     <ListItem button>
-                                        <ListItemText primary="Harmadfokú Egyenletek" />
+                                        <ListItemText primary="A regény" />
                                     </ListItem>
                                 </List>
                             </Collapse>
                             <ListItem button onClick={() => handleSubMenuItemClick(2)}>
-                                <ListItemText primary="Exponenciális Függvények" />
+                                <ListItemText primary="A líra" />
                             </ListItem>
                         </List>
                     </Collapse>
                     <ListItem button onClick={() => handleMenuItemClick(2)}>
-                        <ListItemText primary="Geometria" />
+                        <ListItemText primary="A nyelvtan és a helyesírás" />
                     </ListItem>
                     <Collapse in={showSubMenu2} timeout="auto" unmountOnExit>
                         <List component="div" disablePadding style={{ paddingLeft: '20px' }}>
                             <ListItem button onClick={() => handleSubMenuItemClick(3)}>
-                                <ListItemText primary="Háromszögek" />
+                                <ListItemText primary="A mondat és a szöveg" />
                             </ListItem>
                             <Collapse in={showSubSubMenu3} timeout="auto" unmountOnExit>
                                 <List component="div" disablePadding style={{ paddingLeft: '20px' }}>
                                     <ListItem button>
-                                        <ListItemText primary="Derékszögű Háromszögek" />
+                                        <ListItemText primary="Az összetett mondatok" />
                                     </ListItem>
                                     <ListItem button>
-                                        <ListItemText primary="Egyenlőszárú Háromszögek" />
+                                        <ListItemText primary="Az idéző mondatok" />
                                     </ListItem>
                                 </List>
                             </Collapse>
                             <ListItem button onClick={() => handleSubMenuItemClick(4)}>
-                                <ListItemText primary="Körök" />
+                                <ListItemText primary="A helyesírási szabályok" />
                             </ListItem>
                         </List>
                     </Collapse>
                     <ListItem button onClick={() => handleMenuItemClick(3)}>
-                        <ListItemText primary="Kalkulus" />
+                        <ListItemText primary="A magyar irodalom története" />
                     </ListItem>
                     <Collapse in={showSubMenu3} timeout="auto" unmountOnExit>
                         <List component="div" disablePadding style={{ paddingLeft: '20px' }}>
                             <ListItem button>
-                                <ListItemText primary="Határérték" />
+                                <ListItemText primary="A középkori irodalom" />
                             </ListItem>
                             <ListItem button>
-                                <ListItemText primary="Deriváltak" />
+                                <ListItemText primary="A reneszánsz irodalom" />
                             </ListItem>
                         </List>
                     </Collapse>
                     <ListItem button onClick={() => handleMenuItemClick(4)}>
-                        <ListItemText primary="Statisztika" />
+                        <ListItemText primary="A kommunikáció és a nyelvhasználat" />
                     </ListItem>
                     <Collapse in={showSubMenu4} timeout="auto" unmountOnExit>
                         <List component="div" disablePadding style={{ paddingLeft: '20px' }}>
                             <ListItem button onClick={() => handleSubMenuItemClick(4)}>
-                                <ListItemText primary="Inferenciális Statisztika" />
+                                <ListItemText primary="Az érvelési és meggyőzési technikák" />
+                            </ListItem>
+                            <Collapse in={showSubSubMenu4} timeout="auto" unmountOnExit>
+                                <List component="div" disablePadding style={{ paddingLeft: '20px' }}>
+                                    <ListItem button>
+                                        <ListItemText primary="Az érvelés logikája" />
+                                    </ListItem>
+                                </List>
+                            </Collapse>
+                            <ListItem button>
+                                <ListItemText primary="A közlési formák" />
                             </ListItem>
                         </List>
                     </Collapse>
                 </List>
             </StyledDrawer>
-
-<StyledContainer>
-            <Title variant="h3">A Matematikai Fogalmakról</Title>
-            
+            <StyledContainer>
+                <Title variant="h3">A Magyar Nyelvről</Title>
             </StyledContainer>
             <StyledContainer>
                 <LargeText variant="body1">
-                    Különböző matematikai fogalmak felfedezése elengedhetetlen a tantárgy szilárd megértéséhez. Merüljünk el néhány alapvető matematikai témában.
+                    A magyar nyelv és irodalom tantárgy fontos része az oktatásnak. Az irodalmi műfajok megismerése és a nyelvtan
+                    szabályainak elsajátítása segít a diákoknak széleskörű szövegértési és kommunikációs készségek kialakításában.
                 </LargeText>
             </StyledContainer>
             <StyledContainer>
                 <LargeText variant="body1">
-                    Az algebrai kifejezések és egyenletek megértése, valamint a grafikus ábrázolásuk elengedhetetlen a matematikai problémák megoldásához.
+                    A nyelvtan és a helyesírás tanulása során a diákok megtanulják a helyes mondatelemzést, a helyes szórendet,
+                    és a helyesírási szabályok alkalmazását. Ez nélkülözhetetlen a megfelelő és érthető írásbeli kommunikációhoz.
                 </LargeText>
             </StyledContainer>
             <StyledContainer>
                 <LargeText variant="body1">
-                    A geometria segít nekünk tanulmányozni az alakokat, méreteket és a tér tulajdonságait. Alapvető szerepet játszik a körülöttünk lévő világ megértésében.
+                    A magyar irodalom történetének megismerése során a diákok bepillantást nyernek a különböző korszakok
+                    irodalmi alkotásaiba, megismerik azokat az eszközöket, amelyeket az írók alkalmaztak, és értelmezni tudják a
+                    műveket a történelmi és kulturális kontextusban.
                 </LargeText>
             </StyledContainer>
             <StyledContainer>
                 <LargeText variant="body1">
-                    A kalkulus a határértékek és deriváltak fogalmával az analízis matematikai alapja, és széles körben használják különböző tudományos területeken.
-                </LargeText>
-            </StyledContainer>
-            <StyledContainer>
-                <LargeText variant="body1">
-                    A statisztika az adatok gyűjtésével, elemzésével, értelmezésével, prezentálásával és rendezésével foglalkozik. Kulcsfontosságú a tájékozott döntéshozatalban különböző területeken.
+                    A kommunikáció és a nyelvhasználat tantárgyban a diákok olyan készségeket sajátíthatnak el, mint az
+                    érvelés, a meggyőzés és a hatékony közlés. Ez segíti őket abban, hogy tudatosan és hatékonyan kommunikáljanak
+                    különböző helyzetekben.
                 </LargeText>
             </StyledContainer>
             <StyledContainer>
     <LargeText variant="body1">
-        A matematika tantárgyban való szilárd megértéshez elengedhetetlen különböző matematikai fogalmak felfedezése. Ebben a keretben mélyedjünk el néhány alapvető matematikai téma tanulmányozásában.
+        A magyar nyelv és irodalom tantárgy meghatározó eleme az oktatásnak, hiszen segít a diákoknak kialakítani széleskörű szövegértési és kommunikációs készségeiket. Az irodalmi műfajok megismerése révén a diákok nemcsak kulturális kincsekre lelnek, hanem fejlesztik kritikai gondolkodásukat is.
     </LargeText>
 </StyledContainer>
 <StyledContainer>
     <LargeText variant="body1">
-        Az algebrai kifejezések és egyenletek megértése, valamint a grafikus ábrázolásuk kulcsfontosságú a matematikai problémák hatékony megoldásához és az absztrakt gondolkodás fejlesztéséhez.
+        A nyelvtan és helyesírás tanulása során a diákok elsajátítják a helyes mondatelemzés, a helyes szórend és a helyesírási szabályok alkalmazását. Ezek az ismeretek nélkülözhetetlenek a megfelelő és érthető írásbeli kommunikációhoz.
     </LargeText>
 </StyledContainer>
 <StyledContainer>
     <LargeText variant="body1">
-        A geometria segít nekünk megismerni az alakokat, méreteket és a tér tulajdonságait. Alapvető szerepet játszik a körülöttünk lévő világ szerkezetének megértésében és az életünkben való eligazodásban.
+        A magyar irodalom történetének tanulmányozása során a diákok betekintést nyernek a különböző korszakok művészi alkotásaiba, és megtanulják azokat történelmi és kulturális kontextusukban értelmezni.
     </LargeText>
 </StyledContainer>
 <StyledContainer>
     <LargeText variant="body1">
-        A kalkulus, amely a határértékek és deriváltak fogalmával foglalkozik, az analízis matematikai alapja. Széles körben használják különböző tudományos területeken, és hozzájárul a változások és folyamatok mélyebb megértéséhez.
-    </LargeText>
-</StyledContainer>
-<StyledContainer>
-    <LargeText variant="body1">
-        A statisztika az adatok gyűjtésével, elemzésével, értelmezésével, prezentálásával és rendezésével foglalkozik. Kulcsfontosságú a tájékozott döntéshozatalban különböző területeken, és segít a világ jelenségeinek empirikus vizsgálatában.
+        A kommunikáció és a nyelvhasználat tantárgy segíti a diákokat az érvelés, a meggyőzés és a hatékony közlés készségeinek fejlesztésében. Ezen készségek különböző élethelyzetekben és szakmai területeken is hasznosak, hozzájárulva a diákok sikeres és tudatos kommunikációjához.
     </LargeText>
 </StyledContainer>
 
-           
-            </>
+        </>
     );
 }
