@@ -1,8 +1,18 @@
 import React, { useState, useEffect } from 'react';
-import { Container, Typography, Drawer, List, ListItem, ListItemText, IconButton, Button } from '@mui/material';
+import { Container } from '@mui/material';
 import { styled } from '@mui/system';
 import { Link } from 'react-router-dom';
-import MenuIcon from '@mui/icons-material/Menu';
+import './FirstPage.css';
+
+import mathematics from './resources/mat.png';
+import grammer from './resources/grammer.png';
+import history from './resources/history.png';
+import chemistry from './resources/chem.png';
+
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
+import Modal from '@mui/material/Modal';
 
 const RootContainer = styled(Container)({
   flexGrow: 1,
@@ -11,7 +21,7 @@ const RootContainer = styled(Container)({
   transition: 'background-image 1s ease-in-out',  
   backgroundSize: 'cover',  
   backgroundPosition: 'center', 
-  backgroundColor: 'lightblue', 
+  backgroundColor: 'grey', 
   '& > *': {
     textShadow: '2px 2px 2px green',
   },
@@ -25,79 +35,44 @@ const SubheaderTypography = styled(Typography)({
   marginBottom: '32px',
 });
 
-const DrawerButton = styled(IconButton)({
-  position: 'fixed',
-  top: 'calc(10% + 16px)',
-  left: '25px',
-  backgroundColor: '#333',
-  color: 'white',
-  fontSize: '1.2rem',
-  '&:hover': {
-    backgroundColor: '#555',
-  },
-});
-const OpalishDrawer = styled(Drawer)({
-  '& .MuiPaper-root': {
-    backgroundColor: 'rgba(0, 0, 0, 0.7)', 
-    color: 'white', 
-  },
-});
-
 const BottomButtonsContainer = styled(Container)({
   display: 'flex',
   justifyContent: 'space-between',
   marginTop: '32px',
 });
 
+
+const style = {
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: 700,
+  bgcolor: 'background.paper',
+  border: '2px solid #000',
+  boxShadow: 24,
+  p: 4,
+};
+
+
 export function Kezdo() {
-  const [drawerOpen, setDrawerOpen] = useState(false);
-  const [backgroundImage, setBackgroundImage] = useState('');
-
-  useEffect(() => {
-    const fetchRandomImage = async () => {
-      try {
-        const response = await fetch('https://source.unsplash.com/random?wallpapers', { cache: 'no-store' });
-        const imageUrl = response.url;
-        setBackgroundImage(`url(${imageUrl})`);
-      } catch (error) {
-        console.error('Error fetching a random image:', error);
-      }
-    };
-
-    fetchRandomImage();
-  }, []);
-
-  const toggleDrawer = () => {
-    setDrawerOpen(!drawerOpen);
-  };
+  const [open, setOpen] = React.useState(true);
+  const handleClose = () => setOpen(false);
 
   return (
-    <RootContainer style={{ backgroundImage }}>
-      <DrawerButton onClick={toggleDrawer}>
-        <MenuIcon />
-      </DrawerButton>
-
-      <OpalishDrawer anchor="left" open={drawerOpen} onClose={() => setDrawerOpen(false)}>
-        <List>
-          <ListItem button component={Link} to="/menu1" onClick={() => setDrawerOpen(false)}>
-            <ListItemText primary="Menü 1" />
-          </ListItem>
-          <ListItem button component={Link} to="/menu2" onClick={() => setDrawerOpen(false)}>
-            <ListItemText primary="Menü 2" />
-          </ListItem>
-          <ListItem button component={Link} to="/menu3" onClick={() => setDrawerOpen(false)}>
-            <ListItemText primary="Menü 3" />
-          </ListItem>
-          <ListItem button component={Link} to="/menu4" onClick={() => setDrawerOpen(false)}>
-            <ListItemText primary="Menü 4" />
-          </ListItem>
-        </List>
-      </OpalishDrawer>
-
-      <HeaderTypography variant="h2">
+    <>
+    <div>
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={style}>
+        <HeaderTypography variant="h3">
         Üdvözöljük a Sulipedia oldalon!
       </HeaderTypography>
-      <SubheaderTypography variant="h4">
+      <SubheaderTypography variant="body1">
         Az oldalt és a hozzá tartozó funkcionalitásokat a{' '}
         <Link style={{ textDecoration: 'none', color: 'blue' }} to="/aboutUs" underline="none" rel="noreferrer" color="inherit">
           Speedrun Developers
@@ -107,74 +82,64 @@ export function Kezdo() {
       <Typography variant="body1">
         Ön ezen oldal jelenlegi alfa verzióját látja. A jövőben - mint minden más oldalra is - erre is további
         fejlesztések és új funkciók várnak majd.
+        <br/>
+        Amennyiben szeretné támogatni az oldal fejlődését azt az alábbi <a href="https://www.paypal.me/Krisz37">linken</a> megteheti!
       </Typography>
-      <Typography variant="body1">
-        Ön ezen oldal jelenlegi alfa verzióját látja. A jövőben - mint minden más oldalra is - erre is további
-        fejlesztések és új funkciók várnak majd.
-      </Typography>
-      <Typography variant="body1">
-        Ön ezen oldal jelenlegi alfa verzióját látja. A jövőben - mint minden más oldalra is - erre is további
-        fejlesztések és új funkciók várnak majd.
-      </Typography>
-      <Typography variant="body1">
-        Ön ezen oldal jelenlegi alfa verzióját látja. A jövőben - mint minden más oldalra is - erre is további
-        fejlesztések és új funkciók várnak majd.
-      </Typography>
-      <Typography variant="body1">
-        Ön ezen oldal jelenlegi alfa verzióját látja. A jövőben - mint minden más oldalra is - erre is további
-        fejlesztések és új funkciók várnak majd.
-      </Typography>
-      <Typography variant="body1">
-        Ön ezen oldal jelenlegi alfa verzióját látja. A jövőben - mint minden más oldalra is - erre is további
-        fejlesztések és új funkciók várnak majd.
-      </Typography>
-      <Typography variant="body1">
-        Ön ezen oldal jelenlegi alfa verzióját látja. A jövőben - mint minden más oldalra is - erre is további
-        fejlesztések és új funkciók várnak majd.
-      </Typography>
-      <Typography variant="body1">
-        Ön ezen oldal jelenlegi alfa verzióját látja. A jövőben - mint minden más oldalra is - erre is további
-        fejlesztések és új funkciók várnak majd.
-      </Typography>
-      <Typography variant="body1">
-        Ön ezen oldal jelenlegi alfa verzióját látja. A jövőben - mint minden más oldalra is - erre is további
-        fejlesztések és új funkciók várnak majd.
-      </Typography>
-      <Typography variant="body1">
-        Ön ezen oldal jelenlegi alfa verzióját látja. A jövőben - mint minden más oldalra is - erre is további
-        fejlesztések és új funkciók várnak majd.
-      </Typography>
-      <Typography variant="body1">
-        Ön ezen oldal jelenlegi alfa verzióját látja. A jövőben - mint minden más oldalra is - erre is további
-        fejlesztések és új funkciók várnak majd.
-      </Typography>
-      <Typography variant="body1">
-        Ön ezen oldal jelenlegi alfa verzióját látja. A jövőben - mint minden más oldalra is - erre is további
-        fejlesztések és új funkciók várnak majd.
-      </Typography>
-      <Typography variant="body1">
-        Ön ezen oldal jelenlegi alfa verzióját látja. A jövőben - mint minden más oldalra is - erre is további
-        fejlesztések és új funkciók várnak majd.
-      </Typography>
-      <Typography variant="body1">
-        Ön ezen oldal jelenlegi alfa verzióját látja. A jövőben - mint minden más oldalra is - erre is további
-        fejlesztések és új funkciók várnak majd.
-      </Typography>
-      <Typography variant="body1">
-        Ön ezen oldal jelenlegi alfa verzióját látja. A jövőben - mint minden más oldalra is - erre is további
-        fejlesztések és új funkciók várnak majd.
-      </Typography>
-      <Typography variant="body1">
-        Ön ezen oldal jelenlegi alfa verzióját látja. A jövőben - mint minden más oldalra is - erre is további
-        fejlesztések és új funkciók várnak majd.
-      </Typography>
-
 
       <BottomButtonsContainer>
         <Button variant="contained" color="secondary" component={Link} to="/LearnMore">
           Tudj meg többet
         </Button>
       </BottomButtonsContainer>
-    </RootContainer>
+        </Box>
+      </Modal>
+    </div>
+
+
+    <div className='flex'>   
+      <div className="drawer">
+        <div className="subject-container">
+          <a>Matematika</a>
+          <img src={mathematics} alt="Matematika" className='subjectIMG'/> 
+        </div>
+
+        <div className="subject-container">
+          <a>Magyar Nyelv</a>
+          <img src={grammer} alt="Magyar Nyelv" className='subjectIMG'/>  
+        </div>
+
+        <div className="subject-container">
+          <a>Történelem</a>
+          <img src={history} alt="Történelem" className='subjectIMG'/>
+        </div>
+
+        <div className="subject-container">
+          <a>Kémia</a>
+          <img src={chemistry} alt="Kémia" className='subjectIMG'/>
+        </div>
+          
+        <div className="blackLine"></div> 
+      </div>
+    </div>
+
+    <div className='flex'>
+      <h2>Üdvözöljük a Sulipedia oldalon!</h2>
+      <div>
+          Az oldalt és a hozzá tartozó funkcionalitásokat a{' '}
+          <Link style={{ textDecoration: 'none', color: 'blue' }} to="/aboutUs" underline="none" rel="noreferrer" color="inherit">
+            Speedrun Developers
+          </Link>{' '}
+          csapata készítette!
+        </div>
+        <div>
+          Ön ezen oldal jelenlegi alfa verzióját látja. A jövőben - mint minden más oldalra is - erre is további
+          fejlesztések és új funkciók várnak majd.
+        </div>
+      </div>
+
+      <div className='flex'>
+          
+    </div>
+    </>
   );
 }
