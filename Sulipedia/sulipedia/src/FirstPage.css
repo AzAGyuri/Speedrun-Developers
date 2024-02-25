@@ -1,3 +1,59 @@
-body{
+.flex {
+    display: flex; /* Make the div a flex container */
+    flex: 1; /* Each div will take up one-third of the screen */
+    flex-direction: column; /* Ensure children stack vertically */
+    overflow: hidden; /* Hide overflowing content */
+}
 
+.blackLine {
+    position: absolute;
+    right: 5px; /* Position the black line on the right side */
+    top: 0px;
+    bottom: 0;
+    width: 3px;
+    background-color: black;
+}
+
+.drawer {
+    margin-top: 69px;
+    width: auto;
+    position: fixed;
+    top: 0;
+    left: 0;
+    overflow-x: hidden;
+    transition: 0.5s;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    margin-left: 5px;
+}
+
+.drawer a {
+    padding: 8px 5px 20px 0px;
+    text-decoration: none;
+    font-size: 20px;
+    color: black;
+    transition: 0.3s;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    justify-content: flex-end;
+}
+
+.drawer a:hover {
+    color: #f1f1f1;
+    cursor: pointer;
+}
+
+.subject-container {
+    display: flex;
+    align-items: center;
+    flex-grow: 1;
+}
+
+.subjectIMG {
+    width: 35px;
+    height: 35px;
+    margin-right: 10px;
+    margin-left: 5px;
 }
