@@ -21,6 +21,7 @@ import FunctionsIcon from '@mui/icons-material/Functions';
 import LanguageIcon from '@mui/icons-material/Language';
 import DesktopWindowsIcon from '@mui/icons-material/DesktopWindows';
 import HistoryIcon from '@mui/icons-material/History';
+import './All.css';
 
 const tabData = [
   { label: '12/C Szakmai Angol', members: ['Member 1', 'Member 2', 'Member 3'] },

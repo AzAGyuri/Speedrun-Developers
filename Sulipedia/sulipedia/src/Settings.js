@@ -11,6 +11,7 @@ import {
   Button,
 } from '@mui/material';
 import './Settings.css';
+import './All.css';
 
 const themeLight = createTheme({
   palette: {

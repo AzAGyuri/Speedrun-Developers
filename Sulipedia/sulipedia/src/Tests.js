@@ -12,6 +12,7 @@ import {
   Toolbar,
   styled,
 } from '@mui/material';
+import './All.css';
 
 const StyledButton = styled(Button)({
   backgroundColor: '#ff9800', // Change the background color

@@ -12,6 +12,7 @@ import {
 } from '@mui/material';
 import { styled } from '@mui/system';
 import MenuIcon from '@mui/icons-material/Menu';
+import './All.css';
 
 const StyledContainer = styled(Container)({
   display: 'flex',

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Container, Typography, Grid } from '@mui/material';
 import { styled } from '@mui/system';
+import './All.css';
 import Link from '@mui/material/Link';
 
 const RootContainer = styled(Container)({

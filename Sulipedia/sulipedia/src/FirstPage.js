@@ -3,6 +3,7 @@ import { Container } from '@mui/material';
 import { styled } from '@mui/system';
 import { Link } from 'react-router-dom';
 import './FirstPage.css';
+import './All.css';
 
 import mathematics from './resources/mat.png';
 import grammer from './resources/grammer.png';
@@ -122,20 +123,7 @@ export function Kezdo() {
       </div>
     </div>
 
-    <div className='flex'>
-      <h2>Üdvözöljük a Sulipedia oldalon!</h2>
-      <div>
-          Az oldalt és a hozzá tartozó funkcionalitásokat a{' '}
-          <Link style={{ textDecoration: 'none', color: 'blue' }} to="/aboutUs" underline="none" rel="noreferrer" color="inherit">
-            Speedrun Developers
-          </Link>{' '}
-          csapata készítette!
-        </div>
-        <div>
-          Ön ezen oldal jelenlegi alfa verzióját látja. A jövőben - mint minden más oldalra is - erre is további
-          fejlesztések és új funkciók várnak majd.
-        </div>
-      </div>
+    
 
       <div className='flex'>
           

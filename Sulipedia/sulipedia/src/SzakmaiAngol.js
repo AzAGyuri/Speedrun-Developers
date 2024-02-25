@@ -11,6 +11,7 @@ import {
   Divider,
 } from '@mui/material';
 import { styled } from '@mui/system';
+import './All.css';
 import MenuIcon from '@mui/icons-material/Menu';
 
 const StyledContainer = styled(Container)({

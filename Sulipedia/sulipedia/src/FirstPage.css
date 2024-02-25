@@ -57,3 +57,7 @@
     margin-right: 10px;
     margin-left: 5px;
 }
+body{
+    width: 100vw;
+    height: 100vh;
+}
