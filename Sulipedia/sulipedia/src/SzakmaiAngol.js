@@ -69,7 +69,7 @@ const StyledList = styled(List)({
 });
 
 const StyledListItem = styled(ListItem)({
-  borderBottom: '1px solid #7ffc03', // Green border
+  borderBottom: '1px solid #7ffc03',
 });
 
 const StyledListItemText = styled(ListItemText)({

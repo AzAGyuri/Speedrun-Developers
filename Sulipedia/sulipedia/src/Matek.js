@@ -69,7 +69,7 @@ const StyledList = styled(List)({
 });
 
 const StyledListItem = styled(ListItem)({
-  borderBottom: '1px solid #7ffc03', // Green border
+  borderBottom: '1px solid #7ffc03', 
 });
 
 const StyledListItemText = styled(ListItemText)({
@@ -151,73 +151,73 @@ export function Matek() {
 
             <StyledDrawer anchor="left" open={drawerOpen} onClose={() => setDrawerOpen(false)}>
                 <List>
-                    <ListItem button onClick={() => handleMenuItemClick(1)}>
-                        <ListItemText primary="Algebrai Kifejezések" />
-                    </ListItem>
+                    <StyledListItem button onClick={() => handleMenuItemClick(1)}>
+                        <StyledListItemText primary="Algebrai Kifejezések" />
+                    </StyledListItem>
                     <Collapse in={showSubMenu1} timeout="auto" unmountOnExit>
                         <List component="div" disablePadding style={{ paddingLeft: '20px' }}>
-                            <ListItem button onClick={() => handleSubMenuItemClick(1)}>
-                                <ListItemText primary="Polinomok" />
-                            </ListItem>
+                            <StyledListItem button onClick={() => handleSubMenuItemClick(1)}>
+                                <StyledListItemText primary="Polinomok" />
+                            </StyledListItem>
                             <Collapse in={showSubSubMenu1} timeout="auto" unmountOnExit>
                                 <List component="div" disablePadding style={{ paddingLeft: '20px' }}>
-                                    <ListItem button>
-                                        <ListItemText primary="Másodfokú Egyenletek" />
-                                    </ListItem>
-                                    <ListItem button>
-                                        <ListItemText primary="Harmadfokú Egyenletek" />
-                                    </ListItem>
+                                    <StyledListItem button>
+                                        <StyledListItemText primary="Másodfokú Egyenletek" />
+                                    </StyledListItem>
+                                    <StyledListItem button>
+                                        <StyledListItemText primary="Harmadfokú Egyenletek" />
+                                    </StyledListItem>
                                 </List>
                             </Collapse>
-                            <ListItem button onClick={() => handleSubMenuItemClick(2)}>
-                                <ListItemText primary="Exponenciális Függvények" />
-                            </ListItem>
+                            <StyledListItem button onClick={() => handleSubMenuItemClick(2)}>
+                                <StyledListItemText primary="Exponenciális Függvények" />
+                            </StyledListItem>
                         </List>
                     </Collapse>
-                    <ListItem button onClick={() => handleMenuItemClick(2)}>
-                        <ListItemText primary="Geometria" />
-                    </ListItem>
+                    <StyledListItem button onClick={() => handleMenuItemClick(2)}>
+                        <StyledListItemText primary="Geometria" />
+                    </StyledListItem>
                     <Collapse in={showSubMenu2} timeout="auto" unmountOnExit>
                         <List component="div" disablePadding style={{ paddingLeft: '20px' }}>
-                            <ListItem button onClick={() => handleSubMenuItemClick(3)}>
-                                <ListItemText primary="Háromszögek" />
-                            </ListItem>
+                            <StyledListItem button onClick={() => handleSubMenuItemClick(3)}>
+                                <StyledListItemText primary="Háromszögek" />
+                            </StyledListItem>
                             <Collapse in={showSubSubMenu3} timeout="auto" unmountOnExit>
                                 <List component="div" disablePadding style={{ paddingLeft: '20px' }}>
-                                    <ListItem button>
-                                        <ListItemText primary="Derékszögű Háromszögek" />
-                                    </ListItem>
-                                    <ListItem button>
-                                        <ListItemText primary="Egyenlőszárú Háromszögek" />
-                                    </ListItem>
+                                    <StyledListItem button>
+                                        <StyledListItemText primary="Derékszögű Háromszögek" />
+                                    </StyledListItem>
+                                    <StyledListItem button>
+                                        <StyledListItemText primary="Egyenlőszárú Háromszögek" />
+                                    </StyledListItem>
                                 </List>
                             </Collapse>
-                            <ListItem button onClick={() => handleSubMenuItemClick(4)}>
-                                <ListItemText primary="Körök" />
-                            </ListItem>
+                            <StyledListItem button onClick={() => handleSubMenuItemClick(4)}>
+                                <StyledListItemText primary="Körök" />
+                            </StyledListItem>
                         </List>
                     </Collapse>
-                    <ListItem button onClick={() => handleMenuItemClick(3)}>
-                        <ListItemText primary="Kalkulus" />
-                    </ListItem>
+                    <StyledListItem button onClick={() => handleMenuItemClick(3)}>
+                        <StyledListItemText primary="Kalkulus" />
+                    </StyledListItem>
                     <Collapse in={showSubMenu3} timeout="auto" unmountOnExit>
                         <List component="div" disablePadding style={{ paddingLeft: '20px' }}>
-                            <ListItem button>
-                                <ListItemText primary="Határérték" />
-                            </ListItem>
-                            <ListItem button>
-                                <ListItemText primary="Deriváltak" />
-                            </ListItem>
+                            <StyledListItem button>
+                                <StyledListItemText primary="Határérték" />
+                            </StyledListItem>
+                            <StyledListItem button>
+                                <StyledListItemText primary="Deriváltak" />
+                            </StyledListItem>
                         </List>
                     </Collapse>
-                    <ListItem button onClick={() => handleMenuItemClick(4)}>
-                        <ListItemText primary="Statisztika" />
-                    </ListItem>
+                    <StyledListItem button onClick={() => handleMenuItemClick(4)}>
+                        <StyledListItemText primary="Statisztika" />
+                    </StyledListItem>
                     <Collapse in={showSubMenu4} timeout="auto" unmountOnExit>
                         <List component="div" disablePadding style={{ paddingLeft: '20px' }}>
-                            <ListItem button onClick={() => handleSubMenuItemClick(4)}>
-                                <ListItemText primary="Inferenciális Statisztika" />
-                            </ListItem>
+                            <StyledListItem button onClick={() => handleSubMenuItemClick(4)}>
+                                <StyledListItemText primary="Inferenciális Statisztika" />
+                            </StyledListItem>
                         </List>
                     </Collapse>
                 </List>

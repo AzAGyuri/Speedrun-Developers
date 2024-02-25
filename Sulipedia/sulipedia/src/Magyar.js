@@ -69,7 +69,7 @@ const StyledList = styled(List)({
 });
 
 const StyledListItem = styled(ListItem)({
-  borderBottom: '1px solid #7ffc03', // Green border
+  borderBottom: '1px solid #7ffc03',
 });
 
 const StyledListItemText = styled(ListItemText)({
@@ -151,83 +151,83 @@ export function Magyar() {
 
             <StyledDrawer anchor="left" open={drawerOpen} onClose={() => setDrawerOpen(false)}>
                 <List>
-                    <ListItem button onClick={() => handleMenuItemClick(1)}>
-                        <ListItemText primary="Az irodalmi műfajok" />
-                    </ListItem>
+                    <StyledListItem button onClick={() => handleMenuItemClick(1)}>
+                        <StyledListItemText primary="Az irodalmi műfajok" />
+                    </StyledListItem>
                     <Collapse in={showSubMenu1} timeout="auto" unmountOnExit>
                         <List component="div" disablePadding style={{ paddingLeft: '20px' }}>
-                            <ListItem button onClick={() => handleSubMenuItemClick(1)}>
-                                <ListItemText primary="Az epika" />
-                            </ListItem>
+                            <StyledListItem button onClick={() => handleSubMenuItemClick(1)}>
+                                <StyledListItemText primary="Az epika" />
+                            </StyledListItem>
                             <Collapse in={showSubSubMenu1} timeout="auto" unmountOnExit>
                                 <List component="div" disablePadding style={{ paddingLeft: '20px' }}>
-                                    <ListItem button>
-                                        <ListItemText primary="Az eposz" />
-                                    </ListItem>
-                                    <ListItem button>
-                                        <ListItemText primary="A regény" />
-                                    </ListItem>
+                                    <StyledListItem button>
+                                        <StyledListItemText primary="Az eposz" />
+                                    </StyledListItem>
+                                    <StyledListItem button>
+                                        <StyledListItemText primary="A regény" />
+                                    </StyledListItem>
                                 </List>
                             </Collapse>
-                            <ListItem button onClick={() => handleSubMenuItemClick(2)}>
-                                <ListItemText primary="A líra" />
-                            </ListItem>
+                            <StyledListItem button onClick={() => handleSubMenuItemClick(2)}>
+                                <StyledListItemText primary="A líra" />
+                            </StyledListItem>
                         </List>
                     </Collapse>
-                    <ListItem button onClick={() => handleMenuItemClick(2)}>
-                        <ListItemText primary="A nyelvtan és a helyesírás" />
-                    </ListItem>
+                    <StyledListItem button onClick={() => handleMenuItemClick(2)}>
+                        <StyledListItemText primary="A nyelvtan és a helyesírás" />
+                    </StyledListItem>
                     <Collapse in={showSubMenu2} timeout="auto" unmountOnExit>
                         <List component="div" disablePadding style={{ paddingLeft: '20px' }}>
-                            <ListItem button onClick={() => handleSubMenuItemClick(3)}>
-                                <ListItemText primary="A mondat és a szöveg" />
-                            </ListItem>
+                            <StyledListItem button onClick={() => handleSubMenuItemClick(3)}>
+                                <StyledListItemText primary="A mondat és a szöveg" />
+                            </StyledListItem>
                             <Collapse in={showSubSubMenu3} timeout="auto" unmountOnExit>
                                 <List component="div" disablePadding style={{ paddingLeft: '20px' }}>
-                                    <ListItem button>
-                                        <ListItemText primary="Az összetett mondatok" />
-                                    </ListItem>
-                                    <ListItem button>
-                                        <ListItemText primary="Az idéző mondatok" />
-                                    </ListItem>
+                                    <StyledListItem button>
+                                        <StyledListItemText primary="Az összetett mondatok" />
+                                    </StyledListItem>
+                                    <StyledListItem button>
+                                        <StyledListItemText primary="Az idéző mondatok" />
+                                    </StyledListItem>
                                 </List>
                             </Collapse>
-                            <ListItem button onClick={() => handleSubMenuItemClick(4)}>
-                                <ListItemText primary="A helyesírási szabályok" />
-                            </ListItem>
+                            <StyledListItem button onClick={() => handleSubMenuItemClick(4)}>
+                                <StyledListItemText primary="A helyesírási szabályok" />
+                            </StyledListItem>
                         </List>
                     </Collapse>
-                    <ListItem button onClick={() => handleMenuItemClick(3)}>
-                        <ListItemText primary="A magyar irodalom története" />
-                    </ListItem>
+                    <StyledListItem button onClick={() => handleMenuItemClick(3)}>
+                        <StyledListItemText primary="A magyar irodalom története" />
+                    </StyledListItem>
                     <Collapse in={showSubMenu3} timeout="auto" unmountOnExit>
                         <List component="div" disablePadding style={{ paddingLeft: '20px' }}>
-                            <ListItem button>
-                                <ListItemText primary="A középkori irodalom" />
-                            </ListItem>
-                            <ListItem button>
-                                <ListItemText primary="A reneszánsz irodalom" />
-                            </ListItem>
+                            <StyledListItem button>
+                                <StyledListItemText primary="A középkori irodalom" />
+                            </StyledListItem>
+                            <StyledListItem button>
+                                <StyledListItemText primary="A reneszánsz irodalom" />
+                            </StyledListItem>
                         </List>
                     </Collapse>
-                    <ListItem button onClick={() => handleMenuItemClick(4)}>
-                        <ListItemText primary="A kommunikáció és a nyelvhasználat" />
-                    </ListItem>
+                    <StyledListItem button onClick={() => handleMenuItemClick(4)}>
+                        <StyledListItemText primary="A kommunikáció és a nyelvhasználat" />
+                    </StyledListItem>
                     <Collapse in={showSubMenu4} timeout="auto" unmountOnExit>
                         <List component="div" disablePadding style={{ paddingLeft: '20px' }}>
-                            <ListItem button onClick={() => handleSubMenuItemClick(4)}>
-                                <ListItemText primary="Az érvelési és meggyőzési technikák" />
-                            </ListItem>
+                            <StyledListItem button onClick={() => handleSubMenuItemClick(4)}>
+                                <StyledListItemText primary="Az érvelési és meggyőzési technikák" />
+                            </StyledListItem>
                             <Collapse in={showSubSubMenu4} timeout="auto" unmountOnExit>
                                 <List component="div" disablePadding style={{ paddingLeft: '20px' }}>
-                                    <ListItem button>
-                                        <ListItemText primary="Az érvelés logikája" />
-                                    </ListItem>
+                                    <StyledListItem button>
+                                        <StyledListItemText primary="Az érvelés logikája" />
+                                    </StyledListItem>
                                 </List>
                             </Collapse>
-                            <ListItem button>
-                                <ListItemText primary="A közlési formák" />
-                            </ListItem>
+                            <StyledListItem button>
+                                <StyledListItemText primary="A közlési formák" />
+                            </StyledListItem>
                         </List>
                     </Collapse>
                 </List>
