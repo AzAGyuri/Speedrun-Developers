@@ -7,12 +7,11 @@ import SzakmaiAngolImage from './resources/informatika.png';
 import MatematikaImage from './resources/informatika.png';
 import MagyarNyelvImage from './resources/informatika.png';
 import TortenelemImage from './resources/informatika.png';
-import './All.css';
 
 const SubjectCard = styled(Card)({
   backgroundColor: '#f5f5f5',
   borderRadius: '10px',
-  border: '2px solid grey',  // Added border
+  border: '2px solid grey', 
   boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
   transition: 'transform 0.2s',
   overflow: 'hidden',

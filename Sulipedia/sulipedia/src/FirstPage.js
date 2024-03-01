@@ -3,7 +3,6 @@ import { Container } from '@mui/material';
 import { styled } from '@mui/system';
 import { Link } from 'react-router-dom';
 import './FirstPage.css';
-import './All.css';
 
 import mathematics from './resources/mat.png';
 import grammer from './resources/grammer.png';
@@ -19,10 +18,10 @@ const RootContainer = styled(Container)({
   flexGrow: 1,
   padding: '16px',
   textAlign: 'center',
-  transition: 'background-image 1s ease-in-out',  
-  backgroundSize: 'cover',  
-  backgroundPosition: 'center', 
-  backgroundColor: 'grey', 
+  transition: 'background-image 1s ease-in-out',
+  backgroundSize: 'cover',
+  backgroundPosition: 'center',
+  backgroundColor: 'grey',
   '& > *': {
     textShadow: '2px 2px 2px green',
   },
@@ -42,6 +41,11 @@ const BottomButtonsContainer = styled(Container)({
   marginTop: '32px',
 });
 
+const CloseButton = styled(Button)({
+  position: 'absolute',
+  top: 0,
+  right: 0,
+});
 
 const style = {
   position: 'absolute',
@@ -55,79 +59,93 @@ const style = {
   p: 4,
 };
 
-
 export function Kezdo() {
   const [open, setOpen] = React.useState(true);
   const handleClose = () => setOpen(false);
 
   return (
     <>
-    <div>
-      <Modal
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
-        <Box sx={style}>
-        <HeaderTypography variant="h3">
-        Üdvözöljük a Sulipedia oldalon!
-      </HeaderTypography>
-      <SubheaderTypography variant="body1">
-        Az oldalt és a hozzá tartozó funkcionalitásokat a{' '}
-        <Link style={{ textDecoration: 'none', color: 'blue' }} to="/aboutUs" underline="none" rel="noreferrer" color="inherit">
-          Speedrun Developers
-        </Link>{' '}
-        csapata készítette!
-      </SubheaderTypography>
-      <Typography variant="body1">
-        Ön ezen oldal jelenlegi alfa verzióját látja. A jövőben - mint minden más oldalra is - erre is további
-        fejlesztések és új funkciók várnak majd.
-        <br/>
-        Amennyiben szeretné támogatni az oldal fejlődését azt az alábbi <a href="https://www.paypal.me/Krisz37">linken</a> megteheti!
-      </Typography>
+      <div>
+        <Modal
+          open={open}
+          onClose={handleClose}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
+        >
+          <Box sx={style}>
+            <CloseButton onClick={handleClose} color="primary">
+              X
+            </CloseButton>
+            <HeaderTypography variant="h3">
+              Üdvözöljük a Sulipedia oldalon!
+            </HeaderTypography>
+            <SubheaderTypography variant="body1">
+              Az oldalt és a hozzá tartozó funkcionalitásokat a{' '}
+              <Link
+                style={{ textDecoration: 'none', color: 'blue' }}
+                to="/aboutUs"
+                underline="none"
+                rel="noreferrer"
+                color="inherit"
+              >
+                Speedrun Developers
+              </Link>{' '}
+              csapata készítette!
+            </SubheaderTypography>
+            <Typography variant="body1">
+              Ön ezen oldal jelenlegi alfa verzióját látja. A jövőben - mint minden más oldalra is - erre is
+              további fejlesztések és új funkciók várnak majd.
+              <br />
+              Amennyiben szeretné támogatni az oldal fejlődését azt az alábbi{' '}
+              <a href="https://www.paypal.me/Krisz37">linken</a> megteheti!
+            </Typography>
 
-      <BottomButtonsContainer>
-        <Button variant="contained" color="secondary" component={Link} to="/LearnMore">
-          Tudj meg többet
-        </Button>
-      </BottomButtonsContainer>
-        </Box>
-      </Modal>
-    </div>
-
-
-    <div className='flex'>   
-      <div className="drawer">
-        <div className="subject-container">
-          <a>Matematika</a>
-          <img src={mathematics} alt="Matematika" className='subjectIMG'/> 
-        </div>
-
-        <div className="subject-container">
-          <a>Magyar Nyelv</a>
-          <img src={grammer} alt="Magyar Nyelv" className='subjectIMG'/>  
-        </div>
-
-        <div className="subject-container">
-          <a>Történelem</a>
-          <img src={history} alt="Történelem" className='subjectIMG'/>
-        </div>
-
-        <div className="subject-container">
-          <a>Kémia</a>
-          <img src={chemistry} alt="Kémia" className='subjectIMG'/>
-        </div>
-          
-        <div className="blackLine"></div> 
+            <BottomButtonsContainer>
+              <Button variant="contained" color="secondary" component={Link} to="/LearnMore">
+                Tudj meg többet
+              </Button>
+            </BottomButtonsContainer>
+          </Box>
+        </Modal>
       </div>
-    </div>
 
-    
+      <div className="flex">
+        <div className="drawer">
+        <Link  style={{ textDecoration: 'none',color:"white" }} to="/Matek" underline="none" rel="noreferrer"  color="inherit">
+          <div className="subject-container">
+            <a>Matematika</a>
+            <img src={mathematics} alt="Matematika" className="subjectIMG" />
+          </div>
+          </Link>
+          <Link  style={{ textDecoration: 'none',color:"white" }} to="/magyar" underline="none" rel="noreferrer"  color="inherit">
+          <div className="subject-container">
+            <a>Magyar Nyelv</a>
+            <img src={grammer} alt="Magyar Nyelv" className="subjectIMG" />
+          </div>
+          </Link>
+          <Link  style={{ textDecoration: 'none',color:"white" }} to="/Tortenelem" underline="none" rel="noreferrer"  color="inherit">
+          <div className="subject-container">
+            <a>Történelem</a>
+            <img src={history} alt="Történelem" className="subjectIMG" />
+          </div>
+          </Link>
+          <Link  style={{ textDecoration: 'none',color:"white" }} to="/szakmai-angol" underline="none" rel="noreferrer"  color="inherit">
+          <div className="subject-container">
+            <a>Szakmai angol (majd szedj hozzá képet, Zagyi)</a>
+            <img src={chemistry} alt="Szakmai angol" className="subjectIMG" />
+          </div>
+          </Link>
+          <Link  style={{ textDecoration: 'none',color:"white" }} to="/informatika" underline="none" rel="noreferrer"  color="inherit">
+          <div className="subject-container">
+            <a>Informatika (majd szedj hozzá képet, Zagyi)</a>
+            <img src={chemistry} alt="Informatika" className="subjectIMG" />
+          </div>
+          </Link>
+          <div className="blackLine"></div>
+        </div>
+      </div>
 
-      <div className='flex'>
-          
-    </div>
+      <div className="flex">{}</div>
     </>
   );
 }

@@ -1,148 +1,209 @@
 import React, { useState } from 'react';
 import {
-  AppBar,
   Container,
-  CssBaseline,
-  Toolbar,
   Typography,
+  Paper,
+  Avatar,
   IconButton,
-  Drawer,
   List,
   ListItem,
+  ListItemAvatar,
   ListItemText,
-  ListItemIcon,
-  Tab,
-  Tabs,
-  Box,
+  Divider,
+  Modal,
+  Backdrop,
+  Fade,
+  TextField,
+  Button,
 } from '@mui/material';
-import MenuIcon from '@mui/icons-material/Menu';
-import AssignmentIcon from '@mui/icons-material/Assignment';
-import FunctionsIcon from '@mui/icons-material/Functions';
-import LanguageIcon from '@mui/icons-material/Language';
-import DesktopWindowsIcon from '@mui/icons-material/DesktopWindows';
-import HistoryIcon from '@mui/icons-material/History';
-import './All.css';
+import { Phone, Email, LocationOn, Edit, Delete, Add } from '@mui/icons-material';
 
-const tabData = [
-  { label: '12/C Szakmai Angol', members: ['Member 1', 'Member 2', 'Member 3'] },
-  { label: '12/C Matematika', members: ['Member 4', 'Member 5', 'Member 6'] },
-  { label: '12/C Magyar Nyelv', members: ['Member 7', 'Member 8', 'Member 9'] },
-  { label: '12/C Informatika', members: ['Member 10', 'Member 11', 'Member 12'] },
-  { label: '12/C Történelem', members: ['Member 13', 'Member 14', 'Member 15'] },
-];
+const styles = {
+  container: {
+    paddingTop: '20px',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    minHeight: '100vh',
+  },
+  paper: {
+    padding: '20px',
+    width: '600px',
+    background: 'linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%)',
+    boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)',
+    borderRadius: '12px',
+  },
+  avatar: {
+    width: '60px',
+    height: '60px',
+    backgroundColor: '#6c757d',
+    fontSize: '24px',
+  },
+  actions: {
+    display: 'flex',
+    alignItems: 'center',
+  },
+  modal: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  modalPaper: {
+    backgroundColor: '#fff',
+    boxShadow: 24,
+    padding: '20px',
+    width: '400px',
+    borderRadius: '8px',
+  },
+  addButton: {
+    backgroundColor: '#28a745',
+    color: '#fff',
+    '&:hover': {
+      backgroundColor: '#218838',
+    },
+  },
+  deleteButton: {
+    color: '#fff',
+    '&:hover': {
+      backgroundColor: '#dc3545',
+    },
+  },
+  addGroupButton: {
+    backgroundColor: '#007bff',
+    color: '#fff',
+    '&:hover': {
+      backgroundColor: '#0056b3',
+    },
+  },
+};
 
-const drawerItems = [
-  { label: '12/C Szakmai Angol', color: '#ff8a65', icon: <AssignmentIcon style={{ color: 'black' }} /> },
-  { label: '12/C Matematika', color: '#4caf50', icon: <FunctionsIcon style={{ color: 'black' }} /> },
-  { label: '12/C Magyar Nyelv', color: '#2196f3', icon: <LanguageIcon style={{ color: 'black' }} /> },
-  { label: '12/C Informatika', color: '#e91e63', icon: <DesktopWindowsIcon style={{ color: 'black' }} /> },
-  { label: '12/C Történelem', color: '#ffc107', icon: <HistoryIcon style={{ color: 'black' }} /> },
+const groups = [
+  {
+    id: 1,
+    name: 'Szakmai angol',
+    description: 'Szakmai angol csoport',
+  },
+  {
+    id: 2,
+    name: 'Informatika',
+    description: 'Informatika csoport',
+  },
+  {
+    id: 3,
+    name: 'Magyar',
+    description: 'Magyar csoport',
+  },
+  {
+    id: 4,
+    name: 'Matek',
+    description: 'Matek csoport',
+  },
+  {
+    id: 5,
+    name: 'Történelem',
+    description: 'Történelem csoport',
+  },
 ];
 
 export function MyGroups() {
-  const [drawerOpen, setDrawerOpen] = useState(false);
-  const [selectedTab, setSelectedTab] = useState(0);
+  const [open, setOpen] = useState(false);
+  const [newGroupName, setNewGroupName] = useState('');
+  const [newGroupDescription, setNewGroupDescription] = useState('');
 
-  const handleDrawerToggle = () => {
-    setDrawerOpen(!drawerOpen);
+  const handleOpen = () => {
+    setOpen(true);
   };
 
-  const handleTabChange = (event, newValue) => {
-    setSelectedTab(newValue);
+  const handleClose = () => {
+    setOpen(false);
   };
 
-  const handleGroupClick = (groupName) => {
-    console.log(`Clicked on group: ${groupName}`);
-    setDrawerOpen(false);
+  const handleAddGroup = () => {
+    // Implement logic to add a new group
+    console.log('New group added:', newGroupName, newGroupDescription);
+    setOpen(false);
   };
 
   return (
-    <div>
-      <CssBaseline />
-      <AppBar position="sticky">
-        <Toolbar sx={{ backgroundColor: '#3f51b5' }}>
-          <IconButton
-            onClick={handleDrawerToggle}
-            edge="start"
-            sx={{
-              border: '1px solid #ccc',
-              borderRadius: '4px',
-              color: 'white',
-              backgroundColor: '#333',
-              '&:hover': {
-                backgroundColor: '#333',
-              },
-              position: 'relative',
-              zIndex: drawerOpen ? 1 : 'auto',
-            }}
-          >
-            <MenuIcon />
-          </IconButton>
-        </Toolbar>
-      </AppBar>
-      <Container sx={{ mt: 2, display: 'flex' }}>
-        <Drawer
-          anchor="left"
-          open={drawerOpen}
-          onClose={handleDrawerToggle}
-          sx={{ display: 'flex', flexDirection: 'column', gap: '8px', backgroundColor: '#00bcd4', height: '100%' }}
-        >
-          <Tabs
-            value={selectedTab}
-            onChange={handleTabChange}
-            orientation="vertical"
-            variant="scrollable"
-            sx={{ borderRight: 1, borderColor: 'divider', minWidth: 200, display: 'flex', flexDirection: 'column', gap: '8px', height: '100%' }}
-          >
-            {drawerItems.map((item, index) => (
-              <Tab
-                label={
-                  <React.Fragment>
-                    <Box sx={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                      <ListItemIcon>{item.icon}</ListItemIcon>
-                      <Typography variant="body2">{item.label}</Typography>
-                    </Box>
-                  </React.Fragment>
-                }
-                key={index}
-                sx={{ color: 'black', backgroundColor: item.color, flexGrow: 1 }}
-              />
-            ))}
-          </Tabs>
-        </Drawer>
-        <Box sx={{ flexGrow: 1 }}>
-          {tabData.map((item, index) => (
-            <TabPanel value={selectedTab} index={index} key={index}>
-              <List>
-                <ListItem>
-                  <ListItemText primary={`Members of ${item.label}`} />
-                </ListItem>
-                {item.members.map((member, memberIndex) => (
-                  <ListItem key={memberIndex}>
-                    <ListItemText primary={member} />
-                  </ListItem>
-                ))}
-              </List>
-            </TabPanel>
+    <Container maxWidth="lg" style={styles.container}>
+      <Paper elevation={3} style={styles.paper}>
+        <Typography variant="h5" align="center" gutterBottom>
+          Csoportjaim
+        </Typography>
+        <List>
+          {groups.map((group) => (
+            <React.Fragment key={group.id}>
+              <ListItem alignItems="flex-start">
+                <ListItemAvatar>
+                  <Avatar alt={group.name} style={styles.avatar}>
+                    {group.name[0].toUpperCase()}
+                  </Avatar>
+                </ListItemAvatar>
+                <ListItemText
+                  primary={group.name}
+                  secondary={
+                    <React.Fragment>
+                      <Typography component="span" variant="body2" color="textSecondary">
+                        {group.description}
+                      </Typography>
+                    </React.Fragment>
+                  }
+                />
+                <div style={styles.actions}>
+                  <IconButton color="secondary" aria-label="delete" style={styles.deleteButton}>
+                    <Delete />
+                  </IconButton>
+                </div>
+              </ListItem>
+              <Divider variant="inset" component="li" />
+            </React.Fragment>
           ))}
-        </Box>
-      </Container>
-    </div>
-  );
-}
-
-function TabPanel(props) {
-  const { children, value, index, ...other } = props;
-
-  return (
-    <div
-      role="tabpanel"
-      hidden={value !== index}
-      id={`simple-tabpanel-${index}`}
-      aria-labelledby={`simple-tab-${index}`}
-      {...other}
-    >
-      {value === index && <Box>{children}</Box>}
-    </div>
+          <ListItem alignItems="center">
+            <IconButton color="primary" aria-label="add" onClick={handleOpen} style={styles.addButton}>
+              <Add />
+            </IconButton>
+          </ListItem>
+        </List>
+      </Paper>
+      <Modal
+        aria-labelledby="transition-modal-title"
+        aria-describedby="transition-modal-description"
+        open={open}
+        onClose={handleClose}
+        closeAfterTransition
+        BackdropComponent={Backdrop}
+        BackdropProps={{
+          timeout: 500,
+        }}
+        style={styles.modal}
+      >
+        <Fade in={open}>
+          <Paper elevation={3} style={styles.modalPaper}>
+            <Typography variant="h6" gutterBottom>
+              Új csoport hozzáadása
+            </Typography>
+            <TextField
+              label="Csoportnév"
+              variant="outlined"
+              fullWidth
+              margin="normal"
+              value={newGroupName}
+              onChange={(e) => setNewGroupName(e.target.value)}
+            />
+            <TextField
+              label="Leírás"
+              variant="outlined"
+              fullWidth
+              margin="normal"
+              value={newGroupDescription}
+              onChange={(e) => setNewGroupDescription(e.target.value)}
+            />
+            <Button variant="contained" color="primary" onClick={handleAddGroup} style={styles.addGroupButton}>
+              Hozzáadás
+            </Button>
+          </Paper>
+        </Fade>
+      </Modal>
+    </Container>
   );
 }

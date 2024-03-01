@@ -8,7 +8,6 @@ import { LearnMore } from './LearnMore';
 import { Curriculums } from './Curriculums';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import './All.css';
 import { Link } from 'react-router-dom';
 import SignUp from './SignUp';
 import { MyGroups } from './MyGroups';

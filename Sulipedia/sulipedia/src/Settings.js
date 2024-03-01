@@ -1,228 +1,157 @@
 // Settings.js
-import React, { useState, useEffect } from 'react';
-import { ThemeProvider, createTheme } from '@mui/material/styles';
-import {
-  Container,
-  Typography,
-  Paper,
-  Radio,
-  Checkbox,
-  TextField,
-  Button,
-} from '@mui/material';
+import React, { useState } from 'react';
+import { Container, Typography, Paper, TextField, Button, Grid, Avatar, Link } from '@mui/material';
 import './Settings.css';
-import './All.css';
 
-const themeLight = createTheme({
-  palette: {
-    mode: 'light',
+const styles = {
+  container: {
+    padding: '20px',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: '100vh',
+    background: 'linear-gradient(135deg, #ffd500 0%, #f7971e 100%)', 
   },
-});
-
-const themeDark = createTheme({
-  palette: {
-    mode: 'dark',
+  paper: {
+    padding: '40px',
+    borderRadius: '12px',
+    boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)',
+    background: 'linear-gradient(45deg, #ffe259 30%, #ffa751 90%)', 
+    color: 'white',
+    maxWidth: '600px',
+    width: '100%',
+    border: '2px solid #fff', 
   },
-});
-
-const themeBlue = createTheme({
-  palette: {
-    primary: {
-      main: '#2196f3', // Blue color
+  avatar: {
+    width: '50px',
+    height: '50px',
+    marginRight: '8px',
+    border: '2px solid #fff', 
+  },
+  passwordField: {
+    width: '100%',
+    marginBottom: '20px',
+    border: '2px solid #fff', 
+    borderRadius: '4px',
+  },
+  saveButton: {
+    marginTop: '20px',
+    background: '#2ecc71',
+    '&:hover': {
+      background: '#27ae60',
     },
+    border: '2px solid #fff',
+    borderRadius: '4px',
   },
-});
-
-const themeGreen = createTheme({
-  palette: {
-    primary: {
-      main: '#4caf50', // Green color
-    },
-  },
-});
-
-const themePurple = createTheme({
-  palette: {
-    primary: {
-      main: '#673ab7', // Purple color
-    },
-  },
-});
-
-const themeOrange = createTheme({
-  palette: {
-    primary: {
-      main: '#ff9800', // Orange color
-    },
-  },
-});
-
-const themeRed = createTheme({
-  palette: {
-    primary: {
-      main: '#f44336', // Red color
-    },
-  },
-});
-
-const themeYellow = createTheme({
-  palette: {
-    primary: {
-      main: '#ffeb3b', // Yellow color
-    },
-  },
-});
-
-const themeCyan = createTheme({
-  palette: {
-    primary: {
-      main: '#00bcd4', // Cyan color
-    },
-  },
-});
+};
 
 export function Settings() {
-  const storedTheme = localStorage.getItem('theme') || 'light'; // Retrieve theme from local storage or default to 'light'
-  const [theme, setTheme] = useState(storedTheme);
-  const [notifications, setNotifications] = useState(true);
   const [email, setEmail] = useState('felhasznalo@pelda.com');
   const [phoneNumber, setPhoneNumber] = useState('123-456-7890');
   const [nickname, setNickname] = useState('Felhasznalo1');
-
-  const [emailError, setEmailError] = useState(false);
-  const [phoneError, setPhoneError] = useState(false);
-
-  const handleThemeChange = (newTheme) => {
-    setTheme(newTheme);
-  };
-
-  const handleNotificationsChange = () => {
-    setNotifications(!notifications);
-  };
+  const [formData, setFormData] = useState({
+    password: '',
+  });
+  const [passwordError, setPasswordError] = useState(false);
 
   const handleEmailChange = (newEmail) => {
     setEmail(newEmail);
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    setEmailError(!emailRegex.test(newEmail));
   };
 
   const handlePhoneNumberChange = (newPhoneNumber) => {
     setPhoneNumber(newPhoneNumber);
-    setPhoneError(newPhoneNumber.length !== 11);
   };
 
   const handleNicknameChange = (newNickname) => {
     setNickname(newNickname);
   };
 
+  const handlePasswordChange = (newPassword) => {
+    setFormData((prevData) => ({ ...prevData, password: newPassword }));
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+    setPasswordError(!passwordRegex.test(newPassword));
+  };
+
   const handleSaveChanges = () => {
-    if (!emailError && !phoneError) {
-      console.log('Changes saved:', { theme, notifications, email, phoneNumber, nickname });
+    if (!passwordError) {
+      console.log('Changes saved:', { email, phoneNumber, nickname, password: formData.password });
     } else {
       console.error('Invalid data. Please fix the validation errors.');
     }
   };
 
-  useEffect(() => {
-    document.body.className = theme + '-theme';
-    localStorage.setItem('theme', theme);
-  }, [theme]);
-
   return (
-    <ThemeProvider theme={getThemeObject(theme)}>
-      <Container component="div" maxWidth="sm" className="Settings-container">
-        <Paper elevation={3} className="Settings-paper">
-          <Typography variant="h4">Beállítások</Typography>
-          <section className="Settings-section">
-            <Typography variant="h6">Téma</Typography>
-            <div className="Theme-grid">
-              {renderThemeOption('light', 'Világos', theme, setTheme)}
-              {renderThemeOption('dark', 'Sötét', theme, setTheme)}
-              {renderThemeOption('blue', 'Kék', theme, setTheme)}
-              {renderThemeOption('green', 'Zöld', theme, setTheme)}
-              {renderThemeOption('purple', 'Lila', theme, setTheme)}
-              {renderThemeOption('orange', 'Narancs', theme, setTheme)}
-              {renderThemeOption('red', 'Piros', theme, setTheme)}
-              {renderThemeOption('cyan', 'Cián', theme, setTheme)}
-            </div>
-          </section>
-          <section className="Settings-section">
-            <Typography variant="h6">Értesítések</Typography>
-            <Checkbox checked={notifications} onChange={handleNotificationsChange} color="primary" />
-            <Typography variant="body2">Értesítések engedélyezése</Typography>
-          </section>
-          <section className="Settings-section">
-            <Typography variant="h6">Saját adatok megváltoztatása</Typography>
-            <TextField
-              label="E-mail"
-              variant="outlined"
-              value={email}
-              onChange={(e) => handleEmailChange(e.target.value)}
-              fullWidth
-              margin="normal"
-              error={emailError}
-              helperText={emailError ? 'Érvénytelen e-mail cím' : ''}
-            />
-            <TextField
-              label="Telefonszám"
-              variant="outlined"
-              value={phoneNumber}
-              onChange={(e) => handlePhoneNumberChange(e.target.value)}
-              fullWidth
-              margin="normal"
-              error={phoneError}
-              helperText={phoneError ? 'A telefonszám hossza pontosan 11 karakter kell legyen' : ''}
-            />
-            <TextField
-              label="Becenév"
-              variant="outlined"
-              value={nickname}
-              onChange={(e) => handleNicknameChange(e.target.value)}
-              fullWidth
-              margin="normal"
-            />
-          </section>
-          <Button variant="contained" color="primary" onClick={handleSaveChanges}>
-            Változások mentése
-          </Button>
-        </Paper>
-      </Container>
-    </ThemeProvider>
+    <Container maxWidth="sm" style={styles.container}>
+      <Paper elevation={3} style={styles.paper}>
+        <Typography variant="h4">Beállítások</Typography>
+        <section className="Settings-section">
+          <Typography variant="h6">Saját adatok megváltoztatása</Typography>
+          <Grid container spacing={2}>
+            <Grid item xs={12}>
+              <Avatar className="Avatar-icon" style={styles.avatar}>
+                {nickname.length > 0 ? nickname[0].toUpperCase() : null}
+              </Avatar>
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                label="E-mail"
+                variant="outlined"
+                value={email}
+                onChange={(e) => handleEmailChange(e.target.value)}
+                fullWidth
+                margin="normal"
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                label="Telefonszám"
+                variant="outlined"
+                value={phoneNumber}
+                onChange={(e) => handlePhoneNumberChange(e.target.value)}
+                fullWidth
+                margin="normal"
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                label="Becenév"
+                variant="outlined"
+                value={nickname}
+                onChange={(e) => handleNicknameChange(e.target.value)}
+                fullWidth
+                margin="normal"
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                fullWidth
+                name="password"
+                label="Jelszó megváltoztatása"
+                type="text"
+                autoComplete="new-password"
+                value={formData.password}
+                onChange={(e) => handlePasswordChange(e.target.value)}
+                error={passwordError}
+                helperText={
+                  passwordError
+                    ? 'A jelszónak legalább 8 karakter hosszúnak kell lennie, tartalmaznia kell kis- és nagybetűt, számot, valamint speciális karaktert (@$!%*?&)'
+                    : ''
+                }
+                InputProps={{
+                  endAdornment: (
+                    <Link onClick={() => {}} style={{ cursor: 'pointer' }}>
+                      {''}
+                    </Link>
+                  ),
+                }}
+              />
+            </Grid>
+          </Grid>
+        </section>
+        <Button variant="contained" color="primary" onClick={handleSaveChanges} style={styles.saveButton}>
+          Változások mentése
+        </Button>
+      </Paper>
+    </Container>
   );
-}
-
-function renderThemeOption(themeKey, themeLabel, currentTheme, setThemeFunction) {
-  return (
-    <label key={themeKey}>
-      {themeLabel}
-      <Radio
-        value={themeKey}
-        checked={currentTheme === themeKey}
-        onChange={() => setThemeFunction(themeKey)}
-      />
-    </label>
-  );
-}
-
-function getThemeObject(selectedTheme) {
-  switch (selectedTheme) {
-    case 'light':
-      return themeLight;
-    case 'dark':
-      return themeDark;
-    case 'blue':
-      return themeBlue;
-    case 'green':
-      return themeGreen;
-    case 'purple':
-      return themePurple;
-    case 'orange':
-      return themeOrange;
-    case 'red':
-      return themeRed;
-    case 'cyan':
-      return themeCyan;
-    default:
-      return themeLight;
-  }
 }

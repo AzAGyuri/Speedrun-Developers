@@ -14,7 +14,6 @@ import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import './All.css';
 const defaultTheme = createTheme();
 
 export default function SignUp() {
@@ -79,7 +78,7 @@ export default function SignUp() {
     }
 
     // Validation logic for last name
-    if (formData.lastName.length < 3) {
+    if (formData.lastName.length < 2) {
       setLastNameError(true);
     }
 
