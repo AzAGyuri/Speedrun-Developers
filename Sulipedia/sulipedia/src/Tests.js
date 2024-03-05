@@ -1,4 +1,4 @@
-// Tests.js
+
 import React, { useState } from 'react';
 import {
   Button,
@@ -14,46 +14,46 @@ import {
 } from '@mui/material';
 
 const StyledButton = styled(Button)({
-  backgroundColor: '#ff9800', // Change the background color
-  color: '#ffffff', // Change the font color
+  backgroundColor: '#ff9800',
+  color: '#ffffff',
   margin: (theme) => theme.spacing(1),
   '&:hover': {
-    backgroundColor: '#ffcc80', // Change the hover color
+    backgroundColor: '#ffcc80',
   },
 });
 
 const VegyesButton = styled(Button)({
-  backgroundColor: '#ff6347', // Greenish-red background color for Vegyes tesztek
-  color: '#ffffff', // Change the font color
-  border: '4px solid #ff6347', // Bigger border
+  backgroundColor: '#ff6347',
+  color: '#ffffff',
+  border: '4px solid #ff6347',
   '&:hover': {
-    backgroundColor: '#ff7f50', // Change the hover color
+    backgroundColor: '#ff7f50',
   },
-  marginLeft: (theme) => theme.spacing(1), // Add left margin
-  width: '150px', // Set smaller width
+  marginLeft: (theme) => theme.spacing(1),
+  width: '150px',
 });
 
 const StyledContainer = styled(Container)({
-  backgroundColor: '#333', // Change the background color of the base container
-  border: '2px solid #555', // Add border to the base container
-  padding: 100, // Increase padding for a taller container
-  marginTop: 50, // Increase marginTop
+  backgroundColor: '#333',
+  border: '2px solid #555',
+  padding: 100,
+  marginTop: 50,
 });
 
 const StyledPaper = styled(Paper)({
-  backgroundColor: '#fff59d', // Change the background color of the paper to light yellow
+  backgroundColor: '#fff59d',
 });
 
 const StyledCard = styled(Card)({
-  backgroundColor: '#ccc', // Change the background color of the cards to lighter gray
-  color: '#333', // Change the font color of the cards
+  backgroundColor: '#ccc',
+  color: '#333',
 });
 
 const FlexContainer = styled('div')({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'space-between',
-  padding: '20px', // Increase padding
+  padding: '20px',
 });
 
 export function Tests() {
@@ -81,7 +81,6 @@ export function Tests() {
     { title: 'Algebrai kifejezések 2', subject: 'Matematika' },
     { title: 'Algebrai kifejezések 3', subject: 'Matematika' },
     { title: 'Informatikai alapok 2', subject: 'Informatika' },
-    // Add more tests with subjects as needed
   ];
 
   const filteredTests = selectedSubject

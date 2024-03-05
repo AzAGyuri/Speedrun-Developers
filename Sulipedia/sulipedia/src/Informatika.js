@@ -8,7 +8,6 @@ import {
   ListItem,
   ListItemText,
   Collapse,
-  Divider,
 } from '@mui/material';
 import { styled } from '@mui/system';
 import MenuIcon from '@mui/icons-material/Menu';
@@ -76,9 +75,6 @@ const StyledListItemText = styled(ListItemText)({
   color: 'white',
 });
 
-const StyledDivider = styled(Divider)({
-  backgroundColor: '#7ffc03', 
-});
 
 export function Informatika() {
     const [drawerOpen, setDrawerOpen] = React.useState(false);
@@ -150,87 +146,87 @@ export function Informatika() {
             </StyledDrawerButton>
 
             <StyledDrawer anchor="left" open={drawerOpen} onClose={() => setDrawerOpen(false)}>
-                <List>
+                <StyledList>
                     <StyledListItem button onClick={() => handleMenuItemClick(1)}>
                         <StyledListItemText primary="A programozás alapjai" />
                     </StyledListItem>
                     <Collapse in={showSubMenu1} timeout="auto" unmountOnExit>
-                        <List component="div" disablePadding style={{ paddingLeft: '20px' }}>
+                        <StyledList component="div" disablePadding style={{ paddingLeft: '20px' }}>
                             <StyledListItem button onClick={() => handleSubMenuItemClick(1)}>
                                 <StyledListItemText primary="A Java programozási nyelv" />
                             </StyledListItem>
                             <Collapse in={showSubSubMenu1} timeout="auto" unmountOnExit>
-                                <List component="div" disablePadding style={{ paddingLeft: '20px' }}>
+                                <StyledList component="div" disablePadding style={{ paddingLeft: '20px' }}>
                                     <StyledListItem button>
                                         <StyledListItemText primary="Az objektumorientált programozás" />
                                     </StyledListItem>
                                     <StyledListItem button>
                                         <StyledListItemText primary="A Java osztályok és metódusok" />
                                     </StyledListItem>
-                                </List>
+                                </StyledList>
                             </Collapse>
                             <StyledListItem button onClick={() => handleSubMenuItemClick(2)}>
                                 <StyledListItemText primary="A webfejlesztés alapjai" />
                             </StyledListItem>
-                        </List>
+                        </StyledList>
                     </Collapse>
                     <StyledListItem button onClick={() => handleMenuItemClick(2)}>
                         <StyledListItemText primary="Az adatbázisok és SQL" />
                     </StyledListItem>
                     <Collapse in={showSubMenu2} timeout="auto" unmountOnExit>
-                        <List component="div" disablePadding style={{ paddingLeft: '20px' }}>
+                        <StyledList component="div" disablePadding style={{ paddingLeft: '20px' }}>
                             <StyledListItem button onClick={() => handleSubMenuItemClick(3)}>
                                 <StyledListItemText primary="Az adatbázisok tervezése" />
                             </StyledListItem>
                             <Collapse in={showSubSubMenu3} timeout="auto" unmountOnExit>
-                                <List component="div" disablePadding style={{ paddingLeft: '20px' }}>
+                                <StyledList component="div" disablePadding style={{ paddingLeft: '20px' }}>
                                     <StyledListItem button>
                                         <StyledListItemText primary="A relációs adatbázisok" />
                                     </StyledListItem>
                                     <StyledListItem button>
                                         <StyledListItemText primary="Az SQL lekérdezések" />
                                     </StyledListItem>
-                                </List>
+                                </StyledList>
                             </Collapse>
                             <StyledListItem button onClick={() => handleSubMenuItemClick(4)}>
                                 <StyledListItemText primary="Az adatbázisok kezelése" />
                             </StyledListItem>
-                        </List>
+                        </StyledList>
                     </Collapse>
                     <StyledListItem button onClick={() => handleMenuItemClick(3)}>
                         <StyledListItemText primary="A szoftvertervezés alapjai" />
                     </StyledListItem>
                     <Collapse in={showSubMenu3} timeout="auto" unmountOnExit>
-                        <List component="div" disablePadding style={{ paddingLeft: '20px' }}>
+                        <StyledList component="div" disablePadding style={{ paddingLeft: '20px' }}>
                             <StyledListItem button>
                                 <StyledListItemText primary="Az UML diagramok" />
                             </StyledListItem>
                             <StyledListItem button>
                                 <StyledListItemText primary="A tervezési minták" />
                             </StyledListItem>
-                        </List>
+                        </StyledList>
                     </Collapse>
                     <StyledListItem button onClick={() => handleMenuItemClick(4)}>
                         <StyledListItemText primary="A hálózati technológiák" />
                     </StyledListItem>
                     <Collapse in={showSubMenu4} timeout="auto" unmountOnExit>
-                        <List component="div" disablePadding style={{ paddingLeft: '20px' }}>
+                        <StyledList component="div" disablePadding style={{ paddingLeft: '20px' }}>
                             <StyledListItem button onClick={() => handleSubMenuItemClick(4)}>
                                 <StyledListItemText primary="A TCP/IP protokollcsalád" />
                             </StyledListItem>
                             <Collapse in={showSubSubMenu4} timeout="auto" unmountOnExit>
-                                <List component="div" disablePadding style={{ paddingLeft: '20px' }}>
+                                <StyledList component="div" disablePadding style={{ paddingLeft: '20px' }}>
                                     <StyledListItem button>
                                         <StyledListItemText primary="Az IPv4 és IPv6" />
                                     </StyledListItem>
-                                </List>
+                                </StyledList>
                             </Collapse>
                             <StyledListItem button>
                                 <StyledListItemText primary="A webes kommunikáció" />
                             </StyledListItem>
-                        </List>
+                        </StyledList>
                     </Collapse>
-                </List>
+                </StyledList>
             </StyledDrawer>
             <StyledContainer>
                 <Title variant="h3">Az Informatikáról</Title>

@@ -77,11 +77,6 @@ const StyledListItem = styled(ListItem)({
 const StyledListItemText = styled(ListItemText)({
   color: 'white',
 });
-
-const StyledDivider = styled(Divider)({
-  backgroundColor: '#7ffc03', 
-});
-
 export function Tortenelem() {
     const [drawerOpen, setDrawerOpen] = React.useState(false);
     const [showSubMenu1, setShowSubMenu1] = React.useState(false);
@@ -152,87 +147,87 @@ export function Tortenelem() {
             </StyledDrawerButton>
 
             <StyledDrawer anchor="left" open={drawerOpen} onClose={() => setDrawerOpen(false)}>
-                <List>
+                <StyledList>
                     <StyledListItem button onClick={() => handleMenuItemClick(1)}>
                         <StyledListItemText primary="Az őskor" />
                     </StyledListItem>
                     <Collapse in={showSubMenu1} timeout="auto" unmountOnExit>
-                        <List component="div" disablePadding style={{ paddingLeft: '20px' }}>
+                        <StyledList component="div" disablePadding style={{ paddingLeft: '20px' }}>
                             <StyledListItem button onClick={() => handleSubMenuItemClick(1)}>
                                 <StyledListItemText primary="Az őskori civilizációk" />
                             </StyledListItem>
                             <Collapse in={showSubSubMenu1} timeout="auto" unmountOnExit>
-                                <List component="div" disablePadding style={{ paddingLeft: '20px' }}>
+                                <StyledList component="div" disablePadding style={{ paddingLeft: '20px' }}>
                                     <StyledListItem button>
                                         <StyledListItemText primary="Az Egyiptomi civilizáció" />
                                     </StyledListItem>
                                     <StyledListItem button>
                                         <StyledListItemText primary="A Mezopotámiai civilizáció" />
                                     </StyledListItem>
-                                </List>
+                                </StyledList>
                             </Collapse>
                             <StyledListItem button onClick={() => handleSubMenuItemClick(2)}>
                                 <StyledListItemText primary="Az őskori hatalmak" />
                             </StyledListItem>
-                        </List>
+                        </StyledList>
                     </Collapse>
                     <StyledListItem button onClick={() => handleMenuItemClick(2)}>
                         <StyledListItemText primary="A középkor" />
                     </StyledListItem>
                     <Collapse in={showSubMenu2} timeout="auto" unmountOnExit>
-                        <List component="div" disablePadding style={{ paddingLeft: '20px' }}>
+                        <StyledList component="div" disablePadding style={{ paddingLeft: '20px' }}>
                             <StyledListItem button onClick={() => handleSubMenuItemClick(3)}>
                                 <StyledListItemText primary="A feudális rendszer" />
                             </StyledListItem>
                             <Collapse in={showSubSubMenu3} timeout="auto" unmountOnExit>
-                                <List component="div" disablePadding style={{ paddingLeft: '20px' }}>
+                                <StyledList component="div" disablePadding style={{ paddingLeft: '20px' }}>
                                     <StyledListItem button>
                                         <StyledListItemText primary="Az Angol kereszténység" />
                                     </StyledListItem>
                                     <StyledListItem button>
                                         <StyledListItemText primary="Az Arab birodalom" />
                                     </StyledListItem>
-                                </List>
+                                </StyledList>
                             </Collapse>
                             <StyledListItem button onClick={() => handleSubMenuItemClick(4)}>
                                 <StyledListItemText primary="A keresztes háborúk" />
                             </StyledListItem>
-                        </List>
+                        </StyledList>
                     </Collapse>
                     <StyledListItem button onClick={() => handleMenuItemClick(3)}>
                         <StyledListItemText primary="A kora újkor" />
                     </StyledListItem>
                     <Collapse in={showSubMenu3} timeout="auto" unmountOnExit>
-                        <List component="div" disablePadding style={{ paddingLeft: '20px' }}>
+                        <StyledList component="div" disablePadding style={{ paddingLeft: '20px' }}>
                             <StyledListItem button>
                                 <StyledListItemText primary="Az európai felfedezések" />
                             </StyledListItem>
                             <StyledListItem button>
                                 <StyledListItemText primary="A reformáció" />
                             </StyledListItem>
-                        </List>
+                        </StyledList>
                     </Collapse>
                     <StyledListItem button onClick={() => handleMenuItemClick(4)}>
                         <StyledListItemText primary="A modern kor" />
                     </StyledListItem>
                     <Collapse in={showSubMenu4} timeout="auto" unmountOnExit>
-                        <List component="div" disablePadding style={{ paddingLeft: '20px' }}>
+                        <StyledList component="div" disablePadding style={{ paddingLeft: '20px' }}>
                             <StyledListItem button onClick={() => handleSubMenuItemClick(4)}>
                                 <StyledListItemText primary="Az ipari forradalom" />
                             </StyledListItem>
                             <Collapse in={showSubSubMenu4} timeout="auto" unmountOnExit>
-                                <List component="div" disablePadding style={{ paddingLeft: '20px' }}>
+                                <StyledList component="div" disablePadding style={{ paddingLeft: '20px' }}>
                                     <StyledListItem button>
                                         <StyledListItemText primary="A francia forradalom" />
                                     </StyledListItem>
-                                </List>
+                                </StyledList>
                             </Collapse>
                             <StyledListItem button>
                                 <StyledListItemText primary="Az első és második világháború" />
                             </StyledListItem>
-                        </List>
+                        </StyledList>
                     </Collapse>
-                </List>
+                </StyledList>
             </StyledDrawer>
             <StyledContainer>
                 <Title variant="h3">A Történelemről</Title>

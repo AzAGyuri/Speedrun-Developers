@@ -7,7 +7,6 @@ import './FirstPage.css';
 import mathematics from './resources/mat.png';
 import grammer from './resources/grammer.png';
 import history from './resources/history.png';
-import chemistry from './resources/chem.png';
 import it from './resources/it.png';
 import iteng from './resources/iteng.png';
 
@@ -15,7 +14,6 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
-import Stack from '@mui/material/Stack';
 
 const RootContainer = styled(Container)({
   flexGrow: 1,

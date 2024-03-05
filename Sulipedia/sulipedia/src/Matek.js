@@ -1,83 +1,78 @@
 import React from 'react';
 import {
-  Container,
-  Typography,
-  IconButton,
-  Drawer,
-  List,
-  ListItem,
-  ListItemText,
-  Collapse,
-  Divider,
+    Container,
+    Typography,
+    IconButton,
+    Drawer,
+    List,
+    ListItem,
+    ListItemText,
+    Collapse,
 } from '@mui/material';
 import { styled } from '@mui/system';
 import MenuIcon from '@mui/icons-material/Menu';
 
 const StyledContainer = styled(Container)({
-  display: 'flex',
-  flexDirection: 'column',
-  alignItems: 'center',
-  justifyContent: 'center',
-  padding: '16px',
-  marginTop: '20px',
-  backgroundColor: '#4caf50', 
-  color: '#333', 
-  borderRadius: '10px',
-  boxShadow: '0px 5px 15px rgba(0, 0, 0, 0.2)',
-  marginBottom: '20px', 
-  border: '2.5px solid #2f3826', 
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: '16px',
+    marginTop: '20px',
+    backgroundColor: '#4caf50',
+    color: '#333',
+    borderRadius: '10px',
+    boxShadow: '0px 5px 15px rgba(0, 0, 0, 0.2)',
+    marginBottom: '20px',
+    border: '2.5px solid #2f3826',
 });
 
 const Title = styled(Typography)({
-  marginBottom: theme => theme.spacing(2),
-  fontSize: '2rem',
-  marginTop: theme => theme.spacing(1),
-  fontWeight: 'bold',
+    marginBottom: theme => theme.spacing(2),
+    fontSize: '2rem',
+    marginTop: theme => theme.spacing(1),
+    fontWeight: 'bold',
 });
 
 const LargeText = styled(Typography)({
-  marginBottom: theme => theme.spacing(1),
-  fontSize: '1.5rem',
-  textAlign: 'justify',
-  lineHeight: '1.6',
+    marginBottom: theme => theme.spacing(1),
+    fontSize: '1.5rem',
+    textAlign: 'justify',
+    lineHeight: '1.6',
 });
 
 const StyledDrawerButton = styled(IconButton)({
-  position: 'fixed',
-  top: '70px', 
-  left: '25px',
-  borderRadius: '50%',
-  backgroundColor: '#2f3826', 
-  color: 'white',
-  fontSize: '1.2rem',
-  zIndex: 1000,
-  '&:hover': {
-    backgroundColor: '#6c7530', 
-  },
+    position: 'fixed',
+    top: '70px',
+    left: '25px',
+    borderRadius: '50%',
+    backgroundColor: '#2f3826',
+    color: 'white',
+    fontSize: '1.2rem',
+    zIndex: 1000,
+    '&:hover': {
+        backgroundColor: '#6c7530',
+    },
 });
 
 const StyledDrawer = styled(Drawer)({
-  '& .MuiPaper-root': {
-    backgroundColor: 'rgba(0, 0, 0, 0.9)',
-    color: 'white',
-    width: '200px',
-  },
+    '& .MuiPaper-root': {
+        backgroundColor: 'rgba(0, 0, 0, 0.9)',
+        color: 'white',
+        width: '200px',
+    },
 });
 
 const StyledList = styled(List)({
-  width: '100%',
+    width: '100%',
 });
 
 const StyledListItem = styled(ListItem)({
-  borderBottom: '1px solid #7ffc03', 
+    borderBottom: '1px solid #7ffc03',
 });
 
 const StyledListItemText = styled(ListItemText)({
-  color: 'white',
-});
-
-const StyledDivider = styled(Divider)({
-  backgroundColor: '#7ffc03', 
+    color: 'white',
 });
 
 export function Matek() {
@@ -143,89 +138,89 @@ export function Matek() {
         }
     };
 
-    return ( 
-    <>
+    return (
+        <>
             <StyledDrawerButton onClick={toggleDrawer}>
                 <MenuIcon />
             </StyledDrawerButton>
 
             <StyledDrawer anchor="left" open={drawerOpen} onClose={() => setDrawerOpen(false)}>
-                <List>
+                <StyledList>
                     <StyledListItem button onClick={() => handleMenuItemClick(1)}>
                         <StyledListItemText primary="Algebrai Kifejezések" />
                     </StyledListItem>
                     <Collapse in={showSubMenu1} timeout="auto" unmountOnExit>
-                        <List component="div" disablePadding style={{ paddingLeft: '20px' }}>
+                        <StyledList component="div" disablePadding style={{ paddingLeft: '20px' }}>
                             <StyledListItem button onClick={() => handleSubMenuItemClick(1)}>
                                 <StyledListItemText primary="Polinomok" />
                             </StyledListItem>
                             <Collapse in={showSubSubMenu1} timeout="auto" unmountOnExit>
-                                <List component="div" disablePadding style={{ paddingLeft: '20px' }}>
+                                <StyledList component="div" disablePadding style={{ paddingLeft: '20px' }}>
                                     <StyledListItem button>
                                         <StyledListItemText primary="Másodfokú Egyenletek" />
                                     </StyledListItem>
                                     <StyledListItem button>
                                         <StyledListItemText primary="Harmadfokú Egyenletek" />
                                     </StyledListItem>
-                                </List>
+                                </StyledList>
                             </Collapse>
                             <StyledListItem button onClick={() => handleSubMenuItemClick(2)}>
                                 <StyledListItemText primary="Exponenciális Függvények" />
                             </StyledListItem>
-                        </List>
+                        </StyledList>
                     </Collapse>
                     <StyledListItem button onClick={() => handleMenuItemClick(2)}>
                         <StyledListItemText primary="Geometria" />
                     </StyledListItem>
                     <Collapse in={showSubMenu2} timeout="auto" unmountOnExit>
-                        <List component="div" disablePadding style={{ paddingLeft: '20px' }}>
+                        <StyledList component="div" disablePadding style={{ paddingLeft: '20px' }}>
                             <StyledListItem button onClick={() => handleSubMenuItemClick(3)}>
                                 <StyledListItemText primary="Háromszögek" />
                             </StyledListItem>
                             <Collapse in={showSubSubMenu3} timeout="auto" unmountOnExit>
-                                <List component="div" disablePadding style={{ paddingLeft: '20px' }}>
+                                <StyledList component="div" disablePadding style={{ paddingLeft: '20px' }}>
                                     <StyledListItem button>
                                         <StyledListItemText primary="Derékszögű Háromszögek" />
                                     </StyledListItem>
                                     <StyledListItem button>
                                         <StyledListItemText primary="Egyenlőszárú Háromszögek" />
                                     </StyledListItem>
-                                </List>
+                                </StyledList>
                             </Collapse>
                             <StyledListItem button onClick={() => handleSubMenuItemClick(4)}>
                                 <StyledListItemText primary="Körök" />
                             </StyledListItem>
-                        </List>
+                        </StyledList>
                     </Collapse>
                     <StyledListItem button onClick={() => handleMenuItemClick(3)}>
                         <StyledListItemText primary="Kalkulus" />
                     </StyledListItem>
                     <Collapse in={showSubMenu3} timeout="auto" unmountOnExit>
-                        <List component="div" disablePadding style={{ paddingLeft: '20px' }}>
+                        <StyledList component="div" disablePadding style={{ paddingLeft: '20px' }}>
                             <StyledListItem button>
                                 <StyledListItemText primary="Határérték" />
                             </StyledListItem>
                             <StyledListItem button>
                                 <StyledListItemText primary="Deriváltak" />
                             </StyledListItem>
-                        </List>
+                        </StyledList>
                     </Collapse>
                     <StyledListItem button onClick={() => handleMenuItemClick(4)}>
                         <StyledListItemText primary="Statisztika" />
                     </StyledListItem>
                     <Collapse in={showSubMenu4} timeout="auto" unmountOnExit>
-                        <List component="div" disablePadding style={{ paddingLeft: '20px' }}>
+                        <StyledList component="div" disablePadding style={{ paddingLeft: '20px' }}>
                             <StyledListItem button onClick={() => handleSubMenuItemClick(4)}>
                                 <StyledListItemText primary="Inferenciális Statisztika" />
                             </StyledListItem>
-                        </List>
+                        </StyledList>
                     </Collapse>
-                </List>
+                </StyledList>
             </StyledDrawer>
 
-<StyledContainer>
-            <Title variant="h3">A Matematikai Fogalmakról</Title>
-            
+            <StyledContainer>
+                <Title variant="h3">A Matematikai Fogalmakról</Title>
+
             </StyledContainer>
             <StyledContainer>
                 <LargeText variant="body1">
@@ -253,32 +248,32 @@ export function Matek() {
                 </LargeText>
             </StyledContainer>
             <StyledContainer>
-    <LargeText variant="body1">
-        A matematika tantárgyban való szilárd megértéshez elengedhetetlen különböző matematikai fogalmak felfedezése. Ebben a keretben mélyedjünk el néhány alapvető matematikai téma tanulmányozásában.
-    </LargeText>
-</StyledContainer>
-<StyledContainer>
-    <LargeText variant="body1">
-        Az algebrai kifejezések és egyenletek megértése, valamint a grafikus ábrázolásuk kulcsfontosságú a matematikai problémák hatékony megoldásához és az absztrakt gondolkodás fejlesztéséhez.
-    </LargeText>
-</StyledContainer>
-<StyledContainer>
-    <LargeText variant="body1">
-        A geometria segít nekünk megismerni az alakokat, méreteket és a tér tulajdonságait. Alapvető szerepet játszik a körülöttünk lévő világ szerkezetének megértésében és az életünkben való eligazodásban.
-    </LargeText>
-</StyledContainer>
-<StyledContainer>
-    <LargeText variant="body1">
-        A kalkulus, amely a határértékek és deriváltak fogalmával foglalkozik, az analízis matematikai alapja. Széles körben használják különböző tudományos területeken, és hozzájárul a változások és folyamatok mélyebb megértéséhez.
-    </LargeText>
-</StyledContainer>
-<StyledContainer>
-    <LargeText variant="body1">
-        A statisztika az adatok gyűjtésével, elemzésével, értelmezésével, prezentálásával és rendezésével foglalkozik. Kulcsfontosságú a tájékozott döntéshozatalban különböző területeken, és segít a világ jelenségeinek empirikus vizsgálatában.
-    </LargeText>
-</StyledContainer>
+                <LargeText variant="body1">
+                    A matematika tantárgyban való szilárd megértéshez elengedhetetlen különböző matematikai fogalmak felfedezése. Ebben a keretben mélyedjünk el néhány alapvető matematikai téma tanulmányozásában.
+                </LargeText>
+            </StyledContainer>
+            <StyledContainer>
+                <LargeText variant="body1">
+                    Az algebrai kifejezések és egyenletek megértése, valamint a grafikus ábrázolásuk kulcsfontosságú a matematikai problémák hatékony megoldásához és az absztrakt gondolkodás fejlesztéséhez.
+                </LargeText>
+            </StyledContainer>
+            <StyledContainer>
+                <LargeText variant="body1">
+                    A geometria segít nekünk megismerni az alakokat, méreteket és a tér tulajdonságait. Alapvető szerepet játszik a körülöttünk lévő világ szerkezetének megértésében és az életünkben való eligazodásban.
+                </LargeText>
+            </StyledContainer>
+            <StyledContainer>
+                <LargeText variant="body1">
+                    A kalkulus, amely a határértékek és deriváltak fogalmával foglalkozik, az analízis matematikai alapja. Széles körben használják különböző tudományos területeken, és hozzájárul a változások és folyamatok mélyebb megértéséhez.
+                </LargeText>
+            </StyledContainer>
+            <StyledContainer>
+                <LargeText variant="body1">
+                    A statisztika az adatok gyűjtésével, elemzésével, értelmezésével, prezentálásával és rendezésével foglalkozik. Kulcsfontosságú a tájékozott döntéshozatalban különböző területeken, és segít a világ jelenségeinek empirikus vizsgálatában.
+                </LargeText>
+            </StyledContainer>
 
-           
-            </>
+
+        </>
     );
 }

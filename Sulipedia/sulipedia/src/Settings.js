@@ -1,4 +1,3 @@
-// Settings.js
 import React, { useState } from 'react';
 import { Container, Typography, Paper, TextField, Button, Grid, Avatar, Link } from '@mui/material';
 import './Settings.css';
@@ -10,28 +9,28 @@ const styles = {
     justifyContent: 'center',
     alignItems: 'center',
     height: '100vh',
-    background: 'linear-gradient(135deg, #ffd500 0%, #f7971e 100%)', 
+    background: 'linear-gradient(135deg, #ffd500 0%, #f7971e 100%)',
   },
   paper: {
     padding: '40px',
     borderRadius: '12px',
     boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)',
-    background: 'linear-gradient(45deg, #ffe259 30%, #ffa751 90%)', 
+    background: 'linear-gradient(45deg, #ffe259 30%, #ffa751 90%)',
     color: 'white',
     maxWidth: '600px',
     width: '100%',
-    border: '2px solid #fff', 
+    border: '2px solid #fff',
   },
   avatar: {
     width: '50px',
     height: '50px',
     marginRight: '8px',
-    border: '2px solid #fff', 
+    border: '2px solid #fff',
   },
   passwordField: {
     width: '100%',
     marginBottom: '20px',
-    border: '2px solid #fff', 
+    border: '2px solid #fff',
     borderRadius: '4px',
   },
   saveButton: {
@@ -139,7 +138,7 @@ export function Settings() {
                 }
                 InputProps={{
                   endAdornment: (
-                    <Link onClick={() => {}} style={{ cursor: 'pointer' }}>
+                    <Link onClick={() => { }} style={{ cursor: 'pointer' }}>
                       {''}
                     </Link>
                   ),

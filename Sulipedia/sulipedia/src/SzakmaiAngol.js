@@ -8,7 +8,6 @@ import {
   ListItem,
   ListItemText,
   Collapse,
-  Divider,
 } from '@mui/material';
 import { styled } from '@mui/system';
 
@@ -21,12 +20,12 @@ const StyledContainer = styled(Container)({
   justifyContent: 'center',
   padding: '16px',
   marginTop: '20px',
-  backgroundColor: '#4caf50', 
-  color: '#333', 
+  backgroundColor: '#4caf50',
+  color: '#333',
   borderRadius: '10px',
   boxShadow: '0px 5px 15px rgba(0, 0, 0, 0.2)',
-  marginBottom: '20px', 
-  border: '2.5px solid #2f3826', 
+  marginBottom: '20px',
+  border: '2.5px solid #2f3826',
 });
 
 const Title = styled(Typography)({
@@ -45,15 +44,15 @@ const LargeText = styled(Typography)({
 
 const StyledDrawerButton = styled(IconButton)({
   position: 'fixed',
-  top: '70px', 
+  top: '70px',
   left: '25px',
   borderRadius: '50%',
-  backgroundColor: '#2f3826', 
+  backgroundColor: '#2f3826',
   color: 'white',
   fontSize: '1.2rem',
   zIndex: 1000,
   '&:hover': {
-    backgroundColor: '#6c7530', 
+    backgroundColor: '#6c7530',
   },
 });
 
@@ -75,10 +74,6 @@ const StyledListItem = styled(ListItem)({
 
 const StyledListItemText = styled(ListItemText)({
   color: 'white',
-});
-
-const StyledDivider = styled(Divider)({
-  backgroundColor: '#7ffc03', 
 });
 
 export function SzakAngol() {

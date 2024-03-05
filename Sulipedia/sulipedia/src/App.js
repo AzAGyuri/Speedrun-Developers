@@ -24,15 +24,10 @@ import { Matek } from './Matek';
 import { Magyar } from './Magyar';
 import { Tortenelem } from './Tortenelem';
 import { Informatika } from './Informatika';
-import { Admin, Resource, ListGuesser, EditGuesser, ShowGuesser } from "react-admin";
-import { dataProvider } from "./dataProvider";
 
 function App() {
   return (
     <>
-    <Admin  dataProvider={dataProvider}>
-    <Resource name="users" list={ListGuesser} />
-    </Admin>
       <Router>
           <ResAppBar />
           <Routes>
