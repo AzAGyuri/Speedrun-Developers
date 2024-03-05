@@ -1,23 +1,33 @@
-.flex {
-    display: flex; /* Make the div a flex container */
-    flex: 1; /* Each div will take up one-third of the screen */
-    flex-direction: column; /* Ensure children stack vertically */
-    overflow: hidden; /* Hide overflowing content */
-}
+.flex-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+  
+  .flex-item {
+    position: relative;
+    flex: 1;
+    text-align: center;
+  }
+  .flex-item:first-child{
+    text-align: end;
+  }
+  
 
 .blackLine {
     position: absolute;
-    right: 5px; /* Position the black line on the right side */
+    right: 5px;
     top: 0px;
     bottom: 0;
     width: 3px;
     background-color: black;
 }
 
+
 .drawer {
-    margin-top: 69px;
+    margin-right: 30px;
     width: auto;
-    position: fixed;
+    position: relative;
     top: 0;
     left: 0;
     overflow-x: hidden;
@@ -27,6 +37,7 @@
     justify-content: flex-start;
     margin-left: 5px;
 }
+
 
 .drawer a {
     padding: 8px 5px 20px 0px;
@@ -54,10 +65,70 @@
 .subjectIMG {
     width: 35px;
     height: 35px;
-    margin-right: 10px;
+    margin-right: 15px;
     margin-left: 5px;
 }
 body{
     width: 100vw;
     height: 100vh;
 }
+
+
+
+
+
+.contente-flex {
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+}
+  
+.flexcontente-item {
+    flex: 1;
+    text-align: center;
+    margin-top: 15px;
+    background-color: white;    
+    border-radius: 10px;
+}
+
+.contente-box{
+    border: 2px solid black;
+    border-radius: 10px;
+}
+
+.contente-title {
+    border-bottom: 1px solid black;
+    margin-bottom: 5px;
+    text-align: left;
+    width: 30%;
+    margin-left: 5px;
+    margin-top: 2px;
+}
+
+.contente{
+    margin: 20px 0px 20px 0px;
+}
+
+.contente-button {
+    display: flex;
+    justify-content: flex-end; /* Align items to the right */
+  }
+  
+  .detailsButton {
+    padding: 5px;
+    margin-right: 5px;
+    margin-bottom: 5px;
+    border: 1px solid black;
+    border-radius: 20px;
+    background-color: #fa9005;
+  }
+  
+  .detailsButton:hover {
+    background-color: #fd8100;
+    cursor: pointer;
+    border: 1px solid black;
+    border-radius: 20px;
+  }
+  
+
+
