@@ -8,9 +8,11 @@ import {
     ListItem,
     ListItemText,
     Collapse,
+    Button,
 } from '@mui/material';
 import { styled } from '@mui/system';
 import MenuIcon from '@mui/icons-material/Menu';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 const StyledContainer = styled(Container)({
     display: 'flex',
@@ -40,6 +42,69 @@ const LargeText = styled(Typography)({
     textAlign: 'justify',
     lineHeight: '1.6',
 });
+const CommentSection = styled('div')({
+    marginTop: theme => theme.spacing(3),
+    backgroundColor: '#f0f0f0',
+    padding: theme => theme.spacing(3),
+    borderRadius: '10px',
+    boxShadow: '0px 5px 15px rgba(0, 0, 0, 0.2)',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'stretch',
+});
+
+const CommentHeader = styled('div')({
+    marginBottom: theme => theme.spacing(2),
+    fontSize: '1.8rem',
+    fontWeight: 'bold',
+    color: '#333',
+});
+
+const CommentInput = styled('textarea')({
+    marginBottom: theme => theme.spacing(2),
+    padding: theme => theme.spacing(1),
+    fontSize: '1.2rem',
+    minHeight: '80px',
+    borderRadius: '5px',
+    border: '1px solid #ccc',
+    resize: 'vertical',
+});
+
+const CommentButton = styled(Button)({
+    alignSelf: 'flex-start',
+    backgroundColor: '#2f3826',
+    color: 'white',
+    '&:hover': {
+        backgroundColor: '#6c7530',
+    },
+});
+
+const Comment = styled('div')({
+    marginTop: theme => theme.spacing(2),
+    padding: theme => theme.spacing(2),
+    backgroundColor: '#fff',
+    borderRadius: '5px',
+    boxShadow: '0px 3px 8px rgba(0, 0, 0, 0.1)',
+});
+
+const CommentContent = styled('p')({
+    marginBottom: theme => theme.spacing(1),
+    fontSize: '1.4rem',
+    textAlign: 'justify',
+});
+
+const CommentAuthor = styled('span')({
+    fontSize: '1rem',
+    color: '#777',
+    marginRight: theme => theme.spacing(1),
+    fontWeight: 'bold',
+});
+
+const CommentDate = styled('span')({
+    fontSize: '1rem',
+    color: '#777',
+});
+
 
 const StyledDrawerButton = styled(IconButton)({
     position: 'fixed',
@@ -59,7 +124,7 @@ const StyledDrawer = styled(Drawer)({
     '& .MuiPaper-root': {
         backgroundColor: 'rgba(0, 0, 0, 0.9)',
         color: 'white',
-        width: '200px',
+        width: '280px',
     },
 });
 
@@ -87,6 +152,41 @@ export function Matek() {
     const [showSubSubMenu3, setShowSubSubMenu3] = React.useState(false);
     const [showSubSubMenu4, setShowSubSubMenu4] = React.useState(false);
 
+    const [mainMenuText, setMainMenuText] = React.useState(
+        'Különböző matematikai fogalmak felfedezése elengedhetetlen a tantárgy szilárd megértéséhez. Merüljünk el néhány alapvető matematikai témában.'
+    );
+
+    const [subMenuText, setSubMenuText] = React.useState('');
+
+    const [subSubMenuItemText, setSubSubMenuItemText] = React.useState('');
+
+    
+    const [comments, setComments] = React.useState([]);
+    const [newComment, setNewComment] = React.useState('');
+
+    const handleCommentChange = (event) => {
+        setNewComment(event.target.value);
+    };
+
+    const handleCommentSubmit = () => {
+        const newComments = [
+            ...comments,
+            {
+                content: newComment,
+                author: 'Felhasználó', // itt később a bejelentkezett felhasználó adatait kellene használni
+                date: new Date().toLocaleDateString(),
+            },
+        ];
+        setComments(newComments);
+        setNewComment('');
+    };
+
+    const handleCommentDelete = (index) => {
+        const updatedComments = [...comments];
+        updatedComments.splice(index, 1);
+        setComments(updatedComments);
+    };
+    
     const toggleDrawer = () => {
         setDrawerOpen(!drawerOpen);
     };
@@ -104,15 +204,35 @@ export function Matek() {
         switch (menuItem) {
             case 1:
                 setShowSubMenu1(!showSubMenu1);
+                setSubMenuText(
+                    'Az algebrai kifejezések és egyenletek területe foglalkozik a matematikai kifejezések manipulációjával és azok megoldásával. A polinomok, másodfokú és harmadfokú egyenletek elemzése itt történik.'
+                );
+                setMainMenuText(
+                    'Az algebrai kifejezések és egyenletek segítenek megérteni az ismeretlenekkel való számolást és azok kapcsolatát.'
+                );
                 break;
             case 2:
                 setShowSubMenu2(!showSubMenu2);
+                setSubMenuText(
+                    'A geometria a térbeli formák, alakzatok és azok tulajdonságainak tanulmányozásával foglalkozik. Ide tartoznak például a háromszögek és körök elemzése.'
+                );
+                setMainMenuText('A geometria segít a térbeli képességek fejlesztésében és a formák megértésében.');
                 break;
             case 3:
                 setShowSubMenu3(!showSubMenu3);
+                setSubMenuText(
+                    'A kalkulus az analízis egy területe, amely a változások és folyamatok matematikai alapjait vizsgálja. Ide tartoznak a határértékek és deriváltak.'
+                );
+                setMainMenuText('A kalkulus nélkülözhetetlen az időbeli változások matematikai modellezéséhez.');
                 break;
             case 4:
                 setShowSubMenu4(!showSubMenu4);
+                setSubMenuText(
+                    'A statisztika adataink elemzésével és értelmezésével foglalkozik. Az inferenciális statisztika például a mintázatokból származó következtetéseket vizsgálja.'
+                );
+                setMainMenuText(
+                    'A statisztika segít eligazodni az adatok tengerében és értelmezni a körülöttünk lévő jelenségeket.'
+                );
                 break;
             default:
                 break;
@@ -123,15 +243,39 @@ export function Matek() {
         switch (subMenuItem) {
             case 1:
                 setShowSubSubMenu1(!showSubSubMenu1);
+                setSubSubMenuItemText(
+                    'A Másodfokú Egyenletek és Harmadfokú Egyenletek megoldása és elemzése. Ezek a típusú egyenletek gyakran fordulnak elő a matematikai problémákban és fizikai jelenségek modellezésében.'
+                );
+                setSubMenuText(
+                    'A polinomok és algebrai kifejezések mellett a másodfokú és harmadfokú egyenletek is fontosak a matematikában és más tudományágakban.'
+                );
                 break;
             case 2:
                 setShowSubSubMenu2(!showSubSubMenu2);
+                setSubSubMenuItemText(
+                    'Az Exponenciális Függvények tanulmányozása és alkalmazása. Ezek a függvények gyakran előfordulnak természeti folyamatok, növekedési modellek és gazdasági jelenségek leírásában.'
+                );
+                setSubMenuText(
+                    'Az exponenciális függvények az exponenciális növekedés és csökkenés matematikai modelljei. Gyakran alkalmazzák gazdasági és természettudományos területeken.'
+                );
                 break;
             case 3:
                 setShowSubSubMenu3(!showSubSubMenu3);
+                setSubSubMenuItemText(
+                    'A Háromszögek különböző típusainak és tulajdonságainak elemzése. Ezen belül a derékszögű háromszögek és egyenlőszárú háromszögek vizsgálata.'
+                );
+                setSubMenuText(
+                    'A háromszögek tanulmányozása segít megérteni a síkgeometria alapjait és alkalmazásait a való életben.'
+                );
                 break;
             case 4:
                 setShowSubSubMenu4(!showSubSubMenu4);
+                setSubSubMenuItemText(
+                    'Az Inferenciális Statisztika az adatokon alapuló következtetések és prognózisok tanulmányozása. Fontos a tudományos kutatásokban és döntéshozatali folyamatokban.'
+                );
+                setSubMenuText(
+                    'Az inferenciális statisztika segít a következtetések levonásában és a jövőbeli események előrejelzésében adataink alapján.'
+                );
                 break;
             default:
                 break;
@@ -197,7 +341,7 @@ export function Matek() {
                     </StyledListItem>
                     <Collapse in={showSubMenu3} timeout="auto" unmountOnExit>
                         <StyledList component="div" disablePadding style={{ paddingLeft: '20px' }}>
-                            <StyledListItem button>
+                            <StyledListItem button onClick={() => handleSubMenuItemClick(4)}>
                                 <StyledListItemText primary="Határérték" />
                             </StyledListItem>
                             <StyledListItem button>
@@ -220,60 +364,52 @@ export function Matek() {
 
             <StyledContainer>
                 <Title variant="h3">A Matematikai Fogalmakról</Title>
-
-            </StyledContainer>
-            <StyledContainer>
-                <LargeText variant="body1">
-                    Különböző matematikai fogalmak felfedezése elengedhetetlen a tantárgy szilárd megértéséhez. Merüljünk el néhány alapvető matematikai témában.
-                </LargeText>
-            </StyledContainer>
-            <StyledContainer>
-                <LargeText variant="body1">
-                    Az algebrai kifejezések és egyenletek megértése, valamint a grafikus ábrázolásuk elengedhetetlen a matematikai problémák megoldásához.
-                </LargeText>
-            </StyledContainer>
-            <StyledContainer>
-                <LargeText variant="body1">
-                    A geometria segít nekünk tanulmányozni az alakokat, méreteket és a tér tulajdonságait. Alapvető szerepet játszik a körülöttünk lévő világ megértésében.
-                </LargeText>
-            </StyledContainer>
-            <StyledContainer>
-                <LargeText variant="body1">
-                    A kalkulus a határértékek és deriváltak fogalmával az analízis matematikai alapja, és széles körben használják különböző tudományos területeken.
-                </LargeText>
-            </StyledContainer>
-            <StyledContainer>
-                <LargeText variant="body1">
-                    A statisztika az adatok gyűjtésével, elemzésével, értelmezésével, prezentálásával és rendezésével foglalkozik. Kulcsfontosságú a tájékozott döntéshozatalban különböző területeken.
-                </LargeText>
-            </StyledContainer>
-            <StyledContainer>
-                <LargeText variant="body1">
-                    A matematika tantárgyban való szilárd megértéshez elengedhetetlen különböző matematikai fogalmak felfedezése. Ebben a keretben mélyedjünk el néhány alapvető matematikai téma tanulmányozásában.
-                </LargeText>
-            </StyledContainer>
-            <StyledContainer>
-                <LargeText variant="body1">
-                    Az algebrai kifejezések és egyenletek megértése, valamint a grafikus ábrázolásuk kulcsfontosságú a matematikai problémák hatékony megoldásához és az absztrakt gondolkodás fejlesztéséhez.
-                </LargeText>
-            </StyledContainer>
-            <StyledContainer>
-                <LargeText variant="body1">
-                    A geometria segít nekünk megismerni az alakokat, méreteket és a tér tulajdonságait. Alapvető szerepet játszik a körülöttünk lévő világ szerkezetének megértésében és az életünkben való eligazodásban.
-                </LargeText>
-            </StyledContainer>
-            <StyledContainer>
-                <LargeText variant="body1">
-                    A kalkulus, amely a határértékek és deriváltak fogalmával foglalkozik, az analízis matematikai alapja. Széles körben használják különböző tudományos területeken, és hozzájárul a változások és folyamatok mélyebb megértéséhez.
-                </LargeText>
-            </StyledContainer>
-            <StyledContainer>
-                <LargeText variant="body1">
-                    A statisztika az adatok gyűjtésével, elemzésével, értelmezésével, prezentálásával és rendezésével foglalkozik. Kulcsfontosságú a tájékozott döntéshozatalban különböző területeken, és segít a világ jelenségeinek empirikus vizsgálatában.
-                </LargeText>
             </StyledContainer>
 
+            {mainMenuText && (
+                <StyledContainer>
+                    <LargeText variant="body1">{mainMenuText}</LargeText>
+                </StyledContainer>
+            )}
 
+            {subMenuText && (
+                <StyledContainer>
+                    <LargeText variant="body1">{subMenuText}</LargeText>
+                </StyledContainer>
+            )}
+
+            {subSubMenuItemText && (
+                <StyledContainer>
+                    <LargeText variant="body1">{subSubMenuItemText}</LargeText>
+                </StyledContainer>
+            )}
+             <CommentSection>
+                <CommentHeader>Vélemények és hozzászólások</CommentHeader>
+                <CommentInput
+                    placeholder="Mit gondolsz a tananyagról?..."
+                    value={newComment}
+                    onChange={handleCommentChange}
+                />
+                <CommentButton variant="contained" onClick={handleCommentSubmit}>
+                    Hozzászólás küldése
+                </CommentButton>
+                {comments.map((comment, index) => (
+                    <Comment key={index}>
+                        <CommentContent>{comment.content}</CommentContent>
+                        <div>
+                            <CommentAuthor>{comment.author}</CommentAuthor>
+                            <CommentDate>{comment.date}</CommentDate>
+                            <IconButton
+                                edge="end"
+                                color="inherit"
+                                onClick={() => handleCommentDelete(index)}
+                            >
+                                <DeleteIcon />
+                            </IconButton>
+                        </div>
+                    </Comment>
+                ))}
+            </CommentSection>
         </>
     );
 }

@@ -2,11 +2,11 @@ import React from 'react';
 import { Container, Typography, Card, CardContent, Grid, Button, Paper } from '@mui/material';
 import { styled } from '@mui/system';
 import { Link } from 'react-router-dom';
-import InformatikaImage from './resources/informatika.png';
-import SzakmaiAngolImage from './resources/informatika.png';
-import MatematikaImage from './resources/informatika.png';
-import MagyarNyelvImage from './resources/informatika.png';
-import TortenelemImage from './resources/informatika.png';
+import InformatikaImage from './resources/it.png';
+import SzakmaiAngolImage from './resources/iteng.png';
+import MatematikaImage from './resources/mat.png';
+import MagyarNyelvImage from './resources/grammer.png';
+import TortenelemImage from './resources/history.png';
 
 const SubjectCard = styled(Card)({
   backgroundColor: '#f5f5f5',

@@ -7,10 +7,12 @@ import {
     List,
     ListItem,
     ListItemText,
+    Button,
     Collapse,
 } from '@mui/material';
 import { styled } from '@mui/system';
 import MenuIcon from '@mui/icons-material/Menu';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 const StyledContainer = styled(Container)({
     display: 'flex',
@@ -59,7 +61,7 @@ const StyledDrawer = styled(Drawer)({
     '& .MuiPaper-root': {
         backgroundColor: 'rgba(0, 0, 0, 0.9)',
         color: 'white',
-        width: '200px',
+        width: '280px',
     },
 });
 
@@ -73,6 +75,68 @@ const StyledListItem = styled(ListItem)({
 
 const StyledListItemText = styled(ListItemText)({
     color: 'white',
+});
+const CommentSection = styled('div')({
+    marginTop: theme => theme.spacing(3),
+    backgroundColor: '#f0f0f0',
+    padding: theme => theme.spacing(3),
+    borderRadius: '10px',
+    boxShadow: '0px 5px 15px rgba(0, 0, 0, 0.2)',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'stretch',
+});
+
+const CommentHeader = styled('div')({
+    marginBottom: theme => theme.spacing(2),
+    fontSize: '1.8rem',
+    fontWeight: 'bold',
+    color: '#333',
+});
+
+const CommentInput = styled('textarea')({
+    marginBottom: theme => theme.spacing(2),
+    padding: theme => theme.spacing(1),
+    fontSize: '1.2rem',
+    minHeight: '80px',
+    borderRadius: '5px',
+    border: '1px solid #ccc',
+    resize: 'vertical',
+});
+
+const CommentButton = styled(Button)({
+    alignSelf: 'flex-start',
+    backgroundColor: '#2f3826',
+    color: 'white',
+    '&:hover': {
+        backgroundColor: '#6c7530',
+    },
+});
+
+const Comment = styled('div')({
+    marginTop: theme => theme.spacing(2),
+    padding: theme => theme.spacing(2),
+    backgroundColor: '#fff',
+    borderRadius: '5px',
+    boxShadow: '0px 3px 8px rgba(0, 0, 0, 0.1)',
+});
+
+const CommentContent = styled('p')({
+    marginBottom: theme => theme.spacing(1),
+    fontSize: '1.4rem',
+    textAlign: 'justify',
+});
+
+const CommentAuthor = styled('span')({
+    fontSize: '1rem',
+    color: '#777',
+    marginRight: theme => theme.spacing(1),
+    fontWeight: 'bold',
+});
+
+const CommentDate = styled('span')({
+    fontSize: '1rem',
+    color: '#777',
 });
 
 
@@ -88,6 +152,39 @@ export function Magyar() {
     const [showSubSubMenu3, setShowSubSubMenu3] = React.useState(false);
     const [showSubSubMenu4, setShowSubSubMenu4] = React.useState(false);
 
+    const [mainMenuText, setMainMenuText] = React.useState(
+        'Különböző irodalmi fogalmak felfedezése elengedhetetlen a tantárgy szilárd megértéséhez. Merüljünk el néhány alapvető irodalmi témában.'
+    );
+
+    const [subMenuText, setSubMenuText] = React.useState('');
+
+    const [subSubMenuItemText, setSubSubMenuItemText] = React.useState('');
+
+    const [comments, setComments] = React.useState([]);
+    const [newComment, setNewComment] = React.useState('');
+
+    const handleCommentChange = (event) => {
+        setNewComment(event.target.value);
+    };
+
+    const handleCommentSubmit = () => {
+        const newComments = [
+            ...comments,
+            {
+                content: newComment,
+                author: 'Felhasználó', // itt később a bejelentkezett felhasználó adatait kellene használni
+                date: new Date().toLocaleDateString(),
+            },
+        ];
+        setComments(newComments);
+        setNewComment('');
+    };
+
+    const handleCommentDelete = (index) => {
+        const updatedComments = [...comments];
+        updatedComments.splice(index, 1);
+        setComments(updatedComments);
+    };
     const toggleDrawer = () => {
         setDrawerOpen(!drawerOpen);
     };
@@ -105,15 +202,37 @@ export function Magyar() {
         switch (menuItem) {
             case 1:
                 setShowSubMenu1(!showSubMenu1);
+                setSubMenuText(
+                    'Az irodalmi műfajok és alkotóelemek területe foglalkozik az irodalmi kifejezések manipulációjával és azok megértésével. A költemények, regények és drámák elemzése itt történik.'
+                );
+                setMainMenuText(
+                    'Az irodalmi fogalmak segítenek megérteni az írásokkal való kölcsönhatást és azok kulturális kontextusát.'
+                );
                 break;
             case 2:
                 setShowSubMenu2(!showSubMenu2);
+                setSubMenuText(
+                    'A nyelvtan és stilisztika a nyelvi formák, kifejezésmódok és azok jellemzőinek tanulmányozásával foglalkozik. Ide tartozik például a szókincs, nyelvhelyesség és stílus elemzése.'
+                );
+                setMainMenuText('A nyelvtan és stilisztika segít a pontos és hatékony kifejezés elsajátításában.');
                 break;
             case 3:
                 setShowSubMenu3(!showSubMenu3);
+                setSubMenuText(
+                    'Az irodalomtörténet az írott művek kronologikus sorrendben történő vizsgálatával és azok kulturális összefüggésekben való értelmezésével foglalkozik. Ide tartozik például a középkori és reneszánsz irodalom elemzése.'
+                );
+                setMainMenuText(
+                    'Az irodalomtörténet segít feltárni az írások fejlődését és azok hatását a különböző korokban.'
+                );
                 break;
             case 4:
                 setShowSubMenu4(!showSubMenu4);
+                setSubMenuText(
+                    'A kommunikáció és retorika az érvelés és meggyőzés művészetével foglalkozik. Az érvelési technikák és különböző retorikai eszközök tanulmányozása itt történik.'
+                );
+                setMainMenuText(
+                    'A kommunikáció és retorika segít hatékonyan kifejezni gondolatainkat és meggyőzni másokat az álláspontunkról.'
+                );
                 break;
             default:
                 break;
@@ -124,15 +243,39 @@ export function Magyar() {
         switch (subMenuItem) {
             case 1:
                 setShowSubSubMenu1(!showSubSubMenu1);
+                setSubSubMenuItemText(
+                    'A költemények és lírai alkotások megértése és elemzése. Ezek a műfajok gyakran kifejezik az érzelmeket és gondolatokat.'
+                );
+                setSubMenuText(
+                    'A költemények és lírai alkotások mellett a regények és drámák is fontosak az irodalomban és más művészeti ágakban.'
+                );
                 break;
             case 2:
                 setShowSubSubMenu2(!showSubSubMenu2);
+                setSubSubMenuItemText(
+                    'A nyelvtan és helyesírás alapjai, beleértve a mondat és szövegszerkezet, a stilisztikai eszközök és a helyesírási szabályok tanulmányozása.'
+                );
+                setSubMenuText(
+                    'A nyelvtan és helyesírás ismerete segít tisztán és hatékonyan kifejezni gondolatainkat írásban.'
+                );
                 break;
             case 3:
                 setShowSubSubMenu3(!showSubSubMenu3);
+                setSubSubMenuItemText(
+                    'Az irodalom történetének áttekintése és az egyes korszakok jellemzőinek elemzése. Ide tartozik például a romantika és realizmus korszakok.'
+                );
+                setSubMenuText(
+                    'Az irodalomtörténet tanulmányozása segít megérteni az írások és szerzők kontextusát és befolyását.'
+                );
                 break;
             case 4:
                 setShowSubSubMenu4(!showSubSubMenu4);
+                setSubSubMenuItemText(
+                    'A meggyőző kommunikáció és a retorikai eszközök használatának tanulmányozása. Az érvelés logikájának és a közlési formák megértése.'
+                );
+                setSubMenuText(
+                    'A meggyőző kommunikáció és retorika segít hatékonyan átadni az üzenetünket és befolyásolni mások véleményét.'
+                );
                 break;
             default:
                 break;
@@ -148,136 +291,128 @@ export function Magyar() {
             <StyledDrawer anchor="left" open={drawerOpen} onClose={() => setDrawerOpen(false)}>
                 <StyledList>
                     <StyledListItem button onClick={() => handleMenuItemClick(1)}>
-                        <StyledListItemText primary="Az irodalmi műfajok" />
+                        <StyledListItemText primary="Irodalmi Műfajok" />
                     </StyledListItem>
                     <Collapse in={showSubMenu1} timeout="auto" unmountOnExit>
                         <StyledList component="div" disablePadding style={{ paddingLeft: '20px' }}>
                             <StyledListItem button onClick={() => handleSubMenuItemClick(1)}>
-                                <StyledListItemText primary="Az epika" />
+                                <StyledListItemText primary="Költemények" />
                             </StyledListItem>
                             <Collapse in={showSubSubMenu1} timeout="auto" unmountOnExit>
                                 <StyledList component="div" disablePadding style={{ paddingLeft: '20px' }}>
                                     <StyledListItem button>
-                                        <StyledListItemText primary="Az eposz" />
+                                        <StyledListItemText primary="Lírai Alkotások" />
                                     </StyledListItem>
                                     <StyledListItem button>
-                                        <StyledListItemText primary="A regény" />
+                                        <StyledListItemText primary="Regények" />
+                                    </StyledListItem>
+                                    <StyledListItem button>
+                                        <StyledListItemText primary="Drámák" />
                                     </StyledListItem>
                                 </StyledList>
                             </Collapse>
                             <StyledListItem button onClick={() => handleSubMenuItemClick(2)}>
-                                <StyledListItemText primary="A líra" />
+                                <StyledListItemText primary="Nyelvtan és Stilisztika" />
                             </StyledListItem>
                         </StyledList>
                     </Collapse>
                     <StyledListItem button onClick={() => handleMenuItemClick(2)}>
-                        <StyledListItemText primary="A nyelvtan és a helyesírás" />
+                        <StyledListItemText primary="Nyelvtan és Helyesírás" />
                     </StyledListItem>
                     <Collapse in={showSubMenu2} timeout="auto" unmountOnExit>
                         <StyledList component="div" disablePadding style={{ paddingLeft: '20px' }}>
                             <StyledListItem button onClick={() => handleSubMenuItemClick(3)}>
-                                <StyledListItemText primary="A mondat és a szöveg" />
+                                <StyledListItemText primary="Irodalomtörténet" />
                             </StyledListItem>
                             <Collapse in={showSubSubMenu3} timeout="auto" unmountOnExit>
                                 <StyledList component="div" disablePadding style={{ paddingLeft: '20px' }}>
                                     <StyledListItem button>
-                                        <StyledListItemText primary="Az összetett mondatok" />
+                                        <StyledListItemText primary="Romantika Korszak" />
                                     </StyledListItem>
                                     <StyledListItem button>
-                                        <StyledListItemText primary="Az idéző mondatok" />
+                                        <StyledListItemText primary="Realizmus Korszak" />
                                     </StyledListItem>
                                 </StyledList>
                             </Collapse>
                             <StyledListItem button onClick={() => handleSubMenuItemClick(4)}>
-                                <StyledListItemText primary="A helyesírási szabályok" />
+                                <StyledListItemText primary="Kommunikáció és Retorika" />
                             </StyledListItem>
                         </StyledList>
                     </Collapse>
                     <StyledListItem button onClick={() => handleMenuItemClick(3)}>
-                        <StyledListItemText primary="A magyar irodalom története" />
+                        <StyledListItemText primary="Közlési Formák" />
                     </StyledListItem>
                     <Collapse in={showSubMenu3} timeout="auto" unmountOnExit>
                         <StyledList component="div" disablePadding style={{ paddingLeft: '20px' }}>
-                            <StyledListItem button>
-                                <StyledListItemText primary="A középkori irodalom" />
+                            <StyledListItem button onClick={() => handleSubMenuItemClick(4)}>
+                                <StyledListItemText primary="Érvelés Logikája" />
                             </StyledListItem>
                             <StyledListItem button>
-                                <StyledListItemText primary="A reneszánsz irodalom" />
+                                <StyledListItemText primary="Közlési Formák" />
                             </StyledListItem>
                         </StyledList>
                     </Collapse>
                     <StyledListItem button onClick={() => handleMenuItemClick(4)}>
-                        <StyledListItemText primary="A kommunikáció és a nyelvhasználat" />
+                        <StyledListItemText primary="Kommunikáció és Nyelvhasználat" />
                     </StyledListItem>
                     <Collapse in={showSubMenu4} timeout="auto" unmountOnExit>
                         <StyledList component="div" disablePadding style={{ paddingLeft: '20px' }}>
                             <StyledListItem button onClick={() => handleSubMenuItemClick(4)}>
-                                <StyledListItemText primary="Az érvelési és meggyőzési technikák" />
-                            </StyledListItem>
-                            <Collapse in={showSubSubMenu4} timeout="auto" unmountOnExit>
-                                <StyledList component="div" disablePadding style={{ paddingLeft: '20px' }}>
-                                    <StyledListItem button>
-                                        <StyledListItemText primary="Az érvelés logikája" />
-                                    </StyledListItem>
-                                </StyledList>
-                            </Collapse>
-                            <StyledListItem button>
-                                <StyledListItemText primary="A közlési formák" />
+                                <StyledListItemText primary="Meggyőző Kommunikáció" />
                             </StyledListItem>
                         </StyledList>
                     </Collapse>
                 </StyledList>
             </StyledDrawer>
+
             <StyledContainer>
                 <Title variant="h3">A Magyar Nyelvről</Title>
             </StyledContainer>
-            <StyledContainer>
-                <LargeText variant="body1">
-                    A magyar nyelv és irodalom tantárgy fontos része az oktatásnak. Az irodalmi műfajok megismerése és a nyelvtan
-                    szabályainak elsajátítása segít a diákoknak széleskörű szövegértési és kommunikációs készségek kialakításában.
-                </LargeText>
-            </StyledContainer>
-            <StyledContainer>
-                <LargeText variant="body1">
-                    A nyelvtan és a helyesírás tanulása során a diákok megtanulják a helyes mondatelemzést, a helyes szórendet,
-                    és a helyesírási szabályok alkalmazását. Ez nélkülözhetetlen a megfelelő és érthető írásbeli kommunikációhoz.
-                </LargeText>
-            </StyledContainer>
-            <StyledContainer>
-                <LargeText variant="body1">
-                    A magyar irodalom történetének megismerése során a diákok bepillantást nyernek a különböző korszakok
-                    irodalmi alkotásaiba, megismerik azokat az eszközöket, amelyeket az írók alkalmaztak, és értelmezni tudják a
-                    műveket a történelmi és kulturális kontextusban.
-                </LargeText>
-            </StyledContainer>
-            <StyledContainer>
-                <LargeText variant="body1">
-                    A kommunikáció és a nyelvhasználat tantárgyban a diákok olyan készségeket sajátíthatnak el, mint az
-                    érvelés, a meggyőzés és a hatékony közlés. Ez segíti őket abban, hogy tudatosan és hatékonyan kommunikáljanak
-                    különböző helyzetekben.
-                </LargeText>
-            </StyledContainer>
-            <StyledContainer>
-                <LargeText variant="body1">
-                    A magyar nyelv és irodalom tantárgy meghatározó eleme az oktatásnak, hiszen segít a diákoknak kialakítani széleskörű szövegértési és kommunikációs készségeiket. Az irodalmi műfajok megismerése révén a diákok nemcsak kulturális kincsekre lelnek, hanem fejlesztik kritikai gondolkodásukat is.
-                </LargeText>
-            </StyledContainer>
-            <StyledContainer>
-                <LargeText variant="body1">
-                    A nyelvtan és helyesírás tanulása során a diákok elsajátítják a helyes mondatelemzés, a helyes szórend és a helyesírási szabályok alkalmazását. Ezek az ismeretek nélkülözhetetlenek a megfelelő és érthető írásbeli kommunikációhoz.
-                </LargeText>
-            </StyledContainer>
-            <StyledContainer>
-                <LargeText variant="body1">
-                    A magyar irodalom történetének tanulmányozása során a diákok betekintést nyernek a különböző korszakok művészi alkotásaiba, és megtanulják azokat történelmi és kulturális kontextusukban értelmezni.
-                </LargeText>
-            </StyledContainer>
-            <StyledContainer>
-                <LargeText variant="body1">
-                    A kommunikáció és a nyelvhasználat tantárgy segíti a diákokat az érvelés, a meggyőzés és a hatékony közlés készségeinek fejlesztésében. Ezen készségek különböző élethelyzetekben és szakmai területeken is hasznosak, hozzájárulva a diákok sikeres és tudatos kommunikációjához.
-                </LargeText>
-            </StyledContainer>
 
+            {mainMenuText && (
+                <StyledContainer>
+                    <LargeText variant="body1">{mainMenuText}</LargeText>
+                </StyledContainer>
+            )}
+
+            {subMenuText && (
+                <StyledContainer>
+                    <LargeText variant="body1">{subMenuText}</LargeText>
+                </StyledContainer>
+            )}
+
+            {subSubMenuItemText && (
+                <StyledContainer>
+                    <LargeText variant="body1">{subSubMenuItemText}</LargeText>
+                </StyledContainer>
+            )}
+             <CommentSection>
+                <CommentHeader>Vélemények és hozzászólások</CommentHeader>
+                <CommentInput
+                    placeholder="Mit gondolsz a tananyagról?..."
+                    value={newComment}
+                    onChange={handleCommentChange}
+                />
+                <CommentButton variant="contained" onClick={handleCommentSubmit}>
+                    Hozzászólás küldése
+                </CommentButton>
+                {comments.map((comment, index) => (
+                    <Comment key={index}>
+                        <CommentContent>{comment.content}</CommentContent>
+                        <div>
+                            <CommentAuthor>{comment.author}</CommentAuthor>
+                            <CommentDate>{comment.date}</CommentDate>
+                            <IconButton
+                                edge="end"
+                                color="inherit"
+                                onClick={() => handleCommentDelete(index)}
+                            >
+                                <DeleteIcon />
+                            </IconButton>
+                        </div>
+                    </Comment>
+                ))}
+            </CommentSection>
         </>
     );
 }
