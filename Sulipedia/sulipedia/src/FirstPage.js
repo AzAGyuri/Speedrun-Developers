@@ -42,6 +42,14 @@ const BottomButtonsContainer = styled(Container)({
   marginTop: '32px',
 });
 
+const SignInButton = styled(Button)({
+  backgroundColor: 'green',
+  color: 'white',
+  '&:hover': {
+    backgroundColor: 'darkgreen',
+  },
+});
+
 const CloseButton = styled(Button)({
   position: 'absolute',
   top: 0,
@@ -105,175 +113,178 @@ export function Kezdo() {
               <Button variant="contained" color="secondary" component={Link} to="/LearnMore">
                 Tudj meg többet
               </Button>
+              <SignInButton component={Link} to="/SignIn">
+                Az oldal használatához jelentkezz be!
+              </SignInButton>
             </BottomButtonsContainer>
           </Box>
         </Modal>
       </div>
 
 
-    <div className='flex-container'>
+      <div className='flex-container'>
 
-      <div className='flex-item'>
-        <div className="drawer">
-        <Link  style={{ textDecoration: 'none',color:"white" }} to="/Matek" underline="none" rel="noreferrer"  color="inherit">
-          <div className="subject-container">
-            <a>Matematika</a>
-            <img src={mathematics} alt="Matematika" className="subjectIMG" />
+        <div className='flex-item'>
+          <div className="drawer">
+            <Link style={{ textDecoration: 'none', color: "white" }} to="/Matek" underline="none" rel="noreferrer" color="inherit">
+              <div className="subject-container">
+                <a>Matematika</a>
+                <img src={mathematics} alt="Matematika" className="subjectIMG" />
+              </div>
+            </Link>
+            <Link style={{ textDecoration: 'none', color: "white" }} to="/magyar" underline="none" rel="noreferrer" color="inherit">
+              <div className="subject-container">
+                <a>Magyar Nyelv</a>
+                <img src={grammer} alt="Magyar Nyelv" className="subjectIMG" />
+              </div>
+            </Link>
+            <Link style={{ textDecoration: 'none', color: "white" }} to="/Tortenelem" underline="none" rel="noreferrer" color="inherit">
+              <div className="subject-container">
+                <a>Történelem</a>
+                <img src={history} alt="Történelem" className="subjectIMG" />
+              </div>
+            </Link>
+            <Link style={{ textDecoration: 'none', color: "white" }} to="/szakmai-angol" underline="none" rel="noreferrer" color="inherit">
+              <div className="subject-container">
+                <a>Szakmai angol</a>
+                <img src={iteng} alt="Szakmai angol" className="subjectIMG" />
+              </div>
+            </Link>
+            <Link style={{ textDecoration: 'none', color: "white" }} to="/informatika" underline="none" rel="noreferrer" color="inherit">
+              <div className="subject-container">
+                <a>Informatika</a>
+                <img src={it} alt="Informatika" className="subjectIMG" />
+              </div>
+            </Link>
+            <div className="blackLine"></div>
           </div>
-          </Link>
-          <Link  style={{ textDecoration: 'none',color:"white" }} to="/magyar" underline="none" rel="noreferrer"  color="inherit">
-          <div className="subject-container">
-            <a>Magyar Nyelv</a>
-            <img src={grammer} alt="Magyar Nyelv" className="subjectIMG" />
-          </div>
-          </Link>
-          <Link  style={{ textDecoration: 'none',color:"white" }} to="/Tortenelem" underline="none" rel="noreferrer"  color="inherit">
-          <div className="subject-container">
-            <a>Történelem</a>
-            <img src={history} alt="Történelem" className="subjectIMG" />
-          </div>
-          </Link>
-          <Link  style={{ textDecoration: 'none',color:"white" }} to="/szakmai-angol" underline="none" rel="noreferrer"  color="inherit">
-          <div className="subject-container">
-            <a>Szakmai angol</a>
-            <img src={iteng} alt="Szakmai angol" className="subjectIMG" />
-          </div>
-          </Link>
-          <Link  style={{ textDecoration: 'none',color:"white" }} to="/informatika" underline="none" rel="noreferrer"  color="inherit">
-          <div className="subject-container">
-            <a>Informatika</a>
-            <img src={it} alt="Informatika" className="subjectIMG" />
-          </div>
-          </Link>
-          <div className="blackLine"></div>
         </div>
+
+
+        <div className='flex-item'>
+          <div className='contente-flex'>
+            <div className='flexcontente-item'>
+              <div className='contente-box'>
+                <div className='contente-title'>
+                  Informatika
+                </div>
+                <div className='contente'>
+                  asdadadasdas dansd n ojasnod daskndasnldnlas<br />
+                  asdsadasdasdasdsadas
+                </div>
+                <div className='contente-button'>
+                  <div className='detailsButton'>Részletek</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className='contente-flex'>
+            <div className='flexcontente-item'>
+              <div className='contente-box'>
+                <div className='contente-title'>
+                  Informatika
+                </div>
+                <div className='contente'>
+                  asdadadasdas dansd n ojasnod daskndasnldnlas<br />
+                  asdsadasdasdasdsadas
+                </div>
+                <div className='contente-button'>
+                  <div className='detailsButton'>Részletek</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className='contente-flex'>
+            <div className='flexcontente-item'>
+              <div className='contente-box'>
+                <div className='contente-title'>
+                  Informatika
+                </div>
+                <div className='contente'>
+                  asdadadasdas dansd n ojasnod daskndasnldnlas<br />
+                  asdsadasdasdasdsadas
+                </div>
+                <div className='contente-button'>
+                  <div className='detailsButton'>Részletek</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className='contente-flex'>
+            <div className='flexcontente-item'>
+              <div className='contente-box'>
+                <div className='contente-title'>
+                  Informatika
+                </div>
+                <div className='contente'>
+                  asdadadasdas dansd n ojasnod daskndasnldnlas<br />
+                  asdsadasdasdasdsadas
+                </div>
+                <div className='contente-button'>
+                  <div className='detailsButton'>Részletek</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className='contente-flex'>
+            <div className='flexcontente-item'>
+              <div className='contente-box'>
+                <div className='contente-title'>
+                  Informatika
+                </div>
+                <div className='contente'>
+                  asdadadasdas dansd n ojasnod daskndasnldnlas<br />
+                  asdsadasdasdasdsadas
+                </div>
+                <div className='contente-button'>
+                  <div className='detailsButton'>Részletek</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className='contente-flex'>
+            <div className='flexcontente-item'>
+              <div className='contente-box'>
+                <div className='contente-title'>
+                  Informatika
+                </div>
+                <div className='contente'>
+                  asdadadasdas dansd n ojasnod daskndasnldnlas<br />
+                  asdsadasdasdasdsadas
+                </div>
+                <div className='contente-button'>
+                  <div className='detailsButton'>Részletek</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className='contente-flex'>
+            <div className='flexcontente-item'>
+              <div className='contente-box'>
+                <div className='contente-title'>
+                  Informatika
+                </div>
+                <div className='contente'>
+                  asdadadasdas dansd n ojasnod daskndasnldnlas<br />
+                  asdsadasdasdasdsadas
+                </div>
+                <div className='contente-button'>
+                  <div className='detailsButton'>Részletek</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <div className='flex-item'> </div>
       </div>
-
-
-      <div className='flex-item'>
-        <div className='contente-flex'>
-        <div className='flexcontente-item'>
-          <div className='contente-box'>
-            <div className='contente-title'>
-              Informatika
-            </div>
-            <div className='contente'>
-              asdadadasdas dansd n ojasnod daskndasnldnlas<br/>
-              asdsadasdasdasdsadas
-            </div>
-            <div className='contente-button'>
-              <div className='detailsButton'>Részletek</div>
-            </div>
-          </div>
-        </div>
-        </div>
-
-        <div className='contente-flex'>
-        <div className='flexcontente-item'>
-          <div className='contente-box'>
-            <div className='contente-title'>
-              Informatika
-            </div>
-            <div className='contente'>
-              asdadadasdas dansd n ojasnod daskndasnldnlas<br/>
-              asdsadasdasdasdsadas
-            </div>
-            <div className='contente-button'>
-              <div className='detailsButton'>Részletek</div>
-            </div>
-          </div>
-        </div>
-        </div>
-
-        <div className='contente-flex'>
-        <div className='flexcontente-item'>
-          <div className='contente-box'>
-            <div className='contente-title'>
-              Informatika
-            </div>
-            <div className='contente'>
-              asdadadasdas dansd n ojasnod daskndasnldnlas<br/>
-              asdsadasdasdasdsadas
-            </div>
-            <div className='contente-button'>
-              <div className='detailsButton'>Részletek</div>
-            </div>
-          </div>
-        </div>
-        </div>
-
-        <div className='contente-flex'>
-        <div className='flexcontente-item'>
-          <div className='contente-box'>
-            <div className='contente-title'>
-              Informatika
-            </div>
-            <div className='contente'>
-              asdadadasdas dansd n ojasnod daskndasnldnlas<br/>
-              asdsadasdasdasdsadas
-            </div>
-            <div className='contente-button'>
-              <div className='detailsButton'>Részletek</div>
-            </div>
-          </div>
-        </div>
-        </div>
-
-        <div className='contente-flex'>
-        <div className='flexcontente-item'>
-          <div className='contente-box'>
-            <div className='contente-title'>
-              Informatika
-            </div>
-            <div className='contente'>
-              asdadadasdas dansd n ojasnod daskndasnldnlas<br/>
-              asdsadasdasdasdsadas
-            </div>
-            <div className='contente-button'>
-              <div className='detailsButton'>Részletek</div>
-            </div>
-          </div>
-        </div>
-        </div>
-
-        <div className='contente-flex'>
-        <div className='flexcontente-item'>
-          <div className='contente-box'>
-            <div className='contente-title'>
-              Informatika
-            </div>
-            <div className='contente'>
-              asdadadasdas dansd n ojasnod daskndasnldnlas<br/>
-              asdsadasdasdasdsadas
-            </div>
-            <div className='contente-button'>
-              <div className='detailsButton'>Részletek</div>
-            </div>
-          </div>
-        </div>
-        </div>
-
-        <div className='contente-flex'>
-        <div className='flexcontente-item'>
-          <div className='contente-box'>
-            <div className='contente-title'>
-              Informatika
-            </div>
-            <div className='contente'>
-              asdadadasdas dansd n ojasnod daskndasnldnlas<br/>
-              asdsadasdasdasdsadas
-            </div>
-            <div className='contente-button'>
-              <div className='detailsButton'>Részletek</div>
-            </div>
-          </div>
-        </div>
-        </div>
-
-      </div>
-      
-      <div className='flex-item'> </div>
-    </div>  
     </>
   );
 }
