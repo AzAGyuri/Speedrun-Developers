@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { Container } from '@mui/material';
+import React, { useState } from 'react';
+import { Container, Box, Button, Typography, Modal, TextField } from '@mui/material';
 import { styled } from '@mui/system';
 import { Link } from 'react-router-dom';
 import './FirstPage.css';
@@ -9,11 +9,6 @@ import grammer from './resources/grammer.png';
 import history from './resources/history.png';
 import it from './resources/it.png';
 import iteng from './resources/iteng.png';
-
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
-import Modal from '@mui/material/Modal';
 
 const RootContainer = styled(Container)({
   flexGrow: 1,
@@ -70,7 +65,17 @@ const style = {
 
 export function Kezdo() {
   const [open, setOpen] = React.useState(true);
+  const [newsModalOpen, setNewsModalOpen] = useState(false);
+
   const handleClose = () => setOpen(false);
+
+  const handleNewsModalOpen = () => {
+    setNewsModalOpen(true);
+  };
+
+  const handleNewsModalClose = () => {
+    setNewsModalOpen(false);
+  };
 
   return (
     <>
@@ -121,9 +126,7 @@ export function Kezdo() {
         </Modal>
       </div>
 
-
       <div className='flex-container'>
-
         <div className='flex-item'>
           <div className="drawer">
             <Link style={{ textDecoration: 'none', color: "white" }} to="/Matek" underline="none" rel="noreferrer" color="inherit">
@@ -160,7 +163,6 @@ export function Kezdo() {
           </div>
         </div>
 
-
         <div className='flex-item'>
           <div className='contente-flex'>
             <div className='flexcontente-item'>
@@ -173,6 +175,9 @@ export function Kezdo() {
                   asdsadasdasdasdsadas
                 </div>
                 <div className='contente-button'>
+                  <Button onClick={handleNewsModalOpen} variant="contained" color="primary">
+                    Új hír hozzáadása
+                  </Button>
                   <div className='detailsButton'>Részletek</div>
                 </div>
               </div>
@@ -285,6 +290,27 @@ export function Kezdo() {
 
         <div className='flex-item'> </div>
       </div>
+      {/* Új hír hozzáadása Modal */}
+      <Modal
+        open={newsModalOpen}
+        onClose={handleNewsModalClose}
+        aria-labelledby="news-modal-title"
+        aria-describedby="news-modal-description"
+      >
+        <Box sx={style}>
+          <CloseButton onClick={handleNewsModalClose} color="primary">
+            X
+          </CloseButton>
+          <Typography variant="h6" component="div" id="news-modal-title">
+            Új hír hozzáadása
+          </Typography>
+          <TextField label="Cím" fullWidth />
+          <TextField label="Tartalom" multiline rows={4} fullWidth />
+          <Button variant="contained" color="primary" style={{ marginTop: '16px' }}>
+            Hozzáadás
+          </Button>
+        </Box>
+      </Modal>
     </>
   );
 }

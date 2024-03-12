@@ -128,7 +128,7 @@ export function MyProfile() {
           </div>
           <div style={styles.infoItem}>
             <Typography variant="body1" style={styles.infoLabel}>
-              Name:
+              Név:
             </Typography>
             <Typography variant="body1" style={styles.infoValue}>
               {userData.firstName} {userData.lastName}
@@ -136,7 +136,7 @@ export function MyProfile() {
           </div>
           <div style={styles.infoItem}>
             <Typography variant="body1" style={styles.infoLabel}>
-              Phone Number:
+              Telefonszám:
             </Typography>
             <Typography variant="body1" style={styles.infoValue}>
               {userData.phoneNumber}
@@ -144,7 +144,7 @@ export function MyProfile() {
           </div>
           <div style={styles.infoItem}>
             <Typography variant="body1" style={styles.infoLabel}>
-              Registration Date:
+              Regisztáció napja:
             </Typography>
             <Typography variant="body1" style={styles.infoValue}>
               {userData.registrationDate}
@@ -152,7 +152,7 @@ export function MyProfile() {
           </div>
           <div style={styles.infoItem}>
             <Typography variant="body1" style={styles.infoLabel}>
-              User ID:
+              ID:
             </Typography>
             <Typography variant="body1" style={styles.infoValue}>
               {userData.userId}

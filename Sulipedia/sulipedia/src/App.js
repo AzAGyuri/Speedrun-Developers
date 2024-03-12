@@ -39,7 +39,7 @@ function App() {
             <Route path="/signIn" element={<SignIn />} />
             <Route path="/signUp" element={<SignUp />} />
             <Route path="/kezdo" element={<Kezdo />} />
-            <Route path="/" element={<Kezdo />} />
+            <Route path="/" element={<SignIn />} />
             <Route path="/aboutUs" element={<AboutUs />} />
             <Route path="/learnMore" element={<LearnMore />} />
             <Route path="/szakmai-angol" element={<SzakAngol/>} />

@@ -3,7 +3,7 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import { Link } from "react-router-dom";
+import { Link } from 'react-router-dom';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
@@ -12,6 +12,7 @@ import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+
 const defaultTheme = createTheme();
 
 export default function SignUp() {
@@ -21,6 +22,7 @@ export default function SignUp() {
     nickname: '',
     email: '',
     password: '',
+    confirmPassword: '',
     phone: '',
     allowExtraEmails: false,
   });
@@ -49,52 +51,72 @@ export default function SignUp() {
     }));
 
     // Reset error state when the user types
-    if (name === 'email') {
-      setEmailError(false);
-    } else if (name === 'password') {
-      setPasswordError(false);
-    } else if (name === 'lastName') {
-      setLastNameError(false);
-    } else if (name === 'firstName') {
-      setFirstNameError(false);
-    } else if (name === 'phone') {
-      setPhoneError(false);
+    resetErrorState(name);
+  };
+
+  const resetErrorState = (name) => {
+    switch (name) {
+      case 'email':
+        setEmailError(false);
+        break;
+      case 'password':
+        setPasswordError(false);
+        break;
+      case 'lastName':
+        setLastNameError(false);
+        break;
+      case 'firstName':
+        setFirstNameError(false);
+        break;
+      case 'phone':
+        setPhoneError(false);
+        break;
+      case 'confirmPassword':
+        setPasswordError(false);
+        break;
+      default:
+        break;
     }
   };
 
   const validateForm = () => {
-    // Validation logic for email
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(formData.email)) {
       setEmailError(true);
     }
 
-    // Validation logic for password
     const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
     if (!passwordRegex.test(formData.password)) {
       setPasswordError(true);
     }
 
-    // Validation logic for last name
     if (formData.lastName.length < 2) {
       setLastNameError(true);
     }
 
-    // Validation logic for first name
     if (formData.firstName.length < 3) {
       setFirstNameError(true);
     }
 
-    // Validation logic for phone number
     const phoneRegex = /^\d{11}$/;
     if (formData.phone && !phoneRegex.test(formData.phone)) {
       setPhoneError(true);
     }
+
+    if (formData.password !== formData.confirmPassword) {
+      setPasswordError(true);
+    }
   };
 
   const isFormValid = () => {
-    // Check the error state for each field
-    return !emailError && !passwordError && !lastNameError && !firstNameError && !phoneError;
+    return (
+      !emailError &&
+      !passwordError &&
+      !lastNameError &&
+      !firstNameError &&
+      !phoneError &&
+      formData.password === formData.confirmPassword
+    );
   };
 
   const handleTogglePasswordVisibility = () => {
@@ -111,12 +133,15 @@ export default function SignUp() {
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
+            boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.1)',
+            borderRadius: '8px',
+            padding: '24px',
           }}
         >
           <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
             <LockOutlinedIcon />
           </Avatar>
-          <Typography component="h1" variant="h5">
+          <Typography component="h1" variant="h5" sx={{ mb: 2 }}>
             Profil létrehozása
           </Typography>
           <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
@@ -134,6 +159,7 @@ export default function SignUp() {
                   onChange={handleChange}
                   error={lastNameError}
                   helperText={lastNameError ? 'Vezetéknév legalább 3 karakter hosszú kell legyen' : ''}
+                  variant="outlined"
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
@@ -150,15 +176,17 @@ export default function SignUp() {
                   onChange={handleChange}
                   error={firstNameError}
                   helperText={firstNameError ? 'Keresztnév legalább 3 karakter hosszú kell legyen' : ''}
+                  variant="outlined"
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
                 <TextField
-                  name="nickname"
+                  name="Becenév"
                   fullWidth
                   id="Nickname"
                   label="Becenév (opcionális)"
                   autoFocus
+                  variant="outlined"
                 />
               </Grid>
               <Grid item xs={12}>
@@ -166,13 +194,14 @@ export default function SignUp() {
                   required
                   fullWidth
                   id="email"
-                  label="Email Address"
+                  label="Email"
                   name="email"
                   autoComplete="email"
                   value={formData.email}
                   onChange={handleChange}
                   error={emailError}
                   helperText={emailError ? 'Érvénytelen e-mail cím' : ''}
+                  variant="outlined"
                 />
               </Grid>
               <Grid item xs={12}>
@@ -180,7 +209,7 @@ export default function SignUp() {
                   required
                   fullWidth
                   name="password"
-                  label="Password"
+                  label="Jelszó"
                   type={showPassword ? 'text' : 'password'}
                   id="password"
                   autoComplete="new-password"
@@ -192,6 +221,7 @@ export default function SignUp() {
                       ? 'A jelszónak legalább 8 karakter hosszúnak kell lennie, tartalmaznia kell kis- és nagybetűt, számot, valamint speciális karaktert (@$!%*?&)'
                       : ''
                   }
+                  variant="outlined"
                   InputProps={{
                     endAdornment: (
                       <Link onClick={handleTogglePasswordVisibility} style={{ cursor: 'pointer' }}>
@@ -199,6 +229,22 @@ export default function SignUp() {
                       </Link>
                     ),
                   }}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  required
+                  fullWidth
+                  name="confirmPassword"
+                  label="Jelszó újra"
+                  type={showPassword ? 'text' : 'password'}
+                  id="confirmPassword"
+                  autoComplete="new-password"
+                  value={formData.confirmPassword}
+                  onChange={handleChange}
+                  error={passwordError}
+                  helperText={passwordError ? 'A jelszónak egyeznie kell és a megadott feltételeknek teljesülni!' : ''}
+                  variant="outlined"
                 />
               </Grid>
               <Grid item xs={12}>
@@ -212,20 +258,16 @@ export default function SignUp() {
                   onChange={handleChange}
                   error={phoneError}
                   helperText={phoneError ? 'Érvénytelen telefonszám (11 számjegy szükséges)' : ''}
+                  variant="outlined"
                 />
               </Grid>
             </Grid>
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              sx={{ mt: 3, mb: 2 }}
-            >
+            <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
               Profil létrehozása
             </Button>
             <Grid container justifyContent="flex-end">
               <Grid item>
-                <Link to={"/SignIn"} variant="body2">
+                <Link to="/SignIn" variant="body2">
                   Már van profilod? Jelentkezz be!
                 </Link>
               </Grid>
