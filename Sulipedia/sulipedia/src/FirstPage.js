@@ -64,10 +64,15 @@ const style = {
 };
 
 export function Kezdo() {
-  const [open, setOpen] = React.useState(true);
+  const [posts, setPosts] = useState([]);
+  const [open, setOpen] = React.useState(false);
   const [newsModalOpen, setNewsModalOpen] = useState(false);
+  const [newPostTitle, setNewPostTitle] = useState('');
+  const [newPostContent, setNewPostContent] = useState('');
 
-  const handleClose = () => setOpen(false);
+
+
+  const handleClose = () => { setOpen(false); setPosts([...posts, { title: newPostTitle, content: newPostContent }]); }
 
   const handleNewsModalOpen = () => {
     setNewsModalOpen(true);
@@ -75,6 +80,8 @@ export function Kezdo() {
 
   const handleNewsModalClose = () => {
     setNewsModalOpen(false);
+    setNewPostTitle('');
+    setNewPostContent('');
   };
 
   return (
@@ -175,9 +182,7 @@ export function Kezdo() {
                   asdsadasdasdasdsadas
                 </div>
                 <div className='contente-button'>
-                  <Button onClick={handleNewsModalOpen} variant="contained" color="primary">
-                    Új hír hozzáadása
-                  </Button>
+
                   <div className='detailsButton'>Részletek</div>
                 </div>
               </div>
@@ -252,45 +257,17 @@ export function Kezdo() {
             </div>
           </div>
 
-          <div className='contente-flex'>
-            <div className='flexcontente-item'>
-              <div className='contente-box'>
-                <div className='contente-title'>
-                  Informatika
-                </div>
-                <div className='contente'>
-                  asdadadasdas dansd n ojasnod daskndasnldnlas<br />
-                  asdsadasdasdasdsadas
-                </div>
-                <div className='contente-button'>
-                  <div className='detailsButton'>Részletek</div>
-                </div>
-              </div>
-            </div>
-          </div>
 
-          <div className='contente-flex'>
-            <div className='flexcontente-item'>
-              <div className='contente-box'>
-                <div className='contente-title'>
-                  Informatika
-                </div>
-                <div className='contente'>
-                  asdadadasdas dansd n ojasnod daskndasnldnlas<br />
-                  asdsadasdasdasdsadas
-                </div>
-                <div className='contente-button'>
-                  <div className='detailsButton'>Részletek</div>
-                </div>
-              </div>
-            </div>
-          </div>
 
         </div>
-
-        <div className='flex-item'> </div>
+        <div className='flex-item'> 
+        <Button onClick={handleNewsModalOpen} variant="contained" color="primary">
+          Új hír hozzáadása
+        </Button>
+        </div>
       </div>
-      {/* Új hír hozzáadása Modal */}
+
+
       <Modal
         open={newsModalOpen}
         onClose={handleNewsModalClose}
@@ -304,13 +281,54 @@ export function Kezdo() {
           <Typography variant="h6" component="div" id="news-modal-title">
             Új hír hozzáadása
           </Typography>
-          <TextField label="Cím" fullWidth />
-          <TextField label="Tartalom" multiline rows={4} fullWidth />
-          <Button variant="contained" color="primary" style={{ marginTop: '16px' }}>
+          <TextField
+            label="Cím"
+            fullWidth
+            value={newPostTitle}
+            onChange={(e) => setNewPostTitle(e.target.value)}
+          />
+          <TextField
+            label="Tartalom"
+            multiline
+            rows={4}
+            fullWidth
+            value={newPostContent}
+            onChange={(e) => setNewPostContent(e.target.value)}
+          />
+          <Button
+            variant="contained"
+            color="primary"
+            style={{ marginTop: '16px' }}
+            onClick={() => {
+              handleClose(); 
+              handleNewsModalClose(); 
+            }}
+          >
             Hozzáadás
           </Button>
         </Box>
       </Modal>
+      <div className='flex-container'>
+      <div className='flex-item'>  </div>
+      <div className='flex-item'>
+        {posts.map((post, index) => (
+
+          <div className='contente-flex' key={index}>
+            <div className='flexcontente-item'>
+              <div className='contente-box'>
+                <div className='contente-title'>{post.title}</div>
+                <div className='contente'>{post.content}</div>
+                <div className='contente-button'>
+                  <div className='detailsButton'>Részletek</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        ))}
+      </div>
+      <div className='flex-item'> </div>
+      </div>
     </>
   );
 }
