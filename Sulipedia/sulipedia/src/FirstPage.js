@@ -65,7 +65,7 @@ const style = {
 
 export function Kezdo() {
   const [posts, setPosts] = useState([]);
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = React.useState(true);
   const [newsModalOpen, setNewsModalOpen] = useState(false);
   const [newPostTitle, setNewPostTitle] = useState('');
   const [newPostContent, setNewPostContent] = useState('');
@@ -297,7 +297,7 @@ export function Kezdo() {
           />
           <Button
             variant="contained"
-            color="primary"
+            color="secondary"
             style={{ marginTop: '16px' }}
             onClick={() => {
               handleClose(); 

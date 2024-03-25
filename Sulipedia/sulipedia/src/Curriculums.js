@@ -2,6 +2,7 @@ import React from 'react';
 import { Container, Typography, Card, CardContent, Grid, Button, Paper } from '@mui/material';
 import { styled } from '@mui/system';
 import { Link } from 'react-router-dom';
+
 import InformatikaImage from './resources/it.png';
 import SzakmaiAngolImage from './resources/iteng.png';
 import MatematikaImage from './resources/mat.png';

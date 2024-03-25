@@ -37,11 +37,12 @@ const StyledContainer = styled(Container)({
   backgroundColor: '#333',
   border: '2px solid #555',
   padding: 100,
-  marginTop: 50,
+  marginTop: 0,
 });
 
 const StyledPaper = styled(Paper)({
   backgroundColor: '#fff59d',
+  
 });
 
 const StyledCard = styled(Card)({
@@ -113,8 +114,8 @@ export function Tests() {
 
   return (
     <StyledContainer maxWidth="xl">
-      <StyledPaper elevation={3}>
-        <AppBar position="static">
+      <StyledPaper elevation={3} style={{borderRadius: '11px'}}>
+        <AppBar position="static" style={{borderTopLeftRadius: '9px', borderTopRightRadius: '9px'}}>
           <FlexContainer>
             <StyledButton onClick={() => handleSubjectClick('Szakmai Angol')}>Szakmai Angol</StyledButton>
             <StyledButton onClick={() => handleSubjectClick('Matematika')}>Matematika</StyledButton>

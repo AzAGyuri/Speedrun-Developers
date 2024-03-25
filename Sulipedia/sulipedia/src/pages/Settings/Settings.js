@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Container, Typography, Paper, TextField, Button, Grid, Avatar, Link } from '@mui/material';
 import './Settings.css';
+import { fontSize } from '@mui/system';
 
 const styles = {
   container: {
@@ -8,14 +9,16 @@ const styles = {
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    height: '100vh',
-    background: 'linear-gradient(135deg, #ffd500 0%, #f7971e 100%)',
+    height: '85vh',
+    //background: 'linear-gradient(135deg, #ffd500 0%, #f7971e 100%)',
+    //background: 'linear-gradient(135deg, #3494E6 0%, #EC6EAD 100%)',
   },
   paper: {
     padding: '40px',
     borderRadius: '12px',
     boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)',
-    background: 'linear-gradient(45deg, #ffe259 30%, #ffa751 90%)',
+    //background: 'linear-gradient(45deg, #ffe259 30%, #ffa751 90%)',
+    background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
     color: 'white',
     maxWidth: '600px',
     width: '100%',
@@ -142,6 +145,17 @@ export function Settings() {
                       {''}
                     </Link>
                   ),
+                }}
+                FormHelperTextProps={{
+                  style: { 
+                    color: '#8B0000', 
+                    fontSize: '13px',
+                  } 
+                }}
+                InputLabelProps={{
+                  style: {
+                    color: passwordError ? '#8B0000' : 'inherit', // Change label color based on error
+                  },
                 }}
               />
             </Grid>

@@ -2,30 +2,35 @@
 import React from 'react';
 import './App.css';
 import { ResAppBar } from './ResAppBar';
-import SignIn from './SignIn';
-import { Tests } from './Tests';
-import { LearnMore } from './LearnMore';
-import { Curriculums } from './Curriculums';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { Link } from 'react-router-dom';
-import SignUp from './SignUp';
-import { MyGroups } from './MyGroups';
-import { MyProfile } from './MyProfile';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { Settings } from './Settings';
-import { Kezdo } from './FirstPage';
-import { AboutUs } from './AboutUs';
 import SpeedrunLogo from './resources/logo-no-background.png';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
-import { SzakAngol } from './SzakmaiAngol';
-import { Matek } from './Matek';
-import { Magyar } from './Magyar';
-import { Tortenelem } from './Tortenelem';
-import { Informatika } from './Informatika';
+
+import { SzakAngol } from './pages/Subjects/SzakmaiAngol';
+import { Matek } from './pages/Subjects/Matek';
+import { Magyar } from './pages/Subjects/Magyar';
+import { Tortenelem } from './pages/Subjects/Tortenelem';
+import { Informatika } from './pages/Subjects/Informatika';
+import { Settings } from './pages/Settings/Settings';
+import { Kezdo } from './FirstPage';
+import { AboutUs } from './pages/AboutUs/AboutUs';
+import SignUp from './pages/SignIn/SignUp';
+import { MyGroups } from './MyGroups';
+import { MyProfile } from './pages/MyProfile/MyProfile';
+import SignIn from './pages/SignIn/SignIn';
+import { Tests } from './Tests';
+import { LearnMore } from './LearnMore';
+import { Curriculums } from './Curriculums';
+import { Navigate } from 'react-router-dom';
 
 function App() {
+
+  const [isLoggedIn, setLoggedIn] = React.useState();
+
   return (
     <>
       <Router>
@@ -33,7 +38,7 @@ function App() {
           <Routes>
             <Route path="/curriculums" element={<Curriculums />} />
             <Route path="/tests" element={<Tests />} />
-            <Route path="/mygroups" element={<MyGroups />} />
+            <Route path="/mygroups" element={isLoggedIn ? <MyGroups /> : <Navigate to='/SignIn'/>} />
             <Route path="/myProfile" element={<MyProfile />} />
             <Route path="/settings" element={<Settings />} />
             <Route path="/signIn" element={<SignIn />} />

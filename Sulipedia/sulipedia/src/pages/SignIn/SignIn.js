@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -18,8 +18,15 @@ import { useNavigate } from 'react-router-dom';
 const defaultTheme = createTheme();
 
 export default function SignIn() {
-  const [isLoggedIn, setLoggedIn] = useState(false);
   const navigate = useNavigate();
+
+  const [isLoggedIn, setLoggedIn] = useState(false);
+  
+  localStorage.setItem('loginAuth', isLoggedIn);
+  
+  useEffect(() => {
+    localStorage.setItem('loginAuth', JSON.stringify(isLoggedIn));
+  }, [isLoggedIn]);
 
   const handleSubmit = (event) => {
     event.preventDefault();
