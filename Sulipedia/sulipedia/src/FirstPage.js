@@ -66,13 +66,15 @@ const style = {
 export function Kezdo() {
   const [posts, setPosts] = useState([]);
   const [open, setOpen] = React.useState(true);
+  const [newPost,setNewPost] = React.useState(false);
   const [newsModalOpen, setNewsModalOpen] = useState(false);
   const [newPostTitle, setNewPostTitle] = useState('');
   const [newPostContent, setNewPostContent] = useState('');
 
 
 
-  const handleClose = () => { setOpen(false); setPosts([...posts, { title: newPostTitle, content: newPostContent }]); }
+  const handleClose = () => { setOpen(false);  }
+  const handleClosePost = () => { setPosts([...posts, { title: newPostTitle, content: newPostContent }]); }
 
   const handleNewsModalOpen = () => {
     setNewsModalOpen(true);
@@ -300,7 +302,7 @@ export function Kezdo() {
             color="secondary"
             style={{ marginTop: '16px' }}
             onClick={() => {
-              handleClose(); 
+              handleClosePost(); 
               handleNewsModalClose(); 
             }}
           >
