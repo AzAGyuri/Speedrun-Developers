@@ -19,14 +19,8 @@ const defaultTheme = createTheme();
 
 export default function SignIn() {
   const navigate = useNavigate();
-
   const [isLoggedIn, setLoggedIn] = useState(false);
-  
-  localStorage.setItem('loginAuth', isLoggedIn);
-  
-  useEffect(() => {
-    localStorage.setItem('loginAuth', JSON.stringify(isLoggedIn));
-  }, [isLoggedIn]);
+
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -35,12 +29,19 @@ export default function SignIn() {
       email: data.get('email'),
       password: data.get('password'),
     });
-    setLoggedIn(true);
+    
+
+    if(data.get('email') === "a" && data.get('password') === "a"){
+      setLoggedIn(true);
+    }
   };
 
-  if (isLoggedIn) {
-    navigate('/kezdo');
-  }
+  useEffect(() => {
+    if (isLoggedIn) {
+      localStorage.setItem('loginAuth', true);
+      navigate('/kezdo');
+    }
+  }, [isLoggedIn, navigate]);
 
   return (
     <ThemeProvider theme={defaultTheme}>

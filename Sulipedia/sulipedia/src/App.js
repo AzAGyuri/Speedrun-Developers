@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './App.css';
 import { ResAppBar } from './ResAppBar';
 import Button from '@mui/material/Button';
@@ -19,19 +19,22 @@ import { Kezdo } from './FirstPage';
 import { AboutUs } from './pages/AboutUs/AboutUs';
 import SignUp from './pages/SignIn/SignUp';
 import { MyGroups } from './MyGroups';
-import { MyProfile } from './MyProfile';
+import { MyProfile } from './pages/MyProfile/MyProfile';
 import SignIn from './pages/SignIn/SignIn';
 import { Tests } from './Tests';
 import { LearnMore } from './LearnMore';
 import { Curriculums } from './Curriculums';
+import { Navigate } from 'react-router-dom';
 
 function App() {
+  const [isLoggedIn, setLoggedIn] = React.useState();
 
-  const [isLoggedIn, setLoggedIn] = useState<Boolean>(
-    () => localStorage.getItem('loginAuth') !== null
-  );
+  useEffect(() => {
+    const loginAuth = localStorage.getItem('loginAuth');
+    setLoggedIn(JSON.parse(loginAuth));
 
-  setLoggedIn(localStorage.getItem('loginAuth'));
+  }, [localStorage.getItem('loginAuth')]);
+  
 
   return (
     <>
@@ -40,7 +43,7 @@ function App() {
           <Routes>
             <Route path="/curriculums" element={<Curriculums />} />
             <Route path="/tests" element={<Tests />} />
-            <Route path="/mygroups" element={<MyGroups />} />
+            <Route path="/mygroups" element={isLoggedIn ? <MyGroups /> : <Navigate to='/SignIn'/>} />
             <Route path="/myProfile" element={<MyProfile />} />
             <Route path="/settings" element={<Settings />} />
             <Route path="/signIn" element={<SignIn />} />
