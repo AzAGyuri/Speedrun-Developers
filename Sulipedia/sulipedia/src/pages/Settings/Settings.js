@@ -9,7 +9,7 @@ const styles = {
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    height: '85vh',
+    height: '100vh',
     //background: 'linear-gradient(135deg, #ffd500 0%, #f7971e 100%)',
     //background: 'linear-gradient(135deg, #3494E6 0%, #EC6EAD 100%)',
   },
