@@ -1,3 +1,4 @@
+// Importáld a szükséges hook-ot
 import React, { useEffect } from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
@@ -14,6 +15,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { Link } from "react-router-dom";
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import './SignIn.css';
 
 const defaultTheme = createTheme();
 
@@ -21,6 +23,14 @@ export default function SignIn() {
   const navigate = useNavigate();
   const [isLoggedIn, setLoggedIn] = useState(false);
 
+  // Ellenőrizzük a helyi tárolót (localStorage) az oldal betöltésekor
+  useEffect(() => {
+    const storedLoggedIn = localStorage.getItem('loginAuth');
+    if (storedLoggedIn === 'true') {
+      setLoggedIn(true);
+      navigate('/kezdo');
+    }
+  }, [navigate]);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -29,23 +39,19 @@ export default function SignIn() {
       email: data.get('email'),
       password: data.get('password'),
     });
-    
 
-    if(data.get('email') === "a" && data.get('password') === "a"){
+    // Ellenőrizzük a bejelentkezési adatokat
+    if (data.get('email') === "a" && data.get('password') === "a") {
+      // Ha a bejelentkezés sikeres, állítsd be a helyi mentésben az állapotot és navigálj
+      localStorage.setItem('loginAuth', 'true');
       setLoggedIn(true);
+      navigate('/kezdo');
     }
   };
 
-  useEffect(() => {
-    if (isLoggedIn) {
-      localStorage.setItem('loginAuth', true);
-      navigate('/kezdo');
-    }
-  }, [isLoggedIn, navigate]);
-
   return (
     <ThemeProvider theme={defaultTheme}>
-      <Grid container component="main" sx={{ height: '100vh' }}>
+      <Grid container component="main" className="SignIn" sx={{ height: '100vh' }}>
         <CssBaseline />
         <Grid
           item

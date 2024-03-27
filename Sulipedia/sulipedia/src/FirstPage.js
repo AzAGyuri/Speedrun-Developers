@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Container, Box, Button, Typography, Modal, TextField } from '@mui/material';
 import { styled } from '@mui/system';
 import { Link } from 'react-router-dom';
@@ -70,11 +70,18 @@ export function Kezdo() {
   const [newsModalOpen, setNewsModalOpen] = useState(false);
   const [newPostTitle, setNewPostTitle] = useState('');
   const [newPostContent, setNewPostContent] = useState('');
+  const [closedByUser, setClosedByUser] = useState(false);
+  const [modalShouldOpen, setModalShouldOpen] = useState(true);
   
 
+  useEffect(() => {
+    // Ellenőrizzük, hogy a modális ablakot a felhasználó bezárta-e az "X" gombra kattintva
+    if (!modalShouldOpen) {
+      setOpen(false);
+    }
+  }, [modalShouldOpen]);
 
-
-  const handleClose = () => { setOpen(false);  }
+  const handleClose = () => { setOpen(false);  setClosedByUser(true);  setModalShouldOpen(false);  }
   const handleClosePost = () => { setPosts([...posts, { title: newPostTitle, content: newPostContent }]); }
 
   const handleNewsModalOpen = () => {

@@ -42,7 +42,7 @@ export function ResAppBar() {
 
   return (
     <>
-      <AppBar position="static">
+      <AppBar position="static" >
         <Container maxWidth="xl">
           <Toolbar disableGutters>
             {isSmallScreen ? (

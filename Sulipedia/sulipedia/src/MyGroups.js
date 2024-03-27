@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import {
   Container,
   Typography,
@@ -30,6 +30,8 @@ import Table from '@mui/material/Table';
 import TableCell, { tableCellClasses } from '@mui/material/TableCell';
 import TableRow from '@mui/material/TableRow';
 import { red } from '@mui/material/colors';
+
+import { useNavigate } from 'react-router-dom';
 
 const styles = {
   container: {
@@ -113,7 +115,7 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   '&:nth-of-type(odd)': {
     backgroundColor: theme.palette.action.hover,
   },
-  // hide last border
+
   '&:last-child td, &:last-child th': {
     border: 0,
   },
@@ -162,6 +164,7 @@ export function MyGroups() {
   const [open, setOpen] = useState(false);
   const [newGroupName, setNewGroupName] = useState('');
   const [newGroupDescription, setNewGroupDescription] = useState('');
+  const navigate = useNavigate();
 
   const handleOpen = () => {
     setOpen(true);
@@ -194,7 +197,7 @@ export function MyGroups() {
     setGroups(updatedGroups);
   }
   
-    
+
 
 
   return (

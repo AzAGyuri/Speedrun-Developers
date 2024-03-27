@@ -1,13 +1,11 @@
 import React, { useEffect } from 'react';
 import './App.css';
 import { ResAppBar } from './ResAppBar';
-import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { Link } from 'react-router-dom';
-import ReactDOM from 'react-dom/client';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import SpeedrunLogo from './resources/logo-no-background.png';
-import { ThemeProvider, createTheme } from '@mui/material/styles';
+
 
 import { SzakAngol } from './pages/Subjects/SzakmaiAngol';
 import { Matek } from './pages/Subjects/Matek';
@@ -24,46 +22,41 @@ import SignIn from './pages/SignIn/SignIn';
 import { Tests } from './Tests';
 import { LearnMore } from './LearnMore';
 import { Curriculums } from './Curriculums';
-import { Navigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import { useLocalStorage } from './useLocalStorage'; 
 
 function App() {
-  const [isLoggedIn, setLoggedIn] = React.useState();
+  const [isLoggedIn, setLoggedIn] = useLocalStorage('loginAuth', false);
 
-  useEffect(() => {
-    const loginAuth = localStorage.getItem('loginAuth');
-    setLoggedIn(JSON.parse(loginAuth));
-
-  }, [localStorage.getItem('loginAuth')]);
   
-
   return (
     <>
-      <Router>
-          <ResAppBar />
-          <Routes>
-            <Route path="/curriculums" element={<Curriculums />} />
-            <Route path="/tests" element={<Tests />} />
-            <Route path="/mygroups" element={isLoggedIn ? <MyGroups /> : <Navigate to='/SignIn'/>} />
-            <Route path="/myProfile" element={<MyProfile />} />
-            <Route path="/settings" element={<Settings />} />
-            <Route path="/signIn" element={<SignIn />} />
-            <Route path="/signUp" element={<SignUp />} />
-            <Route path="/kezdo" element={<Kezdo />} />
-            <Route path="/" element={<SignIn />} />
-            <Route path="/aboutUs" element={<AboutUs />} />
-            <Route path="/learnMore" element={<LearnMore />} />
-            <Route path="/szakmai-angol" element={<SzakAngol/>} />
-            <Route path="/matek" element={<Matek></Matek>} />
-            <Route path="/magyar" element={<Magyar></Magyar>} />
-            <Route path="/tortenelem" element={<Tortenelem></Tortenelem>} />
-            <Route path="/informatika" element={<Informatika></Informatika>} />
-          </Routes>
-          <Copyright />
-      </Router>
+     <Router>
+  <ResAppBar />
+  <Routes>
+    <Route path="/curriculums" element={isLoggedIn ? <Curriculums /> : <Navigate to="/signIn" />} />
+    <Route path="/tests" element={isLoggedIn ? <Tests /> : <Navigate to="/signIn" />} />
+    <Route path="/mygroups" element={isLoggedIn ? <MyGroups /> : <Navigate to="/signIn" />} />
+    <Route path="/myProfile" element={isLoggedIn ? <MyProfile /> : <Navigate to="/signIn" />} />
+    <Route path="/settings" element={isLoggedIn ? <Settings /> : <Navigate to="/signIn" />} />
+    <Route path="/signIn" element={<SignIn setLoggedIn={setLoggedIn} />} />
+    <Route path="/signUp" element={<SignUp />} />
+    <Route path="/kezdo" element={isLoggedIn ? <Kezdo /> : <Navigate to="/signIn" />} />
+    <Route path="/" element={isLoggedIn ? <Kezdo /> : <Navigate to="/signIn" />} />
+    <Route path="/aboutUs" element={isLoggedIn ? <AboutUs /> : <Navigate to="/signIn" />} />
+    <Route path="/learnMore" element={isLoggedIn ? <LearnMore /> : <Navigate to="/signIn" />} />
+    <Route path="/szakmai-angol" element={isLoggedIn ? <SzakAngol /> : <Navigate to="/signIn" />} />
+    <Route path="/matek" element={isLoggedIn ? <Matek /> : <Navigate to="/signIn" />} />
+    <Route path="/magyar" element={isLoggedIn ? <Magyar /> : <Navigate to="/signIn" />} />
+    <Route path="/tortenelem" element={isLoggedIn ? <Tortenelem /> : <Navigate to="/signIn" />} />
+    <Route path="/informatika" element={isLoggedIn ? <Informatika /> : <Navigate to="/signIn" />} />
+  </Routes>
+  <Copyright />
+</Router>
+
     </>
   );
 }
-
 
 function Copyright(props) {
   return (

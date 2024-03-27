@@ -12,6 +12,7 @@ import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import './SignUp.css';
 
 const defaultTheme = createTheme();
 
@@ -125,7 +126,8 @@ export default function SignUp() {
 
   return (
     <ThemeProvider theme={defaultTheme}>
-      <Container component="main" maxWidth="xs">
+      <div className='SignUp'>
+      <Container component="main" maxWidth="xs" className="signup-container">
         <CssBaseline />
         <Box
           sx={{
@@ -137,6 +139,7 @@ export default function SignUp() {
             borderRadius: '8px',
             padding: '24px',
           }}
+          className="signup-form"
         >
           <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
             <LockOutlinedIcon />
@@ -262,12 +265,12 @@ export default function SignUp() {
                 />
               </Grid>
             </Grid>
-            <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
+            <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }} className="submit-button">
               Profil létrehozása
             </Button>
             <Grid container justifyContent="flex-end">
               <Grid item>
-                <Link to="/SignIn" variant="body2">
+                <Link to="/SignIn" variant="body2" className="signin-link">
                   Már van profilod? Jelentkezz be!
                 </Link>
               </Grid>
@@ -275,6 +278,7 @@ export default function SignUp() {
           </Box>
         </Box>
       </Container>
+      </div>
     </ThemeProvider>
   );
 }
