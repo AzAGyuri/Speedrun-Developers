@@ -70,6 +70,7 @@ export function Kezdo() {
   const [newsModalOpen, setNewsModalOpen] = useState(false);
   const [newPostTitle, setNewPostTitle] = useState('');
   const [newPostContent, setNewPostContent] = useState('');
+  
 
 
 
@@ -277,7 +278,7 @@ export function Kezdo() {
         aria-describedby="news-modal-description"
       >
         <Box sx={style}>
-          <CloseButton onClick={handleNewsModalClose} color="primary">
+          <CloseButton  onClick={handleNewsModalClose} color="primary">
             X
           </CloseButton>
           <Typography variant="h6" component="div" id="news-modal-title">
@@ -327,7 +328,7 @@ export function Kezdo() {
             </div>
           </div>
 
-        ))}
+        ))} 
       </div>
       <div className='flex-item'> </div>
       </div>
