@@ -28,6 +28,7 @@ import { useLocalStorage } from './useLocalStorage';
 function App() {
   const [isLoggedIn, setLoggedIn] = useLocalStorage('loginAuth', false);
 
+
   
   return (
     <>
@@ -42,7 +43,7 @@ function App() {
     <Route path="/signIn" element={<SignIn setLoggedIn={setLoggedIn} />} />
     <Route path="/signUp" element={<SignUp />} />
     <Route path="/kezdo" element={isLoggedIn ? <Kezdo /> : <Navigate to="/signIn" />} />
-    <Route path="/" element={isLoggedIn ? <Kezdo /> : <Navigate to="/signIn" />} />
+    <Route path="/" element={isLoggedIn ? <><Kezdo /></> : <Navigate to="/signIn" />} />
     <Route path="/aboutUs" element={isLoggedIn ? <AboutUs /> : <Navigate to="/signIn" />} />
     <Route path="/learnMore" element={isLoggedIn ? <LearnMore /> : <Navigate to="/signIn" />} />
     <Route path="/szakmai-angol" element={isLoggedIn ? <SzakAngol /> : <Navigate to="/signIn" />} />

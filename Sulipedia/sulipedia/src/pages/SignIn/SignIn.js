@@ -1,4 +1,3 @@
-// Importáld a szükséges hook-ot
 import React, { useEffect } from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
@@ -16,6 +15,7 @@ import { Link } from "react-router-dom";
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './SignIn.css';
+import { Loading } from '../../Loading';
 
 const defaultTheme = createTheme();
 
@@ -34,18 +34,18 @@ export default function SignIn() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
+    const data = new FormData(event.currentTarget); 
     console.log({
       email: data.get('email'),
       password: data.get('password'),
     });
 
-    // Ellenőrizzük a bejelentkezési adatokat
     if (data.get('email') === "a" && data.get('password') === "a") {
-      // Ha a bejelentkezés sikeres, állítsd be a helyi mentésben az állapotot és navigálj
       localStorage.setItem('loginAuth', 'true');
+      window.location.reload()
       setLoggedIn(true);
       navigate('/kezdo');
+            <Loading></Loading>
     }
   };
 
@@ -113,8 +113,11 @@ export default function SignIn() {
                 fullWidth
                 variant="contained"
                 sx={{ mt: 3, mb: 2 }}
+                
               >
                 Bejelentkezés
+
+                
               </Button>
               <Grid container>
                 <Grid item xs>
