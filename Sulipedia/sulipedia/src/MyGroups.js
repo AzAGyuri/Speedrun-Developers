@@ -15,6 +15,7 @@ import {
   Fade,
   TextField,
   Button,
+  Tooltip,
 } from '@mui/material';
 import { Phone, Email, LocationOn, Edit, Delete, Add } from '@mui/icons-material';
 import { margin } from '@mui/system';
@@ -166,18 +167,27 @@ export function MyGroups() {
   const [groupDesc, setGroupDesc] = useState('');
   const [groupType, setGroupType] = useState('');
 
-  function createNewGroup(){
+  function createNewGroup() {
+    if (!groupName.trim() || !groupDesc.trim()) {
+      alert('A csoport nevének és leírásának legalább 1 karakter hosszúnak kell lennie!');
+      return;
+    }
+
     const newGroup = {
       id: groups.length + 1,
-      name: groupName,
-      description: groupDesc,
+      name: groupName.trim(),
+      description: groupDesc.trim(),
     };
 
     const updatedGroups = [...groups, newGroup];
     setGroups(updatedGroups);
 
     handleClose();
+
+    setGroupName('');
+    setGroupDesc('');
   }
+
 
   function deleteGroup(id) {
     const updatedGroups = groups.filter(group => group.id !== id);
@@ -205,7 +215,7 @@ export function MyGroups() {
                   </Avatar>
                 </ListItemAvatar>
                 <ListItemText style={styles.listItemTextMargin}
-                  primary={group.name} 
+                  primary={group.name}
                   secondary={
                     <React.Fragment>
                       <Typography component="span" variant="body2" color="textSecondary">
@@ -215,23 +225,27 @@ export function MyGroups() {
                   }
                 />
                 <div style={styles.actions}>
-                  <IconButton color="secondary" aria-label="delete" style={styles.deleteButton} onClick={()=>{deleteGroup(group.id)}}>
+                <Tooltip title="Csoport törlése">
+                  <IconButton color="secondary" aria-label="delete" style={styles.deleteButton} onClick={() => { deleteGroup(group.id) }}>
                     <Delete sx={{ color: '#d32f2f' }} />
                   </IconButton>
+                  </Tooltip>
                 </div>
               </ListItem>
               <Divider variant="inset" component="li" />
             </React.Fragment>
           ))}
           <ListItem alignItems="center">
+            <Tooltip title="Új csoport létrehozása">
             <IconButton color="primary" aria-label="add" onClick={handleOpen} style={styles.addButton}>
               <Add />
             </IconButton>
+            </Tooltip>
           </ListItem>
         </List>
       </Paper>
 
-      
+
       <Modal
         open={open}
         onClose={handleClose}
@@ -244,39 +258,39 @@ export function MyGroups() {
           </Typography>
           <Typography id="modal-modal-description" sx={{ mt: 2 }}>
             <Box
-                component="form"
-                sx={{
-                    '& > :not(style)': { m: 1, width: '25ch' },
-                }}
-                noValidate
-                autoComplete="off"
-                >
-                <TextField 
-                  id="standard-basic" 
-                  label="Csoport neve" 
-                  variant="standard"
-                  onChange={(e) => setGroupName(e.target.value)}
-                  />
-                </Box>
+              component="form"
+              sx={{
+                '& > :not(style)': { m: 1, width: '25ch' },
+              }}
+              noValidate
+              autoComplete="off"
+            >
+              <TextField
+                id="standard-basic"
+                label="Csoport neve"
+                variant="standard"
+                onChange={(e) => setGroupName(e.target.value)}
+              />
+            </Box>
 
-                <Box
-                component="form"
-                sx={{
-                    '& > :not(style)': { m: 1, width: '25ch' },
-                }}
-                noValidate
-                autoComplete="off"
-                >
-                <TextField 
-                  id="standard-basic" 
-                  label="Csoport leírása" 
-                  variant="standard"
-                  onChange={(e) => setGroupDesc(e.target.value)}
-                  />
-                </Box>
+            <Box
+              component="form"
+              sx={{
+                '& > :not(style)': { m: 1, width: '25ch' },
+              }}
+              noValidate
+              autoComplete="off"
+            >
+              <TextField
+                id="standard-basic"
+                label="Csoport leírása"
+                variant="standard"
+                onChange={(e) => setGroupDesc(e.target.value)}
+              />
+            </Box>
 
             <div>
-         {/*   <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
+              {/*   <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
                 <InputLabel id="demo-simple-select-standard-label">Type</InputLabel>
                 <Select
                 labelId="demo-simple-select-standard-label"
@@ -289,17 +303,17 @@ export function MyGroups() {
                 <MenuItem value={"MAGYAR"}>Magyar</MenuItem>
                 <MenuItem value={"INFORMATIKA"}>Informatika</MenuItem>
                 </Select>
-              </FormControl> */}  
+              </FormControl> */}
             </div>
           </Typography>
-            <Stack direction="row" spacing={2}>
-                <Button variant="contained" color="error" onClick={handleClose}>
-                    Bezárás
-                </Button>
-                <Button variant="contained" color="success" onClick={()=>{createNewGroup()}}>
-                    Mentés
-                </Button>
-            </Stack>
+          <Stack direction="row" spacing={2}>
+            <Button variant="contained" color="error" onClick={handleClose}>
+              Bezárás
+            </Button>
+            <Button variant="contained" color="success" onClick={() => { createNewGroup() }}>
+              Mentés
+            </Button>
+          </Stack>
         </Box>
       </Modal>
     </Container>
