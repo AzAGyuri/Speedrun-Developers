@@ -129,14 +129,9 @@ export default function SignIn() {
                 Bejelentkezés
               </Button>
               <Grid container>
-                <Grid item xs>
-                  <Link href="#" variant="body2">
-                    Elfelejtett jelszó?
-                  </Link>
-                </Grid>
                 <Grid item>
                   <Link to="/SignUp" variant="body2">
-                    {"Még nincs profilod? Hozz létre egyet!"}
+                    Még nincs profilod? Hozz létre egyet!
                   </Link>
                 </Grid>
               </Grid>

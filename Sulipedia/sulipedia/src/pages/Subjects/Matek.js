@@ -9,6 +9,7 @@ import {
     ListItemText,
     Collapse,
     Button,
+    Tooltip,
 } from '@mui/material';
 import { styled } from '@mui/system';
 import MenuIcon from '@mui/icons-material/Menu';
@@ -160,7 +161,7 @@ export function Matek() {
 
     const [subSubMenuItemText, setSubSubMenuItemText] = React.useState('');
 
-    
+
     const [comments, setComments] = React.useState([]);
     const [newComment, setNewComment] = React.useState('');
 
@@ -186,7 +187,7 @@ export function Matek() {
         updatedComments.splice(index, 1);
         setComments(updatedComments);
     };
-    
+
     const toggleDrawer = () => {
         setDrawerOpen(!drawerOpen);
     };
@@ -284,10 +285,11 @@ export function Matek() {
 
     return (
         <>
-            <StyledDrawerButton onClick={toggleDrawer}>
-                <MenuIcon />
-            </StyledDrawerButton>
-
+            <Tooltip title="Több tananyag ebben a témában">
+                <StyledDrawerButton onClick={toggleDrawer}>
+                    <MenuIcon />
+                </StyledDrawerButton>
+            </Tooltip>
             <StyledDrawer anchor="left" open={drawerOpen} onClose={() => setDrawerOpen(false)}>
                 <StyledList>
                     <StyledListItem button onClick={() => handleMenuItemClick(1)}>
@@ -383,7 +385,7 @@ export function Matek() {
                     <LargeText variant="body1">{subSubMenuItemText}</LargeText>
                 </StyledContainer>
             )}
-             <CommentSection>
+            <CommentSection>
                 <CommentHeader>Vélemények és hozzászólások</CommentHeader>
                 <CommentInput
                     placeholder="Mit gondolsz a tananyagról?..."

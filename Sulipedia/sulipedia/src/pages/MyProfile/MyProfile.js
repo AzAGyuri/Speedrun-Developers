@@ -94,7 +94,7 @@ const styles = {
 
 export function MyProfile() {
   const [userData, setUserData] = useState({
-    email: 'example@email.com',
+    email: 'pelda@email.com',
     firstName: 'John',
     lastName: 'Doe',
     phoneNumber: '123-456-7890',

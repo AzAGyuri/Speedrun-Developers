@@ -14,6 +14,7 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import './SignUp.css';
+import { Tooltip } from '@mui/material';
 
 const defaultTheme = createTheme();
 
@@ -152,11 +153,13 @@ export default function SignUp() {
             borderRadius: '8px',
             padding: '24px',
           }}
-          className="signup-form"
+          className="signup-form" 
         >
+          <Tooltip title="Ez egy biztonságos létrehozási felület">
           <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
             <LockOutlinedIcon />
           </Avatar>
+          </Tooltip>
           <Typography component="h1" variant="h5" sx={{ mb: 2 }}>
             Profil létrehozása
           </Typography>
@@ -241,7 +244,7 @@ export default function SignUp() {
                   InputProps={{
                     endAdornment: (
                       <Link onClick={handleTogglePasswordVisibility} style={{ cursor: 'pointer' }}>
-                        {showPassword ? <VisibilityOff /> : <Visibility />}
+                        {showPassword ? <Tooltip title="Ne látszódjon a jelszó"> <Visibility /> </Tooltip> :  <Tooltip title="Látszódjon a jelszó"> <VisibilityOff /> </Tooltip>}
                       </Link>
                     ),
                   }}

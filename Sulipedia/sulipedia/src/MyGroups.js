@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Container,
   Typography,
@@ -48,12 +48,6 @@ const styles = {
     boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)',
     borderRadius: '12px',
   },
-  avatar: {
-    width: '60px',
-    height: '60px',
-    backgroundColor: '#0077B6',
-    fontSize: '24px',
-  },
   actions: {
     display: 'flex',
     alignItems: 'center',
@@ -87,13 +81,6 @@ const styles = {
       backgroundColor: '#dc3545',
     },
     marginTop: '30px',
-  },
-  addGroupButton: {
-    backgroundColor: '#007bff',
-    color: '#fff',
-    '&:hover': {
-      backgroundColor: '#0056b3',
-    },
   },
   listItemTextMargin: {
     marginLeft: '20px',
@@ -196,9 +183,11 @@ export function MyGroups() {
     const updatedGroups = groups.filter(group => group.id !== id);
     setGroups(updatedGroups);
   }
-  
 
-
+  const getRandomColor = () => {
+    const colors = ['#f00', '#ff0', '#0f0', '#0ff', '#00f', '#f60'];
+    return colors[Math.floor(Math.random() * colors.length)];
+  };
 
   return (
     <Container maxWidth="lg" style={styles.container}>
@@ -207,11 +196,11 @@ export function MyGroups() {
           Csoportjaim
         </Typography>
         <List>
-          {groups.map((group) => (
+          {groups.map((group, index) => (
             <React.Fragment key={group.id}>
               <ListItem alignItems="flex-start">
                 <ListItemAvatar>
-                  <Avatar alt={group.name} style={styles.avatar}>
+                  <Avatar alt={group.name} style={{ ...styles.avatar, backgroundColor: getRandomColor(), width: '70px', height: '70px' }}>
                     {group.name[0].toUpperCase()}
                   </Avatar>
                 </ListItemAvatar>
@@ -287,7 +276,7 @@ export function MyGroups() {
                 </Box>
 
             <div>
-            <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
+         {/*   <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
                 <InputLabel id="demo-simple-select-standard-label">Type</InputLabel>
                 <Select
                 labelId="demo-simple-select-standard-label"
@@ -300,7 +289,7 @@ export function MyGroups() {
                 <MenuItem value={"MAGYAR"}>Magyar</MenuItem>
                 <MenuItem value={"INFORMATIKA"}>Informatika</MenuItem>
                 </Select>
-            </FormControl>
+              </FormControl> */}  
             </div>
           </Typography>
             <Stack direction="row" spacing={2}>

@@ -12,7 +12,7 @@ import iteng from './resources/iteng.png';
 
 const RootContainer = styled(Container)({
   flexGrow: 1,
-  padding: '16px', 
+  padding: '16px',
   textAlign: 'center',
   transition: 'background-image 1s ease-in-out',
   backgroundSize: 'cover',
@@ -66,13 +66,13 @@ const style = {
 export function Kezdo() {
   const [posts, setPosts] = useState([]);
   const [open, setOpen] = React.useState(true);
-  const [newPost,setNewPost] = React.useState(false);
+  const [newPost, setNewPost] = React.useState(false);
   const [newsModalOpen, setNewsModalOpen] = useState(false);
   const [newPostTitle, setNewPostTitle] = useState('');
   const [newPostContent, setNewPostContent] = useState('');
   const [closedByUser, setClosedByUser] = useState(false);
   const [modalShouldOpen, setModalShouldOpen] = useState(true);
-  
+
 
   useEffect(() => {
     // Ellenőrizzük, hogy a modális ablakot a felhasználó bezárta-e az "X" gombra kattintva
@@ -81,7 +81,7 @@ export function Kezdo() {
     }
   }, [modalShouldOpen]);
 
-  const handleClose = () => { setOpen(false);  setClosedByUser(true);  setModalShouldOpen(false);  }
+  const handleClose = () => { setOpen(false); setClosedByUser(true); setModalShouldOpen(false); }
   const handleClosePost = () => { setPosts([...posts, { title: newPostTitle, content: newPostContent }]); }
 
   const handleNewsModalOpen = () => {
@@ -127,7 +127,7 @@ export function Kezdo() {
               Ön ezen oldal jelenlegi alfa verzióját látja. A jövőben - mint minden más oldalra is - erre is
               további fejlesztések és új funkciók várnak majd.
               <br />
-              Amennyiben szeretné támogatni az oldal fejlődését azt az alábbi{' '}
+              Amennyiben szeretné támogatni az oldal fejlődését azt az alábbi paypal{' '}
               <a href="https://www.paypal.me/Krisz37">linken</a> megteheti!
             </Typography>
 
@@ -135,13 +135,14 @@ export function Kezdo() {
               <Button variant="contained" color="secondary" component={Link} to="/LearnMore">
                 Tudj meg többet
               </Button>
-              <SignInButton component={Link} to="/SignIn">
-                Az oldal használatához jelentkezz be!
+              <SignInButton component={Link} to="/AboutUs">
+                Rólunk
               </SignInButton>
             </BottomButtonsContainer>
           </Box>
         </Modal>
       </div>
+
 
       <div className='flex-container'>
         <div className='flex-item'>
@@ -179,22 +180,17 @@ export function Kezdo() {
             <div className="blackLine"></div>
           </div>
         </div>
-
         <div className='flex-item'>
           <div className='contente-flex'>
             <div className='flexcontente-item'>
               <div className='contente-box'>
                 <div className='contente-title'>
-                  Informatika
+                  Algoritmusok és Adatszerkezetek
                 </div>
                 <div className='contente'>
-                  asdadadasdas dansd n ojasnod daskndasnldnlas<br />
-                  asdsadasdasdasdsadas
+                  Az algoritmusok és adatszerkezetek kulcsfontosságú fogalmak az informatikában. Az algoritmusok hatékony megvalósítása és az optimális adatszerkezetek kiválasztása lehetővé teszi az informatikai problémák hatékony megoldását.
                 </div>
-                <div className='contente-button'>
 
-                  <div className='detailsButton'>Részletek</div>
-                </div>
               </div>
             </div>
           </div>
@@ -203,15 +199,12 @@ export function Kezdo() {
             <div className='flexcontente-item'>
               <div className='contente-box'>
                 <div className='contente-title'>
-                  Informatika
+                  Felhőalapú Számítástechnika
                 </div>
                 <div className='contente'>
-                  asdadadasdas dansd n ojasnod daskndasnldnlas<br />
-                  asdsadasdasdasdsadas
+                  A felhőalapú számítástechnika forradalmasította az informatikát. Az egyre növekvő számú vállalat és felhasználó számára biztosítja az adatok tárolását, szolgáltatásokat és alkalmazásokat a világhálón keresztül.
                 </div>
-                <div className='contente-button'>
-                  <div className='detailsButton'>Részletek</div>
-                </div>
+
               </div>
             </div>
           </div>
@@ -220,15 +213,12 @@ export function Kezdo() {
             <div className='flexcontente-item'>
               <div className='contente-box'>
                 <div className='contente-title'>
-                  Informatika
+                  Kiberbiztonság és Hálózatbiztonság
                 </div>
                 <div className='contente'>
-                  asdadadasdas dansd n ojasnod daskndasnldnlas<br />
-                  asdsadasdasdasdsadas
+                  A kiberbiztonság és hálózatbiztonság napjainkban kulcsfontosságú területe az informatikának. Az internetes fenyegetések és a számítógépes bűnözés elleni védelem elengedhetetlen a biztonságos online környezet megteremtéséhez.
                 </div>
-                <div className='contente-button'>
-                  <div className='detailsButton'>Részletek</div>
-                </div>
+
               </div>
             </div>
           </div>
@@ -237,15 +227,12 @@ export function Kezdo() {
             <div className='flexcontente-item'>
               <div className='contente-box'>
                 <div className='contente-title'>
-                  Informatika
+                  Adattudomány és Nagy Adat
                 </div>
                 <div className='contente'>
-                  asdadadasdas dansd n ojasnod daskndasnldnlas<br />
-                  asdsadasdasdasdsadas
+                  Az adattudomány és a nagy adat elemzésének képességei forradalmasítják az üzleti és tudományos területeket egyaránt. Az adatokból való értelmezés lehetővé teszi a trendek felismerését és a jövőbeli döntések meghozatalát.
                 </div>
-                <div className='contente-button'>
-                  <div className='detailsButton'>Részletek</div>
-                </div>
+
               </div>
             </div>
           </div>
@@ -254,26 +241,21 @@ export function Kezdo() {
             <div className='flexcontente-item'>
               <div className='contente-box'>
                 <div className='contente-title'>
-                  Informatika
+                  Mesterséges Intelligencia és Gépi Tanulás
                 </div>
                 <div className='contente'>
-                  asdadadasdas dansd n ojasnod daskndasnldnlas<br />
-                  asdsadasdasdasdsadas
+                  A mesterséges intelligencia és a gépi tanulás területei forradalmasítják az informatikát. Az olyan alkalmazások, mint az autonóm járművek és a nyelvi felismerés, az MI és a gépi tanulás legújabb fejlesztéseinek eredményei.
                 </div>
-                <div className='contente-button'>
-                  <div className='detailsButton'>Részletek</div>
-                </div>
+
               </div>
             </div>
           </div>
-
-
-
         </div>
-        <div className='flex-item'> 
-        <Button onClick={handleNewsModalOpen} variant="contained" color="primary">
-          Új hír hozzáadása
-        </Button>
+
+        <div className='flex-item'>
+          <Button onClick={handleNewsModalOpen} variant="contained" color="primary">
+            Új hír hozzáadása
+          </Button>
         </div>
       </div>
 
@@ -285,7 +267,7 @@ export function Kezdo() {
         aria-describedby="news-modal-description"
       >
         <Box sx={style}>
-          <CloseButton  onClick={handleNewsModalClose} color="primary">
+          <CloseButton onClick={handleNewsModalClose} color="primary">
             X
           </CloseButton>
           <Typography variant="h6" component="div" id="news-modal-title">
@@ -310,8 +292,8 @@ export function Kezdo() {
             color="secondary"
             style={{ marginTop: '16px' }}
             onClick={() => {
-              handleClosePost(); 
-              handleNewsModalClose(); 
+              handleClosePost();
+              handleNewsModalClose();
             }}
           >
             Hozzáadás
@@ -319,25 +301,22 @@ export function Kezdo() {
         </Box>
       </Modal>
       <div className='flex-container'>
-      <div className='flex-item'>  </div>
-      <div className='flex-item'>
-        {posts.map((post, index) => (
+        <div className='flex-item'>  </div>
+        <div className='flex-item'>
+          {posts.map((post, index) => (
 
-          <div className='contente-flex' key={index}>
-            <div className='flexcontente-item'>
-              <div className='contente-box'>
-                <div className='contente-title'>{post.title}</div>
-                <div className='contente'>{post.content}</div>
-                <div className='contente-button'>
-                  <div className='detailsButton'>Részletek</div>
+            <div className='contente-flex' key={index}>
+              <div className='flexcontente-item'>
+                <div className='contente-box'>
+                  <div className='contente-title'>{post.title}</div>
+                  <div className='contente'>{post.content}</div>
                 </div>
               </div>
             </div>
-          </div>
 
-        ))} 
-      </div>
-      <div className='flex-item'> </div>
+          ))}
+        </div>
+        <div className='flex-item'> </div>
       </div>
     </>
   );

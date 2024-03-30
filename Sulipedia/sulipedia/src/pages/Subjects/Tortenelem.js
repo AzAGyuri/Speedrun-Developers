@@ -9,6 +9,7 @@ import {
     ListItemText,
     Collapse,
     Button,
+    Tooltip,
 } from '@mui/material';
 import { styled } from '@mui/system';
 import MenuIcon from '@mui/icons-material/Menu';
@@ -284,10 +285,11 @@ export function Tortenelem() {
 
     return (
         <>
-            <StyledDrawerButton onClick={toggleDrawer}>
-                <MenuIcon />
-            </StyledDrawerButton>
-
+            <Tooltip title="Több tananyag ebben a témában">
+                <StyledDrawerButton onClick={toggleDrawer}>
+                    <MenuIcon />
+                </StyledDrawerButton>
+            </Tooltip>
             <StyledDrawer anchor="left" open={drawerOpen} onClose={() => setDrawerOpen(false)}>
                 <StyledList>
                     <StyledListItem button onClick={() => handleMenuItemClick(1)}>
@@ -388,7 +390,7 @@ export function Tortenelem() {
                     <LargeText variant="body1">{subSubMenuItemText}</LargeText>
                 </StyledContainer>
             )}
-             <CommentSection>
+            <CommentSection>
                 <CommentHeader>Vélemények és hozzászólások</CommentHeader>
                 <CommentInput
                     placeholder="Mit gondolsz a tananyagról?..."

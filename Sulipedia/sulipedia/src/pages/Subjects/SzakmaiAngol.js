@@ -9,6 +9,7 @@ import {
     ListItemText,
     Collapse,
     Button,
+    Tooltip,
 } from '@mui/material';
 import { styled } from '@mui/system';
 import MenuIcon from '@mui/icons-material/Menu';
@@ -78,66 +79,66 @@ const StyledListItemText = styled(ListItemText)({
 });
 
 const CommentSection = styled('div')({
-  marginTop: theme => theme.spacing(3),
-  backgroundColor: '#f0f0f0',
-  padding: theme => theme.spacing(3),
-  borderRadius: '10px',
-  boxShadow: '0px 5px 15px rgba(0, 0, 0, 0.2)',
-  display: 'flex',
-  flexDirection: 'column',
-  alignItems: 'stretch',
+    marginTop: theme => theme.spacing(3),
+    backgroundColor: '#f0f0f0',
+    padding: theme => theme.spacing(3),
+    borderRadius: '10px',
+    boxShadow: '0px 5px 15px rgba(0, 0, 0, 0.2)',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'stretch',
 });
 
 const CommentHeader = styled('div')({
-  marginBottom: theme => theme.spacing(2),
-  fontSize: '1.8rem',
-  fontWeight: 'bold',
-  color: '#333',
+    marginBottom: theme => theme.spacing(2),
+    fontSize: '1.8rem',
+    fontWeight: 'bold',
+    color: '#333',
 });
 
 const CommentInput = styled('textarea')({
-  marginBottom: theme => theme.spacing(2),
-  padding: theme => theme.spacing(1),
-  fontSize: '1.2rem',
-  minHeight: '80px',
-  borderRadius: '5px',
-  border: '1px solid #ccc',
-  resize: 'vertical',
+    marginBottom: theme => theme.spacing(2),
+    padding: theme => theme.spacing(1),
+    fontSize: '1.2rem',
+    minHeight: '80px',
+    borderRadius: '5px',
+    border: '1px solid #ccc',
+    resize: 'vertical',
 });
 
 const CommentButton = styled(Button)({
-  alignSelf: 'flex-start',
-  backgroundColor: '#2f3826',
-  color: 'white',
-  '&:hover': {
-      backgroundColor: '#6c7530',
-  },
+    alignSelf: 'flex-start',
+    backgroundColor: '#2f3826',
+    color: 'white',
+    '&:hover': {
+        backgroundColor: '#6c7530',
+    },
 });
 
 const Comment = styled('div')({
-  marginTop: theme => theme.spacing(2),
-  padding: theme => theme.spacing(2),
-  backgroundColor: '#fff',
-  borderRadius: '5px',
-  boxShadow: '0px 3px 8px rgba(0, 0, 0, 0.1)',
+    marginTop: theme => theme.spacing(2),
+    padding: theme => theme.spacing(2),
+    backgroundColor: '#fff',
+    borderRadius: '5px',
+    boxShadow: '0px 3px 8px rgba(0, 0, 0, 0.1)',
 });
 
 const CommentContent = styled('p')({
-  marginBottom: theme => theme.spacing(1),
-  fontSize: '1.4rem',
-  textAlign: 'justify',
+    marginBottom: theme => theme.spacing(1),
+    fontSize: '1.4rem',
+    textAlign: 'justify',
 });
 
 const CommentAuthor = styled('span')({
-  fontSize: '1rem',
-  color: '#777',
-  marginRight: theme => theme.spacing(1),
-  fontWeight: 'bold',
+    fontSize: '1rem',
+    color: '#777',
+    marginRight: theme => theme.spacing(1),
+    fontWeight: 'bold',
 });
 
 const CommentDate = styled('span')({
-  fontSize: '1rem',
-  color: '#777',
+    fontSize: '1rem',
+    color: '#777',
 });
 
 
@@ -285,9 +286,11 @@ export function SzakAngol() {
 
     return (
         <>
-            <StyledDrawerButton onClick={toggleDrawer}>
-                <MenuIcon />
-            </StyledDrawerButton>
+            <Tooltip title="Több tananyag ebben a témában">
+                <StyledDrawerButton onClick={toggleDrawer}>
+                    <MenuIcon />
+                </StyledDrawerButton>
+            </Tooltip>
 
             <StyledDrawer anchor="left" open={drawerOpen} onClose={() => setDrawerOpen(false)}>
                 <StyledList>
@@ -384,7 +387,7 @@ export function SzakAngol() {
                     <LargeText variant="body1">{subSubMenuItemText}</LargeText>
                 </StyledContainer>
             )}
-             <CommentSection>
+            <CommentSection>
                 <CommentHeader>Vélemények és hozzászólások</CommentHeader>
                 <CommentInput
                     placeholder="Mit gondolsz a tananyagról?..."

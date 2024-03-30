@@ -21,6 +21,7 @@
 }
 body{
   background: linear-gradient(#27de86, #949ad8,#27de86);
-  background-repeat: repeat-y;
+  background-repeat: repeat;
   height: 10000px;
+  width: 10000px;
 }

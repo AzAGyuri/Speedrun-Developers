@@ -24,6 +24,7 @@ import { LearnMore } from './LearnMore';
 import { Curriculums } from './Curriculums';
 import { useNavigate } from 'react-router-dom';
 import { useLocalStorage } from './useLocalStorage'; 
+import { Tooltip } from '@mui/material';
 
 function App() {
   const [isLoggedIn, setLoggedIn] = useLocalStorage('loginAuth', false);
@@ -63,9 +64,11 @@ function Copyright(props) {
   return (
     <Typography className="fontSize" style={{ fontSize: 20 }} variant="body2" color="text.secondary" align="center" {...props}>
       {'Copyright © '}
+      <Tooltip title="Főoldal">
       <Link color="inherit" to="/kezdo">
         Sulipedia <img style={{ width: 20 }} src={SpeedrunLogo} alt="Logo" />
       </Link>{' '}
+      </Tooltip>
       {new Date().getFullYear()}
       {'.'}
     </Typography>
