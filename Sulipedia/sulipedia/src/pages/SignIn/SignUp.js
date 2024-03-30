@@ -1,4 +1,5 @@
-import * as React from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -17,7 +18,7 @@ import './SignUp.css';
 const defaultTheme = createTheme();
 
 export default function SignUp() {
-  const [formData, setFormData] = React.useState({
+  const [formData, setFormData] = useState({
     lastName: '',
     firstName: '',
     nickname: '',
@@ -28,12 +29,24 @@ export default function SignUp() {
     allowExtraEmails: false,
   });
 
-  const [emailError, setEmailError] = React.useState(false);
-  const [passwordError, setPasswordError] = React.useState(false);
-  const [lastNameError, setLastNameError] = React.useState(false);
-  const [firstNameError, setFirstNameError] = React.useState(false);
-  const [phoneError, setPhoneError] = React.useState(false);
-  const [showPassword, setShowPassword] = React.useState(false);
+  const [emailError, setEmailError] = useState(false);
+  const [passwordError, setPasswordError] = useState(false);
+  const [lastNameError, setLastNameError] = useState(false);
+  const [firstNameError, setFirstNameError] = useState(false);
+  const [phoneError, setPhoneError] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+
+  useEffect(() => {
+    axios.post('http://localhost:8080/user', formData)
+      .then((response) => {
+        console.log(response.data);
+        // Add further logic to handle the response here
+      })
+      .catch((error) => {
+        console.error('Profil létrehozása sikertelen:', error);
+        // Handle the error here
+      });
+  }, [formData]);
 
   const handleSubmit = (event) => {
     event.preventDefault();

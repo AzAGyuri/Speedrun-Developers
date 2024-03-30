@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -11,11 +11,10 @@ import Grid from '@mui/material/Grid';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { Link } from "react-router-dom";
-import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import './SignIn.css';
-import { Loading } from '../../Loading';
+import axios from 'axios';
 
 const defaultTheme = createTheme();
 
@@ -23,7 +22,6 @@ export default function SignIn() {
   const navigate = useNavigate();
   const [isLoggedIn, setLoggedIn] = useState(false);
 
-  // Ellenőrizzük a helyi tárolót (localStorage) az oldal betöltésekor
   useEffect(() => {
     const storedLoggedIn = localStorage.getItem('loginAuth');
     if (storedLoggedIn === 'true') {
@@ -34,21 +32,35 @@ export default function SignIn() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget); 
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
-
-    if (data.get('email') === "a" && data.get('password') === "a") {
+    const data = new FormData(event.currentTarget);
+    const email = data.get('email');
+    const password = data.get('password');
+  
+    if (email === 'a' && password === 'a') {
       localStorage.setItem('loginAuth', 'true');
-      window.location.reload()
       setLoggedIn(true);
       navigate('/kezdo');
-            <Loading></Loading>
+      window.location.reload();
+    } else {
+      axios.get(`http://localhost:8080/user?email=${email}`)
+        .then((response) => {
+          const user = response.data;
+          if (user && user.password === password) {
+            localStorage.setItem('loginAuth', 'true');
+            setLoggedIn(true);
+            navigate('/kezdo');
+            window.location.reload();
+          } else {
+            alert('Hibás felhasználónév vagy jelszó.');
+          }
+        })
+        .catch((error) => {
+          console.error('Bejelentkezés sikertelen:', error);
+          alert('Hiba történt a bejelentkezés során. Kérjük, próbáld újra később.');
+        });
     }
   };
-
+  
   return (
     <ThemeProvider theme={defaultTheme}>
       <Grid container component="main" className="SignIn" sx={{ height: '100vh' }}>
@@ -113,11 +125,8 @@ export default function SignIn() {
                 fullWidth
                 variant="contained"
                 sx={{ mt: 3, mb: 2 }}
-                
               >
                 Bejelentkezés
-
-                
               </Button>
               <Grid container>
                 <Grid item xs>
