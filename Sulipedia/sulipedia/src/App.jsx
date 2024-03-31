@@ -22,7 +22,6 @@ import SignIn from './pages/SignIn/SignIn';
 import { Tests } from './Tests';
 import { LearnMore } from './LearnMore';
 import { Curriculums } from './Curriculums';
-import { useNavigate } from 'react-router-dom';
 import { useLocalStorage } from './useLocalStorage'; 
 import { Tooltip } from '@mui/material';
 

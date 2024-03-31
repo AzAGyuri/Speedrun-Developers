@@ -1,38 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import {
-  Container,
-  Typography,
-  Paper,
-  Avatar,
-  IconButton,
-  List,
-  ListItem,
-  ListItemAvatar,
-  ListItemText,
-  Divider,
-  Modal,
-  Backdrop,
-  Fade,
-  TextField,
-  Button,
-  Tooltip,
+  Container, Typography, Paper, Avatar, IconButton, List, ListItem, ListItemAvatar,
+  ListItemText, Divider, Modal, TextField, Button, Tooltip,
 } from '@mui/material';
-import { Phone, Email, LocationOn, Edit, Delete, Add } from '@mui/icons-material';
-import { margin } from '@mui/system';
-
-import Select from '@mui/material/Select';
-import MenuItem from '@mui/material/MenuItem';
+import { Delete, Add } from '@mui/icons-material';
 import Stack from '@mui/material/Stack';
 import Box from '@mui/material/Box';
-import InputLabel from '@mui/material/InputLabel';
-import FormControl from '@mui/material/FormControl';
-import { styled } from '@mui/material/styles';
-import Table from '@mui/material/Table';
-import TableCell, { tableCellClasses } from '@mui/material/TableCell';
-import TableRow from '@mui/material/TableRow';
-import { red } from '@mui/material/colors';
-
-import { useNavigate } from 'react-router-dom';
 
 const styles = {
   container: {
@@ -89,25 +62,6 @@ const styles = {
   }
 };
 
-const StyledTableCell = styled(TableCell)(({ theme }) => ({
-  [`&.${tableCellClasses.head}`]: {
-    backgroundColor: theme.palette.common.black,
-    color: theme.palette.common.white,
-  },
-  [`&.${tableCellClasses.body}`]: {
-    fontSize: 14,
-  },
-}));
-
-const StyledTableRow = styled(TableRow)(({ theme }) => ({
-  '&:nth-of-type(odd)': {
-    backgroundColor: theme.palette.action.hover,
-  },
-
-  '&:last-child td, &:last-child th': {
-    border: 0,
-  },
-}));
 
 const style = {
   position: 'absolute',
@@ -127,32 +81,58 @@ export function MyGroups() {
       id: 1,
       name: 'Szakmai angol',
       description: 'Szakmai angol csoport',
+      members: [
+        { id: 1, name: 'John Doe' },
+        { id: 2, name: 'Alice Smith' },
+        { id: 3, name: 'Bob Johnson' },
+      ],
     },
     {
       id: 2,
       name: 'Informatika',
       description: 'Informatika csoport',
+      members: [
+        { id: 4, name: 'Emily Brown' },
+        { id: 5, name: 'Michael Wilson' },
+        { id: 15, name: 'Bob Johnson' },
+      ],
     },
     {
       id: 3,
       name: 'Magyar',
       description: 'Magyar csoport',
+      members: [
+        { id: 6, name: 'Jane Smith' },
+        { id: 7, name: 'David Lee' },
+        { id: 8, name: 'Grace Taylor' },
+      ],
     },
     {
       id: 4,
       name: 'Matek',
       description: 'Matek csoport',
+      members: [
+        { id: 9, name: 'Alex Johnson' },
+        { id: 10, name: 'Sophia Garcia' },
+        { id: 11, name: 'Daniel Martinez' },
+      ],
     },
     {
       id: 5,
       name: 'Történelem',
       description: 'Történelem csoport',
+      members: [
+        { id: 12, name: 'Liam Anderson' },
+        { id: 13, name: 'Olivia Wilson' },
+        { id: 14, name: 'Ethan Thompson' },
+      ],
     },
   ]);
+
+ 
   const [open, setOpen] = useState(false);
-  const [newGroupName, setNewGroupName] = useState('');
-  const [newGroupDescription, setNewGroupDescription] = useState('');
-  const navigate = useNavigate();
+  const [showMembers, setShowMembers] = useState(false);
+  const [selectedGroup, setSelectedGroup] = useState(null);
 
   const handleOpen = () => {
     setOpen(true);
@@ -162,10 +142,19 @@ export function MyGroups() {
     setOpen(false);
   };
 
+  const handleOpenMembers = (group) => {
+    setSelectedGroup(group);
+    setShowMembers(true);
+  };
+  
+
+  const handleCloseMembers = () => {
+    setShowMembers(false);
+  };
+
 
   const [groupName, setGroupName] = useState('');
   const [groupDesc, setGroupDesc] = useState('');
-  const [groupType, setGroupType] = useState('');
 
   function createNewGroup() {
     if (!groupName.trim() || !groupDesc.trim()) {
@@ -209,7 +198,7 @@ export function MyGroups() {
           {groups.map((group, index) => (
             <React.Fragment key={group.id}>
               <ListItem alignItems="flex-start">
-                <ListItemAvatar>
+                <ListItemAvatar onClick={() => handleOpenMembers(group)}>
                   <Avatar alt={group.name} style={{ ...styles.avatar, backgroundColor: getRandomColor(), width: '70px', height: '70px' }}>
                     {group.name[0].toUpperCase()}
                   </Avatar>
@@ -225,10 +214,10 @@ export function MyGroups() {
                   }
                 />
                 <div style={styles.actions}>
-                <Tooltip title="Csoport törlése">
-                  <IconButton color="secondary" aria-label="delete" style={styles.deleteButton} onClick={() => { deleteGroup(group.id) }}>
-                    <Delete sx={{ color: '#d32f2f' }} />
-                  </IconButton>
+                  <Tooltip title="Csoport törlése">
+                    <IconButton color="secondary" aria-label="delete" style={styles.deleteButton} onClick={() => { deleteGroup(group.id) }}>
+                      <Delete sx={{ color: '#d32f2f' }} />
+                    </IconButton>
                   </Tooltip>
                 </div>
               </ListItem>
@@ -237,9 +226,9 @@ export function MyGroups() {
           ))}
           <ListItem alignItems="center">
             <Tooltip title="Új csoport létrehozása">
-            <IconButton color="primary" aria-label="add" onClick={handleOpen} style={styles.addButton}>
-              <Add />
-            </IconButton>
+              <IconButton color="primary" aria-label="add" onClick={handleOpen} style={styles.addButton}>
+                <Add />
+              </IconButton>
             </Tooltip>
           </ListItem>
         </List>
@@ -254,7 +243,7 @@ export function MyGroups() {
       >
         <Box sx={style}>
           <Typography id="modal-modal-title" variant="h6" component="h2">
-            Új feladat hozzáadása
+            Új csoport létrehozása
           </Typography>
           <Typography id="modal-modal-description" sx={{ mt: 2 }}>
             <Box
@@ -288,23 +277,6 @@ export function MyGroups() {
                 onChange={(e) => setGroupDesc(e.target.value)}
               />
             </Box>
-
-            <div>
-              {/*   <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
-                <InputLabel id="demo-simple-select-standard-label">Type</InputLabel>
-                <Select
-                labelId="demo-simple-select-standard-label"
-                id="demo-simple-select-standard"
-                onChange={(e) => setGroupType(e.target.value)}
-                label="Csoport típusa"
-                >
-                <MenuItem value={"TORTENELEM"}>Történelem</MenuItem>
-                <MenuItem value={"MATEK"}>Matek</MenuItem>
-                <MenuItem value={"MAGYAR"}>Magyar</MenuItem>
-                <MenuItem value={"INFORMATIKA"}>Informatika</MenuItem>
-                </Select>
-              </FormControl> */}
-            </div>
           </Typography>
           <Stack direction="row" spacing={2}>
             <Button variant="contained" color="error" onClick={handleClose}>
@@ -312,6 +284,38 @@ export function MyGroups() {
             </Button>
             <Button variant="contained" color="success" onClick={() => { createNewGroup() }}>
               Mentés
+            </Button>
+          </Stack>
+        </Box>
+      </Modal>
+
+
+
+      <Modal
+        open={showMembers}
+        onClose={handleCloseMembers}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={style}>
+          <Typography id="modal-modal-title" variant="h6" component="h2">
+            A csoport tagjai - {selectedGroup && selectedGroup.name}
+          </Typography>
+          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+            <List>
+              {selectedGroup && selectedGroup.members && selectedGroup.members.map(member => (
+                <ListItem key={member.id}>
+                  <ListItemAvatar>
+                    <Avatar>{member.name[0]}</Avatar>
+                  </ListItemAvatar>
+                  <ListItemText primary={member.name} />
+                </ListItem>
+              ))}
+            </List>
+          </Typography>
+          <Stack direction="row" spacing={2}>
+            <Button variant="contained" color="error" onClick={handleCloseMembers}>
+              Bezárás
             </Button>
           </Stack>
         </Box>
