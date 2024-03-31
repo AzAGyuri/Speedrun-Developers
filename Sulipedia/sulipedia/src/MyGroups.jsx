@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Container,
   Typography,
@@ -15,6 +15,7 @@ import {
   Fade,
   TextField,
   Button,
+  Tooltip,
 } from '@mui/material';
 import { Phone, Email, LocationOn, Edit, Delete, Add } from '@mui/icons-material';
 import { margin } from '@mui/system';
@@ -31,6 +32,8 @@ import TableCell, { tableCellClasses } from '@mui/material/TableCell';
 import TableRow from '@mui/material/TableRow';
 import { red } from '@mui/material/colors';
 
+import { useNavigate } from 'react-router-dom';
+
 const styles = {
   container: {
     paddingTop: '20px',
@@ -45,12 +48,6 @@ const styles = {
     background: 'linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%)',
     boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)',
     borderRadius: '12px',
-  },
-  avatar: {
-    width: '60px',
-    height: '60px',
-    backgroundColor: '#0077B6',
-    fontSize: '24px',
   },
   actions: {
     display: 'flex',
@@ -86,13 +83,6 @@ const styles = {
     },
     marginTop: '30px',
   },
-  addGroupButton: {
-    backgroundColor: '#007bff',
-    color: '#fff',
-    '&:hover': {
-      backgroundColor: '#0056b3',
-    },
-  },
   listItemTextMargin: {
     marginLeft: '20px',
     marginTop: '15px',
@@ -113,7 +103,7 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   '&:nth-of-type(odd)': {
     backgroundColor: theme.palette.action.hover,
   },
-  // hide last border
+
   '&:last-child td, &:last-child th': {
     border: 0,
   },
@@ -162,6 +152,7 @@ export function MyGroups() {
   const [open, setOpen] = useState(false);
   const [newGroupName, setNewGroupName] = useState('');
   const [newGroupDescription, setNewGroupDescription] = useState('');
+  const navigate = useNavigate();
 
   const handleOpen = () => {
     setOpen(true);
@@ -176,26 +167,37 @@ export function MyGroups() {
   const [groupDesc, setGroupDesc] = useState('');
   const [groupType, setGroupType] = useState('');
 
-  function createNewGroup(){
+  function createNewGroup() {
+    if (!groupName.trim() || !groupDesc.trim()) {
+      alert('A csoport nevének és leírásának legalább 1 karakter hosszúnak kell lennie!');
+      return;
+    }
+
     const newGroup = {
       id: groups.length + 1,
-      name: groupName,
-      description: groupDesc,
+      name: groupName.trim(),
+      description: groupDesc.trim(),
     };
 
     const updatedGroups = [...groups, newGroup];
     setGroups(updatedGroups);
 
     handleClose();
+
+    setGroupName('');
+    setGroupDesc('');
   }
+
 
   function deleteGroup(id) {
     const updatedGroups = groups.filter(group => group.id !== id);
     setGroups(updatedGroups);
   }
-  
-    
 
+  const getRandomColor = () => {
+    const colors = ['#f00', '#ff0', '#0f0', '#0ff', '#00f', '#f60'];
+    return colors[Math.floor(Math.random() * colors.length)];
+  };
 
   return (
     <Container maxWidth="lg" style={styles.container}>
@@ -204,16 +206,16 @@ export function MyGroups() {
           Csoportjaim
         </Typography>
         <List>
-          {groups.map((group) => (
+          {groups.map((group, index) => (
             <React.Fragment key={group.id}>
               <ListItem alignItems="flex-start">
                 <ListItemAvatar>
-                  <Avatar alt={group.name} style={styles.avatar}>
+                  <Avatar alt={group.name} style={{ ...styles.avatar, backgroundColor: getRandomColor(), width: '70px', height: '70px' }}>
                     {group.name[0].toUpperCase()}
                   </Avatar>
                 </ListItemAvatar>
                 <ListItemText style={styles.listItemTextMargin}
-                  primary={group.name} 
+                  primary={group.name}
                   secondary={
                     <React.Fragment>
                       <Typography component="span" variant="body2" color="textSecondary">
@@ -223,23 +225,27 @@ export function MyGroups() {
                   }
                 />
                 <div style={styles.actions}>
-                  <IconButton color="secondary" aria-label="delete" style={styles.deleteButton} onClick={()=>{deleteGroup(group.id)}}>
+                <Tooltip title="Csoport törlése">
+                  <IconButton color="secondary" aria-label="delete" style={styles.deleteButton} onClick={() => { deleteGroup(group.id) }}>
                     <Delete sx={{ color: '#d32f2f' }} />
                   </IconButton>
+                  </Tooltip>
                 </div>
               </ListItem>
               <Divider variant="inset" component="li" />
             </React.Fragment>
           ))}
           <ListItem alignItems="center">
+            <Tooltip title="Új csoport létrehozása">
             <IconButton color="primary" aria-label="add" onClick={handleOpen} style={styles.addButton}>
               <Add />
             </IconButton>
+            </Tooltip>
           </ListItem>
         </List>
       </Paper>
 
-      
+
       <Modal
         open={open}
         onClose={handleClose}
@@ -252,39 +258,39 @@ export function MyGroups() {
           </Typography>
           <Typography id="modal-modal-description" sx={{ mt: 2 }}>
             <Box
-                component="form"
-                sx={{
-                    '& > :not(style)': { m: 1, width: '25ch' },
-                }}
-                noValidate
-                autoComplete="off"
-                >
-                <TextField 
-                  id="standard-basic" 
-                  label="Csoport neve" 
-                  variant="standard"
-                  onChange={(e) => setGroupName(e.target.value)}
-                  />
-                </Box>
+              component="form"
+              sx={{
+                '& > :not(style)': { m: 1, width: '25ch' },
+              }}
+              noValidate
+              autoComplete="off"
+            >
+              <TextField
+                id="standard-basic"
+                label="Csoport neve"
+                variant="standard"
+                onChange={(e) => setGroupName(e.target.value)}
+              />
+            </Box>
 
-                <Box
-                component="form"
-                sx={{
-                    '& > :not(style)': { m: 1, width: '25ch' },
-                }}
-                noValidate
-                autoComplete="off"
-                >
-                <TextField 
-                  id="standard-basic" 
-                  label="Csoport leírása" 
-                  variant="standard"
-                  onChange={(e) => setGroupDesc(e.target.value)}
-                  />
-                </Box>
+            <Box
+              component="form"
+              sx={{
+                '& > :not(style)': { m: 1, width: '25ch' },
+              }}
+              noValidate
+              autoComplete="off"
+            >
+              <TextField
+                id="standard-basic"
+                label="Csoport leírása"
+                variant="standard"
+                onChange={(e) => setGroupDesc(e.target.value)}
+              />
+            </Box>
 
             <div>
-            <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
+              {/*   <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
                 <InputLabel id="demo-simple-select-standard-label">Type</InputLabel>
                 <Select
                 labelId="demo-simple-select-standard-label"
@@ -297,17 +303,17 @@ export function MyGroups() {
                 <MenuItem value={"MAGYAR"}>Magyar</MenuItem>
                 <MenuItem value={"INFORMATIKA"}>Informatika</MenuItem>
                 </Select>
-            </FormControl>
+              </FormControl> */}
             </div>
           </Typography>
-            <Stack direction="row" spacing={2}>
-                <Button variant="contained" color="error" onClick={handleClose}>
-                    Bezárás
-                </Button>
-                <Button variant="contained" color="success" onClick={()=>{createNewGroup()}}>
-                    Mentés
-                </Button>
-            </Stack>
+          <Stack direction="row" spacing={2}>
+            <Button variant="contained" color="error" onClick={handleClose}>
+              Bezárás
+            </Button>
+            <Button variant="contained" color="success" onClick={() => { createNewGroup() }}>
+              Mentés
+            </Button>
+          </Stack>
         </Box>
       </Modal>
     </Container>

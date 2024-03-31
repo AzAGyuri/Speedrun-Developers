@@ -8,7 +8,7 @@ import SzakmaiAngolImage from './resources/iteng.png';
 import MatematikaImage from './resources/mat.png';
 import MagyarNyelvImage from './resources/grammer.png';
 import TortenelemImage from './resources/history.png';
-
+ 
 const SubjectCard = styled(Card)({
   backgroundColor: '#f5f5f5',
   borderRadius: '10px',
