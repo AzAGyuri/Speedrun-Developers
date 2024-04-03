@@ -1,0 +1,9 @@
+{
+  "properties": [
+    {
+      "name": "sulipedia.secret",
+      "type": "java.lang.String",
+      "description": "The JWT secret string for the Schoolpedia project"
+    }
+  ]
+}

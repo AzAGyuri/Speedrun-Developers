@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd
+    http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+
+    <!--
+        Először a create table parancsos .sql fájlok jönnek;
+        ha vannak kapcsolatok a táblák között, akkor azok
+        készüljenek el először, ahol nincsen foreign key állítás
+        Pro tip: ALT+SHIFT+( fel/le ) a barátunk :)
+    -->
+    <include file="create_tables.sql" relativeToChangelogFile="true" />
+
+    <!--
+        a táblák után jöhetnek a dummy adatok;
+        ugyanaz a szabály, hogy előbb azok a táblák töltődnek fel,
+        ahol nincs foreign key referálás egy másik táblára
+    -->
+    <!-- <include file="insert_user_dummy_data.sql" relativeToChangelogFile="true"/> -->
+</databaseChangeLog>
