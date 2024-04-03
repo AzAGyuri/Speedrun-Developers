@@ -56,7 +56,7 @@ export default function SignIn() {
         })
         .catch((error) => {
           console.error('Bejelentkezés sikertelen:', error);
-          alert('Hiba történt a bejelentkezés során. Kérjük, próbáld újra később.');
+          alert('Hiba történt a bejelentkezés során. Kérjük, próbáld újra később. Helytelen a felhasználónév vagy a jelszó.');
         });
     }
   };

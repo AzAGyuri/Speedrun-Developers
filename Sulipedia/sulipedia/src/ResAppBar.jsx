@@ -100,8 +100,9 @@ export function ResAppBar() {
               </>
             ) : (
               <>
-               <Tooltip title="Főoldal">
+               
                 <div>
+                <Tooltip title="Főoldal">
                   <Link to="/kezdo" rel="noreferrer">
                     <img
                       alt='Sulipedia logója'
@@ -110,8 +111,9 @@ export function ResAppBar() {
                       src={SulipediaLogo}
                     />
                   </Link>
+                  </Tooltip>
                 </div>
-                </Tooltip>
+                
                 <Typography
                   variant="h6"
                   noWrap

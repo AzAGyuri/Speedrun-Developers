@@ -215,7 +215,7 @@
 
     const handleSubjectClick = (subject) => {
       setSelectedSubject(subject === 'Vegyes tesztek' ? '' : subject);
-      setSelectedTest(subject === 'Vegyes tesztek' ? null : selectedTest);
+      setSelectedTest(subject === 'Vegyes tesztek' ? testsData[0] : selectedTest);
     };
 
     const handleTestSelection = (test) => {
