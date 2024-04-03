@@ -15,10 +15,13 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import './SignUp.css';
 import { Tooltip } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 
 const defaultTheme = createTheme();
 
 export default function SignUp() {
+  const navigate = useNavigate();
+  const [isLoggedIn, setLoggedIn] = useState(false);
   const [formData, setFormData] = useState({
     lastName: '',
     firstName: '',
@@ -54,6 +57,9 @@ export default function SignUp() {
     validateForm();
     if (isFormValid()) {
       console.log(formData);
+      navigate('/kezdo');
+      setLoggedIn(true);
+      localStorage.setItem('loginAuth', 'true');
       // Add logic to submit the form data
     }
   };
