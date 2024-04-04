@@ -80,9 +80,23 @@ public class SecurityController {
   )
   @GetMapping("/logout")
   public boolean logout(
-    @RequestHeader(name = "Authentication") String jwtToken
+    @RequestHeader(name = "Authorization") String jwtToken
   ) {
     return service.logout(jwtToken);
+  }
+
+  @Operation(
+    summary = "Test expiry of saved JWT",
+    description = "A frontend-en localStorage-ban lementett JWT-t teszteljük, hogy lejárt-e már;<br>" +
+    "hogyha a token eleve lejárt, azt már a JwtAuthenticationEntryPoint-nál érzékelésre kerül,<br>" +
+    "mert nem is enged hozzáférni a védett végpontokhoz<br>" +
+    "ezért ennek a végpontnak mindig igaz értéket kell elméletileg visszaküldenie"
+  )
+  @GetMapping("/validatetoken")
+  public boolean isJWTValid(
+    @RequestHeader(name = "Authorization") String jwtToken
+  ) {
+    return service.isJWTValid(jwtToken);
   }
 
   private String[] convertRolesToStringArr(Set<RoleDto> roles) {

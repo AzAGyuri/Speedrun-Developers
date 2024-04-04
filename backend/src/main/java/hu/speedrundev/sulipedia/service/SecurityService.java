@@ -8,10 +8,8 @@ import hu.speedrundev.sulipedia.dto.user.UserRegistration;
 import hu.speedrundev.sulipedia.model.User;
 import hu.speedrundev.sulipedia.repository.UserRepository;
 import hu.speedrundev.sulipedia.util.JwtUtil;
-
 import java.util.Date;
 import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -31,11 +29,16 @@ public class SecurityService {
   public GetUserWithID login(UserLogin user) {
     if (user == null) throw nullPointer();
 
-    Optional<User> potentialLogin = repository.findByEmail(user.getUsernameOrEmail());
+    Optional<User> potentialLogin = repository.findByEmail(
+      user.getUsernameOrEmail()
+    );
 
-    if (potentialLogin.isEmpty()) potentialLogin = repository.findByUsername(user.getUsernameOrEmail());
+    if (potentialLogin.isEmpty()) potentialLogin =
+      repository.findByUsername(user.getUsernameOrEmail());
 
-    if (potentialLogin.isEmpty()) throw modelNotFound("USERNAME_OR_EMAIL_NOT_FOUND");
+    if (potentialLogin.isEmpty()) throw modelNotFound(
+      "USERNAME_OR_EMAIL_NOT_FOUND"
+    );
 
     User possibleLogin = potentialLogin.get();
 
@@ -44,8 +47,11 @@ public class SecurityService {
     ) throw itsGoneBud("USER_HAS_BEEN_DELETED");
 
     if (
-      !passwordEncoder.matches(user.getPasswordRaw(), possibleLogin.getUserPassword())
-    ) throw unauthorized();
+      !passwordEncoder.matches(
+        user.getPasswordRaw(),
+        possibleLogin.getUserPassword()
+      )
+    ) throw unauthorized("PROVIDED_PASSWORD_DOES_NOT_MATCH_FOR_USERNAME");
 
     possibleLogin.setLastLogin(new Date());
 
@@ -71,12 +77,18 @@ public class SecurityService {
 
     String username = jwtUtil.getSubject(jwtToken);
 
-    if (!repository.existsUserByUsername(username)) throw modelNotFound("USER_NOT_FOUND");
+    if (!repository.existsUserByUsername(username)) throw modelNotFound(
+      "USER_NOT_FOUND"
+    );
 
     User logout = repository.getByUsername(username);
     logout.setLastLogoff(new Date());
     repository.save(logout);
 
     return true;
+  }
+
+  public boolean isJWTValid(String jwtToken) {
+    return jwtUtil.isTokenExpired(jwtToken);
   }
 }

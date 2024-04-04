@@ -26,7 +26,7 @@ public class JwtAuthenticationEntryPoint extends Http403ForbiddenEntryPoint {
   public void commence(
     HttpServletRequest request,
     HttpServletResponse response,
-    AuthenticationException arg2
+    AuthenticationException authenticationException
   ) throws IOException {
     ExceptionResponse exceptionResponse = new ExceptionResponse(
       new Date(),

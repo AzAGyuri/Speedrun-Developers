@@ -20,11 +20,8 @@ public class ExceptionUtils {
     );
   }
 
-  public static ResponseStatusException unauthorized() {
-    return new ResponseStatusException(
-      UNAUTHORIZED,
-      "PROVIDED_PASSWORD_DOES_NOT_MATCH_FOR_USERNAME"
-    );
+  public static ResponseStatusException unauthorized(String reason) {
+    return new ResponseStatusException(UNAUTHORIZED, reason);
   }
 
   public static ResponseStatusException modelNotFound(String reason) {

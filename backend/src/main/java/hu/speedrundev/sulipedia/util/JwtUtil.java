@@ -4,7 +4,6 @@ import io.jsonwebtoken.JwtParser;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 import jakarta.servlet.http.HttpServletRequest;
-
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Date;
@@ -55,7 +54,7 @@ public class JwtUtil {
     return username != null && !username.isBlank() && !isTokenExpired(token);
   }
 
-  private boolean isTokenExpired(String token) {
+  public boolean isTokenExpired(String token) {
     return parser
       .parseSignedClaims(token)
       .getPayload()
@@ -88,5 +87,11 @@ public class JwtUtil {
     );
     upat.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
     return upat;
+  }
+
+  public String extractClaim(String claim, String token) {
+    return String.valueOf(
+      parser.parseSignedClaims(token).getPayload().get(claim)
+    );
   }
 }
