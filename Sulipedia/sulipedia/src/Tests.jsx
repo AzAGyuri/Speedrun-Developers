@@ -4,6 +4,12 @@
     List,ListItem,ListItemText,Radio,RadioGroup,FormControlLabel,IconButton,
   } from '@mui/material';
   import VisibilityIcon from '@mui/icons-material/Visibility';
+  import useMediaQuery from '@mui/material/useMediaQuery';
+  import FormatListBulletedTwoToneIcon from '@mui/icons-material/FormatListBulletedTwoTone';
+import Tooltip from '@mui/material/Tooltip';
+import Avatar from '@mui/material/Avatar';
+import Drawer from '@mui/material/Drawer';
+import MenuItem from '@mui/material/MenuItem';
 
 
   const StyledButton = styled(Button)({
@@ -30,7 +36,7 @@
   const StyledContainer = styled(Container)({
     backgroundColor: '#333',
     border: '2px solid #555',
-    padding: 100,
+    padding: '10vw',
     marginTop: 0,
   });
 
@@ -61,6 +67,8 @@
     const [showResults, setShowResults] = useState(false);
     const [correctAnswers, setCorrectAnswers] = useState({});
     const [showCorrectAnswer, setShowCorrectAnswer] = useState({});
+    const [drawerOpen, setDrawerOpen] = React.useState(false);
+    const isSmallScreen = useMediaQuery('(max-width:950px)');
 
 
     const testsData = [
@@ -245,6 +253,9 @@
     const isAnswerCorrect = (questionIndex, selectedAnswer) => {
       return correctAnswers[questionIndex] === selectedAnswer;
     };
+    const toggleDrawer = () => {
+      setDrawerOpen(!drawerOpen);
+    };
 
     const handleShowCorrectAnswer = (questionIndex) => {
       setShowCorrectAnswer({ ...showCorrectAnswer, [questionIndex]: true });
@@ -255,14 +266,39 @@
       <StyledContainer maxWidth="xl">
         <StyledPaper elevation={3}>
           <AppBar position="static" style={{ borderTopLeftRadius: '9px', borderTopRightRadius: '9px' }}>
-            <FlexContainer>
+           { isSmallScreen ? (
+            <>
+            <Tooltip title="Főoldal, Tananyagok, Tesztek, Csoportjaim">
+            <IconButton onClick={toggleDrawer} sx={{ p: 0, mr: 1 }}>
+              <Avatar>
+                <FormatListBulletedTwoToneIcon />
+              </Avatar>
+            </IconButton>
+          </Tooltip>
+
+          <Drawer
+          anchor="right"
+          open={drawerOpen}
+          onClose={toggleDrawer}
+          sx={{ '& .MuiDrawer-paper': { backgroundColor: '#f0f0f0' } }}
+        >
+            
+
+              <MenuItem sx={{  color: 'white', display: 'block', backgroundColor: '#FF5733', border: '1px solid black' }} onClick={() => handleSubjectClick('Szakmai Angol')}>Szakmai Angol</MenuItem>
+              <MenuItem sx={{  color: 'white', display: 'block', backgroundColor: '#FF5733', border: '1px solid black' }} onClick={() => handleSubjectClick('Matematika')}>Matematika</MenuItem>
+              <MenuItem sx={{  color: 'white', display: 'block', backgroundColor: '#FF5733', border: '1px solid black' }} onClick={() => handleSubjectClick('Magyar Nyelv')}>Magyar Nyelv</MenuItem>
+              <MenuItem sx={{  color: 'white', display: 'block', backgroundColor: '#FF5733', border: '1px solid black' }} onClick={() => handleSubjectClick('Történelem')}>Történelem</MenuItem>
+              <MenuItem sx={{  color: 'white', display: 'block', backgroundColor: '#FF5733', border: '1px solid black' }} onClick={() => handleSubjectClick('Informatika')}>Informatika</MenuItem>
+              <VegyesButton onClick={() => handleSubjectClick('Vegyes tesztek')}>Vegyes tesztek</VegyesButton>
+            
+            </Drawer>  </>):( <FlexContainer>
               <StyledButton onClick={() => handleSubjectClick('Szakmai Angol')}>Szakmai Angol</StyledButton>
               <StyledButton onClick={() => handleSubjectClick('Matematika')}>Matematika</StyledButton>
               <StyledButton onClick={() => handleSubjectClick('Magyar Nyelv')}>Magyar Nyelv</StyledButton>
               <StyledButton onClick={() => handleSubjectClick('Történelem')}>Történelem</StyledButton>
               <StyledButton onClick={() => handleSubjectClick('Informatika')}>Informatika</StyledButton>
               <VegyesButton onClick={() => handleSubjectClick('Vegyes tesztek')}>Vegyes tesztek</VegyesButton>
-            </FlexContainer>
+            </FlexContainer>)}
           </AppBar>
 
           <Typography variant="h4" gutterBottom style={{ color: '#333', textAlign: 'center' }}>
