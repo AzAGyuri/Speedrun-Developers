@@ -2,6 +2,7 @@ package hu.speedrundev.sulipedia.model;
 
 import hu.speedrundev.sulipedia.dto.user.PostUser;
 import hu.speedrundev.sulipedia.dto.user.UpdateUser;
+import hu.speedrundev.sulipedia.dto.user.UserRegistration;
 import jakarta.persistence.CollectionTable;
 import jakarta.persistence.Column;
 import jakarta.persistence.ElementCollection;
@@ -52,8 +53,14 @@ public class User {
   @Email(
     regexp = "^[a-zA-Z0-9_!#$%&’*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$"
   )
-  @Column(nullable = true, unique = true)
+  @Column(nullable = false, unique = true)
   private String email;
+
+  @Column(nullable = true)
+  private String nickname;
+
+  @Column(nullable = true)
+  private String phoneNumber;
 
   @Column(nullable = true)
   private Date birthDate;
@@ -97,12 +104,21 @@ public class User {
   private List<Comment> createdComments;
 
   public User(PostUser user) {
-    birthDate = user.getBirthDate();
     createdOn = Date.from(Instant.now());
     email = user.getEmail();
     userPassword = user.getPasswordRaw();
     username = user.getUserName();
     roles.add(Roles.ROLE_STUDENT);
+  }
+
+  public User(UserRegistration user) {
+    createdOn = Date.from(Instant.now());
+    email = user.getEmail();
+    userPassword = user.getPasswordRaw();
+    username = user.getUserName();
+    roles.add(Roles.ROLE_STUDENT);
+    nickname = user.getNickname();
+    phoneNumber = user.getPhoneNumber();
   }
 
   public void nulledDelete() {

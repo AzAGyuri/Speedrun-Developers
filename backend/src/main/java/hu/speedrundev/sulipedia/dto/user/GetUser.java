@@ -5,13 +5,13 @@ import java.util.Base64;
 import java.util.Date;
 import java.util.Set;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
+@NoArgsConstructor
 public class GetUser extends BaseUser {
-
-  public GetUser() {}
 
   public GetUser(
     String userName,
@@ -23,9 +23,10 @@ public class GetUser extends BaseUser {
     Date lastLogin,
     Date lastLogoff
   ) {
-    super(userName, email, birthDate);
+    super(userName, email);
     this.profilePictureBase64 = profilePictureBase64;
     this.roles = roles;
+    this.birthDate = birthDate;
     this.createdOn = createdOn;
     this.lastLogin = lastLogin;
     this.lastLogoff = lastLogoff;
@@ -46,7 +47,7 @@ public class GetUser extends BaseUser {
 
   private String profilePictureBase64;
 
-  private Date createdOn, lastLogin, lastLogoff;
+  private Date birthDate, createdOn, lastLogin, lastLogoff;
 
   private Set<RoleDto> roles;
 }

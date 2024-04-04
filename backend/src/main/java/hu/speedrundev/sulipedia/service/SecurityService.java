@@ -10,6 +10,8 @@ import hu.speedrundev.sulipedia.repository.UserRepository;
 import hu.speedrundev.sulipedia.util.JwtUtil;
 
 import java.util.Date;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -28,11 +30,14 @@ public class SecurityService {
 
   public GetUserWithID login(UserLogin user) {
     if (user == null) throw nullPointer();
-    if (
-      !repository.existsUserByUsername(user.getUsername())
-    ) throw modelNotFound("USERNAME_NOT_FOUND");
 
-    User possibleLogin = repository.getByUsername(user.getUsername());
+    Optional<User> potentialLogin = repository.findByEmail(user.getUsernameOrEmail());
+
+    if (potentialLogin.isEmpty()) potentialLogin = repository.findByUsername(user.getUsernameOrEmail());
+
+    if (potentialLogin.isEmpty()) throw modelNotFound("USERNAME_OR_EMAIL_NOT_FOUND");
+
+    User possibleLogin = potentialLogin.get();
 
     if (
       possibleLogin.getDeleted() != null && possibleLogin.getDeleted()
@@ -50,7 +55,8 @@ public class SecurityService {
   public GetUserWithID register(UserRegistration registrationInfo) {
     if (registrationInfo == null) throw nullPointer();
     if (
-      repository.existsUserByUsername(registrationInfo.getUserName())
+      repository.existsUserByUsername(registrationInfo.getUserName()) &&
+      repository.existsUserByEmail(registrationInfo.getEmail())
     ) throw notUnique("USERNAME_ALREADY_TAKEN");
 
     registrationInfo.setPasswordRaw(

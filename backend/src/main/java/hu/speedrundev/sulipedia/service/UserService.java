@@ -60,7 +60,7 @@ public class UserService {
 
   public GetUserWithID createUser(PostUser user) {
     if (user == null) throw nullPointer();
-    if (repository.existsUserByUsername(user.getUserName())) throw notUnique(
+    if (repository.existsUserByUsername(user.getUserName()) || repository.existsUserByEmail(user.getEmail())) throw notUnique(
       "USER_ALREADY_EXISTS"
     );
 
@@ -74,12 +74,12 @@ public class UserService {
     if (changes.isAllNull()) throw badRequest("INPUTS_ALL_NULL");
     if (isNotUserById(id)) throw modelNotFound("USER_NOT_FOUND");
 
-    User oldData = repository.getReferenceById(id);
-
     if (
       repository.existsUserByUsername(changes.getUserName()) &&
-      !oldData.getUsername().equals(changes.getUserName())
+      repository.existsUserByEmail(changes.getEmail())
     ) throw notUnique("USERNAME_ALREADY_TAKEN");
+
+    User oldData = repository.getReferenceById(id);
 
     if (oldData.isAllUnchanged(changes)) throw badRequest(
       "NEW_DATA_IDENTICAL_TO_OLD"

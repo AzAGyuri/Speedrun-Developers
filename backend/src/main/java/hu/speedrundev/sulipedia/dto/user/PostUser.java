@@ -1,6 +1,5 @@
 package hu.speedrundev.sulipedia.dto.user;
 
-import java.util.Date;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -13,10 +12,9 @@ public class PostUser extends BaseUser {
   public PostUser(
     String userName,
     String email,
-    Date birthDate,
     String passwordRaw
   ) {
-    super(userName, email, birthDate);
+    super(userName, email);
     this.passwordRaw = passwordRaw;
   }
 

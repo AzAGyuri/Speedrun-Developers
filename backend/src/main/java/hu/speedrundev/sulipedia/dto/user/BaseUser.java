@@ -1,6 +1,5 @@
 package hu.speedrundev.sulipedia.dto.user;
 
-import java.util.Date;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -14,6 +13,4 @@ import lombok.Setter;
 public class BaseUser {
 
   private String userName, email;
-
-  private Date birthDate;
 }

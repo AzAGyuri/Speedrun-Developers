@@ -3,6 +3,7 @@ package hu.speedrundev.sulipedia.repository;
 import hu.speedrundev.sulipedia.model.User;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
@@ -33,8 +34,6 @@ public interface UserRepository extends JpaRepository<User, Integer> {
   )
   List<User> getUnderageStudents();
 
-  Boolean existsUserByUsername(String username);
-
   @Query(
     nativeQuery = true,
     value = "SELECT * FROM registered_users u WHERE u.username = ?1"
@@ -46,4 +45,12 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     value = "SELECT * FROM registered_users u WHERE u.username LIKE ?1"
   )
   List<User> findAllNotDeleted();
+
+  Optional<User> findByEmail(String email);
+
+  Optional<User> findByUsername(String username);
+
+  Boolean existsUserByEmail(String email);
+
+  Boolean existsUserByUsername(String username);
 }
