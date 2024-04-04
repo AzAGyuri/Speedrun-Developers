@@ -1,5 +1,7 @@
 package hu.speedrundev.sulipedia.model;
 
+import static hu.speedrundev.sulipedia.util.MiscUtils.generateThreeRandomColors;
+
 import hu.speedrundev.sulipedia.dto.user.PostUser;
 import hu.speedrundev.sulipedia.dto.user.UpdateUser;
 import hu.speedrundev.sulipedia.dto.user.UserRegistration;
@@ -56,6 +58,9 @@ public class User {
   @Column(nullable = false, unique = true)
   private String email;
 
+  @Column(nullable = false)
+  private String randomPfPBgColor;
+
   @Column(nullable = true)
   private String nickname;
 
@@ -109,6 +114,7 @@ public class User {
     userPassword = user.getPasswordRaw();
     username = user.getUsername();
     roles.add(Roles.ROLE_STUDENT);
+    randomPfPBgColor = generateThreeRandomColors();
   }
 
   public User(UserRegistration user) {
@@ -119,6 +125,7 @@ public class User {
     roles.add(Roles.ROLE_STUDENT);
     nickname = user.getNickname();
     phoneNumber = user.getPhoneNumber();
+    randomPfPBgColor = generateThreeRandomColors();
   }
 
   public void nulledDelete() {

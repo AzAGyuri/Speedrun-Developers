@@ -1,7 +1,7 @@
 package hu.speedrundev.sulipedia.dto.attachment;
 
 import hu.speedrundev.sulipedia.model.Attachment;
-import hu.speedrundev.sulipedia.util.CreateURI;
+import hu.speedrundev.sulipedia.util.MiscUtils;
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
@@ -13,7 +13,7 @@ public class GetAttachment extends BaseAttachment {
 
   public GetAttachment(Attachment attachment) {
     this(
-      CreateURI.attachment(attachment.getId().toString()),
+      MiscUtils.attachment(attachment.getId().toString()),
       attachment.getFilename(),
       attachment.getFiletype()
     );

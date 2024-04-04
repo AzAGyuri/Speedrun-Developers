@@ -1,7 +1,7 @@
 package hu.speedrundev.sulipedia.dto.attachment;
 
 import hu.speedrundev.sulipedia.model.Attachment;
-import hu.speedrundev.sulipedia.util.CreateURI;
+import hu.speedrundev.sulipedia.util.MiscUtils;
 import hu.speedrundev.sulipedia.util.ExceptionUtils;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -30,7 +30,7 @@ public class AttachmentListItem extends GetAttachmentWithID {
       (id = attachment.getId().toString()) == null
     ) throw ExceptionUtils.nullPointer();
 
-    this.setFileLink(CreateURI.attachment(id));
+    this.setFileLink(MiscUtils.attachment(id));
     this.setName(attachment.getFilename());
     this.setType(attachment.getFiletype());
     this.setId(attachment.getId());
