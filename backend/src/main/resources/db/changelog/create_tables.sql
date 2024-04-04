@@ -1,8 +1,8 @@
 CREATE TABLE
-    IF NOT EXISTS specializaton (id varchar(50) primary key not null);
+    IF NOT EXISTS specialization (id varchar(50) primary key not null);
 
 INSERT INTO
-    specializaton (id)
+    specialization (id)
 VALUES
     ("ECONOMY"),
     ("FINANCE"),
@@ -54,8 +54,8 @@ CREATE TABLE
             AND class_year <= 12
         ),
         class_label char(1) not null,
-        specializaton_id varchar(50) NOT NULL,
-        FOREIGN KEY (specializaton_id) REFERENCES specializaton (id) ON DELETE RESTRICT ON UPDATE CASCADE
+        specialization varchar(50) NOT NULL,
+        FOREIGN KEY (specialization) REFERENCES specialization (id) ON DELETE RESTRICT ON UPDATE CASCADE
     ) AUTO_INCREMENT = 700000001;
 
 CREATE TABLE
