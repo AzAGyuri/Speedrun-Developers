@@ -27,6 +27,7 @@ public class CommandLineAppStartupRunner implements CommandLineRunner {
       admin.setRoles(
         Arrays.asList(Roles.values()).stream().collect(Collectors.toSet())
       );
+      admin.setEmail("CHANGE_ME@example.com");
       repository.save(admin);
     }
   }
