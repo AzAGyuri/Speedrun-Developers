@@ -48,7 +48,9 @@ public class GetUserWithEntries extends GetUser {
       user.getEmail(),
       user.getNickname(),
       user.getPhoneNumber(),
-      Base64.getEncoder().encodeToString(user.getProfilePicture()),
+      user.getProfilePicture() == null
+        ? ""
+        : Base64.getEncoder().encodeToString(user.getProfilePicture()),
       user.getBirthDate(),
       user.getCreatedOn(),
       user.getLastLogin(),
