@@ -65,6 +65,7 @@ CREATE TABLE
         username varchar(100) NOT NULL UNIQUE,
         user_password varchar(80) NOT NULL,
         email varchar(70) not NULL unique,
+        random_pfpbg_color varchar(7) not null,
         nickname varchar(80) null,
         phone_number varchar(12) null,
         birth_date DATE null,

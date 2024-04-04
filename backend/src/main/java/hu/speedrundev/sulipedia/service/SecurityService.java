@@ -89,6 +89,6 @@ public class SecurityService {
   }
 
   public boolean isJWTValid(String jwtToken) {
-    return jwtUtil.isTokenExpired(jwtToken);
+    return !jwtUtil.isTokenExpired(jwtToken);
   }
 }

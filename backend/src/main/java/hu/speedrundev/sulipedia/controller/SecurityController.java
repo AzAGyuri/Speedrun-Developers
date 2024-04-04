@@ -82,7 +82,7 @@ public class SecurityController {
   public boolean logout(
     @RequestHeader(name = "Authorization") String jwtToken
   ) {
-    return service.logout(jwtToken);
+    return service.logout(jwtToken.substring("Bearer".length()).trim());
   }
 
   @Operation(
@@ -96,7 +96,7 @@ public class SecurityController {
   public boolean isJWTValid(
     @RequestHeader(name = "Authorization") String jwtToken
   ) {
-    return service.isJWTValid(jwtToken);
+    return service.isJWTValid(jwtToken.substring("Bearer".length()).trim());
   }
 
   private String[] convertRolesToStringArr(Set<RoleDto> roles) {
