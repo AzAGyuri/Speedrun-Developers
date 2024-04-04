@@ -99,7 +99,7 @@ export function Curriculums() {
     },
   ];
 
-  const gridRows = Math.ceil(subjects.length / 2);
+  // const gridRows = Math.ceil(subjects.length / 2);
 
   return (
     <Container>

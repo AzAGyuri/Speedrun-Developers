@@ -134,6 +134,19 @@ export function MyGroups() {
   const [showMembers, setShowMembers] = useState(false);
   const [selectedGroup, setSelectedGroup] = useState(null);
 
+
+  const [avatarColors, setAvatarColors] = useState({});
+  React.useEffect(() => {
+    const colors = {};
+    groups.forEach(group => {
+      colors[group.id] = getRandomColor();
+    });
+    setAvatarColors(colors);
+  }, [groups]);
+
+  
+
+
   const handleOpen = () => {
     setOpen(true);
   };
@@ -199,9 +212,18 @@ export function MyGroups() {
             <React.Fragment key={group.id}>
               <ListItem alignItems="flex-start">
                 <ListItemAvatar onClick={() => handleOpenMembers(group)}>
-                  <Avatar alt={group.name} style={{ ...styles.avatar, backgroundColor: getRandomColor(), width: '70px', height: '70px' }}>
-                    {group.name[0].toUpperCase()}
-                  </Avatar>
+                <Avatar
+                  alt={group.name}
+                  style={{
+                    ...styles.avatar,
+                    backgroundColor: avatarColors[group.id],
+                    width: '70px',
+                    height: '70px'
+                  }}
+                >
+                  {group.name[0].toUpperCase()}
+                </Avatar>
+
                 </ListItemAvatar>
                 <ListItemText style={styles.listItemTextMargin}
                   primary={group.name}

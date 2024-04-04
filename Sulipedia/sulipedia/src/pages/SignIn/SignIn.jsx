@@ -54,7 +54,7 @@ export default function SignIn() {
         .then((response) => {
           localStorage.setItem("Authorization", response.headers.jwt);
           localStorage.setItem("loginAuth", "true");
-          console.log(response.data);
+          localStorage.setItem("currentUserId", response.data.id)
           navigate("/kezdo");
           window.location.reload();
         })

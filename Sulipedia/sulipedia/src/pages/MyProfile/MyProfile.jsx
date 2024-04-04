@@ -1,118 +1,129 @@
-
-import React, { useState, useEffect } from 'react';
-import { Container, Typography, Avatar, Paper, Button } from '@mui/material';
+import React, { useState, useEffect } from "react";
+import { Container, Typography, Avatar, Paper, Button } from "@mui/material";
+import axios from "axios";
 
 const styles = {
   container: {
-    padding: '50px',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    height: '100vh',
-    background: 'linear-gradient(135deg, #3494E6 0%, #EC6EAD 100%)',
-    border: '5px solid #fff',
-    borderRadius: '12px',
+    padding: "50px",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    height: "100vh",
+    background: "linear-gradient(135deg, #3494E6 0%, #EC6EAD 100%)",
+    border: "5px solid #fff",
+    borderRadius: "12px",
   },
   paper: {
-    padding: '40px',
-    borderRadius: '12px',
-    border: '2px solid #ccc',
-    maxWidth: '600px',
-    width: '100%',
-    textAlign: 'center',
-    boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)',
-    background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
-    color: 'white',
+    padding: "40px",
+    borderRadius: "12px",
+    border: "2px solid #ccc",
+    maxWidth: "600px",
+    width: "100%",
+    textAlign: "center",
+    boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
+    background: "linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)",
+    color: "white",
   },
   avatar: {
-    width: '120px',
-    height: '120px',
-    margin: '20px auto',
-    border: '4px solid #fff',
-    boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    fontSize: '36px',
+    width: "120px",
+    height: "120px",
+    margin: "20px auto",
+    border: "4px solid #fff",
+    boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    fontSize: "36px",
   },
   heading: {
-    margin: '20px 0',
-    fontWeight: 'bold',
-    color: '#fff',
-    textShadow: '2px 2px 4px rgba(0, 0, 0, 0.3)',
+    margin: "20px 0",
+    fontWeight: "bold",
+    color: "#fff",
+    textShadow: "2px 2px 4px rgba(0, 0, 0, 0.3)",
   },
   userInfo: {
-    marginBottom: '20px',
-    textAlign: 'left',
+    marginBottom: "20px",
+    textAlign: "left",
   },
   infoItem: {
-    margin: '10px 0',
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    borderBottom: '1px solid #ddd',
-    paddingBottom: '8px',
+    margin: "10px 0",
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+    borderBottom: "1px solid #ddd",
+    paddingBottom: "8px",
   },
   infoLabel: {
-    marginRight: '10px',
-    fontWeight: 'bold',
-    color: '#fff',
+    marginRight: "10px",
+    fontWeight: "bold",
+    color: "#fff",
   },
   infoValue: {
-    color: '#f0f0f0',
+    color: "#f0f0f0",
   },
   footer: {
-    marginTop: '20px',
-    borderTop: '1px solid #ddd',
-    paddingTop: '12px',
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    flexDirection: 'column',
+    marginTop: "20px",
+    borderTop: "1px solid #ddd",
+    paddingTop: "12px",
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+    flexDirection: "column",
   },
   donateLink: {
-    color: '#fff',
-    fontWeight: 'bold',
-    textDecoration: 'none',
-    marginTop: '8px',
-    fontSize: '18px',
+    color: "#fff",
+    fontWeight: "bold",
+    textDecoration: "none",
+    marginTop: "8px",
+    fontSize: "18px",
   },
   footerText: {
-    fontSize: '14px',
-    color: '#ddd',
-    marginBottom: '10px',
+    fontSize: "14px",
+    color: "#ddd",
+    marginBottom: "10px",
   },
   donateButton: {
-    background: '#4caf50',
-    color: '#fff',
-    fontWeight: 'bold',
-    '&:hover': {
-      background: '#388e3c',
+    background: "#4caf50",
+    color: "#fff",
+    fontWeight: "bold",
+    "&:hover": {
+      background: "#388e3c",
     },
   },
 };
 
 export function MyProfile() {
+  const currentUserId = localStorage.getItem("currentUserId");
   const [userData, setUserData] = useState({
-    email: 'pelda@email.com',
-    firstName: 'John',
-    lastName: 'Doe',
-    phoneNumber: '123-456-7890',
-    registrationDate: '2024-03-01',
-    userId: '123456789',
-    profileImage: 'path/to/profile-image.jpg',
+    email: "pelda@email.com",
+    username: "John Doe",
+    phoneNumber: "123-456-7890",
+    registrationDate: "2024-03-01",
+    userId: "123456789",
+    profileImage: "path/to/profile-image.jpg",
   });
 
   useEffect(() => {
-    // Példa API hívások vagy más adatlekérés
-    // axiosos .then((data) => setUserData(data));
-  }, []);
+    axios.get(`/user/${currentUserId}`).then((response) => {
+      const user = response.data;
+      setUserData({
+        email: user.email,
+        username: user.username,
+        phoneNumber: user.phoneNumber,
+        registrationDate: user.createdOn,
+        userId: currentUserId,
+        profileImage: user.profilePictureBase64,
+      });
+    });
+  }, [currentUserId]);
 
   return (
     <Container maxWidth="lg" style={styles.container}>
       <Paper elevation={5} style={styles.paper}>
         <Avatar style={styles.avatar}>
-          {userData.firstName.length > 0 ? userData.firstName[0].toUpperCase() : null}
+          {userData.firstName.length > 0
+            ? userData.firstName[0].toUpperCase()
+            : null}
         </Avatar>
         <Typography variant="h4" style={styles.heading}>
           {`${userData.firstName} ${userData.lastName}`}
@@ -165,7 +176,9 @@ export function MyProfile() {
           </Typography>
           <Button
             variant="contained"
-            onClick={() => window.open('https://www.paypal.me/Krisz37', '_blank')}
+            onClick={() =>
+              window.open("https://www.paypal.me/Krisz37", "_blank")
+            }
             style={styles.donateButton}
           >
             Donate

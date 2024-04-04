@@ -10,18 +10,18 @@ import history from './resources/history.png';
 import it from './resources/it.png';
 import iteng from './resources/iteng.png';
 
-const RootContainer = styled(Container)({
-  flexGrow: 1,
-  padding: '16px',
-  textAlign: 'center',
-  transition: 'background-image 1s ease-in-out',
-  backgroundSize: 'cover',
-  backgroundPosition: 'center',
-  backgroundColor: 'grey',
-  '& > *': {
-    textShadow: '2px 2px 2px green',
-  },
-});
+// const RootContainer = styled(Container)({
+//   flexGrow: 1,
+//   padding: '16px',
+//   textAlign: 'center',
+//   transition: 'background-image 1s ease-in-out',
+//   backgroundSize: 'cover',
+//   backgroundPosition: 'center',
+//   backgroundColor: 'grey',
+//   '& > *': {
+//     textShadow: '2px 2px 2px green',
+//   },
+// });
 
 const HeaderTypography = styled(Typography)({
   marginBottom: '16px',
@@ -63,14 +63,14 @@ const style = {
   p: 4,
 };
 
-export function Kezdo() {
+export function FirstPage() {
   const [posts, setPosts] = useState([]);
   const [open, setOpen] = React.useState(true);
-  const [newPost, setNewPost] = React.useState(false);
+  //const [newPost, setNewPost] = React.useState(false);
   const [newsModalOpen, setNewsModalOpen] = useState(false);
   const [newPostTitle, setNewPostTitle] = useState('');
   const [newPostContent, setNewPostContent] = useState('');
-  const [closedByUser, setClosedByUser] = useState(false);
+  //const [closedByUser, setClosedByUser] = useState(false);
   const [modalShouldOpen, setModalShouldOpen] = useState(true);
 
 
@@ -81,7 +81,7 @@ export function Kezdo() {
     }
   }, [modalShouldOpen]);
 
-  const handleClose = () => { setOpen(false); setClosedByUser(true); setModalShouldOpen(false); }
+  const handleClose = () => { setOpen(false); setModalShouldOpen(false); }
   const handleClosePost = () => { setPosts([...posts, { title: newPostTitle, content: newPostContent }]); }
 
   const handleNewsModalOpen = () => {
@@ -149,31 +149,31 @@ export function Kezdo() {
           <div className="drawer">
             <Link style={{ textDecoration: 'none', color: "white" }} to="/Matek" underline="none" rel="noreferrer" color="inherit">
               <div className="subject-container">
-                <a>Matematika</a>
+                <span>Matematika</span>
                 <img src={mathematics} alt="Matematika" className="subjectIMG" />
               </div>
             </Link>
             <Link style={{ textDecoration: 'none', color: "white" }} to="/magyar" underline="none" rel="noreferrer" color="inherit">
               <div className="subject-container">
-                <a>Magyar Nyelv</a>
+                <span>Magyar Nyelv</span>
                 <img src={grammer} alt="Magyar Nyelv" className="subjectIMG" />
               </div>
             </Link>
             <Link style={{ textDecoration: 'none', color: "white" }} to="/Tortenelem" underline="none" rel="noreferrer" color="inherit">
               <div className="subject-container">
-                <a>Történelem</a>
+                <span>Történelem</span>
                 <img src={history} alt="Történelem" className="subjectIMG" />
               </div>
             </Link>
             <Link style={{ textDecoration: 'none', color: "white" }} to="/szakmai-angol" underline="none" rel="noreferrer" color="inherit">
               <div className="subject-container">
-                <a>Szakmai angol</a>
+                <span>Szakmai angol</span>
                 <img src={iteng} alt="Szakmai angol" className="subjectIMG" />
               </div>
             </Link>
             <Link style={{ textDecoration: 'none', color: "white" }} to="/informatika" underline="none" rel="noreferrer" color="inherit">
               <div className="subject-container">
-                <a>Informatika</a>
+                <span>Informatika</span>
                 <img src={it} alt="Informatika" className="subjectIMG" />
               </div>
             </Link>
