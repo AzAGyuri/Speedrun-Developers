@@ -1,4 +1,6 @@
-# SignUp Komponens
+# SignUp Komponens Dokumentáció
+
+---
 
 A `SignUp` komponens felelős egy új felhasználói fiók létrehozásáért az alkalmazásban. A felhasználók itt adják meg az alapvető regisztrációs információkat, mint például a név, e-mail cím és jelszó.
 
@@ -20,7 +22,7 @@ A `SignUp` komponens az alábbi funkciókat és feladatokat végzi el:
 
 ## Funkciók és működés
 
-1. **Regisztrációs űrlap megjelenítése:** A felhasználónak lehetősége van megadni a regisztrációhoz szükséges adatokat, mint például a vezetéknevet, keresztnevet, e-mail címet, jelszót és telefonszámot (opcionális).
+1. **Regisztrációs űrlap megjelenítése:** A felhasználóknak lehetősége van megadni a regisztrációhoz szükséges adatokat, mint például a vezetéknevet, keresztnévet, e-mail címet, jelszót és telefonszámot (opcionális).
 
 2. **Adatellenőrzés:** Az űrlap beküldése előtt a komponens ellenőrzi a felhasználó által megadott adatokat. Például ellenőrzi a vezeték- és keresztnév hosszát, az e-mail cím formátumát, a jelszó erősségét és a telefonszám formátumát.
 

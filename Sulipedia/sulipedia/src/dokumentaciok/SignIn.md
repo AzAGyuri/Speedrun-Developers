@@ -1,10 +1,12 @@
-# SignIn Komponens
+# SignIn Komponens Dokumentáció
 
-A `SignIn` komponens felelős a felhasználók bejelentkezéséért az alkalmazásba. A felhasználók itt adják meg az e-mail címüket és jelszavukat a belépéshez.
+---
+
+A `SignIn` komponens feladata a felhasználók bejelentkezésének lehetőségét biztosítani az alkalmazásba. A komponens egy űrlapot jelenít meg, ahol a felhasználóknak meg kell adniuk az e-mail címüket és jelszavukat a belépéshez.
 
 ## Áttekintés
 
-A `SignIn` komponens az alábbi funkciókat és feladatokat végzi el:
+A `SignIn` komponens az alábbiakat végzi el:
 
 - Felhasználói bejelentkezési űrlap megjelenítése.
 - Bejelentkezési adatok beküldése a szervernek azonosítás céljából.
@@ -19,7 +21,7 @@ A `SignIn` komponens az alábbi funkciókat és feladatokat végzi el:
 
 ## Funkciók és működés
 
-1. **Bejelentkezési űrlap megjelenítése:** A felhasználónak lehetősége van megadni a bejelentkezési adatokat, mint például az e-mail címet és jelszót.
+1. **Bejelentkezési űrlap megjelenítése:** A felhasználóknak lehetősége van megadni a bejelentkezési adatokat, mint például az e-mail címet és jelszót.
 
 2. **Bejelentkezés:** Az űrlap beküldésekor a komponens elküldi a felhasználó által megadott adatokat a szervernek. Ha a bejelentkezés sikeres, a felhasználót átirányítják a kezdőoldalra (`/kezdo`).
 
