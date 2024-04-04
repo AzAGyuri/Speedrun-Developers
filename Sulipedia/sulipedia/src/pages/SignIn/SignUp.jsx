@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
@@ -19,7 +19,7 @@ import { Tooltip } from "@mui/material";
 
 const defaultTheme = createTheme();
 
-export default function SignUp() {
+export default function SignUp({children}) {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     surName: "",
@@ -39,6 +39,12 @@ export default function SignUp() {
   const [phoneError, setPhoneError] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
 
+  useEffect(() => {
+    if (localStorage.getItem("jwt") !== null) {
+      navigate("/kezdo");
+    }
+  }, []);
+
   const handleSubmit = (event) => {
     event.preventDefault();
     validateForm();
@@ -55,8 +61,7 @@ export default function SignUp() {
       axios
         .post("/register", finalFormData)
         .then((response) => {
-          localStorage.setItem("Authorization", response.headers.jwt);
-          localStorage.setItem("loginAuth", true);
+          localStorage.setItem("jwt", `Bearer ${response.headers.jwt}`);
           navigate("/kezdo");
           window.location.reload();
         })
@@ -165,6 +170,7 @@ export default function SignUp() {
 
   return (
     <ThemeProvider theme={defaultTheme}>
+      {children}
       <div className="SignUp">
         <Container component="main" maxWidth="xs" className="signup-container">
           <CssBaseline />

@@ -26,11 +26,10 @@ export default function SignIn() {
   });
 
   useEffect(() => {
-    const storedLoggedIn = localStorage.getItem("loginAuth");
-    if (storedLoggedIn === "true") {
+    if (localStorage.getItem("jwt") !== null) {
       navigate("/kezdo");
     }
-  }, [navigate]);
+  }, []);
 
   const handleChange = (event) => {
     setFormData((currentFormData) => ({
@@ -43,7 +42,6 @@ export default function SignIn() {
     event.preventDefault();
 
     if (formData.usernameOrEmail === "a" && formData.passwordRaw === "a") {
-      localStorage.setItem("loginAuth", true);
       navigate("/kezdo");
       window.location.reload();
     } else {
@@ -51,14 +49,13 @@ export default function SignIn() {
         .post(`/login`, formData)
         .then((response) => {
           localStorage.setItem("jwt", "Bearer " + response.headers.jwt);
-          localStorage.setItem("loginAuth", true);
           localStorage.setItem("currentUserId", response.data.id);
           navigate("/kezdo");
           window.location.reload();
         })
         .catch((error) => {
           let errorCode = error.response.data.status;
-          console.error("Bejelentkezés sikertelen:", error.response.data);
+          console.error("Bejelentkezés sikertelen:", error);
           switch (errorCode) {
             case 404:
               alert(

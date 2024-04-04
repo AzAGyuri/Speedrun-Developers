@@ -2,11 +2,7 @@ import "./App.css";
 import { ResAppBar } from "./ResAppBar";
 import Typography from "@mui/material/Typography";
 import { Link } from "react-router-dom";
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-} from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import SpeedrunLogo from "./resources/logo-no-background.png";
 
 import { SzakAngol } from "./pages/Subjects/SzakmaiAngol";
@@ -28,7 +24,6 @@ import { Tooltip } from "@mui/material";
 import { IsLoggedIn } from "./components/IsLoggedIn/IsLoggedIn";
 
 function App() {
-
   return (
     <>
       <Router>
