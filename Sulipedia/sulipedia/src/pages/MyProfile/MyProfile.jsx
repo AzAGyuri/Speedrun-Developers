@@ -92,7 +92,7 @@ const styles = {
   },
 };
 
-export function MyProfile() {
+export function MyProfile({ children }) {
   const currentUserId = localStorage.getItem("currentUserId");
   const [userData, setUserData] = useState({
     email: "pelda@email.com",
@@ -119,6 +119,7 @@ export function MyProfile() {
 
   return (
     <Container maxWidth="lg" style={styles.container}>
+      {children}
       <Paper elevation={5} style={styles.paper}>
         <Avatar style={styles.avatar}>
           {userData.firstName.length > 0

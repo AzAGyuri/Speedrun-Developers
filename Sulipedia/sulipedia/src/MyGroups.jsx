@@ -75,7 +75,7 @@ const style = {
   p: 4,
 };
 
-export function MyGroups() {
+export function MyGroups({children}) {
   const [groups, setGroups] = useState([
     {
       id: 1,
@@ -203,6 +203,7 @@ export function MyGroups() {
 
   return (
     <Container maxWidth="lg" style={styles.container}>
+      {children}
       <Paper elevation={3} style={styles.paper}>
         <Typography variant="h5" align="center" gutterBottom>
           Csoportjaim

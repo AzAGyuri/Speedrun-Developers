@@ -6,7 +6,6 @@ import {
   BrowserRouter as Router,
   Routes,
   Route,
-  Navigate,
 } from "react-router-dom";
 import SpeedrunLogo from "./resources/logo-no-background.png";
 
@@ -26,43 +25,9 @@ import { Tests } from "./Tests";
 import { LearnMore } from "./LearnMore";
 import { Curriculums } from "./Curriculums";
 import { Tooltip } from "@mui/material";
-import { useEffect, useState } from "react";
-import axios from "axios";
+import { IsLoggedIn } from "./components/IsLoggedIn/IsLoggedIn";
 
 function App() {
-  let [isLoggedIn, setIsLoggedIn] = useState(localStorage.getItem("loginAuth"));
-
-  useEffect(() => {
-    axios
-      .request({
-        method: "POST",
-        url: "/validatetoken",
-        headers: {
-          Authorization: localStorage.getItem("Authorization"),
-        },
-      })
-      .then((response) => {
-        setIsLoggedIn(response.data);
-      })
-      .catch((error) => {
-        const errorCode = error.response.data.status;
-        console.error("JWT validáció sikertelen!", error.response.data);
-        switch (errorCode) {
-          case 401:
-            alert(
-              "Sajnáljuk, de az oldal használatához szükséges újból bejelentkezni."
-            );
-            setIsLoggedIn(false);
-            break;
-          case 500:
-            alert("Váratlan hiba történt! Kérjük jelentkezzen be újra");
-            setIsLoggedIn(false);
-            break;
-          default:
-            break;
-        }
-      });
-  }, []);
 
   return (
     <>
@@ -71,61 +36,117 @@ function App() {
         <Routes>
           <Route
             path="/curriculums"
-            element={isLoggedIn ? <Curriculums /> : <Navigate to="/signIn" />}
+            element={
+              <Curriculums>
+                <IsLoggedIn />
+              </Curriculums>
+            }
           />
           <Route
             path="/tests"
-            element={isLoggedIn ? <Tests /> : <Navigate to="/signIn" />}
+            element={
+              <Tests>
+                <IsLoggedIn />
+              </Tests>
+            }
           />
           <Route
             path="/mygroups"
-            element={isLoggedIn ? <MyGroups /> : <Navigate to="/signIn" />}
+            element={
+              <MyGroups>
+                <IsLoggedIn />
+              </MyGroups>
+            }
           />
           <Route
             path="/myProfile"
-            element={isLoggedIn ? <MyProfile /> : <Navigate to="/signIn" />}
+            element={
+              <MyProfile>
+                <IsLoggedIn />
+              </MyProfile>
+            }
           />
           <Route
             path="/settings"
-            element={isLoggedIn ? <Settings /> : <Navigate to="/signIn" />}
+            element={
+              <Settings>
+                <IsLoggedIn />
+              </Settings>
+            }
           />
           <Route path="/signIn" element={<SignIn />} />
           <Route path="/signUp" element={<SignUp />} />
           <Route
             path="/kezdo"
-            element={isLoggedIn ? <FirstPage /> : <Navigate to="/signIn" />}
+            element={
+              <FirstPage>
+                <IsLoggedIn />
+              </FirstPage>
+            }
           />
           <Route
             path="/"
-            element={isLoggedIn ? <FirstPage /> : <Navigate to="/signIn" />}
+            element={
+              <FirstPage>
+                <IsLoggedIn />
+              </FirstPage>
+            }
           />
           <Route
             path="/aboutUs"
-            element={isLoggedIn ? <AboutUs /> : <Navigate to="/signIn" />}
+            element={
+              <AboutUs>
+                <IsLoggedIn />
+              </AboutUs>
+            }
           />
           <Route
             path="/learnMore"
-            element={isLoggedIn ? <LearnMore /> : <Navigate to="/signIn" />}
+            element={
+              <LearnMore>
+                <IsLoggedIn />
+              </LearnMore>
+            }
           />
           <Route
             path="/szakmai-angol"
-            element={isLoggedIn ? <SzakAngol /> : <Navigate to="/signIn" />}
+            element={
+              <SzakAngol>
+                <IsLoggedIn />
+              </SzakAngol>
+            }
           />
           <Route
             path="/matek"
-            element={isLoggedIn ? <Matek /> : <Navigate to="/signIn" />}
+            element={
+              <Matek>
+                <IsLoggedIn />
+              </Matek>
+            }
           />
           <Route
             path="/magyar"
-            element={isLoggedIn ? <Magyar /> : <Navigate to="/signIn" />}
+            element={
+              <Magyar>
+                <IsLoggedIn />
+              </Magyar>
+            }
           />
           <Route
             path="/tortenelem"
-            element={isLoggedIn ? <Tortenelem /> : <Navigate to="/signIn" />}
+            element={
+              <Tortenelem>
+                <IsLoggedIn />
+              </Tortenelem>
+            }
           />
           <Route
             path="/informatika"
-            element={isLoggedIn ? <Informatika /> : <Navigate to="/signIn" />}
+            element={
+              <Informatika>
+                <IsLoggedIn />
+              </Informatika>
+            }
           />
         </Routes>
         <Copyright />

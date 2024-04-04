@@ -1,58 +1,66 @@
-import React, { useState } from 'react';
-import { Container, Typography, Paper, TextField, Button, Grid, Avatar, Link } from '@mui/material';
-import './Settings.css';
-import { fontSize } from '@mui/system';
+import React, { useState } from "react";
+import {
+  Container,
+  Typography,
+  Paper,
+  TextField,
+  Button,
+  Grid,
+  Avatar,
+  Link,
+} from "@mui/material";
+import "./Settings.css";
 
 const styles = {
   container: {
-    padding: '20px',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    height: '100vh',
+    padding: "20px",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    height: "100vh",
     //background: 'linear-gradient(135deg, #ffd500 0%, #f7971e 100%)',
     //background: 'linear-gradient(135deg, #3494E6 0%, #EC6EAD 100%)',
   },
   paper: {
-    padding: '40px',
-    borderRadius: '12px',
-    boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)',
+    padding: "40px",
+    borderRadius: "12px",
+    boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
     //background: 'linear-gradient(45deg, #ffe259 30%, #ffa751 90%)',
-    background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
-    color: 'white',
-    maxWidth: '600px',
-    width: '100%',
-    border: '2px solid #fff',
+    background: "linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)",
+    color: "white",
+    maxWidth: "600px",
+    width: "100%",
+    border: "2px solid #fff",
   },
   avatar: {
-    width: '50px',
-    height: '50px',
-    marginRight: '8px',
-    border: '2px solid #fff',
+    width: "50px",
+    height: "50px",
+    marginRight: "8px",
+    border: "2px solid #fff",
   },
   passwordField: {
-    width: '100%',
-    marginBottom: '20px',
-    border: '2px solid #fff',
-    borderRadius: '4px',
+    width: "100%",
+    marginBottom: "20px",
+    border: "2px solid #fff",
+    borderRadius: "4px",
   },
   saveButton: {
-    marginTop: '20px',
-    background: '#2ecc71',
-    '&:hover': {
-      background: '#27ae60',
+    marginTop: "20px",
+    background: "#2ecc71",
+    "&:hover": {
+      background: "#27ae60",
     },
-    border: '2px solid #fff',
-    borderRadius: '4px',
+    border: "2px solid #fff",
+    borderRadius: "4px",
   },
 };
 
-export function Settings() {
-  const [email, setEmail] = useState('felhasznalo@pelda.com');
-  const [phoneNumber, setPhoneNumber] = useState('123-456-7890');
-  const [nickname, setNickname] = useState('Felhasznalo1');
+export function Settings({ children }) {
+  const [email, setEmail] = useState("felhasznalo@pelda.com");
+  const [phoneNumber, setPhoneNumber] = useState("123-456-7890");
+  const [nickname, setNickname] = useState("Felhasznalo1");
   const [formData, setFormData] = useState({
-    password: '',
+    password: "",
   });
   const [passwordError, setPasswordError] = useState(false);
 
@@ -70,20 +78,27 @@ export function Settings() {
 
   const handlePasswordChange = (newPassword) => {
     setFormData((prevData) => ({ ...prevData, password: newPassword }));
-    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+    const passwordRegex =
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
     setPasswordError(!passwordRegex.test(newPassword));
   };
 
   const handleSaveChanges = () => {
     if (!passwordError) {
-      console.log('Changes saved:', { email, phoneNumber, nickname, password: formData.password });
+      console.log("Changes saved:", {
+        email,
+        phoneNumber,
+        nickname,
+        password: formData.password,
+      });
     } else {
-      console.error('Invalid data. Please fix the validation errors.');
+      console.error("Invalid data. Please fix the validation errors.");
     }
   };
 
   return (
     <Container maxWidth="sm" style={styles.container}>
+      {children}
       <Paper elevation={3} style={styles.paper}>
         <Typography variant="h4">Beállítások</Typography>
         <section className="Settings-section">
@@ -136,32 +151,37 @@ export function Settings() {
                 error={passwordError}
                 helperText={
                   passwordError
-                    ? 'A jelszónak legalább 8 karakter hosszúnak kell lennie, tartalmaznia kell kis- és nagybetűt, számot, valamint speciális karaktert (@$!%*?&)'
-                    : ''
+                    ? "A jelszónak legalább 8 karakter hosszúnak kell lennie, tartalmaznia kell kis- és nagybetűt, számot, valamint speciális karaktert (@$!%*?&)"
+                    : ""
                 }
                 InputProps={{
                   endAdornment: (
-                    <Link onClick={() => { }} style={{ cursor: 'pointer' }}>
-                      {''}
+                    <Link onClick={() => {}} style={{ cursor: "pointer" }}>
+                      {""}
                     </Link>
                   ),
                 }}
                 FormHelperTextProps={{
-                  style: { 
-                    color: '#8B0000', 
-                    fontSize: '13px',
-                  } 
+                  style: {
+                    color: "#8B0000",
+                    fontSize: "13px",
+                  },
                 }}
                 InputLabelProps={{
                   style: {
-                    color: passwordError ? '#8B0000' : 'inherit', // Change label color based on error
+                    color: passwordError ? "#8B0000" : "inherit", // Change label color based on error
                   },
                 }}
               />
             </Grid>
           </Grid>
         </section>
-        <Button variant="contained" color="primary" onClick={handleSaveChanges} style={styles.saveButton}>
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={handleSaveChanges}
+          style={styles.saveButton}
+        >
           Változások mentése
         </Button>
       </Paper>

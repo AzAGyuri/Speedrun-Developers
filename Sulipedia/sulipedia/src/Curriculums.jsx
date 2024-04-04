@@ -60,7 +60,7 @@ const IconImage = styled('img')({
   marginLeft: '8px',
 });
 
-export function Curriculums() {
+export function Curriculums({children}) {
   const subjects = [
     {
       title: 'Szakmai Angol',
@@ -103,6 +103,7 @@ export function Curriculums() {
 
   return (
     <Container>
+      {children}
       <Typography variant="h2" style={{ margin: '32px 0', textAlign: 'center', color: '#333' }}>
         Tantárgyak
       </Typography>

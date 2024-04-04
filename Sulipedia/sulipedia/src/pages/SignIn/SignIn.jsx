@@ -37,24 +37,22 @@ export default function SignIn() {
       ...currentFormData,
       [event.target.name]: event.target.value,
     }));
-    console.log(formData);
   };
 
   const handleSubmit = (event) => {
     event.preventDefault();
 
     if (formData.usernameOrEmail === "a" && formData.passwordRaw === "a") {
-      localStorage.setItem("loginAuth", "true");
+      localStorage.setItem("loginAuth", true);
       navigate("/kezdo");
       window.location.reload();
     } else {
-      console.log(formData);
       axios
         .post(`/login`, formData)
         .then((response) => {
-          localStorage.setItem("Authorization", response.headers.jwt);
-          localStorage.setItem("loginAuth", "true");
-          localStorage.setItem("currentUserId", response.data.id)
+          localStorage.setItem("jwt", "Bearer " + response.headers.jwt);
+          localStorage.setItem("loginAuth", true);
+          localStorage.setItem("currentUserId", response.data.id);
           navigate("/kezdo");
           window.location.reload();
         })

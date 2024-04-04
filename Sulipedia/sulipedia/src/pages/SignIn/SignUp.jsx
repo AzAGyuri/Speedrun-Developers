@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import axios from "axios";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
@@ -22,8 +22,8 @@ const defaultTheme = createTheme();
 export default function SignUp() {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
-    lastName: "",
-    firstName: "",
+    surName: "",
+    realName: "",
     nickname: "",
     email: "",
     password: "",
@@ -42,9 +42,11 @@ export default function SignUp() {
   const handleSubmit = (event) => {
     event.preventDefault();
     validateForm();
+    console.log(emailError, passwordError, lastNameError, firstNameError, phoneError);
+    console.log(isFormValid());
     if (isFormValid()) {
       const finalFormData = {
-        userName: formData.firstName + formData.lastName,
+        userName: `${formData.surName} ${formData.realName}`,
         email: formData.email,
         passwordRaw: formData.password,
         nickname: formData.nickname,
@@ -54,7 +56,7 @@ export default function SignUp() {
         .post("/register", finalFormData)
         .then((response) => {
           localStorage.setItem("Authorization", response.headers.jwt);
-          localStorage.setItem("loginAuth", "true");
+          localStorage.setItem("loginAuth", true);
           navigate("/kezdo");
           window.location.reload();
         })
@@ -81,6 +83,7 @@ export default function SignUp() {
 
   const handleChange = (event) => {
     const { name, value, type, checked } = event.target;
+    console.log(event.target);
     setFormData((prevData) => ({
       ...prevData,
       [name]: type === "checkbox" ? checked : value,
@@ -127,11 +130,11 @@ export default function SignUp() {
       setPasswordError(true);
     }
 
-    if (formData.lastName.length < 2) {
+    if (formData.surName.length < 2) {
       setLastNameError(true);
     }
 
-    if (formData.firstName.length < 3) {
+    if (formData.realName.length < 3) {
       setFirstNameError(true);
     }
 
@@ -201,7 +204,7 @@ export default function SignUp() {
                     name="lastName"
                     autoComplete="family-name"
                     minLength={3}
-                    value={formData.lastName}
+                    value={formData.surName}
                     onChange={handleChange}
                     error={lastNameError}
                     helperText={
@@ -222,7 +225,7 @@ export default function SignUp() {
                     label="Keresztnév"
                     autoFocus
                     minLength={3}
-                    value={formData.firstName}
+                    value={formData.realName}
                     onChange={handleChange}
                     error={firstNameError}
                     helperText={
