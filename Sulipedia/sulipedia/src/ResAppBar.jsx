@@ -34,6 +34,7 @@ export function ResAppBar() {
   const handleLogOut = () => {
     localStorage.removeItem("currentUserId");
     localStorage.removeItem("jwt");
+    handleCloseUserMenu();
   };
 
   const toggleDrawer = () => {

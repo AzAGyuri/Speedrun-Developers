@@ -223,6 +223,7 @@ export function FirstPage({ children }) {
       </div>
 
       {isSmallScreen ? (
+        <>
         <div className="flex-container">
           <div className="flex-item">
             <div className="contente-flex">
@@ -305,7 +306,25 @@ export function FirstPage({ children }) {
                 </div>
               </div>
             </div>
-            <div className="flex-item">
+
+            <div className="flex-container">
+        <div className="flex-item">
+          {posts.map((post, index) => (
+            <div className="contente-flex" key={index}>
+              <div className="flexcontente-item">
+                <div className="contente-box">
+                  <div className="contente-title">{post.title}</div>
+                  <div className="contente">{post.content}</div>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+           
+          </div>
+        </div>
+        <div id="kisHozza">
               <Button
                 onClick={handleNewsModalOpen}
                 variant="contained"
@@ -314,8 +333,8 @@ export function FirstPage({ children }) {
                 Új hír hozzáadása
               </Button>
             </div>
-          </div>
-        </div>
+        </>
+        
       ) : (
         <div className="flex-container">
           <div className="flex-item">
@@ -472,6 +491,21 @@ export function FirstPage({ children }) {
                 </div>
               </div>
             </div>
+
+            <div className="flex-container" style={{my:2}}>
+        <div className="flex-item">
+          {posts.map((post, index) => (
+            <div className="contente-flex" key={index}>
+              <div className="flexcontente-item">
+                <div className="contente-box">
+                  <div className="contente-title">{post.title}</div>
+                  <div className="contente">{post.content}</div>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
           </div>
 
           <div className="flex-item">
@@ -569,22 +603,7 @@ export function FirstPage({ children }) {
           </Box>
         </Modal>
       )}
-      <div className="flex-container">
-        <div className="flex-item"> </div>
-        <div className="flex-item">
-          {posts.map((post, index) => (
-            <div className="contente-flex" key={index}>
-              <div className="flexcontente-item">
-                <div className="contente-box">
-                  <div className="contente-title">{post.title}</div>
-                  <div className="contente">{post.content}</div>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-        <div className="flex-item"> </div>
-      </div>
+     
     </>
   );
 }

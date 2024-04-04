@@ -3,6 +3,10 @@
     flex-direction: row;
     align-items: center;
 }
+.flex-containerSmall {
+    display: flex;
+    flex-direction: row;
+}
 
 .flex-item {
     position: relative;
@@ -12,6 +16,10 @@
 
 .flex-item:first-child {
     text-align: end;
+}
+
+#kisHozza{
+margin-top: 10px;
 }
 
 

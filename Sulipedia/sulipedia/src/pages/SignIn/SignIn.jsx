@@ -42,8 +42,10 @@ export default function SignIn() {
     event.preventDefault();
 
     if (formData.usernameOrEmail === "a" && formData.passwordRaw === "a") {
+      localStorage.setItem("jwt", "Bearer");
+      localStorage.setItem("currentUserId", "");
       navigate("/kezdo");
-      window.location.reload();
+
     } else {
       axios
         .post(`/login`, formData)
@@ -51,7 +53,7 @@ export default function SignIn() {
           localStorage.setItem("jwt", "Bearer " + response.headers.jwt);
           localStorage.setItem("currentUserId", response.data.id);
           navigate("/kezdo");
-          window.location.reload();
+
         })
         .catch((error) => {
           let errorCode = error.response.data.status;

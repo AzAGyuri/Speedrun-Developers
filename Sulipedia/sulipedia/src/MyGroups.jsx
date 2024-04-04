@@ -6,6 +6,9 @@ import {
 import { Delete, Add } from '@mui/icons-material';
 import Stack from '@mui/material/Stack';
 import Box from '@mui/material/Box';
+import useMediaQuery from "@mui/material/useMediaQuery";
+
+
 
 const styles = {
   container: {
@@ -74,6 +77,17 @@ const style = {
   boxShadow: 24,
   p: 4,
 };
+const styleSmall = {
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: '80vw',
+  bgcolor: 'background.paper',
+  border: '2px solid #000',
+  boxShadow: 24,
+  p: 4,
+};
 
 export function MyGroups({children}) {
   const [groups, setGroups] = useState([
@@ -133,6 +147,7 @@ export function MyGroups({children}) {
   const [open, setOpen] = useState(false);
   const [showMembers, setShowMembers] = useState(false);
   const [selectedGroup, setSelectedGroup] = useState(null);
+  const isSmallScreen = useMediaQuery("(max-width:950px)");
 
 
   const [avatarColors, setAvatarColors] = useState({});
@@ -264,7 +279,7 @@ export function MyGroups({children}) {
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <Box sx={style}>
+        {isSmallScreen?(<Box sx={styleSmall}>
           <Typography id="modal-modal-title" variant="h6" component="h2">
             Új csoport létrehozása
           </Typography>
@@ -309,7 +324,52 @@ export function MyGroups({children}) {
               Mentés
             </Button>
           </Stack>
-        </Box>
+        </Box>):(<Box sx={style}>
+          <Typography id="modal-modal-title" variant="h6" component="h2">
+            Új csoport létrehozása
+          </Typography>
+          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+            <Box
+              component="form"
+              sx={{
+                '& > :not(style)': { m: 1, width: '25ch' },
+              }}
+              noValidate
+              autoComplete="off"
+            >
+              <TextField
+                id="standard-basic"
+                label="Csoport neve"
+                variant="standard"
+                onChange={(e) => setGroupName(e.target.value)}
+              />
+            </Box>
+
+            <Box
+              component="form"
+              sx={{
+                '& > :not(style)': { m: 1, width: '25ch' },
+              }}
+              noValidate
+              autoComplete="off"
+            >
+              <TextField
+                id="standard-basic"
+                label="Csoport leírása"
+                variant="standard"
+                onChange={(e) => setGroupDesc(e.target.value)}
+              />
+            </Box>
+          </Typography>
+          <Stack direction="row" spacing={2}>
+            <Button variant="contained" color="error" onClick={handleClose}>
+              Bezárás
+            </Button>
+            <Button variant="contained" color="success" onClick={() => { createNewGroup() }}>
+              Mentés
+            </Button>
+          </Stack>
+        </Box>)}
       </Modal>
 
 
@@ -320,7 +380,7 @@ export function MyGroups({children}) {
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <Box sx={style}>
+      {isSmallScreen?(<Box sx={styleSmall}>
           <Typography id="modal-modal-title" variant="h6" component="h2">
             A csoport tagjai - {selectedGroup && selectedGroup.name}
           </Typography>
@@ -341,7 +401,28 @@ export function MyGroups({children}) {
               Bezárás
             </Button>
           </Stack>
-        </Box>
+        </Box>):(<Box sx={style}>
+          <Typography id="modal-modal-title" variant="h6" component="h2">
+            A csoport tagjai - {selectedGroup && selectedGroup.name}
+          </Typography>
+          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+            <List>
+              {selectedGroup && selectedGroup.members && selectedGroup.members.map(member => (
+                <ListItem key={member.id}>
+                  <ListItemAvatar>
+                    <Avatar>{member.name[0]}</Avatar>
+                  </ListItemAvatar>
+                  <ListItemText primary={member.name} />
+                </ListItem>
+              ))}
+            </List>
+          </Typography>
+          <Stack direction="row" spacing={2}>
+            <Button variant="contained" color="error" onClick={handleCloseMembers}>
+              Bezárás
+            </Button>
+          </Stack>
+        </Box>)}
       </Modal>
     </Container>
   );
