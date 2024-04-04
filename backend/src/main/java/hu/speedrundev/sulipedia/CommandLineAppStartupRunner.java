@@ -3,6 +3,7 @@ package hu.speedrundev.sulipedia;
 import hu.speedrundev.sulipedia.model.Roles;
 import hu.speedrundev.sulipedia.model.User;
 import hu.speedrundev.sulipedia.repository.UserRepository;
+import hu.speedrundev.sulipedia.util.MiscUtils;
 import io.jsonwebtoken.lang.Arrays;
 import java.util.Date;
 import java.util.stream.Collectors;
@@ -28,6 +29,8 @@ public class CommandLineAppStartupRunner implements CommandLineRunner {
         Arrays.asList(Roles.values()).stream().collect(Collectors.toSet())
       );
       admin.setEmail("CHANGE_ME@example.com");
+      admin.setRandomPfPBgColor(MiscUtils.generateThreeRandomColors());
+      
       repository.save(admin);
     }
   }
