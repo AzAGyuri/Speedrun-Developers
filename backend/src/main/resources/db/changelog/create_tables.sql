@@ -52,8 +52,8 @@ CREATE TABLE
         class_year INT (2) CHECK (
             class_year >= 9
             AND class_year <= 12
-        ) NOT NULL,
-        classLabel char(1) not null,
+        ),
+        class_label char(1) not null,
         specializaton_id varchar(50) NOT NULL,
         FOREIGN KEY (specializaton_id) REFERENCES specializaton (id) ON DELETE RESTRICT ON UPDATE CASCADE
     ) AUTO_INCREMENT = 700000001;
