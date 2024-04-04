@@ -1,29 +1,19 @@
 package hu.speedrundev.sulipedia.dto.user;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
-@Getter
-@Setter
 @NoArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class UserRegistration extends PostUser {
 
   public UserRegistration(
-    String userName,
+    String username,
     String email,
-    String passwordRaw,
     String nickname,
-    String phoneNumber
+    String phoneNumber,
+    String passwordRaw
   ) {
-    super(userName, email, passwordRaw);
-    this.nickname = nickname;
-    this.phoneNumber = phoneNumber;
+    super(username, email, nickname, phoneNumber, passwordRaw);
   }
-
-  private String nickname;
-
-  private String phoneNumber;
 }

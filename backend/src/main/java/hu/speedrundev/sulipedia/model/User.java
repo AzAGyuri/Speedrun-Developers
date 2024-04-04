@@ -107,7 +107,7 @@ public class User {
     createdOn = Date.from(Instant.now());
     email = user.getEmail();
     userPassword = user.getPasswordRaw();
-    username = user.getUserName();
+    username = user.getUsername();
     roles.add(Roles.ROLE_STUDENT);
   }
 
@@ -115,7 +115,7 @@ public class User {
     createdOn = Date.from(Instant.now());
     email = user.getEmail();
     userPassword = user.getPasswordRaw();
-    username = user.getUserName();
+    username = user.getUsername();
     roles.add(Roles.ROLE_STUDENT);
     nickname = user.getNickname();
     phoneNumber = user.getPhoneNumber();

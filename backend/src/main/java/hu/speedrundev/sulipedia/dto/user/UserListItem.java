@@ -1,11 +1,13 @@
 package hu.speedrundev.sulipedia.dto.user;
 
 import hu.speedrundev.sulipedia.model.User;
+import lombok.NoArgsConstructor;
 
 import java.util.Base64;
 import java.util.Date;
 import java.util.Set;
 
+@NoArgsConstructor
 public class UserListItem extends GetUserWithID {
 
   public UserListItem(
@@ -22,17 +24,17 @@ public class UserListItem extends GetUserWithID {
     super(
       userName,
       email,
+      userName,
+      email,
       profilePictureBase64,
       birthDate,
+      createdOn,
       lastLogin,
       lastLogoff,
       roles,
-      createdOn,
       id
     );
   }
-
-  public UserListItem() {}
 
   public UserListItem(User user) {
     this(

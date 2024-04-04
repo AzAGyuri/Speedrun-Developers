@@ -61,7 +61,7 @@ public class SecurityService {
   public GetUserWithID register(UserRegistration registrationInfo) {
     if (registrationInfo == null) throw nullPointer();
     if (
-      repository.existsUserByUsername(registrationInfo.getUserName()) &&
+      repository.existsUserByUsername(registrationInfo.getUsername()) &&
       repository.existsUserByEmail(registrationInfo.getEmail())
     ) throw notUnique("USERNAME_ALREADY_TAKEN");
 

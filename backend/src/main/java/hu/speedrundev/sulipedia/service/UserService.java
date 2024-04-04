@@ -60,7 +60,7 @@ public class UserService {
 
   public GetUserWithID createUser(PostUser user) {
     if (user == null) throw nullPointer();
-    if (repository.existsUserByUsername(user.getUserName()) || repository.existsUserByEmail(user.getEmail())) throw notUnique(
+    if (repository.existsUserByUsername(user.getUsername()) || repository.existsUserByEmail(user.getEmail())) throw notUnique(
       "USER_ALREADY_EXISTS"
     );
 

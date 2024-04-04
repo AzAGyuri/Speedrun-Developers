@@ -14,34 +14,38 @@ import lombok.Setter;
 public class GetUser extends BaseUser {
 
   public GetUser(
-    String userName,
+    String username,
     String email,
-    Date birthDate,
+    String nickname,
+    String phoneNumber,
     String profilePictureBase64,
-    Set<RoleDto> roles,
+    Date birthDate,
     Date createdOn,
     Date lastLogin,
-    Date lastLogoff
+    Date lastLogoff,
+    Set<RoleDto> roles
   ) {
-    super(userName, email);
+    super(username, email, nickname, phoneNumber);
     this.profilePictureBase64 = profilePictureBase64;
-    this.roles = roles;
     this.birthDate = birthDate;
     this.createdOn = createdOn;
     this.lastLogin = lastLogin;
     this.lastLogoff = lastLogoff;
+    this.roles = roles;
   }
 
   public GetUser(User user) {
     this(
       user.getUsername(),
       user.getEmail(),
-      user.getBirthDate(),
+      user.getNickname(),
+      user.getPhoneNumber(),
       Base64.getEncoder().encodeToString(user.getProfilePicture()),
-      RoleDto.dtoFrom(user.getRoles()),
+      user.getBirthDate(),
       user.getCreatedOn(),
       user.getLastLogin(),
-      user.getLastLogoff()
+      user.getLastLogoff(),
+      RoleDto.dtoFrom(user.getRoles())
     );
   }
 

@@ -48,7 +48,7 @@ public class SecurityController {
     return new ResponseEntity<>(
       user,
       getJwtHeader(
-        user.getUserName(),
+        user.getUsername(),
         convertRolesToStringArr(user.getRoles())
       ),
       HttpStatus.OK
@@ -67,7 +67,7 @@ public class SecurityController {
     return new ResponseEntity<>(
       user,
       getJwtHeader(
-        user.getUserName(),
+        user.getUsername(),
         convertRolesToStringArr(user.getRoles())
       ),
       HttpStatus.CREATED

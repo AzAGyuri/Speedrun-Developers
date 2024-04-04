@@ -12,5 +12,5 @@ import lombok.Setter;
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
 public class BaseUser {
 
-  private String userName, email;
+  private String username, email, nickname, phoneNumber;
 }

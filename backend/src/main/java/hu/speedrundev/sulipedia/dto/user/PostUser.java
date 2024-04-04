@@ -1,20 +1,22 @@
 package hu.speedrundev.sulipedia.dto.user;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
+@NoArgsConstructor
 public class PostUser extends BaseUser {
 
-  public PostUser() {}
-
   public PostUser(
-    String userName,
+    String username,
     String email,
+    String nickname,
+    String phoneNumber,
     String passwordRaw
   ) {
-    super(userName, email);
+    super(username, email, nickname, phoneNumber);
     this.passwordRaw = passwordRaw;
   }
 
