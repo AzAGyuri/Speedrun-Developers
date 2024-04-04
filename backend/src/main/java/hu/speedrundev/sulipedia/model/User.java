@@ -23,6 +23,7 @@ import jakarta.persistence.Table;
 import jakarta.validation.constraints.Email;
 import java.time.Instant;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import lombok.AllArgsConstructor;
@@ -122,6 +123,7 @@ public class User {
     email = user.getEmail();
     userPassword = user.getPasswordRaw();
     username = user.getUsername();
+    roles = new HashSet<>();
     roles.add(Roles.ROLE_STUDENT);
     nickname = user.getNickname();
     phoneNumber = user.getPhoneNumber();
