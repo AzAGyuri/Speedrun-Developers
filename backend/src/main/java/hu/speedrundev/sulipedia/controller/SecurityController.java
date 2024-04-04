@@ -109,7 +109,7 @@ public class SecurityController {
 
   private HttpHeaders getJwtHeader(String username, String[] authorities) {
     HttpHeaders header = new HttpHeaders();
-    header.add("JWT-Token", jwtUtil.generateToken(username, authorities));
+    header.add("JWT", jwtUtil.generateToken(username, authorities));
     return header;
   }
 }
