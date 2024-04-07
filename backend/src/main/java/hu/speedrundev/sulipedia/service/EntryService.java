@@ -15,17 +15,20 @@ import hu.speedrundev.sulipedia.dto.question.QuestionList;
 import hu.speedrundev.sulipedia.model.Attachment;
 import hu.speedrundev.sulipedia.model.Entry;
 import hu.speedrundev.sulipedia.model.Question;
+import hu.speedrundev.sulipedia.model.User;
 import hu.speedrundev.sulipedia.repository.AnswerRepository;
 import hu.speedrundev.sulipedia.repository.AttachmentRepository;
 import hu.speedrundev.sulipedia.repository.EntryRepository;
 import hu.speedrundev.sulipedia.repository.QuestionRepository;
 import hu.speedrundev.sulipedia.repository.SchoolClassRepository;
 import hu.speedrundev.sulipedia.repository.UserRepository;
+import hu.speedrundev.sulipedia.util.JwtUtil;
 import io.jsonwebtoken.lang.Arrays;
 import java.io.IOException;
 import java.time.Instant;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
@@ -53,6 +56,9 @@ public class EntryService {
   @Autowired
   private SchoolClassRepository schoolClassRepository;
 
+  @Autowired
+  private JwtUtil jwtUtil;
+
   public EntryList getEntriesByOptionalCategory(String category) {
     if (category == null || category.isBlank()) {
       return new EntryList(entryRepository.findAll());
@@ -68,12 +74,20 @@ public class EntryService {
     return new GetEntry(entryRepository.getReferenceById(id));
   }
 
-  public GetEntryWithID createEntry(PostEntry entry, MultipartFile[] files) {
-    if (entry == null) throw nullPointer();
+  public GetEntryWithID createEntry(
+    PostEntry entry,
+    MultipartFile[] files,
+    String jwt
+  ) {
+    if (entry == null || jwt == null) throw nullPointer();
 
-    if (
-      !userRepository.existsUserByUsername(entry.getAuthorName())
-    ) throw modelNotFound("AUTHOR_NOT_FOUND");
+    if (entry.isAnyNull()) throw badRequest("INPUT_PARAMS_ARE_NULL");
+
+    Optional<User> author = userRepository.findByUsername(
+      jwtUtil.getSubject(jwt.substring("Bearer".length()).trim())
+    );
+
+    if (author.isEmpty()) throw modelNotFound("AUTHOR_NOT_FOUND");
 
     if (
       !schoolClassRepository.existsByClassName(entry.getSchoolClass())
@@ -86,35 +100,40 @@ public class EntryService {
     Entry savedEntry = entryRepository.save(
       new Entry(
         entry,
-        userRepository.getByUsername(entry.getAuthorName()),
+        author.get(),
         schoolClassRepository.getClassByClassName(entry.getSchoolClass())
       )
     );
 
-    savedEntry.setAttachments(
-      Arrays
-        .asList(files)
-        .stream()
-        .map(file -> {
-          try {
-            return new Attachment(file, savedEntry);
-          } catch (IOException e) {
-            e.printStackTrace();
-            throw fileIO();
-          }
-        })
-        .map(attachmentRepository::save)
-        .toList()
-    );
+    if (files != null) if (files.length != 0) {
+      List<MultipartFile> fileList = Arrays.asList(files);
 
-    savedEntry.setQuestions(
-      entry
-        .getQuestions()
-        .stream()
-        .map(question -> new Question(question, savedEntry))
-        .map(questionRepository::save)
-        .toList()
-    );
+      savedEntry.setAttachments(
+        fileList
+          .stream()
+          .map(file -> {
+            try {
+              return new Attachment(file, savedEntry);
+            } catch (IOException e) {
+              e.printStackTrace();
+              throw fileIO();
+            }
+          })
+          .map(attachmentRepository::save)
+          .toList()
+      );
+    }
+
+    if (entry.getTest()) {
+      savedEntry.setQuestions(
+        entry
+          .getQuestions()
+          .stream()
+          .map(question -> new Question(question, savedEntry))
+          .map(questionRepository::save)
+          .toList()
+      );
+    }
 
     return new GetEntryWithID(entryRepository.save(savedEntry));
   }

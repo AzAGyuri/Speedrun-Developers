@@ -16,23 +16,30 @@ public class PostEntry extends BaseEntry {
     String content,
     Boolean keep,
     Boolean test,
-    String authorName,
     String schoolClass,
     List<PostQuestion> questions,
     SubjectDto subject
   ) {
     super(title, content, keep, test);
-    this.authorName = authorName;
     this.schoolClass = schoolClass;
     this.questions = questions;
     this.subject = subject;
   }
-
-  private String authorName;
 
   private String schoolClass;
 
   private List<PostQuestion> questions;
 
   private SubjectDto subject;
+
+  public boolean isAnyNull() {
+    return (
+      getTitle() == null ||
+      getContent() == null ||
+      getKeep() == null ||
+      getTest() == null ||
+      schoolClass == null ||
+      subject == null
+    );
+  }
 }
