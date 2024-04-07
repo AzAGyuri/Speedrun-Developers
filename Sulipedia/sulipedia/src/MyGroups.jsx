@@ -9,7 +9,6 @@ import Box from '@mui/material/Box';
 import useMediaQuery from "@mui/material/useMediaQuery";
 
 
-
 const styles = {
   container: {
     paddingTop: '20px',
@@ -252,6 +251,17 @@ export function MyGroups({ children }) {
     setNewMemberName('');
   }
 
+  const handleDeleteMember = (memberId) => {
+    const updatedGroup = {
+      ...selectedGroup,
+      members: selectedGroup.members.filter(member => member.id !== memberId)
+    };
+    const updatedGroups = groups.map(group =>
+      group.id === selectedGroup.id ? updatedGroup : group
+    );
+    setGroups(updatedGroups);
+  };
+
   return (
     <Container maxWidth="lg" style={styles.container}>
       {children}
@@ -416,57 +426,36 @@ export function MyGroups({ children }) {
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        {isSmallScreen ? (<Box sx={styleSmall}>
-          <Typography id="modal-modal-title" variant="h6" component="h2">
-            A csoport tagjai - {selectedGroup && selectedGroup.name}
+        <Box sx={isSmallScreen ? styleSmall : style}>
+          <Typography id="modal-modal-title" variant="h6" component="h2" sx={{ mb: 2 }}>
+            {selectedGroup && selectedGroup.name} csoport tagjai
           </Typography>
-          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-            <List>
-              {selectedGroup && selectedGroup.members && selectedGroup.members.map(member => (
-                <ListItem key={member.id}>
-                  <ListItemAvatar>
-                    <Avatar>{member.name[0]}</Avatar>
-                  </ListItemAvatar>
-                  <ListItemText primary={member.name} />
-                </ListItem>
-              ))}
-            </List>
-          </Typography>
-          <Stack direction="row" spacing={2}>
-            <Button variant="contained" color="error" onClick={handleCloseMembers}>
+          <List>
+            {selectedGroup && selectedGroup.members && selectedGroup.members.map(member => (
+              <ListItem key={member.id} alignItems="flex-start">
+                <ListItemAvatar>
+                  <Avatar>{member.name[0]}</Avatar>
+                </ListItemAvatar>
+                <ListItemText primary={member.name} />
+                <IconButton edge="end" aria-label="delete" onClick={() => handleDeleteMember(member.id)}>
+                  <Delete />
+                </IconButton>
+              </ListItem>
+            ))}
+          </List>
+          <Divider sx={{ my: 2 }} />
+          <Stack direction="row" spacing={2} justifyContent="flex-end">
+            <Button variant="contained" color="primary" onClick={handleOpenAddMember}>
+              Tag hozzáadása
+            </Button>
+            <Button variant="outlined" color="error" onClick={handleCloseMembers}>
               Bezárás
             </Button>
-            <Button variant="contained" color="success" onClick={handleOpenAddMember}  style={styles.addButton}>
-            <Add />
-            </Button>
           </Stack>
-        </Box>) : (<Box sx={style}>
-          <Typography id="modal-modal-title" variant="h6" component="h2">
-            A csoport tagjai - {selectedGroup && selectedGroup.name}
-          </Typography>
-          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-            <List>
-              {selectedGroup && selectedGroup.members && selectedGroup.members.map(member => (
-                <ListItem key={member.id}>
-                  <ListItemAvatar>
-                    <Avatar>{member.name[0]}</Avatar>
-                  </ListItemAvatar>
-                  <ListItemText primary={member.name} />
-                </ListItem>
-              ))}
-            </List>
-          </Typography>
-          <Stack direction="row" spacing={2}>
-            <Button variant="contained" color="error" onClick={handleCloseMembers}>
-              Bezárás
-            </Button>
-
-            <Button variant="contained" color="success" onClick={handleOpenAddMember}  style={styles.addButton}>
-            <Add />
-            </Button>
-          </Stack>
-        </Box>)}
+        </Box>
       </Modal>
+
+
 
 
       <Modal
@@ -501,7 +490,7 @@ export function MyGroups({ children }) {
             <Button variant="contained" color="error" onClick={handleCloseAddMember}>
               Mégse
             </Button>
-            <Button variant="contained" color="success" onClick={() => addMemberToGroup()}  style={styles.addButton}>
+            <Button variant="contained" color="success" onClick={() => addMemberToGroup()} style={styles.addButton}>
               Hozzáadás
             </Button>
           </Stack>

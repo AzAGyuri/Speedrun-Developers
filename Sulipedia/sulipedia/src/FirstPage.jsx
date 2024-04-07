@@ -112,8 +112,8 @@ export function FirstPage({ children }) {
           aria-labelledby="modal-modal-title"
           aria-describedby="modal-modal-description"
         >
-          {isSmallScreen ? (
-            <Box sx={styleSmall}>
+          
+             <Box sx={isSmallScreen ? styleSmall : style}>
               <CloseButton onClick={handleClose} color="primary">
                 X
               </CloseButton>
@@ -157,52 +157,6 @@ export function FirstPage({ children }) {
                 </SignInButton>
               </BottomButtonsContainer>
             </Box>
-          ) : (
-            <Box sx={style}>
-              <CloseButton onClick={handleClose} color="primary">
-                X
-              </CloseButton>
-              <HeaderTypography variant="h3">
-                Üdvözöljük a Sulipedia oldalon!
-              </HeaderTypography>
-              <SubheaderTypography variant="body1">
-                Az oldalt és a hozzá tartozó funkcionalitásokat a{" "}
-                <Link
-                  style={{ textDecoration: "none", color: "blue" }}
-                  to="/aboutUs"
-                  underline="none"
-                  rel="noreferrer"
-                  color="inherit"
-                >
-                  Speedrun Developers
-                </Link>{" "}
-                csapata készítette!
-              </SubheaderTypography>
-              <Typography variant="body1">
-                Ön ezen oldal jelenlegi alfa verzióját látja. A jövőben - mint
-                minden más oldalra is - erre is további fejlesztések és új
-                funkciók várnak majd.
-                <br />
-                Amennyiben szeretné támogatni az oldal fejlődését azt az alábbi
-                paypal <a href="https://www.paypal.me/Krisz37">linken</a>{" "}
-                megteheti!
-              </Typography>
-
-              <BottomButtonsContainer>
-                <Button
-                  variant="contained"
-                  color="secondary"
-                  component={Link}
-                  to="/LearnMore"
-                >
-                  Tudj meg többet
-                </Button>
-                <SignInButton component={Link} to="/AboutUs">
-                  Rólunk
-                </SignInButton>
-              </BottomButtonsContainer>
-            </Box>
-          )}
         </Modal>
       </div>
 
@@ -540,14 +494,16 @@ export function FirstPage({ children }) {
         </div>
       )}
 
-      {isSmallScreen ? (
+      
+         
         <Modal
           open={newsModalOpen}
           onClose={handleNewsModalClose}
           aria-labelledby="news-modal-title"
           aria-describedby="news-modal-description"
+          
         >
-          <Box sx={styleSmall}>
+          <Box sx={isSmallScreen ? styleSmall : style}>
             <CloseButton onClick={handleNewsModalClose} color="primary">
               X
             </CloseButton>
@@ -581,48 +537,6 @@ export function FirstPage({ children }) {
             </Button>
           </Box>
         </Modal>
-      ) : (
-        <Modal
-          open={newsModalOpen}
-          onClose={handleNewsModalClose}
-          aria-labelledby="news-modal-title"
-          aria-describedby="news-modal-description"
-        >
-          <Box sx={style}>
-            <CloseButton onClick={handleNewsModalClose} color="primary">
-              X
-            </CloseButton>
-            <Typography variant="h6" component="div" id="news-modal-title">
-              Új hír hozzáadása
-            </Typography>
-            <TextField
-              label="Cím"
-              fullWidth
-              value={newPostTitle}
-              onChange={(e) => setNewPostTitle(e.target.value)}
-            />
-            <TextField
-              label="Tartalom"
-              multiline
-              rows={4}
-              fullWidth
-              value={newPostContent}
-              onChange={(e) => setNewPostContent(e.target.value)}
-            />
-            <Button
-              variant="contained"
-              color="secondary"
-              style={{ marginTop: "16px" }}
-              onClick={() => {
-                handleClosePost();
-                handleNewsModalClose();
-              }}
-            >
-              Hozzáadás
-            </Button>
-          </Box>
-        </Modal>
-      )}
     </>
   );
 }
