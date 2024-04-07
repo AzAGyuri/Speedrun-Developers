@@ -35,124 +35,124 @@ function App() {
         {isLoading ? (
           <Loading />
         ) : (
-        < Routes >
-          <Route
-            path="/curriculums"
-            element={
-              <Curriculums>
-                <IsLoggedIn />
-              </Curriculums>
-            }
-          />
-          <Route
-            path="/tests"
-            element={
-              <Tests>
-                <IsLoggedIn />
-              </Tests>
-            }
-          />
-          <Route
-            path="/mygroups"
-            element={
-              <MyGroups>
-                <IsLoggedIn />
-              </MyGroups>
-            }
-          />
-          <Route
-            path="/myProfile"
-            element={
-              <MyProfile>
-                <IsLoggedIn />
-              </MyProfile>
-            }
-          />
-          <Route
-            path="/settings"
-            element={
-              <Settings>
-                <IsLoggedIn />
-              </Settings>
-            }
-          />
-          <Route path="/signIn" element={<SignIn setIsLoading={setIsLoading}  />} />
-          <Route path="/signUp" element={<SignUp />} />
-          <Route
-            path="/kezdo"
-            element={
-              <FirstPage>
-                <IsLoggedIn />
-              </FirstPage>
-            }
-          />
-          <Route
-            path="/"
-            element={
-              <FirstPage>
-                <IsLoggedIn />
-              </FirstPage>
-            }
-          />
-          <Route
-            path="/aboutUs"
-            element={
-              <AboutUs>
-                <IsLoggedIn />
-              </AboutUs>
-            }
-          />
-          <Route
-            path="/learnMore"
-            element={
-              <LearnMore>
-                <IsLoggedIn />
-              </LearnMore>
-            }
-          />
-          <Route
-            path="/szakmai-angol"
-            element={
-              <SzakAngol>
-                <IsLoggedIn />
-              </SzakAngol>
-            }
-          />
-          <Route
-            path="/matek"
-            element={
-              <Matek>
-                <IsLoggedIn />
-              </Matek>
-            }
-          />
-          <Route
-            path="/magyar"
-            element={
-              <Magyar>
-                <IsLoggedIn />
-              </Magyar>
-            }
-          />
-          <Route
-            path="/tortenelem"
-            element={
-              <Tortenelem>
-                <IsLoggedIn />
-              </Tortenelem>
-            }
-          />
-          <Route
-            path="/informatika"
-            element={
-              <Informatika>
-                <IsLoggedIn />
-              </Informatika>
-            }
-          />
-        </Routes> )}
-      <Copyright />
-    </Router >
+          < Routes >
+            <Route
+              path="/curriculums"
+              element={
+                <Curriculums>
+                  <IsLoggedIn />
+                </Curriculums>
+              }
+            />
+            <Route
+              path="/tests"
+              element={
+                <Tests>
+                  <IsLoggedIn />
+                </Tests>
+              }
+            />
+            <Route
+              path="/mygroups"
+              element={
+                <MyGroups>
+                  <IsLoggedIn />
+                </MyGroups>
+              }
+            />
+            <Route
+              path="/myProfile"
+              element={
+                <MyProfile>
+                  <IsLoggedIn />
+                </MyProfile>
+              }
+            />
+            <Route
+              path="/settings"
+              element={
+                <Settings>
+                  <IsLoggedIn />
+                </Settings>
+              }
+            />
+            <Route path="/signIn" element={<SignIn setIsLoading={setIsLoading} />} />
+            <Route path="/signUp" element={<SignUp />} />
+            <Route
+              path="/kezdo"
+              element={
+                <FirstPage>
+                  <IsLoggedIn />
+                </FirstPage>
+              }
+            />
+            <Route
+              path="/"
+              element={
+                <FirstPage>
+                  <IsLoggedIn />
+                </FirstPage>
+              }
+            />
+            <Route
+              path="/aboutUs"
+              element={
+                <AboutUs>
+                  <IsLoggedIn />
+                </AboutUs>
+              }
+            />
+            <Route
+              path="/learnMore"
+              element={
+                <LearnMore>
+                  <IsLoggedIn />
+                </LearnMore>
+              }
+            />
+            <Route
+              path="/szakmai-angol"
+              element={
+                <SzakAngol>
+                  <IsLoggedIn />
+                </SzakAngol>
+              }
+            />
+            <Route
+              path="/matek"
+              element={
+                <Matek>
+                  <IsLoggedIn />
+                </Matek>
+              }
+            />
+            <Route
+              path="/magyar"
+              element={
+                <Magyar>
+                  <IsLoggedIn />
+                </Magyar>
+              }
+            />
+            <Route
+              path="/tortenelem"
+              element={
+                <Tortenelem>
+                  <IsLoggedIn />
+                </Tortenelem>
+              }
+            />
+            <Route
+              path="/informatika"
+              element={
+                <Informatika>
+                  <IsLoggedIn />
+                </Informatika>
+              }
+            />
+          </Routes>)}
+        <Copyright />
+      </Router >
     </>
   );
 }

@@ -3,6 +3,7 @@
     flex-direction: row;
     align-items: center;
 }
+
 .flex-containerSmall {
     display: flex;
     flex-direction: row;
@@ -18,8 +19,8 @@
     text-align: end;
 }
 
-#kisHozza{
-margin-top: 10px;
+#kisHozza {
+    margin-top: 10px;
 }
 
 

@@ -16,11 +16,13 @@
 .App-link {
   color: #61dafb;
 }
-.fontSize{
+
+.fontSize {
   font-size: 20px;
 }
-body{
-  background: linear-gradient(#27de86, #949ad8,#27de86);
+
+body {
+  background: linear-gradient(#27de86, #949ad8, #27de86);
   background-repeat: repeat;
   height: 10000px;
   width: 10000px;

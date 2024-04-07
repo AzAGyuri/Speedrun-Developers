@@ -4,22 +4,53 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.6); /* Fekete háttér átlátszósággal */
+  background-color: rgba(0, 0, 0, 0.6);
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
 .spinner {
-  border: 8px solid rgba(255, 255, 255, 0.7); /* Fehér keret átlátszósággal */
-  border-top: 8px solid #007bff; /* Kék színű felső keret */
+  border: 8px solid rgba(255, 255, 255, 0.3);
+  border-top: 8px solid #007bff;
   border-radius: 50%;
-  width: 100px; /* Szélesebb töltőikon */
-  height: 100px; /* Magasabb töltőikon */
-  animation: spin 1.5s linear infinite; /* Kis méretű és gyorsabb forgás */
+  width: 100px;
+  height: 100px;
+  animation: spin 1.5s linear infinite;
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.3);
 }
 
 @keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0deg);
+    border-color: #007bff;
+  }
+
+  25% {
+    transform: rotate(90deg);
+    border-color: #ff4500;
+  }
+
+  50% {
+    transform: rotate(180deg);
+    border-color: #32cd32;
+  }
+
+  75% {
+    transform: rotate(270deg);
+    border-color: #ff69b4;
+  }
+
+  100% {
+    transform: rotate(360deg);
+    border-color: #b7fa00;
+  }
 }
+
+
+/* 
+.spinner img {
+    width: 100px; 
+    height: 100px; 
+    animation: spin 1.5s linear infinite; 
+}*/
