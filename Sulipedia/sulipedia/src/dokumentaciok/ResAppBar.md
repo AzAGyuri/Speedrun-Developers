@@ -21,7 +21,7 @@ A `ResAppBar` komponens az alábbi funkciókat és feladatokat végzi el:
 
 ## Funkciók és működés
 
-1. **Menüpontok megjelenítése:** A komponens megjeleníti a [főoldal](FirstPage.md), [tananyagok](Curriculums.md), [tesztek](Tests.md) és [csoportjaim](MyGroups.md) menüpontokat, valamint a reszponzív módban egy hambúrgerszerű ikont is, amelyre kattintva megjelenik a menü a kisebb képernyőméretek esetén.
+1. **Menüpontok megjelenítése:** A komponens megjeleníti a [főoldal](LandingPage.md), [tananyagok](Curriculums.md), [tesztek](Tests.md) és [csoportjaim](MyGroups.md) menüpontokat, valamint a reszponzív módban egy hambúrgerszerű ikont is, amelyre kattintva megjelenik a menü a kisebb képernyőméretek esetén.
 
 2. **Felhasználói beállítások és profil:** A komponens lehetőséget biztosít a [felhasználói beállításokhoz](Settings.md) és a [felhasználó profiljához](MyProfile.md) való navigációra. Ezeket a lehetőségeket a felhasználói menüben található ikonok biztosítják.
 

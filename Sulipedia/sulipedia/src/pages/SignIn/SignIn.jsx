@@ -29,7 +29,7 @@ export default function SignIn({ setIsLoading }) {
     if (localStorage.getItem("jwt") !== null) {
       navigate("/kezdo");
     }
-  }, []);
+  }, [navigate]);
 
   const handleChange = (event) => {
     setFormData((currentFormData) => ({
@@ -44,10 +44,9 @@ export default function SignIn({ setIsLoading }) {
 
     if (formData.usernameOrEmail === "a" && formData.passwordRaw === "a") {
       localStorage.setItem("jwt", "Bearer");
-      localStorage.setItem("currentUserId", "");
+      localStorage.setItem("currentUserId", 0);
       navigate("/kezdo");
       setIsLoading(false);
-
     } else {
       axios
         .post(`/login`, formData)
@@ -56,7 +55,6 @@ export default function SignIn({ setIsLoading }) {
           localStorage.setItem("currentUserId", response.data.id);
           navigate("/kezdo");
           setIsLoading(false);
-
         })
         .catch((error) => {
           let errorCode = error.response.data.status;

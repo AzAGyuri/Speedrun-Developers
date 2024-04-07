@@ -20,7 +20,7 @@ Az `App` komponens az alábbi funkciókat és feladatokat végzi el:
 
 - **React Router Komponensek:** `BrowserRouter`, `Routes`, `Route`, `Navigate`.
 - **Material-UI Komponensek:** `Typography`, `Link`, `Tooltip`.
-- **Alkalmazás specifikus komponensek:** [`ResAppBar`](ResAppBar.md), [`FirstPage`](FirstPage.md), [`AboutUs`](AboutUs.md), [`Settings`](Settings.md), [`MyProfile`](MyProfile.md), [`SignIn`](SignIn.md), [`SignUp`](SignUp.md), [`Tests`](FirstPage.md), [`LearnMore`](LearnMore.md), [`Curriculums`](Curriculums.md), [`MyGroups`](MyGroups.md), [`SzakAngol`], [`Matek`], [`Magyar`], [`Tortenelem`], [`Informatika`].
+- **Alkalmazás specifikus komponensek:** [`ResAppBar`](ResAppBar.md), [`LandingPage`](LandingPage.md), [`AboutUs`](AboutUs.md), [`Settings`](Settings.md), [`MyProfile`](MyProfile.md), [`SignIn`](SignIn.md), [`SignUp`](SignUp.md), [`Tests`](Tests.md), [`LearnMore`](LearnMore.md), [`Curriculums`](Curriculums.md), [`MyGroups`](MyGroups.md), [`SzakAngol`], [`Matek`], [`Magyar`], [`Tortenelem`], [`Informatika`].
 - **Stílusok:** Az elemek stílusát az `styles` objektum segítségével állítják be, amely inline stílusokat tartalmaz a komponens megjelenítéséhez.
 
 ## Felhasználói Bejelentkezés
