@@ -11,24 +11,24 @@ public interface SchoolClassRepository
   @Query(
     nativeQuery = true,
     value = "SELECT CASE" +
-    "WHEN count(u) = 1 THEN true" +
+    "WHEN count(*) = 1 THEN true" +
     "ELSE false" +
     "END FROM school_class sc" +
     "WHERE sc.starting_year = :startingYear"
   )
-  boolean existsByStartingYear(
+  Boolean existsByStartingYear(
     @Param(value = "startingYear") Integer startingYear
   );
 
   @Query(
     nativeQuery = true,
     value = "SELECT CASE" +
-    "WHEN count(u) = 1 THEN true" +
+    "WHEN count(*) = 1 THEN true" +
     "ELSE false" +
     "END FROM school_class sc" +
     "WHERE lower(CONCAT(sc.class_year, sc.class_label)) LIKE lower(:schoolClass)"
   )
-  boolean existsByClassName(@Param(value = "schoolClass") String schoolClass);
+  Boolean existsByClassName(@Param(value = "schoolClass") String schoolClass);
 
   @Query(
     nativeQuery = true,

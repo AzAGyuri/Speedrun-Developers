@@ -26,23 +26,10 @@ public class SchoolClass {
 
   public SchoolClass(PostSchoolClass schoolClass) {
     this.classLabel = schoolClass.getClassLabel();
-    this.startingYear = getYear();
+    this.startingYear = Year.now().getValue();
     this.classYear = schoolClass.getClassYear();
     this.specialization =
       Specialization.valueOf(schoolClass.getSpecialization().toString());
-  }
-
-  private Integer getYear() {
-    String[] yearDigits = String.valueOf(Year.now().getValue()).split("");
-    Integer ret = 0;
-
-    for (int i = 0; i <= 1; i++) {
-      ret +=
-        Integer.parseInt(yearDigits[i]) *
-        (int) Math.pow(10, i + 1);
-    }
-
-    return ret;
   }
 
   @Id

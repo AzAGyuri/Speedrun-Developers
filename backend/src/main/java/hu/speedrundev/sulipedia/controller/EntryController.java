@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
@@ -67,9 +68,10 @@ public class EntryController {
   @PostMapping("/entry")
   public GetEntryWithID createEntry(
     @Valid @RequestBody PostEntry entry,
-    @RequestParam("files") MultipartFile[] files
+    @RequestParam("files") MultipartFile[] files,
+    @RequestHeader("Authorization") String jwt
   ) {
-    return service.createEntry(entry, files);
+    return service.createEntry(entry, files, jwt);
   }
 
   @Operation(

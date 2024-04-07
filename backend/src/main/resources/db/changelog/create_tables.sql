@@ -50,8 +50,8 @@ CREATE TABLE
         id INT (9) PRIMARY KEY AUTO_INCREMENT,
         starting_year INT (5) NOT NULL,
         class_year INT (2) CHECK (
-            class_year >= 9
-            AND class_year <= 12
+            class_year >= 1
+            AND class_year <= 14
         ),
         class_label char(1) not null,
         specialization varchar(50) NOT NULL,
