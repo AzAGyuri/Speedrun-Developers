@@ -51,12 +51,6 @@ const styles = {
     marginLeft: 'auto',
     marginRight: 'auto',
   },
-  addButton2: {
-    marginTop: '0px',
-  },
-  addButton3: {
-    marginTop: '0px',
-  },
   deleteButton: {
     color: '#fff',
     '&:hover': {
@@ -507,7 +501,7 @@ export function MyGroups({ children }) {
             <Button variant="contained" color="error" onClick={handleCloseAddMember}>
               Mégse
             </Button>
-            <Button variant="contained" color="success" onClick={() => addMemberToGroup()}  style={[styles.addButton, styles.addButton2]}>
+            <Button variant="contained" color="success" onClick={() => addMemberToGroup()}  style={styles.addButton}>
               Hozzáadás
             </Button>
           </Stack>
