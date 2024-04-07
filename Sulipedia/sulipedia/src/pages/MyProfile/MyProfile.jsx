@@ -104,17 +104,30 @@ export function MyProfile({ children }) {
   });
 
   useEffect(() => {
-    axios.get(`/user/${currentUserId}`).then((response) => {
-      const user = response.data;
-      setUserData({
-        email: user.email,
-        username: user.username,
-        phoneNumber: user.phoneNumber,
-        registrationDate: user.createdOn,
-        userId: currentUserId,
-        profileImage: user.profilePictureBase64,
-      });
-    });
+    if (currentUserId !== 0) {
+      axios
+        .request({
+          method: "GET",
+          url: `/user/${currentUserId}`,
+          headers: {
+            Authorization: localStorage.getItem("jwt"),
+          },
+        })
+        .then((response) => {
+          const user = response.data;
+          setUserData({
+            email: user.email,
+            username: user.username,
+            phoneNumber: user.phoneNumber ? user.phoneNumber : "N/A",
+            registrationDate: user.createdOn.split("T")[0],
+            userId: currentUserId,
+            profileImage: user.profilePictureBase64,
+          });
+        })
+        .catch((error) => {
+          console.error("Hiba történt adat lekérdezéskor", error);
+        });
+    }
   }, [currentUserId]);
 
   return (
@@ -122,12 +135,12 @@ export function MyProfile({ children }) {
       {children}
       <Paper elevation={5} style={styles.paper}>
         <Avatar style={styles.avatar}>
-          {userData.firstName.length > 0
-            ? userData.firstName[0].toUpperCase()
+          {userData.username.length > 0
+            ? userData.username[0].toUpperCase()
             : null}
         </Avatar>
         <Typography variant="h4" style={styles.heading}>
-          {`${userData.firstName} ${userData.lastName}`}
+          {`${userData.username}`}
         </Typography>
         <div style={styles.userInfo}>
           <div style={styles.infoItem}>
@@ -143,7 +156,7 @@ export function MyProfile({ children }) {
               Név:
             </Typography>
             <Typography variant="body1" style={styles.infoValue}>
-              {userData.firstName} {userData.lastName}
+              {userData.username}
             </Typography>
           </div>
           <div style={styles.infoItem}>

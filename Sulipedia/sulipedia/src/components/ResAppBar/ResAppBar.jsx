@@ -14,7 +14,7 @@ import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import { Link } from "react-router-dom";
 import useMediaQuery from "@mui/material/useMediaQuery";
-import SulipediaLogo from "./resources/logo.png";
+import SulipediaLogo from "../../resources/logo.png";
 import FormatListBulletedTwoToneIcon from "@mui/icons-material/FormatListBulletedTwoTone";
 import SupervisedUserCircleTwoToneIcon from "@mui/icons-material/SupervisedUserCircleTwoTone";
 

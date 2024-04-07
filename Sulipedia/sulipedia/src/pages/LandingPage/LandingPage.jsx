@@ -9,13 +9,13 @@ import {
 } from "@mui/material";
 import { styled } from "@mui/system";
 import { Link } from "react-router-dom";
-import "./FirstPage.css";
+import "./LandingPage.css";
 
-import mathematics from "./resources/mat.png";
-import grammer from "./resources/grammer.png";
-import history from "./resources/history.png";
-import it from "./resources/it.png";
-import iteng from "./resources/iteng.png";
+import mathematics from "../../resources/mat.png";
+import grammer from "../../resources/grammer.png";
+import history from "../../resources/history.png";
+import it from "../../resources/it.png";
+import iteng from "../../resources/iteng.png";
 import useMediaQuery from "@mui/material/useMediaQuery";
 
 const HeaderTypography = styled(Typography)({
@@ -69,7 +69,7 @@ const styleSmall = {
   p: 4,
 };
 
-export function FirstPage({ children }) {
+export function LandingPage({ children }) {
   const [posts, setPosts] = useState([]);
   const [open, setOpen] = React.useState(true);
   const [newsModalOpen, setNewsModalOpen] = useState(false);
@@ -101,6 +101,8 @@ export function FirstPage({ children }) {
     setNewPostTitle("");
     setNewPostContent("");
   };
+
+  useEffect(() => {});
 
   return (
     <>
@@ -220,10 +222,11 @@ export function FirstPage({ children }) {
                     Tudtad-e?
                   </div>
                     <div className="contente">
-                      Az algoritmusok és adatszerkezetek kulcsfontosságú fogalmak
-                      az informatikában. Az algoritmusok hatékony megvalósítása és
-                      az optimális adatszerkezetek kiválasztása lehetővé teszi az
-                      informatikai problémák hatékony megoldását.
+                      Az algoritmusok és adatszerkezetek kulcsfontosságú
+                      fogalmak az informatikában. Az algoritmusok hatékony
+                      megvalósítása és az optimális adatszerkezetek kiválasztása
+                      lehetővé teszi az informatikai problémák hatékony
+                      megoldását.
                     </div>
                   </div>
                 </div>
@@ -240,9 +243,9 @@ export function FirstPage({ children }) {
                   </div>
                     <div className="contente">
                       A felhőalapú számítástechnika forradalmasította az
-                      informatikát. Az egyre növekvő számú vállalat és felhasználó
-                      számára biztosítja az adatok tárolását, szolgáltatásokat és
-                      alkalmazásokat a világhálón keresztül.
+                      informatikát. Az egyre növekvő számú vállalat és
+                      felhasználó számára biztosítja az adatok tárolását,
+                      szolgáltatásokat és alkalmazásokat a világhálón keresztül.
                     </div>
                   </div>
                 </div>
@@ -299,8 +302,8 @@ export function FirstPage({ children }) {
                     <div className="contente">
                       A mesterséges intelligencia és a gépi tanulás területei
                       forradalmasítják az informatikát. Az olyan alkalmazások,
-                      mint az autonóm járművek és a nyelvi felismerés, az MI és a
-                      gépi tanulás legújabb fejlesztéseinek eredményei.
+                      mint az autonóm járművek és a nyelvi felismerés, az MI és
+                      a gépi tanulás legújabb fejlesztéseinek eredményei.
                     </div>
                   </div>
                 </div>
@@ -323,7 +326,6 @@ export function FirstPage({ children }) {
                   ))}
                 </div>
               </div>
-
             </div>
           </div>
           <div id="kisHozza">
@@ -336,7 +338,6 @@ export function FirstPage({ children }) {
             </Button>
           </div>
         </>
-
       ) : (
         <div className="flex-container">
           <div className="flex-item">
