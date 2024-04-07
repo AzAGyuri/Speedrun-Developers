@@ -47,10 +47,15 @@ const styles = {
     '&:hover': {
       backgroundColor: '#218838',
     },
-    marginTop: '20px',
     marginBottom: 'auto',
     marginLeft: 'auto',
     marginRight: 'auto',
+  },
+  addButton2: {
+    marginTop: '0px',
+  },
+  addButton3: {
+    marginTop: '0px',
   },
   deleteButton: {
     color: '#fff',
@@ -89,7 +94,7 @@ const styleSmall = {
   p: 4,
 };
 
-export function MyGroups({children}) {
+export function MyGroups({ children }) {
   const [groups, setGroups] = useState([
     {
       id: 1,
@@ -143,10 +148,11 @@ export function MyGroups({children}) {
     },
   ]);
 
- 
+
   const [open, setOpen] = useState(false);
   const [showMembers, setShowMembers] = useState(false);
   const [selectedGroup, setSelectedGroup] = useState(null);
+  const [showAddMemberModal, setShowAddMemberModal] = useState(false);
   const isSmallScreen = useMediaQuery("(max-width:950px)");
 
 
@@ -159,7 +165,7 @@ export function MyGroups({children}) {
     setAvatarColors(colors);
   }, [groups]);
 
-  
+
 
 
   const handleOpen = () => {
@@ -174,15 +180,25 @@ export function MyGroups({children}) {
     setSelectedGroup(group);
     setShowMembers(true);
   };
-  
+
 
   const handleCloseMembers = () => {
     setShowMembers(false);
   };
 
+  const handleOpenAddMember = () => {
+    setShowAddMemberModal(true);
+  };
+
+  const handleCloseAddMember = () => {
+    setShowAddMemberModal(false);
+  };
+
 
   const [groupName, setGroupName] = useState('');
   const [groupDesc, setGroupDesc] = useState('');
+  const [newMemberName, setNewMemberName] = useState('');
+
 
   function createNewGroup() {
     if (!groupName.trim() || !groupDesc.trim()) {
@@ -215,6 +231,32 @@ export function MyGroups({children}) {
     const colors = ['#f00', '#ff0', '#0f0', '#0ff', '#00f', '#f60'];
     return colors[Math.floor(Math.random() * colors.length)];
   };
+  function addMemberToGroup() {
+    if (!newMemberName.trim()) {
+      alert('A tag nevének legalább 1 karakter hosszúnak kell lennie!');
+      return;
+    }
+
+    const newMember = {
+      id: selectedGroup.members.length + 1,
+      name: newMemberName.trim(),
+    };
+
+    const updatedGroup = {
+      ...selectedGroup,
+      members: [...selectedGroup.members, newMember],
+    };
+
+    const updatedGroups = groups.map(group =>
+      group.id === selectedGroup.id ? updatedGroup : group
+    );
+
+    setGroups(updatedGroups);
+
+    handleCloseAddMember();
+
+    setNewMemberName('');
+  }
 
   return (
     <Container maxWidth="lg" style={styles.container}>
@@ -228,17 +270,17 @@ export function MyGroups({children}) {
             <React.Fragment key={group.id}>
               <ListItem alignItems="flex-start">
                 <ListItemAvatar onClick={() => handleOpenMembers(group)}>
-                <Avatar
-                  alt={group.name}
-                  style={{
-                    ...styles.avatar,
-                    backgroundColor: avatarColors[group.id],
-                    width: '70px',
-                    height: '70px'
-                  }}
-                >
-                  {group.name[0].toUpperCase()}
-                </Avatar>
+                  <Avatar
+                    alt={group.name}
+                    style={{
+                      ...styles.avatar,
+                      backgroundColor: avatarColors[group.id],
+                      width: '70px',
+                      height: '70px'
+                    }}
+                  >
+                    {group.name[0].toUpperCase()}
+                  </Avatar>
 
                 </ListItemAvatar>
                 <ListItemText style={styles.listItemTextMargin}
@@ -279,7 +321,7 @@ export function MyGroups({children}) {
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        {isSmallScreen?(<Box sx={styleSmall}>
+        {isSmallScreen ? (<Box sx={styleSmall}>
           <Typography id="modal-modal-title" variant="h6" component="h2">
             Új csoport létrehozása
           </Typography>
@@ -324,7 +366,7 @@ export function MyGroups({children}) {
               Mentés
             </Button>
           </Stack>
-        </Box>):(<Box sx={style}>
+        </Box>) : (<Box sx={style}>
           <Typography id="modal-modal-title" variant="h6" component="h2">
             Új csoport létrehozása
           </Typography>
@@ -380,7 +422,7 @@ export function MyGroups({children}) {
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-      {isSmallScreen?(<Box sx={styleSmall}>
+        {isSmallScreen ? (<Box sx={styleSmall}>
           <Typography id="modal-modal-title" variant="h6" component="h2">
             A csoport tagjai - {selectedGroup && selectedGroup.name}
           </Typography>
@@ -400,8 +442,11 @@ export function MyGroups({children}) {
             <Button variant="contained" color="error" onClick={handleCloseMembers}>
               Bezárás
             </Button>
+            <Button variant="contained" color="success" onClick={handleOpenAddMember}  style={styles.addButton}>
+            <Add />
+            </Button>
           </Stack>
-        </Box>):(<Box sx={style}>
+        </Box>) : (<Box sx={style}>
           <Typography id="modal-modal-title" variant="h6" component="h2">
             A csoport tagjai - {selectedGroup && selectedGroup.name}
           </Typography>
@@ -420,9 +465,53 @@ export function MyGroups({children}) {
           <Stack direction="row" spacing={2}>
             <Button variant="contained" color="error" onClick={handleCloseMembers}>
               Bezárás
+            </Button>
+
+            <Button variant="contained" color="success" onClick={handleOpenAddMember}  style={styles.addButton}>
+            <Add />
             </Button>
           </Stack>
         </Box>)}
+      </Modal>
+
+
+      <Modal
+        open={showAddMemberModal}
+        onClose={handleCloseAddMember}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={isSmallScreen ? styleSmall : style}>
+          <Typography id="modal-modal-title" variant="h6" component="h2">
+            Új tag hozzáadása - {selectedGroup && selectedGroup.name}
+          </Typography>
+          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+            <Box
+              component="form"
+              sx={{
+                '& > :not(style)': { m: 1, width: '25ch' },
+              }}
+              noValidate
+              autoComplete="off"
+            >
+              <TextField
+                id="standard-basic"
+                label="Tag neve"
+                variant="standard"
+                value={newMemberName}
+                onChange={(e) => setNewMemberName(e.target.value)}
+              />
+            </Box>
+          </Typography>
+          <Stack direction="row" spacing={2}>
+            <Button variant="contained" color="error" onClick={handleCloseAddMember}>
+              Mégse
+            </Button>
+            <Button variant="contained" color="success" onClick={() => addMemberToGroup()}  style={[styles.addButton, styles.addButton2]}>
+              Hozzáadás
+            </Button>
+          </Stack>
+        </Box>
       </Modal>
     </Container>
   );

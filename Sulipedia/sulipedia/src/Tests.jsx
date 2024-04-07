@@ -481,6 +481,7 @@ export function Tests({ children }) {
     setShowResults(false);
     setAnswers({});
     setCorrectAnswers({});
+    setShowCorrectAnswer({});
 
     window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
   };

@@ -115,7 +115,11 @@ body {
 
 .contente {
     margin: 20px 0px 20px 0px;
+    border: 2px solid #555050; 
+    padding: 10px; 
+    border-radius: 5px; 
 }
+
 
 .contente-button {
     display: flex;

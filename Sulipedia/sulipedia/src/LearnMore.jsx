@@ -12,7 +12,7 @@ const SectionContainer = styled(Box)({
   marginBottom: "32px",
   padding: "20px",
   borderRadius: "10px",
-  boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.1)",
+  boxShadow: "0px 8px 20px rgba(0, 0, 0, 1)",
   backgroundColor: "#333",
   color: "#fff",
 });
@@ -20,7 +20,7 @@ const SectionContainer = styled(Box)({
 const StyledLink = styled(Link)({
   fontWeight: "bold",
   textDecoration: "none",
-  color: "#1976d2",
+  color: "#64b5f6",
   "&:hover": {
     textDecoration: "underline",
   },
@@ -29,10 +29,16 @@ const StyledLink = styled(Link)({
 const Title = styled(Typography)({
   color: "#fff",
   marginBottom: "16px",
+  borderBottom: "2px solid #64b5f6",
+  paddingBottom: "8px",
+  fontSize: "40px",
+  fontWeight: "bold",
 });
 
 const Content = styled(Typography)({
-  color: "#fff",
+  color: "#ddd",
+  lineHeight: "1.8",
+  fontSize: "18px",
 });
 
 export function LearnMore({ children }) {
@@ -40,58 +46,46 @@ export function LearnMore({ children }) {
     <RootContainer>
       {children}
       <SectionContainer>
-        <Box borderBottom="2px solid #fff" marginBottom="20px" paddingBottom="20px">
-          <Title variant="h2" gutterBottom>
-            Mi ihlette ezen webes alkalmazás ötletét?
-          </Title>
-        </Box>
-        <Box borderBottom="1px solid #fff" marginBottom="20px" paddingBottom="20px">
-          <Content variant="body1">
-            Oktatásunk során felmerült a megfelelő szakmai angol oktatás hiánya.
-            Tankönyvünk nincs, valamint idejétmúlt feladatsorok voltak jellemzőek.
-            Erre a legfőbb indok az a hivatalos tankönyvek létrehozásának
-            terjedelmes folyamata, mely az olyan szakmában, mint az informatika,
-            sajnos nem kivitelezhető.
-          </Content>
-        </Box>
+        <Title variant="h2" gutterBottom>
+          Mi adta ezen webalkalmazás ötletét?
+        </Title>
+        <Content variant="body1">
+          Oktatásunk során felmerült a megfelelő szakmai angol oktatás hiánya.
+          Tankönyvünk nincs, valamint idejétmúlt feladatsorok voltak jellemzőek.
+          Erre a legfőbb indok az a hivatalos tankönyvek létrehozásának
+          terjedelmes folyamata, mely az olyan szakmában, mint az informatika,
+          sajnos nem kivitelezhető.
+        </Content>
       </SectionContainer>
 
       <SectionContainer>
-        <Box borderBottom="2px solid #fff" marginBottom="20px" paddingBottom="20px">
-          <Title variant="h2" gutterBottom>
-            Mit tervezünk tenni?
-          </Title>
-        </Box>
-        <Box borderBottom="1px solid #fff" marginBottom="20px" paddingBottom="20px">
-          <Content variant="body1">
-            Az ötletünk ezáltal az, hogy egy olyan oktatáshoz felhasználható
-            platformot hozzunk létre, ahol információkat lehet megosztani, és
-            oktatni az informatikában angol nyelven. Legyen az egy kérdés egy
-            felhasználótól, vagy legyen az eleve tananyag, akár feladatokkal, a
-            cél, a hatékonyabb, naprakész oktatási anyag fenntartása, és
-            elérhetősége mind tanárok és diákok számára.
-          </Content>
-        </Box>
+        <Title variant="h2" gutterBottom>
+          Mit tervezünk tenni?
+        </Title>
+        <Content variant="body1">
+          Az ötletünk ezáltal az, hogy egy olyan oktatáshoz felhasználható
+          platformot hozzunk létre, ahol információkat lehet megosztani, és
+          oktatni az informatikában angol nyelven. Legyen az egy kérdés egy
+          felhasználótól, vagy legyen az eleve tananyag, akár feladatokkal, a
+          cél, a hatékonyabb, naprakész oktatási anyag fenntartása, és
+          elérhetősége mind tanárok és diákok számára.
+        </Content>
       </SectionContainer>
 
       <SectionContainer>
-        <Box borderBottom="2px solid #fff" marginBottom="20px" paddingBottom="20px">
-          <Title variant="h2" gutterBottom>
-            A jövőről:
-          </Title>
-        </Box>
-        <Box borderBottom="1px solid #fff" marginBottom="20px" paddingBottom="20px">
-          <Content variant="body1">
-            Oldalunk sikeressége esetén a jövő diákjainak segítése céljából tovább
-            tervezzük fejleszteni az oldalt. A jövőben a tananyagok sokkal
-            célszerűebbek lehetnek és mennyiségben is javulni fognak. Mivel
-            számunkra minden tantárgy fontos, emiatt a többi tantárgyra is lesznek
-            elérhetői anyagaink. Magyar irodalom -és nyelvtan, matematika,
-            történelem, kémia, fizika, biológia, különböző informatika tantárgyak,
-            de bármely más szakami tantárgyakban is hasznos és korszerű
-            tananyagokra lelhetnek a diákok.
-          </Content>
-        </Box>
+        <Title variant="h2" gutterBottom>
+          A jövőről:
+        </Title>
+        <Content variant="body1">
+          Oldalunk sikeressége esetén a jövő diákjainak segítése céljából tovább
+          tervezzük fejleszteni az oldalt. A jövőben a tananyagok sokkal
+          célszerűebbek lehetnek és mennyiségben is javulni fognak. Mivel
+          számunkra minden tantárgy fontos, emiatt a többi tantárgyra is lesznek
+          elérhetői anyagaink. Magyar irodalom -és nyelvtan, matematika,
+          történelem, kémia, fizika, biológia, különböző informatika tantárgyak,
+          de bármely más szakmai tantárgyakban is hasznos és korszerű
+          tananyagokra lelhetnek a diákok.
+        </Content>
       </SectionContainer>
 
       <SectionContainer>
