@@ -22,13 +22,20 @@ import { LearnMore } from "./LearnMore";
 import { Curriculums } from "./Curriculums";
 import { Tooltip } from "@mui/material";
 import { IsLoggedIn } from "./components/IsLoggedIn/IsLoggedIn";
+import { Loading } from "./Loading";
+import { useState } from "react";
 
 function App() {
+  const [isLoading, setIsLoading] = useState(false);
+
   return (
     <>
       <Router>
         <ResAppBar />
-        <Routes>
+        {isLoading ? (
+          <Loading />
+        ) : (
+        < Routes >
           <Route
             path="/curriculums"
             element={
@@ -69,7 +76,7 @@ function App() {
               </Settings>
             }
           />
-          <Route path="/signIn" element={<SignIn />} />
+          <Route path="/signIn" element={<SignIn setIsLoading={setIsLoading}  />} />
           <Route path="/signUp" element={<SignUp />} />
           <Route
             path="/kezdo"
@@ -143,9 +150,9 @@ function App() {
               </Informatika>
             }
           />
-        </Routes>
-        <Copyright />
-      </Router>
+        </Routes> )}
+      <Copyright />
+    </Router >
     </>
   );
 }

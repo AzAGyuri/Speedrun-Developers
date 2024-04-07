@@ -13,8 +13,8 @@ const SectionContainer = styled(Box)({
   padding: "20px",
   borderRadius: "10px",
   boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.1)",
-  backgroundColor: "#333", 
-  color: "#fff", 
+  backgroundColor: "#333",
+  color: "#fff",
 });
 
 const StyledLink = styled(Link)({
@@ -27,12 +27,12 @@ const StyledLink = styled(Link)({
 });
 
 const Title = styled(Typography)({
-  color: "#fff", 
+  color: "#fff",
   marginBottom: "16px",
 });
 
 const Content = styled(Typography)({
-  color: "#fff", 
+  color: "#fff",
 });
 
 export function LearnMore({ children }) {

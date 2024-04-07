@@ -18,19 +18,6 @@ import it from "./resources/it.png";
 import iteng from "./resources/iteng.png";
 import useMediaQuery from "@mui/material/useMediaQuery";
 
-// const RootContainer = styled(Container)({
-//   flexGrow: 1,
-//   padding: '16px',
-//   textAlign: 'center',
-//   transition: 'background-image 1s ease-in-out',
-//   backgroundSize: 'cover',
-//   backgroundPosition: 'center',
-//   backgroundColor: 'grey',
-//   '& > *': {
-//     textShadow: '2px 2px 2px green',
-//   },
-// });
-
 const HeaderTypography = styled(Typography)({
   marginBottom: "16px",
 });
@@ -85,16 +72,13 @@ const styleSmall = {
 export function FirstPage({ children }) {
   const [posts, setPosts] = useState([]);
   const [open, setOpen] = React.useState(true);
-  //const [newPost, setNewPost] = React.useState(false);
   const [newsModalOpen, setNewsModalOpen] = useState(false);
   const [newPostTitle, setNewPostTitle] = useState("");
   const [newPostContent, setNewPostContent] = useState("");
-  //const [closedByUser, setClosedByUser] = useState(false);
   const [modalShouldOpen, setModalShouldOpen] = useState(true);
   const isSmallScreen = useMediaQuery("(max-width:950px)");
 
   useEffect(() => {
-    // Ellenőrizzük, hogy a modális ablakot a felhasználó bezárta-e az "X" gombra kattintva
     if (!modalShouldOpen) {
       setOpen(false);
     }
@@ -224,117 +208,117 @@ export function FirstPage({ children }) {
 
       {isSmallScreen ? (
         <>
-        <div className="flex-container">
-          <div className="flex-item">
-            <div className="contente-flex">
-              <div className="flexcontente-item">
-                <div className="contente-box">
-                  <div className="contente-title">
-                    Algoritmusok és Adatszerkezetek
-                  </div>
-                  <div className="contente">
-                    Az algoritmusok és adatszerkezetek kulcsfontosságú fogalmak
-                    az informatikában. Az algoritmusok hatékony megvalósítása és
-                    az optimális adatszerkezetek kiválasztása lehetővé teszi az
-                    informatikai problémák hatékony megoldását.
+          <div className="flex-container">
+            <div className="flex-item">
+              <div className="contente-flex">
+                <div className="flexcontente-item">
+                  <div className="contente-box">
+                    <div className="contente-title">
+                      Algoritmusok és Adatszerkezetek
+                    </div>
+                    <div className="contente">
+                      Az algoritmusok és adatszerkezetek kulcsfontosságú fogalmak
+                      az informatikában. Az algoritmusok hatékony megvalósítása és
+                      az optimális adatszerkezetek kiválasztása lehetővé teszi az
+                      informatikai problémák hatékony megoldását.
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
 
-            <div className="contente-flex">
-              <div className="flexcontente-item">
-                <div className="contente-box">
-                  <div className="contente-title">
-                    Felhőalapú Számítástechnika
-                  </div>
-                  <div className="contente">
-                    A felhőalapú számítástechnika forradalmasította az
-                    informatikát. Az egyre növekvő számú vállalat és felhasználó
-                    számára biztosítja az adatok tárolását, szolgáltatásokat és
-                    alkalmazásokat a világhálón keresztül.
+              <div className="contente-flex">
+                <div className="flexcontente-item">
+                  <div className="contente-box">
+                    <div className="contente-title">
+                      Felhőalapú Számítástechnika
+                    </div>
+                    <div className="contente">
+                      A felhőalapú számítástechnika forradalmasította az
+                      informatikát. Az egyre növekvő számú vállalat és felhasználó
+                      számára biztosítja az adatok tárolását, szolgáltatásokat és
+                      alkalmazásokat a világhálón keresztül.
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
 
-            <div className="contente-flex">
-              <div className="flexcontente-item">
-                <div className="contente-box">
-                  <div className="contente-title">
-                    Kiberbiztonság és Hálózatbiztonság
-                  </div>
-                  <div className="contente">
-                    A kiberbiztonság és hálózatbiztonság napjainkban
-                    kulcsfontosságú területe az informatikának. Az internetes
-                    fenyegetések és a számítógépes bűnözés elleni védelem
-                    elengedhetetlen a biztonságos online környezet
-                    megteremtéséhez.
+              <div className="contente-flex">
+                <div className="flexcontente-item">
+                  <div className="contente-box">
+                    <div className="contente-title">
+                      Kiberbiztonság és Hálózatbiztonság
+                    </div>
+                    <div className="contente">
+                      A kiberbiztonság és hálózatbiztonság napjainkban
+                      kulcsfontosságú területe az informatikának. Az internetes
+                      fenyegetések és a számítógépes bűnözés elleni védelem
+                      elengedhetetlen a biztonságos online környezet
+                      megteremtéséhez.
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
 
-            <div className="contente-flex">
-              <div className="flexcontente-item">
-                <div className="contente-box">
-                  <div className="contente-title">
-                    Adattudomány és Nagy Adat
-                  </div>
-                  <div className="contente">
-                    Az adattudomány és a nagy adat elemzésének képességei
-                    forradalmasítják az üzleti és tudományos területeket
-                    egyaránt. Az adatokból való értelmezés lehetővé teszi a
-                    trendek felismerését és a jövőbeli döntések meghozatalát.
+              <div className="contente-flex">
+                <div className="flexcontente-item">
+                  <div className="contente-box">
+                    <div className="contente-title">
+                      Adattudomány és Nagy Adat
+                    </div>
+                    <div className="contente">
+                      Az adattudomány és a nagy adat elemzésének képességei
+                      forradalmasítják az üzleti és tudományos területeket
+                      egyaránt. Az adatokból való értelmezés lehetővé teszi a
+                      trendek felismerését és a jövőbeli döntések meghozatalát.
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
 
-            <div className="contente-flex">
-              <div className="flexcontente-item">
-                <div className="contente-box">
-                  <div className="contente-title">
-                    Mesterséges Intelligencia és Gépi Tanulás
-                  </div>
-                  <div className="contente">
-                    A mesterséges intelligencia és a gépi tanulás területei
-                    forradalmasítják az informatikát. Az olyan alkalmazások,
-                    mint az autonóm járművek és a nyelvi felismerés, az MI és a
-                    gépi tanulás legújabb fejlesztéseinek eredményei.
+              <div className="contente-flex">
+                <div className="flexcontente-item">
+                  <div className="contente-box">
+                    <div className="contente-title">
+                      Mesterséges Intelligencia és Gépi Tanulás
+                    </div>
+                    <div className="contente">
+                      A mesterséges intelligencia és a gépi tanulás területei
+                      forradalmasítják az informatikát. Az olyan alkalmazások,
+                      mint az autonóm járművek és a nyelvi felismerés, az MI és a
+                      gépi tanulás legújabb fejlesztéseinek eredményei.
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
 
-            <div className="flex-container">
-        <div className="flex-item">
-          {posts.map((post, index) => (
-            <div className="contente-flex" key={index}>
-              <div className="flexcontente-item">
-                <div className="contente-box">
-                  <div className="contente-title">{post.title}</div>
-                  <div className="contente">{post.content}</div>
+              <div className="flex-container">
+                <div className="flex-item">
+                  {posts.map((post, index) => (
+                    <div className="contente-flex" key={index}>
+                      <div className="flexcontente-item">
+                        <div className="contente-box">
+                          <div className="contente-title">{post.title}</div>
+                          <div className="contente">{post.content}</div>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
                 </div>
               </div>
+
             </div>
-          ))}
-        </div>
-      </div>
-           
           </div>
-        </div>
-        <div id="kisHozza">
-              <Button
-                onClick={handleNewsModalOpen}
-                variant="contained"
-                color="primary"
-              >
-                Új hír hozzáadása
-              </Button>
-            </div>
+          <div id="kisHozza">
+            <Button
+              onClick={handleNewsModalOpen}
+              variant="contained"
+              color="primary"
+            >
+              Új hír hozzáadása
+            </Button>
+          </div>
         </>
-        
+
       ) : (
         <div className="flex-container">
           <div className="flex-item">
@@ -492,20 +476,20 @@ export function FirstPage({ children }) {
               </div>
             </div>
 
-            <div className="flex-container" style={{my:2}}>
-        <div className="flex-item">
-          {posts.map((post, index) => (
-            <div className="contente-flex" key={index}>
-              <div className="flexcontente-item">
-                <div className="contente-box">
-                  <div className="contente-title">{post.title}</div>
-                  <div className="contente">{post.content}</div>
-                </div>
+            <div className="flex-container" style={{ my: 2 }}>
+              <div className="flex-item">
+                {posts.map((post, index) => (
+                  <div className="contente-flex" key={index}>
+                    <div className="flexcontente-item">
+                      <div className="contente-box">
+                        <div className="contente-title">{post.title}</div>
+                        <div className="contente">{post.content}</div>
+                      </div>
+                    </div>
+                  </div>
+                ))}
               </div>
             </div>
-          ))}
-        </div>
-      </div>
           </div>
 
           <div className="flex-item">
@@ -603,7 +587,6 @@ export function FirstPage({ children }) {
           </Box>
         </Modal>
       )}
-     
     </>
   );
 }

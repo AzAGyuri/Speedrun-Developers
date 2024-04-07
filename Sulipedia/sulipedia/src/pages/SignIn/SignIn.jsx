@@ -18,7 +18,7 @@ import axios from "axios";
 
 const defaultTheme = createTheme();
 
-export default function SignIn() {
+export default function SignIn({ setIsLoading }) {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     usernameOrEmail: "",
@@ -40,11 +40,13 @@ export default function SignIn() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    setIsLoading(true);
 
     if (formData.usernameOrEmail === "a" && formData.passwordRaw === "a") {
       localStorage.setItem("jwt", "Bearer");
       localStorage.setItem("currentUserId", "");
       navigate("/kezdo");
+      setIsLoading(false);
 
     } else {
       axios
@@ -53,6 +55,7 @@ export default function SignIn() {
           localStorage.setItem("jwt", "Bearer " + response.headers.jwt);
           localStorage.setItem("currentUserId", response.data.id);
           navigate("/kezdo");
+          setIsLoading(false);
 
         })
         .catch((error) => {
@@ -77,6 +80,7 @@ export default function SignIn() {
             default:
               break;
           }
+          setIsLoading(false);
         });
     }
   };
