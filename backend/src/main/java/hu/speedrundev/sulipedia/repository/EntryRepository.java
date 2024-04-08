@@ -9,7 +9,7 @@ import org.springframework.data.jpa.repository.Query;
 public interface EntryRepository extends JpaRepository<Entry, Integer> {
   @Query(
     nativeQuery = true,
-    value = "SELECT * FROM entries e WHERE e.subject LIKE ?1 AND (e.deleted = NULL OR e.deleted = 0)"
+    value = "SELECT * FROM entries e WHERE e.subject_name LIKE ?1 AND (e.deleted = NULL OR e.deleted = 0)"
   )
   List<Entry> findAllBySubject(String subject);
 
