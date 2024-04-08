@@ -10,25 +10,25 @@ public interface SchoolClassRepository
   extends JpaRepository<SchoolClass, Integer> {
   @Query(
     nativeQuery = true,
-    value = "SELECT CASE" +
-    "WHEN count(*) = 1 THEN true" +
-    "ELSE false" +
-    "END FROM school_class sc" +
+    value = "SELECT CASE " +
+    "WHEN count(*) = 1 THEN true " +
+    "ELSE false " +
+    "END FROM school_class sc " +
     "WHERE sc.starting_year = :startingYear"
   )
-  Boolean existsByStartingYear(
+  Integer existsByStartingYear(
     @Param(value = "startingYear") Integer startingYear
   );
 
   @Query(
     nativeQuery = true,
-    value = "SELECT CASE" +
-    "WHEN count(*) = 1 THEN true" +
-    "ELSE false" +
-    "END FROM school_class sc" +
+    value = "SELECT CASE " +
+    "WHEN count(*) = 1 THEN true " +
+    "ELSE false " +
+    "END FROM school_class sc " +
     "WHERE lower(CONCAT(sc.class_year, sc.class_label)) LIKE lower(:schoolClass)"
   )
-  Boolean existsByClassName(@Param(value = "schoolClass") String schoolClass);
+  Integer existsByClassName(@Param(value = "schoolClass") String schoolClass);
 
   @Query(
     nativeQuery = true,
