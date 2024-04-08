@@ -52,7 +52,7 @@ export default function SignUp({children}) {
     console.log(isFormValid());
     if (isFormValid()) {
       const finalFormData = {
-        userName: `${formData.surName} ${formData.realName}`,
+        username: `${formData.surName} ${formData.realName}`,
         email: formData.email,
         passwordRaw: formData.password,
         nickname: formData.nickname,
@@ -94,7 +94,6 @@ export default function SignUp({children}) {
       [name]: type === "checkbox" ? checked : value,
     }));
 
-    // Reset error state when the user types
     resetErrorState(name);
   };
 
@@ -207,7 +206,7 @@ export default function SignUp({children}) {
                     fullWidth
                     id="lastName"
                     label="Vezetéknév"
-                    name="lastName"
+                    name="surName"
                     autoComplete="family-name"
                     minLength={3}
                     value={formData.surName}
@@ -224,7 +223,7 @@ export default function SignUp({children}) {
                 <Grid item xs={12} sm={6}>
                   <TextField
                     autoComplete="given-name"
-                    name="firstName"
+                    name="realName"
                     required
                     fullWidth
                     id="firstName"
@@ -244,12 +243,14 @@ export default function SignUp({children}) {
                 </Grid>
                 <Grid item xs={12} sm={6}>
                   <TextField
-                    name="Becenév"
+                    name="nickname"
                     fullWidth
-                    id="Nickname"
+                    id="nickname"
                     label="Becenév (opcionális)"
                     autoFocus
                     variant="outlined"
+                    value={formData.nickname}
+                    onChange={handleChange}
                   />
                 </Grid>
                 <Grid item xs={12}>

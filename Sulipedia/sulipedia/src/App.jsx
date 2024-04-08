@@ -13,7 +13,7 @@ import { Informatika } from "./pages/Subjects/Informatika";
 import { Settings } from "./pages/Settings/Settings";
 import { LandingPage } from "./pages/LandingPage/LandingPage";
 import { AboutUs } from "./pages/AboutUs/AboutUs";
-import SignUp from "./pages/SignIn/SignUp";
+import SignUp from "./pages/SignUp/SignUp";
 import { MyGroups } from "./pages/MyGroups/MyGroups";
 import { MyProfile } from "./pages/MyProfile/MyProfile";
 import SignIn from "./pages/SignIn/SignIn";
@@ -39,7 +39,7 @@ function App() {
         <Route path="/curriculums" element={<Curriculums setIsLoading={setIsLoading}><IsLoggedIn /></Curriculums>} />
         <Route path="/tests" element={<Tests setIsLoading={setIsLoading}><IsLoggedIn /></Tests>} />
         <Route path="/mygroups" element={<MyGroups setIsLoading={setIsLoading}><IsLoggedIn /></MyGroups>} />
-        <Route path="/myProfile" element={<MyProfile setIsLoading={setIsLoading}><IsLoggedIn /></MyProfile>} />
+        <Route path="/myProfile" element={<MyProfile setIsLoading={setIsLoading} isLoading={isLoading}><IsLoggedIn /></MyProfile>} />
         <Route path="/settings" element={<Settings setIsLoading={setIsLoading}><IsLoggedIn /></Settings>} />
         <Route path="/signIn" element={<SignIn setIsLoading={setIsLoading} />} />
         <Route path="/signUp" element={<SignUp setIsLoading={setIsLoading} />} />

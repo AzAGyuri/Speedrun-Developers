@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -33,11 +34,11 @@ public class SchoolClassController {
     summary = "List all school classes from DB by optional user",
     description = "Az adatbázisban eltárolt összes iskolai osztály kilistázása, opcionális szűréssel felhasználó id alapján"
   )
-  @GetMapping("/class/{userId}")
-  public SchoolClassList listSchoolClasses(
-    @PathVariable(required = false) Integer userId
+  @GetMapping("/class")
+  public SchoolClassList listSchoolClassesByOptionalUserId(
+    @RequestParam(required = false) Integer userId
   ) {
-    return service.listSchoolClasses(userId);
+    return service.listSchoolClassesByOptionalUserId(userId);
   }
 
   @Operation(
