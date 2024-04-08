@@ -243,12 +243,14 @@ export default function SignUp({children}) {
                 </Grid>
                 <Grid item xs={12} sm={6}>
                   <TextField
-                    name="Becenév"
+                    name="nickname"
                     fullWidth
                     id="nickname"
                     label="Becenév (opcionális)"
                     autoFocus
                     variant="outlined"
+                    value={formData.nickname}
+                    onChange={handleChange}
                   />
                 </Grid>
                 <Grid item xs={12}>
