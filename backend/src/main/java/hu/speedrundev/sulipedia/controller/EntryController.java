@@ -7,6 +7,7 @@ import hu.speedrundev.sulipedia.dto.entry.GetEntry;
 import hu.speedrundev.sulipedia.dto.entry.GetEntryWithID;
 import hu.speedrundev.sulipedia.dto.entry.NulledEntry;
 import hu.speedrundev.sulipedia.dto.entry.PostEntry;
+import hu.speedrundev.sulipedia.dto.entry.SubjectDto;
 import hu.speedrundev.sulipedia.dto.entry.UpdateEntry;
 import hu.speedrundev.sulipedia.service.EntryService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -47,7 +48,7 @@ public class EntryController {
   )
   @GetMapping("/entry")
   public EntryList getEntriesByOptionalCategory(
-    @RequestParam(name = "category", required = false) String category
+    @RequestParam(name = "category", required = false) SubjectDto category
   ) {
     return service.getEntriesByOptionalCategory(category);
   }

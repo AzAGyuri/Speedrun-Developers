@@ -10,6 +10,7 @@ import hu.speedrundev.sulipedia.dto.entry.GetEntry;
 import hu.speedrundev.sulipedia.dto.entry.GetEntryWithID;
 import hu.speedrundev.sulipedia.dto.entry.NulledEntry;
 import hu.speedrundev.sulipedia.dto.entry.PostEntry;
+import hu.speedrundev.sulipedia.dto.entry.SubjectDto;
 import hu.speedrundev.sulipedia.dto.entry.UpdateEntry;
 import hu.speedrundev.sulipedia.dto.question.QuestionList;
 import hu.speedrundev.sulipedia.model.Attachment;
@@ -59,12 +60,12 @@ public class EntryService {
   @Autowired
   private JwtUtil jwtUtil;
 
-  public EntryList getEntriesByOptionalCategory(String category) {
-    if (category == null || category.isBlank()) {
+  public EntryList getEntriesByOptionalCategory(SubjectDto subject) {
+    if (subject == null || subject.toString().isBlank()) {
       return new EntryList(entryRepository.findAll());
     }
 
-    return new EntryList(entryRepository.findAllByCategory(category));
+    return new EntryList(entryRepository.findAllBySubject(subject.toString()));
   }
 
   public GetEntry getEntry(Integer id) {
