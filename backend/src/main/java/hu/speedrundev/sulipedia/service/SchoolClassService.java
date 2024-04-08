@@ -18,7 +18,7 @@ public class SchoolClassService {
     @Autowired
     private SchoolClassRepository repository;
 
-    public SchoolClassList listSchoolClasses(Integer userId) {
+    public SchoolClassList listSchoolClassesByOptionalUserId(Integer userId) {
         if (userId == null) return new SchoolClassList(repository.findAll());
         return new SchoolClassList(repository.findAllByUserId(userId));
     }
