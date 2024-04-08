@@ -62,6 +62,7 @@ export default function SignUp({children}) {
         .post("/register", finalFormData)
         .then((response) => {
           localStorage.setItem("jwt", `Bearer ${response.headers.jwt}`);
+          localStorage.setItem("currentUserId", response.data.id);
           navigate("/kezdo");
           window.location.reload();
         })
