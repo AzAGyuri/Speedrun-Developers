@@ -43,14 +43,25 @@ public class EntryController {
   private EntryService service;
 
   @Operation(
-    summary = "List all entries with optional category filter",
-    description = "Az adatbázisban eltárolt összes bejegyzés lekérdezése, opcionálisan kategória alapján szűrve"
+    summary = "List all non-test entries with optional category filter",
+    description = "Az adatbázisban eltárolt összes nem teszt bejegyzés lekérdezése, opcionálisan kategória alapján szűrve"
   )
   @GetMapping("/entry")
   public EntryList getEntriesByOptionalCategory(
-    @RequestParam(name = "category", required = false) SubjectDto subject
+    @RequestParam(name = "subject", required = false) SubjectDto subject
   ) {
     return service.getEntriesByOptionalCategory(subject);
+  }
+
+  @Operation(
+    summary = "List all test entries with optional category filter",
+    description = "Az adatbázisban eltárolt összes teszt bejegyzés lekérdezése, opcionálisan kategória alapján szűrve"
+  )
+  @GetMapping("/entry/test")
+  public EntryList getTestsByOptionalCategory(
+    @RequestParam(name = "subject", required = false) SubjectDto subject
+  ) {
+    return service.getTestsByOptionalCategory(subject);
   }
 
   @Operation(

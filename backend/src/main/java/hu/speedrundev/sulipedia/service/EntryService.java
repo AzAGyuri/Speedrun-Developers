@@ -61,11 +61,31 @@ public class EntryService {
   private JwtUtil jwtUtil;
 
   public EntryList getEntriesByOptionalCategory(SubjectDto subject) {
-    if (subject == null || subject.toString().isBlank()) {
-      return new EntryList(entryRepository.findAll());
-    }
+    if (subject == null || subject.toString().isBlank()) return new EntryList(
+      entryRepository
+        .findAll()
+        .stream()
+        .filter(entry -> entry.getTest() == null)
+        .toList()
+    );
 
-    return new EntryList(entryRepository.findAllBySubject(subject.toString()));
+    return new EntryList(
+      entryRepository.findAllEntriesBySubject(subject.toString())
+    );
+  }
+
+  public EntryList getTestsByOptionalCategory(SubjectDto subject) {
+    if (subject == null || subject.toString().isBlank()) return new EntryList(
+      entryRepository
+        .findAll()
+        .stream()
+        .filter(entry -> entry.getTest() != null)
+        .toList()
+    );
+
+    return new EntryList(
+      entryRepository.findAllTestsBySubject(subject.toString())
+    );
   }
 
   public GetEntry getEntry(Integer id) {
