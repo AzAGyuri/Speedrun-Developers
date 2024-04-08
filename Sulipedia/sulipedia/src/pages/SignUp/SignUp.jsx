@@ -134,22 +134,21 @@ export default function SignUp({children}) {
       setPasswordError(true);
     }
 
-    if (formData.surName.length < 2) {
+    if (formData.surName.length < 3) {
       setLastNameError(true);
     }
 
     if (formData.realName.length < 3) {
       setFirstNameError(true);
     }
-
-    const phoneRegex = /^\d{11}$/;
-    if (formData.phone && !phoneRegex.test(formData.phone)) {
+    if (formData.phone && !(formData.phone.length > 10 && formData.phone.length < 13 )) {
       setPhoneError(true);
     }
 
     if (formData.password !== formData.confirmPassword) {
       setPasswordError(true);
     }
+    console.log(isFormValid());
   };
 
   const isFormValid = () => {
@@ -214,7 +213,7 @@ export default function SignUp({children}) {
                     error={lastNameError}
                     helperText={
                       lastNameError
-                        ? "Vezetéknév legalább 3 karakter hosszú kell legyen"
+                        ? "A vezetéknév legalább 3 karakter hosszú kell, hogy legyen legyen"
                         : ""
                     }
                     variant="outlined"
@@ -235,7 +234,7 @@ export default function SignUp({children}) {
                     error={firstNameError}
                     helperText={
                       firstNameError
-                        ? "Keresztnév legalább 3 karakter hosszú kell legyen"
+                        ? "A Keresztnév legalább 3 karakter hosszú kell, hogy legyen"
                         : ""
                     }
                     variant="outlined"
