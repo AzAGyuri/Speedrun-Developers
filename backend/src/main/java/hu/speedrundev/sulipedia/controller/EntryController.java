@@ -48,9 +48,9 @@ public class EntryController {
   )
   @GetMapping("/entry")
   public EntryList getEntriesByOptionalCategory(
-    @RequestParam(name = "category", required = false) SubjectDto category
+    @RequestParam(name = "category", required = false) SubjectDto subject
   ) {
-    return service.getEntriesByOptionalCategory(category);
+    return service.getEntriesByOptionalCategory(subject);
   }
 
   @Operation(
