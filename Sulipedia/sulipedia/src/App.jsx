@@ -13,7 +13,7 @@ import { Informatika } from "./pages/Subjects/Informatika";
 import { Settings } from "./pages/Settings/Settings";
 import { LandingPage } from "./pages/LandingPage/LandingPage";
 import { AboutUs } from "./pages/AboutUs/AboutUs";
-import SignUp from "./pages/SignIn/SignUp";
+import SignUp from "./pages/SignUp/SignUp";
 import { MyGroups } from "./pages/MyGroups/MyGroups";
 import { MyProfile } from "./pages/MyProfile/MyProfile";
 import SignIn from "./pages/SignIn/SignIn";
