@@ -195,7 +195,7 @@ export function MyProfile({ children, setIsLoading, isLoading }) {
           <Button
             variant="contained"
             onClick={() =>
-              window.open("https://www.paypal.me/Krisz37", "_blank")
+              window.open("https://revolut.me/krisz0925", "_blank")
             }
             style={styles.donateButton}
           >
