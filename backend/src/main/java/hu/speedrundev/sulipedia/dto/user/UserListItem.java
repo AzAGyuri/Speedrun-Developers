@@ -1,11 +1,10 @@
 package hu.speedrundev.sulipedia.dto.user;
 
 import hu.speedrundev.sulipedia.model.User;
-import lombok.NoArgsConstructor;
-
 import java.util.Base64;
 import java.util.Date;
 import java.util.Set;
+import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
 public class UserListItem extends GetUserWithID {
@@ -40,7 +39,9 @@ public class UserListItem extends GetUserWithID {
     this(
       user.getUsername(),
       user.getEmail(),
-      Base64.getEncoder().encodeToString(user.getProfilePicture()),
+      user.getProfilePicture() == null
+        ? ""
+        : Base64.getEncoder().encodeToString(user.getProfilePicture()),
       user.getBirthDate(),
       user.getLastLogin(),
       user.getLastLogoff(),
