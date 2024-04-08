@@ -92,7 +92,7 @@ const styles = {
   },
 };
 
-export function MyProfile({ children }) {
+export function MyProfile({ children, setIsLoading, isLoading }) {
   const currentUserId = localStorage.getItem("currentUserId");
   const [userData, setUserData] = useState({
     email: "pelda@email.com",
@@ -102,8 +102,9 @@ export function MyProfile({ children }) {
     userId: "123456789",
     profileImage: "path/to/profile-image.jpg",
   });
-
+  
   useEffect(() => {
+    setIsLoading(false);
     if (currentUserId !== 0) {
       axios
         .request({
@@ -123,12 +124,15 @@ export function MyProfile({ children }) {
             userId: currentUserId,
             profileImage: user.profilePictureBase64,
           });
+          setIsLoading(false);
         })
         .catch((error) => {
           console.error("Hiba történt adat lekérdezéskor", error);
+          setIsLoading(false);
         });
     }
-  }, [currentUserId]);
+  }, []);
+  console.log(isLoading);
 
   return (
     <Container maxWidth="lg" style={styles.container}>
