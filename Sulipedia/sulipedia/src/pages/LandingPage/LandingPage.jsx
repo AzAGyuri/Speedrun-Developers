@@ -7,9 +7,10 @@ import {
   Modal,
   TextField,
 } from "@mui/material";
-import { styled } from "@mui/system";
+import { color, styled } from "@mui/system";
 import { Link } from "react-router-dom";
 import "./LandingPage.css";
+import PublicIcon from "@mui/icons-material/Public";
 
 import mathematics from "../../resources/mat.png";
 import grammer from "../../resources/grammer.png";
@@ -17,6 +18,7 @@ import history from "../../resources/history.png";
 import it from "../../resources/it.png";
 import iteng from "../../resources/iteng.png";
 import useMediaQuery from "@mui/material/useMediaQuery";
+import axios from "axios";
 
 const HeaderTypography = styled(Typography)({
   marginBottom: "16px",
@@ -33,7 +35,6 @@ const BottomButtonsContainer = styled(Container)({
   marginTop: "32px",
   width: "100%",
 });
-
 
 const SignInButton = styled(Button)({
   backgroundColor: "green",
@@ -74,18 +75,25 @@ const styleSmall = {
 
 export function LandingPage({ children, setIsLoading }) {
   const [posts, setPosts] = useState([]);
-  const [open, setOpen] = useState(sessionStorage.getItem("modalOpen") === "false" ? false : true);  
+  const [open, setOpen] = useState(
+    sessionStorage.getItem("modalOpen") === "false" ? false : true
+  );
   const [newsModalOpen, setNewsModalOpen] = useState(false);
   const [newPostTitle, setNewPostTitle] = useState("");
   const [newPostContent, setNewPostContent] = useState("");
   const isSmallScreen = useMediaQuery("(max-width:950px)");
+  let [subject, setSubject] = useState("");
+  let [entries, setEntries] = useState({
+    entries: [],
+  });
+  const jwt = localStorage.getItem("jwt");
 
-  console.log(sessionStorage.getItem("modalOpen"))
+  console.log(sessionStorage.getItem("modalOpen"));
 
-  function modalStayClosed(){
+  function modalStayClosed() {
     sessionStorage.setItem("modalOpen", "false");
     handleClose();
-  };
+  }
 
   const handleClose = () => {
     setOpen(false);
@@ -104,7 +112,22 @@ export function LandingPage({ children, setIsLoading }) {
     setNewPostContent("");
   };
 
-  useEffect(() => {});
+  const handleCategorySelect = (event) => {
+    setSubject(event.target.id);
+  };
+
+  useEffect(() => {
+    axios
+      .get(`/entry?category=${subject}`, { headers: { Authorization: jwt } })
+      .then((response) => {
+        setEntries(response.data);
+      })
+      .catch((error) => {
+        console.error("Hiba történt az adatok lekérdezése során", error);
+      });
+  }, [subject]);
+
+  console.log(entries);
 
   return (
     <>
@@ -116,61 +139,59 @@ export function LandingPage({ children, setIsLoading }) {
           aria-labelledby="modal-modal-title"
           aria-describedby="modal-modal-description"
         >
-          
-             <Box sx={isSmallScreen ? styleSmall : style}>
-              <CloseButton onClick={handleClose} color="primary">
-                X
-              </CloseButton>
-              <HeaderTypography variant="h3">
-                Üdvözöljük a Sulipedia oldalon!
-              </HeaderTypography>
-              <SubheaderTypography variant="body1">
-                Az oldalt és a hozzá tartozó funkcionalitásokat a{" "}
-                <Link
-                  style={{ textDecoration: "none", color: "blue" }}
-                  to="/aboutUs"
-                  underline="none"
-                  rel="noreferrer"
-                  color="inherit"
-                >
-                  Speedrun Developers
-                </Link>{" "}
-                csapata készítette!
-              </SubheaderTypography>
-              <Typography variant="body1">
-                Ön ezen oldal jelenlegi alfa verzióját látja. A jövőben - mint
-                minden más oldalra is - erre is további fejlesztések és új
-                funkciók várnak majd.
-                <br />
-                Amennyiben szeretné támogatni az oldal fejlődését azt az alábbi
-                paypal <a href="https://www.paypal.me/Krisz37">linken</a>{" "}
-                megteheti!
-              </Typography>
+          <Box sx={isSmallScreen ? styleSmall : style}>
+            <CloseButton onClick={handleClose} color="primary">
+              X
+            </CloseButton>
+            <HeaderTypography variant="h3">
+              Üdvözöljük a Sulipedia oldalon!
+            </HeaderTypography>
+            <SubheaderTypography variant="body1">
+              Az oldalt és a hozzá tartozó funkcionalitásokat a{" "}
+              <Link
+                style={{ textDecoration: "none", color: "blue" }}
+                to="/aboutUs"
+                underline="none"
+                rel="noreferrer"
+                color="inherit"
+              >
+                Speedrun Developers
+              </Link>{" "}
+              csapata készítette!
+            </SubheaderTypography>
+            <Typography variant="body1">
+              Ön ezen oldal jelenlegi alfa verzióját látja. A jövőben - mint
+              minden más oldalra is - erre is további fejlesztések és új
+              funkciók várnak majd.
+              <br />
+              Amennyiben szeretné támogatni az oldal fejlődését azt az alábbi
+              paypal <a href="https://www.paypal.me/Krisz37">linken</a>{" "}
+              megteheti!
+            </Typography>
 
-              <BottomButtonsContainer>
-                <Button
-                  variant="contained"
-                  color="secondary"
-                  component={Link}
-                  to="/LearnMore"
-                >
-                  Tudj meg többet
-                </Button>
+            <BottomButtonsContainer>
+              <Button
+                variant="contained"
+                color="secondary"
+                component={Link}
+                to="/LearnMore"
+              >
+                Tudj meg többet
+              </Button>
 
-                <Button
-                  variant="contained"
-                  color="error"
-                  onClick={modalStayClosed}
-                >
-                  Ne mutassa!
-                </Button>
+              <Button
+                variant="contained"
+                color="error"
+                onClick={modalStayClosed}
+              >
+                Ne mutassa!
+              </Button>
 
-
-                <SignInButton component={Link} to="/AboutUs">
-                  Rólunk
-                </SignInButton>
-              </BottomButtonsContainer>
-            </Box>
+              <SignInButton component={Link} to="/AboutUs">
+                Rólunk
+              </SignInButton>
+            </BottomButtonsContainer>
+          </Box>
         </Modal>
       </div>
 
@@ -184,9 +205,7 @@ export function LandingPage({ children, setIsLoading }) {
                     <div className="contente-title">
                       Algoritmusok és Adatszerkezetek
                     </div>
-                    <div>
-                    Tudtad-e?
-                  </div>
+                    <div>Tudtad-e?</div>
                     <div className="contente">
                       Az algoritmusok és adatszerkezetek kulcsfontosságú
                       fogalmak az informatikában. Az algoritmusok hatékony
@@ -204,9 +223,7 @@ export function LandingPage({ children, setIsLoading }) {
                     <div className="contente-title">
                       Felhőalapú Számítástechnika
                     </div>
-                    <div>
-                    Tudtad-e?
-                  </div>
+                    <div>Tudtad-e?</div>
                     <div className="contente">
                       A felhőalapú számítástechnika forradalmasította az
                       informatikát. Az egyre növekvő számú vállalat és
@@ -223,9 +240,7 @@ export function LandingPage({ children, setIsLoading }) {
                     <div className="contente-title">
                       Kiberbiztonság és Hálózatbiztonság
                     </div>
-                    <div>
-                    Tudtad-e?
-                  </div>
+                    <div>Tudtad-e?</div>
                     <div className="contente">
                       A kiberbiztonság és hálózatbiztonság napjainkban
                       kulcsfontosságú területe az informatikának. Az internetes
@@ -243,9 +258,7 @@ export function LandingPage({ children, setIsLoading }) {
                     <div className="contente-title">
                       Adattudomány és Nagy Adat
                     </div>
-                    <div>
-                    Tudtad-e?
-                  </div>
+                    <div>Tudtad-e?</div>
                     <div className="contente">
                       Az adattudomány és a nagy adat elemzésének képességei
                       forradalmasítják az üzleti és tudományos területeket
@@ -262,9 +275,7 @@ export function LandingPage({ children, setIsLoading }) {
                     <div className="contente-title">
                       Mesterséges Intelligencia és Gépi Tanulás
                     </div>
-                    <div>
-                    Tudtad-e?
-                  </div>
+                    <div>Tudtad-e?</div>
                     <div className="contente">
                       A mesterséges intelligencia és a gépi tanulás területei
                       forradalmasítják az informatikát. Az olyan alkalmazások,
@@ -282,9 +293,7 @@ export function LandingPage({ children, setIsLoading }) {
                       <div className="flexcontente-item">
                         <div className="contente-box">
                           <div className="contente-title">{post.title}</div>
-                          <div>
-                    Tudtad-e?
-                  </div>
+                          <div>Tudtad-e?</div>
                           <div className="contente">{post.content}</div>
                         </div>
                       </div>
@@ -308,74 +317,89 @@ export function LandingPage({ children, setIsLoading }) {
         <div className="flex-container">
           <div className="flex-item">
             <div className="drawer">
-              <Link
-                style={{ textDecoration: "none", color: "white" }}
-                to="/Matek"
+              <Container
+                style={{ textDecoration: "none", color: "white", padding: 0 }}
+                onClick={handleCategorySelect}
                 underline="none"
                 rel="noreferrer"
                 color="inherit"
               >
                 <div className="subject-container">
-                  <span>Matematika</span>
+                  <span id="">Vegyes</span>
+                  <PublicIcon
+                    className="subjectIMG"
+                    style={{ color: "black" }}
+                  />
+                </div>
+              </Container>
+              <Container
+                style={{ textDecoration: "none", color: "white", padding: 0 }}
+                onClick={handleCategorySelect}
+                underline="none"
+                rel="noreferrer"
+                color="inherit"
+              >
+                <div className="subject-container">
+                  <span id="MATHS">Matematika</span>
                   <img
                     src={mathematics}
                     alt="Matematika"
                     className="subjectIMG"
                   />
                 </div>
-              </Link>
-              <Link
-                style={{ textDecoration: "none", color: "white" }}
-                to="/magyar"
+              </Container>
+              <Container
+                style={{ textDecoration: "none", color: "white", padding: 0 }}
+                onClick={handleCategorySelect}
                 underline="none"
                 rel="noreferrer"
                 color="inherit"
               >
                 <div className="subject-container">
-                  <span>Magyar Nyelv</span>
+                  <span id="HUNGARIAN">Magyar Nyelv</span>
                   <img
                     src={grammer}
                     alt="Magyar Nyelv"
                     className="subjectIMG"
                   />
                 </div>
-              </Link>
-              <Link
-                style={{ textDecoration: "none", color: "white" }}
-                to="/Tortenelem"
+              </Container>
+              <Container
+                style={{ textDecoration: "none", color: "white", padding: 0 }}
+                onClick={handleCategorySelect}
                 underline="none"
                 rel="noreferrer"
                 color="inherit"
               >
                 <div className="subject-container">
-                  <span>Történelem</span>
+                  <span id="HISTORY">Történelem</span>
                   <img src={history} alt="Történelem" className="subjectIMG" />
                 </div>
-              </Link>
-              <Link
-                style={{ textDecoration: "none", color: "white" }}
-                to="/szakmai-angol"
+              </Container>
+              <Container
+                style={{ textDecoration: "none", color: "white", padding: 0 }}
+                onClick={handleCategorySelect}
                 underline="none"
                 rel="noreferrer"
                 color="inherit"
               >
                 <div className="subject-container">
-                  <span>Szakmai angol</span>
+                  <span id="TECHNICAL_ENGLISH">Szakmai angol</span>
                   <img src={iteng} alt="Szakmai angol" className="subjectIMG" />
                 </div>
-              </Link>
-              <Link
-                style={{ textDecoration: "none", color: "white" }}
-                to="/informatika"
+              </Container>
+              <Container
+                style={{ textDecoration: "none", color: "white", padding: 0 }}
+                onClick={handleCategorySelect}
                 underline="none"
                 rel="noreferrer"
                 color="inherit"
               >
                 <div className="subject-container">
-                  <span>Informatika</span>
+                  <span id="ICT">Informatika</span>
                   <img src={it} alt="Informatika" className="subjectIMG" />
                 </div>
-              </Link>
+              </Container>
               <div className="blackLine"></div>
             </div>
           </div>
@@ -386,9 +410,7 @@ export function LandingPage({ children, setIsLoading }) {
                   <div className="contente-title">
                     Algoritmusok és Adatszerkezetek
                   </div>
-                  <div>
-                    Tudtad-e?
-                  </div>
+                  <div>Tudtad-e?</div>
                   <div className="contente">
                     Az algoritmusok és adatszerkezetek kulcsfontosságú fogalmak
                     az informatikában. Az algoritmusok hatékony megvalósítása és
@@ -405,9 +427,7 @@ export function LandingPage({ children, setIsLoading }) {
                   <div className="contente-title">
                     Felhőalapú Számítástechnika
                   </div>
-                  <div>
-                    Tudtad-e?
-                  </div>
+                  <div>Tudtad-e?</div>
                   <div className="contente">
                     A felhőalapú számítástechnika forradalmasította az
                     informatikát. Az egyre növekvő számú vállalat és felhasználó
@@ -424,9 +444,7 @@ export function LandingPage({ children, setIsLoading }) {
                   <div className="contente-title">
                     Kiberbiztonság és Hálózatbiztonság
                   </div>
-                  <div>
-                    Tudtad-e?
-                  </div>
+                  <div>Tudtad-e?</div>
                   <div className="contente">
                     A kiberbiztonság és hálózatbiztonság napjainkban
                     kulcsfontosságú területe az informatikának. Az internetes
@@ -444,9 +462,7 @@ export function LandingPage({ children, setIsLoading }) {
                   <div className="contente-title">
                     Adattudomány és Nagy Adat
                   </div>
-                  <div>
-                    Tudtad-e?
-                  </div>
+                  <div>Tudtad-e?</div>
                   <div className="contente">
                     Az adattudomány és a nagy adat elemzésének képességei
                     forradalmasítják az üzleti és tudományos területeket
@@ -463,9 +479,7 @@ export function LandingPage({ children, setIsLoading }) {
                   <div className="contente-title">
                     Mesterséges Intelligencia és Gépi Tanulás
                   </div>
-                  <div>
-                    Tudtad-e?
-                  </div>
+                  <div>Tudtad-e?</div>
                   <div className="contente">
                     A mesterséges intelligencia és a gépi tanulás területei
                     forradalmasítják az informatikát. Az olyan alkalmazások,
@@ -483,9 +497,7 @@ export function LandingPage({ children, setIsLoading }) {
                     <div className="flexcontente-item">
                       <div className="contente-box">
                         <div className="contente-title">{post.title}</div>
-                        <div>
-                    Tudtad-e?
-                  </div>
+                        <div>Tudtad-e?</div>
                         <div className="contente">{post.content}</div>
                       </div>
                     </div>
@@ -507,49 +519,46 @@ export function LandingPage({ children, setIsLoading }) {
         </div>
       )}
 
-      
-         
-        <Modal
-          open={newsModalOpen}
-          onClose={handleNewsModalClose}
-          aria-labelledby="news-modal-title"
-          aria-describedby="news-modal-description"
-          
-        >
-          <Box sx={isSmallScreen ? styleSmall : style}>
-            <CloseButton onClick={handleNewsModalClose} color="primary">
-              X
-            </CloseButton>
-            <Typography variant="h6" component="div" id="news-modal-title">
-              Új hír hozzáadása
-            </Typography>
-            <TextField
-              label="Cím"
-              fullWidth
-              value={newPostTitle}
-              onChange={(e) => setNewPostTitle(e.target.value)}
-            />
-            <TextField
-              label="Tartalom"
-              multiline
-              rows={4}
-              fullWidth
-              value={newPostContent}
-              onChange={(e) => setNewPostContent(e.target.value)}
-            />
-            <Button
-              variant="contained"
-              color="secondary"
-              style={{ marginTop: "16px" }}
-              onClick={() => {
-                handleClosePost();
-                handleNewsModalClose();
-              }}
-            >
-              Hozzáadás
-            </Button>
-          </Box>
-        </Modal>
+      <Modal
+        open={newsModalOpen}
+        onClose={handleNewsModalClose}
+        aria-labelledby="news-modal-title"
+        aria-describedby="news-modal-description"
+      >
+        <Box sx={isSmallScreen ? styleSmall : style}>
+          <CloseButton onClick={handleNewsModalClose} color="primary">
+            X
+          </CloseButton>
+          <Typography variant="h6" component="div" id="news-modal-title">
+            Új hír hozzáadása
+          </Typography>
+          <TextField
+            label="Cím"
+            fullWidth
+            value={newPostTitle}
+            onChange={(e) => setNewPostTitle(e.target.value)}
+          />
+          <TextField
+            label="Tartalom"
+            multiline
+            rows={4}
+            fullWidth
+            value={newPostContent}
+            onChange={(e) => setNewPostContent(e.target.value)}
+          />
+          <Button
+            variant="contained"
+            color="secondary"
+            style={{ marginTop: "16px" }}
+            onClick={() => {
+              handleClosePost();
+              handleNewsModalClose();
+            }}
+          >
+            Hozzáadás
+          </Button>
+        </Box>
+      </Modal>
     </>
   );
 }
