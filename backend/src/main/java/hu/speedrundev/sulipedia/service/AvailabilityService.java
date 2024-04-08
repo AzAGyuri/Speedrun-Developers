@@ -10,6 +10,7 @@ import hu.speedrundev.sulipedia.dto.availability.PostAvailability;
 import hu.speedrundev.sulipedia.dto.availability.UpdateAvailability;
 import hu.speedrundev.sulipedia.model.AvailType;
 import hu.speedrundev.sulipedia.model.Availability;
+import hu.speedrundev.sulipedia.model.User;
 import hu.speedrundev.sulipedia.repository.AvailabilityRepository;
 import hu.speedrundev.sulipedia.repository.UserRepository;
 import jakarta.validation.Valid;
@@ -26,7 +27,15 @@ public class AvailabilityService {
   private UserRepository userRepository;
 
   public AvailabilityList listAllAvailabilities() {
-    return new AvailabilityList(availabilityRepository.findAll());
+    return new AvailabilityList(
+      availabilityRepository
+        .findAll()
+        .stream()
+        .filter(availability ->
+          availability.getLinkedUser().getDeleted() != true
+        )
+        .toList()
+    );
   }
 
   public AvailabilityList getUserAvailabilities(Integer userId) {
@@ -36,7 +45,13 @@ public class AvailabilityService {
       "LINKED_USER_NOT_FOUND"
     );
 
-    return new AvailabilityList(availabilityRepository.findAllByUserId(userId));
+    User referencedUser = userRepository.getReferenceById(userId);
+
+    if (referencedUser.getDeleted() != null) if (
+      referencedUser.getDeleted()
+    ) throw itsGoneBud("REFERENCED_USER_HAS_BEEN_DELETED");
+
+    return new AvailabilityList(referencedUser.getAvailabilities());
   }
 
   public GetAvailabilityWithID createAvailability(
@@ -72,10 +87,13 @@ public class AvailabilityService {
       "AVAILABILITY_NOT_FOUND"
     );
 
+    if (
+      availabilityRepository.getReferenceById(id).getLinkedUser().getDeleted()
+    ) throw itsGoneBud("THE_LINKED_USER_OF_THE_AVAILABILITY_IS_DELETED");
+
     if (update.isAllNull()) throw badRequest("ALL_UPDATE_DATA_IS_NULL");
 
-    Availability oldData =
-      (availabilityRepository.getReferenceById(id));
+    Availability oldData = (availabilityRepository.getReferenceById(id));
     Availability updatedAvailability =
       (availabilityRepository.getReferenceById(id));
 
@@ -92,14 +110,17 @@ public class AvailabilityService {
 
     if (
       update.getType() != null &&
-      update.getType().toString() != updatedAvailability.getAvailabilityType().toString()
+      update.getType().toString() !=
+      updatedAvailability.getAvailabilityType().toString()
     ) {
       updatedAvailability.setAvailabilityType(
         AvailType.valueOf(update.getType().toString())
       );
     }
 
-    if (oldData.equals(updatedAvailability)) throw badRequest("UPDATED_ENTITY_DATA_STILL_MATCHES_OLD_DATA");
+    if (oldData.equals(updatedAvailability)) throw badRequest(
+      "UPDATED_ENTITY_DATA_STILL_MATCHES_OLD_DATA"
+    );
 
     return new GetAvailability(
       availabilityRepository.save(updatedAvailability)
@@ -109,9 +130,9 @@ public class AvailabilityService {
   public DeletedAvailability deleteAvailability(Integer id) {
     if (id == null) throw nullPointer();
 
-    if (
-      !availabilityRepository.existsById(id)
-    ) throw modelNotFound("AVAILABILITY_NOT_FOUND");
+    if (!availabilityRepository.existsById(id)) throw modelNotFound(
+      "AVAILABILITY_NOT_FOUND"
+    );
 
     Availability deleted = availabilityRepository.getReferenceById(id);
     availabilityRepository.deleteById(id);

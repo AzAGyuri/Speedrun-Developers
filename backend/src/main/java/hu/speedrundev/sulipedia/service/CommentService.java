@@ -11,7 +11,6 @@ import hu.speedrundev.sulipedia.repository.CommentRepository;
 import hu.speedrundev.sulipedia.repository.EntryRepository;
 import hu.speedrundev.sulipedia.repository.UserRepository;
 import hu.speedrundev.sulipedia.util.JwtUtil;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -35,16 +34,28 @@ public class CommentService {
     Integer authorId
   ) {
     if (entryId == null && authorId == null) return new CommentList(
-      commentRepository.findAll()
+      commentRepository
+        .findAll()
+        .stream()
+        .filter(comment -> comment.getAuthor().getDeleted() != true)
+        .toList()
     );
     if (entryId == null && authorId != null) return new CommentList(
-      commentRepository.findAllByAuthorId(authorId)
+      commentRepository
+        .findAllByAuthorId(authorId)
+        .stream()
+        .filter(comment -> comment.getAuthor().getDeleted() != true)
+        .toList()
     );
     if (authorId == null && entryId != null) return new CommentList(
       commentRepository.findAllByEntryId(entryId)
     );
     return new CommentList(
-      commentRepository.findAllByEntryAndAuthorId(entryId, authorId)
+      commentRepository
+        .findAllByEntryAndAuthorId(entryId, authorId)
+        .stream()
+        .filter(comment -> comment.getAuthor().getDeleted() != true)
+        .toList()
     );
   }
 
