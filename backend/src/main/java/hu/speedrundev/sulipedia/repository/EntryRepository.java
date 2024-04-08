@@ -16,6 +16,6 @@ public interface EntryRepository extends JpaRepository<Entry, Integer> {
   @Query(nativeQuery = true, value = "SELECT * FROM entries e WHERE e.keep = 1 AND (e.deleted = NULL OR e.deleted = 0)")
   List<Entry> findAllKept();
 
-  @Query(nativeQuery = true, value = "SELECT * FROM entries e WHERE e.keep = 0")
+  @Query(nativeQuery = true, value = "SELECT * FROM entries e WHERE e.keep = 0 AND (e.deleted = NULL OR e.deleted = 0)")
   List<Entry> findAllNotKept();
 }
