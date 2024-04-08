@@ -29,8 +29,11 @@ const SubheaderTypography = styled(Typography)({
 const BottomButtonsContainer = styled(Container)({
   display: "flex",
   justifyContent: "space-between",
+  alignItems: "center", // Add this line to vertically center the items
   marginTop: "32px",
+  width: "100%",
 });
+
 
 const SignInButton = styled(Button)({
   backgroundColor: "green",
@@ -71,22 +74,21 @@ const styleSmall = {
 
 export function LandingPage({ children, setIsLoading }) {
   const [posts, setPosts] = useState([]);
-  const [open, setOpen] = React.useState(true);
+  const [open, setOpen] = useState(sessionStorage.getItem("modalOpen") === "false" ? false : true);  
   const [newsModalOpen, setNewsModalOpen] = useState(false);
   const [newPostTitle, setNewPostTitle] = useState("");
   const [newPostContent, setNewPostContent] = useState("");
-  const [modalShouldOpen, setModalShouldOpen] = useState(true);
   const isSmallScreen = useMediaQuery("(max-width:950px)");
 
-  useEffect(() => {
-    if (!modalShouldOpen) {
-      setOpen(false);
-    }
-  }, [modalShouldOpen]);
+  console.log(sessionStorage.getItem("modalOpen"))
+
+  function modalStayClosed(){
+    sessionStorage.setItem("modalOpen", "false");
+    handleClose();
+  };
 
   const handleClose = () => {
     setOpen(false);
-    setModalShouldOpen(false);
   };
   const handleClosePost = () => {
     setPosts([...posts, { title: newPostTitle, content: newPostContent }]);
@@ -154,6 +156,16 @@ export function LandingPage({ children, setIsLoading }) {
                 >
                   Tudj meg többet
                 </Button>
+
+                <Button
+                  variant="contained"
+                  color="error"
+                  onClick={modalStayClosed}
+                >
+                  Ne mutassa!
+                </Button>
+
+
                 <SignInButton component={Link} to="/AboutUs">
                   Rólunk
                 </SignInButton>
