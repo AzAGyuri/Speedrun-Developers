@@ -69,7 +69,7 @@ const styleSmall = {
   p: 4,
 };
 
-export function LandingPage({ children }) {
+export function LandingPage({ children, setIsLoading }) {
   const [posts, setPosts] = useState([]);
   const [open, setOpen] = React.useState(true);
   const [newsModalOpen, setNewsModalOpen] = useState(false);

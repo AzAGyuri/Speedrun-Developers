@@ -30,130 +30,33 @@ function App() {
 
   return (
     <>
-      <Router>
-        <ResAppBar />
-        {isLoading ? (
-          <Loading />
-        ) : (
-        < Routes >
-          <Route
-            path="/curriculums"
-            element={
-              <Curriculums>
-                <IsLoggedIn />
-              </Curriculums>
-            }
-          />
-          <Route
-            path="/tests"
-            element={
-              <Tests>
-                <IsLoggedIn />
-              </Tests>
-            }
-          />
-          <Route
-            path="/mygroups"
-            element={
-              <MyGroups>
-                <IsLoggedIn />
-              </MyGroups>
-            }
-          />
-          <Route
-            path="/myProfile"
-            element={
-              <MyProfile>
-                <IsLoggedIn />
-              </MyProfile>
-            }
-          />
-          <Route
-            path="/settings"
-            element={
-              <Settings>
-                <IsLoggedIn />
-              </Settings>
-            }
-          />
-          <Route path="/signIn" element={<SignIn setIsLoading={setIsLoading}  />} />
-          <Route path="/signUp" element={<SignUp />} />
-          <Route
-            path="/kezdo"
-            element={
-              <LandingPage>
-                <IsLoggedIn />
-              </LandingPage>
-            }
-          />
-          <Route
-            path="/"
-            element={
-              <LandingPage>
-                <IsLoggedIn />
-              </LandingPage>
-            }
-          />
-          <Route
-            path="/aboutUs"
-            element={
-              <AboutUs>
-                <IsLoggedIn />
-              </AboutUs>
-            }
-          />
-          <Route
-            path="/learnMore"
-            element={
-              <LearnMore>
-                <IsLoggedIn />
-              </LearnMore>
-            }
-          />
-          <Route
-            path="/szakmai-angol"
-            element={
-              <SzakAngol>
-                <IsLoggedIn />
-              </SzakAngol>
-            }
-          />
-          <Route
-            path="/matek"
-            element={
-              <Matek>
-                <IsLoggedIn />
-              </Matek>
-            }
-          />
-          <Route
-            path="/magyar"
-            element={
-              <Magyar>
-                <IsLoggedIn />
-              </Magyar>
-            }
-          />
-          <Route
-            path="/tortenelem"
-            element={
-              <Tortenelem>
-                <IsLoggedIn />
-              </Tortenelem>
-            }
-          />
-          <Route
-            path="/informatika"
-            element={
-              <Informatika>
-                <IsLoggedIn />
-              </Informatika>
-            }
-          />
-        </Routes> )}
-      <Copyright />
-    </Router >
-    </>
+  <Router>
+    <ResAppBar />
+    {isLoading ? (
+      <Loading />
+    ) : (
+      <Routes>
+        <Route path="/curriculums" element={<Curriculums setIsLoading={setIsLoading}><IsLoggedIn /></Curriculums>} />
+        <Route path="/tests" element={<Tests setIsLoading={setIsLoading}><IsLoggedIn /></Tests>} />
+        <Route path="/mygroups" element={<MyGroups setIsLoading={setIsLoading}><IsLoggedIn /></MyGroups>} />
+        <Route path="/myProfile" element={<MyProfile setIsLoading={setIsLoading}><IsLoggedIn /></MyProfile>} />
+        <Route path="/settings" element={<Settings setIsLoading={setIsLoading}><IsLoggedIn /></Settings>} />
+        <Route path="/signIn" element={<SignIn setIsLoading={setIsLoading} />} />
+        <Route path="/signUp" element={<SignUp setIsLoading={setIsLoading} />} />
+        <Route path="/kezdo" element={<LandingPage setIsLoading={setIsLoading}><IsLoggedIn /></LandingPage>} />
+        <Route path="/" element={<LandingPage  setIsLoading={setIsLoading} ><IsLoggedIn /></LandingPage>} />
+        <Route path="/aboutUs" element={<AboutUs  setIsLoading={setIsLoading}><IsLoggedIn /></AboutUs>} />
+        <Route path="/learnMore" element={<LearnMore  setIsLoading={setIsLoading}><IsLoggedIn /></LearnMore>} />
+        <Route path="/szakmai-angol" element={<SzakAngol  setIsLoading={setIsLoading}><IsLoggedIn /></SzakAngol>} />
+        <Route path="/matek" element={<Matek  setIsLoading={setIsLoading}><IsLoggedIn /></Matek>} />
+        <Route path="/magyar" element={<Magyar  setIsLoading={setIsLoading}><IsLoggedIn /></Magyar>} />
+        <Route path="/tortenelem" element={<Tortenelem  setIsLoading={setIsLoading}><IsLoggedIn /></Tortenelem>} />
+        <Route path="/informatika" element={<Informatika  setIsLoading={setIsLoading}><IsLoggedIn /></Informatika>} />
+      </Routes>
+    )}
+    <Copyright />
+  </Router>
+</>
   );
 }
 
