@@ -69,7 +69,7 @@ public class EntryController {
   @PostMapping("/entry")
   public GetEntryWithID createEntry(
     @Valid @RequestBody PostEntry entry,
-    @RequestParam("files") MultipartFile[] files,
+    @RequestParam(name = "files", required = false) MultipartFile[] files,
     @RequestHeader("Authorization") String jwt
   ) {
     return service.createEntry(entry, files, jwt);

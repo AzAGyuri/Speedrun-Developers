@@ -153,10 +153,6 @@ export default function SignIn({ setIsLoading }) {
                 autoComplete="current-password"
                 onChange={handleChange}
               />
-              <FormControlLabel
-                control={<Checkbox value="remember" color="primary" />}
-                label="Jegyezz meg"
-              />
               <Button
                 type="submit"
                 fullWidth
