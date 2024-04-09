@@ -18,14 +18,11 @@ const styles = {
     justifyContent: "center",
     alignItems: "center",
     height: "100vh",
-    //background: 'linear-gradient(135deg, #ffd500 0%, #f7971e 100%)',
-    //background: 'linear-gradient(135deg, #3494E6 0%, #EC6EAD 100%)',
   },
   paper: {
     padding: "40px",
     borderRadius: "12px",
     boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
-    //background: 'linear-gradient(45deg, #ffe259 30%, #ffa751 90%)',
     background: "linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)",
     color: "white",
     maxWidth: "600px",
@@ -78,9 +75,11 @@ export function Settings({ children }) {
 
   const handlePasswordChange = (newPassword) => {
     setFormData((prevData) => ({ ...prevData, password: newPassword }));
-    const passwordRegex =
-      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
-    setPasswordError(!passwordRegex.test(newPassword));
+    if (formData.password.length <=6 || !/\d/.test(formData.password) || !/[a-zA-Z]/.test(formData.password)) {
+      setPasswordError(true);
+    } else {
+      setPasswordError(false);
+    }
   };
 
   const handleSaveChanges = () => {
@@ -151,7 +150,7 @@ export function Settings({ children }) {
                 error={passwordError}
                 helperText={
                   passwordError
-                    ? "A jelszónak legalább 8 karakter hosszúnak kell lennie, tartalmaznia kell kis- és nagybetűt, számot, valamint speciális karaktert (@$!%*?&)"
+                    ? "A jelszónak legalább 8 karakter hosszúnak kell lennie, tartalmaznia kell betűt és számot"
                     : ""
                 }
                 InputProps={{
@@ -169,7 +168,7 @@ export function Settings({ children }) {
                 }}
                 InputLabelProps={{
                   style: {
-                    color: passwordError ? "#8B0000" : "inherit", // Change label color based on error
+                    color: passwordError ? "#8B0000" : "inherit", 
                   },
                 }}
               />
