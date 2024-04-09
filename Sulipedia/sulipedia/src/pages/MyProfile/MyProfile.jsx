@@ -116,9 +116,13 @@ export function MyProfile({ children, setIsLoading, isLoading }) {
         })
         .then((response) => {
           const user = response.data;
+          if (user.nickname === null){
+            user.nickname = user.username;
+          }
           setUserData({
             email: user.email,
             username: user.username,
+            nickname: user.nickname,
             phoneNumber: user.phoneNumber ? user.phoneNumber : "N/A",
             registrationDate: user.createdOn.split("T")[0],
             userId: currentUserId,
@@ -144,7 +148,7 @@ export function MyProfile({ children, setIsLoading, isLoading }) {
             : null}
         </Avatar>
         <Typography variant="h4" style={styles.heading}>
-          {`${userData.username}`}
+          {`${userData.nickname}`}
         </Typography>
         <div style={styles.userInfo}>
           <div style={styles.infoItem}>
