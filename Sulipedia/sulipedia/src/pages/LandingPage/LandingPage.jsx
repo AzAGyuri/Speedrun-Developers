@@ -126,7 +126,7 @@ export function LandingPage({ children, setIsLoading, isLoading }) {
       .catch((error) => {
         console.error("Hiba történt az adatok lekérdezése során", error);
       });
-      
+
     setIsLoading(false);
   }, [jwt, subject, setIsLoading]);
 
@@ -189,7 +189,7 @@ export function LandingPage({ children, setIsLoading, isLoading }) {
                 color="error"
                 onClick={modalStayClosed}
               >
-                Ne mutassa!
+                Ne jelenjen meg újra!
               </Button>
 
               <SignInButton component={Link} to="/AboutUs">

@@ -68,10 +68,10 @@ export function ResAppBar({ setIsLoading }) {
                   anchor="right"
                   open={drawerOpen}
                   onClose={toggleDrawer}
-                  sx={{ "& .MuiDrawer-paper": { backgroundColor: "#87a19f", height: '40vh'  }}}
+                  sx={{ "& .MuiDrawer-paper": { backgroundColor: "#87a19f", height: '40vh' } }}
                 >
                   <Box
-                    sx={{ width: 250, height: '100vh'}}
+                    sx={{ width: 250, height: '100vh' }}
                     role="presentation"
                     onClick={toggleDrawer}
                     onKeyDown={toggleDrawer}

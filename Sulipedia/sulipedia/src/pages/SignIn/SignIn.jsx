@@ -50,7 +50,7 @@ export default function SignIn({ setIsLoading }) {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    
+
     if (formData.usernameOrEmail === "a" && formData.passwordRaw === "a") {
       localStorage.setItem("currentUserId", 0);
       navigate("/kezdo");
