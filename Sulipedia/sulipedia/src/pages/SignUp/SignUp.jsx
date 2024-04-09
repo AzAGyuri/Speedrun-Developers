@@ -114,6 +114,7 @@ export default function SignUp({ children, setIsLoading }) {
     }));
 
     resetErrorState(name);
+    validateForm();
   };
 
   const resetErrorState = (name) => {
@@ -147,17 +148,17 @@ export default function SignUp({ children, setIsLoading }) {
       setEmailError(true);
     }
 
-    const passwordRegex =
-      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
-    if (!passwordRegex.test(formData.password)) {
+    if (formData.password.length < 8 || !/\d/.test(formData.password) || !/[a-zA-Z]/.test(formData.password)) {
       setPasswordError(true);
+    } else {
+      setPasswordError(false);
     }
 
     if (formData.surName.length < 3) {
       setLastNameError(true);
     }
 
-    if (formData.realName.length < 3) {
+    if (formData.realName.length < 2) {
       setFirstNameError(true);
     }
     if (
