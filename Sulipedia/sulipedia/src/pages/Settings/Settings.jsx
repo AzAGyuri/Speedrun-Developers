@@ -62,6 +62,7 @@ export function Settings({ children, setIsLoading, isLoading }) {
     password: "",
   });
   const [passwordError, setPasswordError] = useState(false);
+  const [avatar, setAvatar] = useState("");
 
   const handleEmailChange = (newEmail) => {
     setEmail(newEmail);
@@ -109,14 +110,6 @@ export function Settings({ children, setIsLoading, isLoading }) {
   };
 
   const currentUserId = localStorage.getItem("currentUserId");
-  const [userData, setUserData] = useState({
-    email: "pelda@email.com",
-    username: "John Doe",
-    phoneNumber: "123-456-7890",
-    registrationDate: "2024-03-01",
-    userId: "123456789",
-    profileImage: "path/to/profile-image.jpg",
-  });
 
   useEffect(() => {
     if (currentUserId !== 0) {
@@ -130,11 +123,17 @@ export function Settings({ children, setIsLoading, isLoading }) {
         })
         .then((response) => {
           const user = response.data;
-          const nickname = user.nickname === null ? user.nickname : user.username
-
+          let nickname = user.nickname === null ? "" : user.nickname;
+          if (user.nickname !== null) nickname = user.nickname.length === 0 ? "" : user.nickname;
           setEmail(user.email);
-          setPhoneNumber(user.phoneNumber);
+          let phoneNumber = user.phoneNumber === null ? "" : user.phoneNumber;
+          if (user.phoneNumber !== null) phoneNumber = user.phoneNumber.length === 0 ? "" : user.phoneNumber;
+          setPhoneNumber(phoneNumber);
           setNickname(nickname);
+
+          let avatar = user.nickname === null ? user.username : user.nickname;
+          if (user.nickname !== null) avatar = user.nickname.length === 0 ? user.username : user.nickname;
+          setAvatar(avatar);
         })
         .catch((error) => {
           console.error("Hiba történt adat lekérdezéskor", error);
@@ -153,7 +152,7 @@ export function Settings({ children, setIsLoading, isLoading }) {
           <Grid container spacing={2}>
             <Grid item xs={12}>
               <Avatar className="Avatar-icon" style={styles.avatar}>
-                {nickname.length > 0 ? nickname[0].toUpperCase() : null}
+                {avatar.length > 0 ? avatar[0].toUpperCase() : null}
               </Avatar>
             </Grid>
             <Grid item xs={12}>
