@@ -19,7 +19,7 @@ import { Tooltip } from "@mui/material";
 
 const defaultTheme = createTheme();
 
-export default function SignUp({children}) {
+export default function SignUp({ children, setIsLoading }) {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     surName: "",
@@ -41,14 +41,32 @@ export default function SignUp({children}) {
 
   useEffect(() => {
     if (localStorage.getItem("jwt") !== null) {
-      navigate("/kezdo");
+      axios
+        .get("/validatetoken", {
+          headers: { Authorization: localStorage.getItem("jwt") },
+        })
+        .then(() => {
+          navigate("/kezdo");
+          setIsLoading(true);
+        })
+        .catch(() => {
+          console.log(
+            "Token invalid a backend szerint; folytatjuk a regisztrációhoz, navigálás nem történik."
+          );
+        });
     }
-  }, []);
+  }, [navigate, setIsLoading]);
 
   const handleSubmit = (event) => {
     event.preventDefault();
     validateForm();
-    console.log(emailError, passwordError, lastNameError, firstNameError, phoneError);
+    console.log(
+      emailError,
+      passwordError,
+      lastNameError,
+      firstNameError,
+      phoneError
+    );
     console.log(isFormValid());
     if (isFormValid()) {
       const finalFormData = {
@@ -63,8 +81,8 @@ export default function SignUp({children}) {
         .then((response) => {
           localStorage.setItem("jwt", `Bearer ${response.headers.jwt}`);
           localStorage.setItem("currentUserId", response.data.id);
+          setIsLoading(true);
           navigate("/kezdo");
-          window.location.reload();
         })
         .catch((error) => {
           let errorCode = error.config.data.status;
@@ -142,7 +160,10 @@ export default function SignUp({children}) {
     if (formData.realName.length < 3) {
       setFirstNameError(true);
     }
-    if (formData.phone && !(formData.phone.length > 10 && formData.phone.length < 13 )) {
+    if (
+      formData.phone &&
+      !(formData.phone.length > 10 && formData.phone.length < 13)
+    ) {
       setPhoneError(true);
     }
 

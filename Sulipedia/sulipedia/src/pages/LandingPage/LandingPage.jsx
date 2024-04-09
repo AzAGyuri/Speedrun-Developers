@@ -7,17 +7,18 @@ import {
   Modal,
   TextField,
 } from "@mui/material";
-import { color, styled } from "@mui/system";
+import useMediaQuery from "@mui/material/useMediaQuery";
+import { styled } from "@mui/system";
+import PublicIcon from "@mui/icons-material/Public";
 import { Link } from "react-router-dom";
 import "./LandingPage.css";
-import PublicIcon from "@mui/icons-material/Public";
+import { Loading } from "../../components/Loading/Loading";
 
 import mathematics from "../../resources/mat.png";
 import grammer from "../../resources/grammer.png";
 import history from "../../resources/history.png";
 import it from "../../resources/it.png";
 import iteng from "../../resources/iteng.png";
-import useMediaQuery from "@mui/material/useMediaQuery";
 import axios from "axios";
 
 const HeaderTypography = styled(Typography)({
@@ -31,7 +32,7 @@ const SubheaderTypography = styled(Typography)({
 const BottomButtonsContainer = styled(Container)({
   display: "flex",
   justifyContent: "space-between",
-  alignItems: "center", // Add this line to vertically center the items
+  alignItems: "center",
   marginTop: "32px",
   width: "100%",
 });
@@ -73,7 +74,7 @@ const styleSmall = {
   p: 4,
 };
 
-export function LandingPage({ children, setIsLoading }) {
+export function LandingPage({ children, setIsLoading, isLoading }) {
   const [posts, setPosts] = useState([]);
   const [open, setOpen] = useState(
     sessionStorage.getItem("modalOpen") === "false" ? false : true
@@ -125,9 +126,12 @@ export function LandingPage({ children, setIsLoading }) {
       .catch((error) => {
         console.error("Hiba történt az adatok lekérdezése során", error);
       });
-  }, [subject]);
+    setIsLoading(false);
+  }, [jwt, subject, setIsLoading]);
 
   console.log(entries);
+
+  if (isLoading) return <Loading />;
 
   return (
     <>
