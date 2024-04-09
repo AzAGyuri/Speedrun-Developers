@@ -17,6 +17,12 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import "./SignUp.css";
 import { Tooltip } from "@mui/material";
 
+import PhoneInput from 'react-phone-input-2'
+import 'react-phone-input-2/lib/style.css'
+import LocalPhoneIcon from '@mui/icons-material/LocalPhone';
+import AccountCircle from '@mui/icons-material/AccountCircle';
+import InputAdornment from '@mui/material/InputAdornment';
+
 const defaultTheme = createTheme();
 
 export default function SignUp({ children, setIsLoading }) {
@@ -156,14 +162,14 @@ export default function SignUp({ children, setIsLoading }) {
     if (formData.surName.length < 2) {
       setLastNameError(true);
     }
-    else{
+    else {
       setLastNameError(false);
     }
 
     if (formData.realName.length < 3) {
       setFirstNameError(true);
     }
-    else{
+    else {
       setFirstNameError(false);
     }
     if (
@@ -356,8 +362,16 @@ export default function SignUp({ children, setIsLoading }) {
                   />
                 </Grid>
                 <Grid item xs={12}>
+                
                   <TextField
-                    fullWidth
+                  fullWidth
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start">
+                       <LocalPhoneIcon></LocalPhoneIcon>
+                      </InputAdornment>
+                    ),
+                  }}
                     name="phone"
                     label="Telefonszám (opcionális)"
                     type="tel"
@@ -367,10 +381,12 @@ export default function SignUp({ children, setIsLoading }) {
                     error={phoneError}
                     helperText={
                       phoneError
-                        ? "Érvénytelen telefonszám (11 számjegy szükséges)"
+                        ? "Érvénytelen telefonszám (11 vagy 12 számjegy szükséges)"
                         : ""
                     }
                     variant="outlined"
+                   
+                    
                   />
                 </Grid>
               </Grid>
