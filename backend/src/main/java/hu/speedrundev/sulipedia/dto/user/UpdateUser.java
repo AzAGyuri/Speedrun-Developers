@@ -13,13 +13,15 @@ import lombok.Setter;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class UpdateUser {
 
-  private String userName;
+  private String nickname;
 
   private String email;
 
   private String password;
 
+  private String phoneNumber;
+
   public boolean isAllNull() {
-    return userName == null && email == null && password == null;
+    return nickname == null && email == null && password == null;
   }
 }

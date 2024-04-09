@@ -30,7 +30,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @Getter
 @Setter
@@ -143,11 +142,9 @@ public class User {
 
   public boolean isAllUnchanged(UpdateUser changes) {
     return (
-      this.username.equals(changes.getUserName()) &&
-      this.userPassword.equals(
-          new BCryptPasswordEncoder().encode(changes.getPassword())
-        ) &&
-      this.email.equals(changes.getEmail())
+      this.nickname.equals(changes.getNickname()) &&
+      this.email.equals(changes.getEmail()) &&
+      this.phoneNumber.equals(changes.getPhoneNumber())
     );
   }
 

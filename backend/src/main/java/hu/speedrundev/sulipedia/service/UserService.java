@@ -13,6 +13,7 @@ import hu.speedrundev.sulipedia.dto.user.UserList;
 import hu.speedrundev.sulipedia.model.Roles;
 import hu.speedrundev.sulipedia.model.User;
 import hu.speedrundev.sulipedia.repository.UserRepository;
+import hu.speedrundev.sulipedia.util.JwtUtil;
 import jakarta.validation.Valid;
 import java.time.Instant;
 import java.util.Date;
@@ -26,6 +27,12 @@ public class UserService {
 
   @Autowired
   private UserRepository repository;
+
+  @Autowired
+  private JwtUtil jwtUtil;
+
+  @Autowired
+  private BCryptPasswordEncoder passwordEncoder;
 
   public UserList listAllUsers() {
     return new UserList(repository.findAllNotDeleted());
@@ -41,7 +48,7 @@ public class UserService {
 
   public UserList getNewUsersSinceDate(Date date) {
     if (date == null) throw nullPointer();
-    
+
     return new UserList(repository.getUsersCreatedSinceDate(date));
   }
 
@@ -60,43 +67,59 @@ public class UserService {
 
   public GetUserWithID createUser(PostUser user) {
     if (user == null) throw nullPointer();
-    if (repository.existsUserByUsername(user.getUsername()) || repository.existsUserByEmail(user.getEmail())) throw notUnique(
-      "USER_ALREADY_EXISTS"
-    );
+    if (
+      repository.existsUserByUsername(user.getUsername()) ||
+      repository.existsUserByEmail(user.getEmail())
+    ) throw notUnique("USER_ALREADY_EXISTS");
 
-    user.setPasswordRaw(new BCryptPasswordEncoder().encode(user.getPasswordRaw()));
+    user.setPasswordRaw(
+      new BCryptPasswordEncoder().encode(user.getPasswordRaw())
+    );
 
     return new GetUserWithID(repository.save(new User(user)));
   }
 
-  public GetUser updateUser(Integer id, UpdateUser changes) {
-    if (id == null || changes == null) throw nullPointer();
+  public GetUser updateUser(UpdateUser changes, String jwt) {
+    if (jwt == null || changes == null) throw nullPointer();
     if (changes.isAllNull()) throw badRequest("INPUTS_ALL_NULL");
-    if (isNotUserById(id)) throw modelNotFound("USER_NOT_FOUND");
+
+    String subject = jwtUtil.getSubject(jwt);
+
+    if (!repository.existsUserByUsername(subject)) throw modelNotFound(
+      "USER_NOT_FOUND"
+    );
 
     if (
-      repository.existsUserByUsername(changes.getUserName()) &&
+      repository.existsUserByUsername(changes.getNickname()) &&
       repository.existsUserByEmail(changes.getEmail())
     ) throw notUnique("USERNAME_ALREADY_TAKEN");
 
-    User oldData = repository.getReferenceById(id);
+    User oldData = repository.getByUsername(subject);
 
-    if (oldData.isAllUnchanged(changes)) throw badRequest(
-      "NEW_DATA_IDENTICAL_TO_OLD"
-    );
+    if (
+      passwordEncoder.matches(
+        changes.getPassword(),
+        oldData.getUserPassword()
+      ) &&
+      oldData.isAllUnchanged(changes)
+    ) throw badRequest("NEW_DATA_IDENTICAL_TO_OLD");
 
-    User updatingUser = repository.getReferenceById(id);
+    User updatingUser = repository.getByUsername(subject);
 
     if (changes.getEmail() != null) {
       updatingUser.setEmail(changes.getEmail());
     }
 
-    if (changes.getUserName() != null) {
-      updatingUser.setUsername(changes.getUserName());
+    if (changes.getNickname() != null) {
+      updatingUser.setUsername(changes.getNickname());
     }
 
     if (changes.getPassword() != null) {
       updatingUser.setUserPassword(changes.getPassword());
+    }
+
+    if (changes.getPhoneNumber() != null) {
+      updatingUser.setPhoneNumber(changes.getPhoneNumber());
     }
 
     if (oldData.isAllUnchanged(updatingUser)) throw badRequest(
