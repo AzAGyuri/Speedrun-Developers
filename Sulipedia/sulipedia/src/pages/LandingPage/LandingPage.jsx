@@ -126,6 +126,7 @@ export function LandingPage({ children, setIsLoading, isLoading }) {
       .catch((error) => {
         console.error("Hiba történt az adatok lekérdezése során", error);
       });
+      
     setIsLoading(false);
   }, [jwt, subject, setIsLoading]);
 
