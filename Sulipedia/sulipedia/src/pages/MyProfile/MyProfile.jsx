@@ -116,13 +116,11 @@ export function MyProfile({ children, setIsLoading, isLoading }) {
         })
         .then((response) => {
           const user = response.data;
-          if (user.nickname === null){
-            user.nickname = user.username;
-          }
+          const nickname = user.nickname === null ? user.nickname : user.username
           setUserData({
             email: user.email,
             username: user.username,
-            nickname: user.nickname,
+            nickname: nickname,
             phoneNumber: user.phoneNumber ? user.phoneNumber : "N/A",
             registrationDate: user.createdOn.split("T")[0],
             userId: currentUserId,
