@@ -30,6 +30,8 @@ import java.time.Instant;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Predicate;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
@@ -65,7 +67,7 @@ public class EntryService {
       entryRepository
         .findAll()
         .stream()
-        .filter(entry -> entry.getTest() == null)
+        .filter(Predicate.not(Entry::getTest))
         .toList()
     );
 
@@ -79,7 +81,7 @@ public class EntryService {
       entryRepository
         .findAll()
         .stream()
-        .filter(entry -> entry.getTest() != null)
+        .filter(Entry::getTest)
         .toList()
     );
 
