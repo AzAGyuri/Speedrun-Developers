@@ -24,11 +24,11 @@ export default function SignUp({ children, setIsLoading }) {
   const [formData, setFormData] = useState({
     surName: "",
     realName: "",
-    nickname: "",
+    nickname: null,
     email: "",
     password: "",
     confirmPassword: "",
-    phone: "",
+    phone: null,
     allowExtraEmails: false,
   });
 
@@ -60,14 +60,6 @@ export default function SignUp({ children, setIsLoading }) {
   const handleSubmit = (event) => {
     event.preventDefault();
     validateForm();
-    console.log(
-      emailError,
-      passwordError,
-      lastNameError,
-      firstNameError,
-      phoneError
-    );
-    console.log(isFormValid());
     if (isFormValid()) {
       const finalFormData = {
         username: `${formData.surName} ${formData.realName}`,
@@ -107,7 +99,6 @@ export default function SignUp({ children, setIsLoading }) {
 
   const handleChange = (event) => {
     const { name, value, type, checked } = event.target;
-    console.log(event.target);
     setFormData((prevData) => ({
       ...prevData,
       [name]: type === "checkbox" ? checked : value,
@@ -176,7 +167,6 @@ export default function SignUp({ children, setIsLoading }) {
     if (formData.password !== formData.confirmPassword) {
       setPasswordError(true);
     }
-    console.log(isFormValid());
   };
 
   const isFormValid = () => {
