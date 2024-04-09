@@ -248,7 +248,10 @@ export function MyGroups({ children }) {
 
     handleCloseAddMember();
 
+    handleOpenMembers(updatedGroup);
+
     setNewMemberName('');
+    
   }
 
   const handleDeleteMember = (memberId) => {
@@ -260,6 +263,7 @@ export function MyGroups({ children }) {
       group.id === selectedGroup.id ? updatedGroup : group
     );
     setGroups(updatedGroups);
+    handleOpenMembers(updatedGroup);
   };
 
   return (
