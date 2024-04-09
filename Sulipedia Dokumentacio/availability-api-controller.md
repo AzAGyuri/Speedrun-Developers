@@ -1,6 +1,5 @@
 ### Availability API Controller
 
-
 Ez az osztály szolgál az Elérhetőség API végpontjainak kezelésére.
 
 #### Végpontok:
