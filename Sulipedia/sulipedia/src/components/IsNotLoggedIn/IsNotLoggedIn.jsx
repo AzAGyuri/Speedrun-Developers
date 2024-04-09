@@ -7,7 +7,7 @@ export function IsNotLoggedIn() {
   useEffect(() => {
     if (
       localStorage.getItem("jwt") === null &&
-      localStorage.getItem("currentUserId") != 0
+      localStorage.getItem("currentUserId") !== "0"
     ) {
       navigate("/signIn");
     }
