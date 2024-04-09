@@ -131,15 +131,10 @@ export function Settings({ children, setIsLoading, isLoading }) {
         .then((response) => {
           const user = response.data;
           const nickname = user.nickname === null ? user.nickname : user.username
-          setUserData({
-            email: user.email,
-            username: user.username,
-            nickname: nickname,
-            phoneNumber: user.phoneNumber ? user.phoneNumber : "N/A",
-            registrationDate: user.createdOn.split("T")[0],
-            userId: currentUserId,
-            profileImage: user.profilePictureBase64,
-          });
+
+          setEmail(user.email);
+          setPhoneNumber(user.phoneNumber);
+          setNickname(nickname);
         })
         .catch((error) => {
           console.error("Hiba történt adat lekérdezéskor", error);
@@ -221,7 +216,7 @@ export function Settings({ children, setIsLoading, isLoading }) {
                 }}
                 InputLabelProps={{
                   style: {
-                    color: passwordError ? "#8B0000" : "inherit",
+                    color: passwordError ? "#8B0000" : "black",
                   },
                 }}
               />
