@@ -21,7 +21,7 @@ import { Tests } from "./pages/Tests/Tests";
 import { LearnMore } from "./pages/LearnMore/LearnMore";
 import { Curriculums } from "./pages/Curriculums/Curriculums";
 import { Tooltip } from "@mui/material";
-import { IsNotLoggedIn } from "./components/IsLoggedIn/IsNotLoggedIn";
+import { IsNotLoggedIn } from "./components/IsNotLoggedIn/IsNotLoggedIn";
 import { useState } from "react";
 
 function App() {
