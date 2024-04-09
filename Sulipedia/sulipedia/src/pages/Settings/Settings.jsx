@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Container,
   Typography,
@@ -75,12 +75,23 @@ export function Settings({ children }) {
 
   const handlePasswordChange = (newPassword) => {
     setFormData((prevData) => ({ ...prevData, password: newPassword }));
-    if (formData.password.length <=6 || !/\d/.test(formData.password) || !/[a-zA-Z]/.test(formData.password)) {
-      setPasswordError(true);
+  };
+
+  useEffect(() => {
+    if (formData.password.length !== 0) {
+      if (
+        formData.password.length < 8 ||
+        !/\d/.test(formData.password) ||
+        !/[a-zA-Z]/.test(formData.password)
+      ) {
+        setPasswordError(true);
+      } else {
+        setPasswordError(false);
+      }
     } else {
       setPasswordError(false);
     }
-  };
+  }, [formData]);
 
   const handleSaveChanges = () => {
     if (!passwordError) {
@@ -168,7 +179,7 @@ export function Settings({ children }) {
                 }}
                 InputLabelProps={{
                   style: {
-                    color: passwordError ? "#8B0000" : "inherit", 
+                    color: passwordError ? "#8B0000" : "inherit",
                   },
                 }}
               />
