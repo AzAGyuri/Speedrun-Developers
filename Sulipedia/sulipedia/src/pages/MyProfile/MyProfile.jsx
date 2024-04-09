@@ -102,6 +102,7 @@ export function MyProfile({ children, setIsLoading, isLoading }) {
     registrationDate: "2024-03-01",
     userId: "123456789",
     profileImage: "path/to/profile-image.jpg",
+    randomPfPBgColor: ""
   });
 
   useEffect(() => {
@@ -126,7 +127,9 @@ export function MyProfile({ children, setIsLoading, isLoading }) {
             registrationDate: user.createdOn.split("T")[0],
             userId: currentUserId,
             profileImage: user.profilePictureBase64,
+            randomPfPBgColor: user.randomPfPBgColor,
           });
+          console.log(userData);
         })
         .catch((error) => {
           console.error("Hiba történt adat lekérdezéskor", error);
@@ -141,7 +144,7 @@ export function MyProfile({ children, setIsLoading, isLoading }) {
     <Container maxWidth="lg" style={styles.container}>
       {children}
       <Paper elevation={5} style={styles.paper}>
-        <Avatar style={styles.avatar}>
+        <Avatar style={{...styles.avatar, backgroundColor: userData.randomPfPBgColor}}>
           {userData.username.length > 0
             ? userData.username[0].toUpperCase()
             : null}

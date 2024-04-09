@@ -19,6 +19,7 @@ public class GetUserWithEntries extends GetUser {
     String email,
     String nickname,
     String phoneNumber,
+    String randomPfPBgColor,
     String profilePictureBase64,
     Date birthDate,
     Date createdOn,
@@ -32,6 +33,7 @@ public class GetUserWithEntries extends GetUser {
       email,
       nickname,
       phoneNumber,
+      randomPfPBgColor,
       profilePictureBase64,
       birthDate,
       createdOn,
@@ -48,6 +50,7 @@ public class GetUserWithEntries extends GetUser {
       user.getEmail(),
       user.getNickname(),
       user.getPhoneNumber(),
+      user.getRandomPfPBgColor(),
       user.getProfilePicture() == null
         ? ""
         : Base64.getEncoder().encodeToString(user.getProfilePicture()),

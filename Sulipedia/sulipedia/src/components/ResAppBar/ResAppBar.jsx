@@ -22,7 +22,6 @@ import PersonIcon from "@mui/icons-material/Person";
 import ManageAccountsIcon from "@mui/icons-material/ManageAccounts";
 import EngineeringIcon from "@mui/icons-material/Engineering";
 import LogoutIcon from "@mui/icons-material/Logout";
-import { height } from "@mui/system";
 
 export function ResAppBar({ setIsLoading }) {
   const isSmallScreen = useMediaQuery("(max-width:950px)");
