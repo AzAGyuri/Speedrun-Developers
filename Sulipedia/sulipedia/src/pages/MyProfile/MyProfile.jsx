@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Container, Typography, Avatar, Paper, Button } from "@mui/material";
+import { Loading } from "../../components/Loading/Loading";
 import axios from "axios";
 
 const styles = {
@@ -102,9 +103,8 @@ export function MyProfile({ children, setIsLoading, isLoading }) {
     userId: "123456789",
     profileImage: "path/to/profile-image.jpg",
   });
-  
+
   useEffect(() => {
-    setIsLoading(false);
     if (currentUserId !== 0) {
       axios
         .request({
@@ -124,15 +124,15 @@ export function MyProfile({ children, setIsLoading, isLoading }) {
             userId: currentUserId,
             profileImage: user.profilePictureBase64,
           });
-          setIsLoading(false);
         })
         .catch((error) => {
           console.error("Hiba történt adat lekérdezéskor", error);
-          setIsLoading(false);
         });
     }
-  }, []);
-  console.log(isLoading);
+    setIsLoading(false);
+  }, [currentUserId, setIsLoading, isLoading]);
+
+  if (isLoading) return <Loading />;
 
   return (
     <Container maxWidth="lg" style={styles.container}>

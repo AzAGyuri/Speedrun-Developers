@@ -61,11 +61,31 @@ public class EntryService {
   private JwtUtil jwtUtil;
 
   public EntryList getEntriesByOptionalCategory(SubjectDto subject) {
-    if (subject == null || subject.toString().isBlank()) {
-      return new EntryList(entryRepository.findAll());
-    }
+    if (subject == null || subject.toString().isBlank()) return new EntryList(
+      entryRepository
+        .findAll()
+        .stream()
+        .filter(entry -> entry.getTest() == null)
+        .toList()
+    );
 
-    return new EntryList(entryRepository.findAllBySubject(subject.toString()));
+    return new EntryList(
+      entryRepository.findAllEntriesBySubject(subject.toString())
+    );
+  }
+
+  public EntryList getTestsByOptionalCategory(SubjectDto subject) {
+    if (subject == null || subject.toString().isBlank()) return new EntryList(
+      entryRepository
+        .findAll()
+        .stream()
+        .filter(entry -> entry.getTest() != null)
+        .toList()
+    );
+
+    return new EntryList(
+      entryRepository.findAllTestsBySubject(subject.toString())
+    );
   }
 
   public GetEntry getEntry(Integer id) {
@@ -91,7 +111,7 @@ public class EntryService {
     if (author.isEmpty()) throw modelNotFound("AUTHOR_NOT_FOUND");
 
     if (
-      !schoolClassRepository.existsByClassName(entry.getSchoolClass())
+      schoolClassRepository.existsByClassName(entry.getSchoolClass()) != 1
     ) throw modelNotFound("SCHOOL_CLASS_NOT_FOUND");
 
     if (entry.getTest() && entry.getQuestions().isEmpty()) throw badRequest(
@@ -105,6 +125,8 @@ public class EntryService {
         schoolClassRepository.getClassByClassName(entry.getSchoolClass())
       )
     );
+
+    System.out.println(savedEntry.getId());
 
     if (files != null) if (files.length != 0) {
       List<MultipartFile> fileList = Arrays.asList(files);
@@ -136,7 +158,7 @@ public class EntryService {
       );
     }
 
-    return new GetEntryWithID(entryRepository.save(savedEntry));
+    return new GetEntryWithID((savedEntry));
   }
 
   public GetEntry updateEntry(Integer id, UpdateEntry changes) {

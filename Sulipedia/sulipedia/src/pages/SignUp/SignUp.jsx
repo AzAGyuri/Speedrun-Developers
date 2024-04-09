@@ -19,7 +19,7 @@ import { Tooltip } from "@mui/material";
 
 const defaultTheme = createTheme();
 
-export default function SignUp({children}) {
+export default function SignUp({ children, setIsLoading }) {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     surName: "",
@@ -41,14 +41,32 @@ export default function SignUp({children}) {
 
   useEffect(() => {
     if (localStorage.getItem("jwt") !== null) {
-      navigate("/kezdo");
+      axios
+        .get("/validatetoken", {
+          headers: { Authorization: localStorage.getItem("jwt") },
+        })
+        .then(() => {
+          navigate("/kezdo");
+          setIsLoading(true);
+        })
+        .catch(() => {
+          console.log(
+            "Token invalid a backend szerint; folytatjuk a regisztrációhoz, navigálás nem történik."
+          );
+        });
     }
-  }, []);
+  }, [navigate, setIsLoading]);
 
   const handleSubmit = (event) => {
     event.preventDefault();
     validateForm();
-    console.log(emailError, passwordError, lastNameError, firstNameError, phoneError);
+    console.log(
+      emailError,
+      passwordError,
+      lastNameError,
+      firstNameError,
+      phoneError
+    );
     console.log(isFormValid());
     if (isFormValid()) {
       const finalFormData = {
@@ -62,8 +80,9 @@ export default function SignUp({children}) {
         .post("/register", finalFormData)
         .then((response) => {
           localStorage.setItem("jwt", `Bearer ${response.headers.jwt}`);
+          localStorage.setItem("currentUserId", response.data.id);
+          setIsLoading(true);
           navigate("/kezdo");
-          window.location.reload();
         })
         .catch((error) => {
           let errorCode = error.config.data.status;
@@ -134,22 +153,24 @@ export default function SignUp({children}) {
       setPasswordError(true);
     }
 
-    if (formData.surName.length < 2) {
+    if (formData.surName.length < 3) {
       setLastNameError(true);
     }
 
     if (formData.realName.length < 3) {
       setFirstNameError(true);
     }
-
-    const phoneRegex = /^\d{11}$/;
-    if (formData.phone && !phoneRegex.test(formData.phone)) {
+    if (
+      formData.phone &&
+      !(formData.phone.length > 10 && formData.phone.length < 13)
+    ) {
       setPhoneError(true);
     }
 
     if (formData.password !== formData.confirmPassword) {
       setPasswordError(true);
     }
+    console.log(isFormValid());
   };
 
   const isFormValid = () => {
@@ -214,7 +235,7 @@ export default function SignUp({children}) {
                     error={lastNameError}
                     helperText={
                       lastNameError
-                        ? "Vezetéknév legalább 3 karakter hosszú kell legyen"
+                        ? "A vezetéknév legalább 3 karakter hosszú kell, hogy legyen legyen"
                         : ""
                     }
                     variant="outlined"
@@ -235,7 +256,7 @@ export default function SignUp({children}) {
                     error={firstNameError}
                     helperText={
                       firstNameError
-                        ? "Keresztnév legalább 3 karakter hosszú kell legyen"
+                        ? "A Keresztnév legalább 3 karakter hosszú kell, hogy legyen"
                         : ""
                     }
                     variant="outlined"

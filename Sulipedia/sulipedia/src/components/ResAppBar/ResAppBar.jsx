@@ -18,12 +18,12 @@ import SulipediaLogo from "../../resources/logo.png";
 import FormatListBulletedTwoToneIcon from "@mui/icons-material/FormatListBulletedTwoTone";
 import SupervisedUserCircleTwoToneIcon from "@mui/icons-material/SupervisedUserCircleTwoTone";
 
-import PersonIcon from '@mui/icons-material/Person';
-import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
-import EngineeringIcon from '@mui/icons-material/Engineering';
-import LogoutIcon from '@mui/icons-material/Logout';
+import PersonIcon from "@mui/icons-material/Person";
+import ManageAccountsIcon from "@mui/icons-material/ManageAccounts";
+import EngineeringIcon from "@mui/icons-material/Engineering";
+import LogoutIcon from "@mui/icons-material/Logout";
 
-export function ResAppBar() {
+export function ResAppBar({ setIsLoading }) {
   const isSmallScreen = useMediaQuery("(max-width:950px)");
   const [anchorElUser, setAnchorElUser] = React.useState(null);
   const [drawerOpen, setDrawerOpen] = React.useState(false);
@@ -44,6 +44,10 @@ export function ResAppBar() {
 
   const toggleDrawer = () => {
     setDrawerOpen(!drawerOpen);
+  };
+
+  const beforeNavigate = () => {
+    setIsLoading(true);
   };
 
   return (
@@ -77,6 +81,7 @@ export function ResAppBar() {
                         to="/kezdo"
                         rel="noreferrer"
                         style={{ textDecoration: "none", color: "black" }}
+                        onClick={beforeNavigate}
                       >
                         <MenuItem
                           sx={{
@@ -94,6 +99,7 @@ export function ResAppBar() {
                     <Link
                       to="/Curriculums"
                       style={{ textDecoration: "none", color: "black" }}
+                      onClick={beforeNavigate}
                     >
                       <MenuItem
                         sx={{
@@ -110,6 +116,7 @@ export function ResAppBar() {
                     <Link
                       to="/Tests"
                       style={{ textDecoration: "none", color: "black" }}
+                      onClick={beforeNavigate}
                     >
                       <MenuItem
                         sx={{
@@ -126,6 +133,7 @@ export function ResAppBar() {
                     <Link
                       to="/MyGroups"
                       style={{ textDecoration: "none", color: "black" }}
+                      onClick={beforeNavigate}
                     >
                       <MenuItem
                         sx={{
@@ -146,7 +154,7 @@ export function ResAppBar() {
               <>
                 <div>
                   <Tooltip title="Főoldal">
-                    <Link to="/kezdo" rel="noreferrer">
+                    <Link to="/kezdo" rel="noreferrer" onClick={beforeNavigate}>
                       <img
                         alt="Sulipedia logója"
                         id="suliLogo"
@@ -178,6 +186,7 @@ export function ResAppBar() {
                       rel="noreferrer"
                       style={{ textDecoration: "none", color: "white" }}
                       underline="none"
+                      onClick={beforeNavigate}
                     >
                       Sulipedia
                     </Link>
@@ -191,6 +200,7 @@ export function ResAppBar() {
                     underline="none"
                     rel="noreferrer"
                     color="inherit"
+                    onClick={beforeNavigate}
                   >
                     <Button
                       className="menuk"
@@ -212,6 +222,7 @@ export function ResAppBar() {
                     underline="none"
                     rel="noreferrer"
                     color="inherit"
+                    onClick={beforeNavigate}
                   >
                     <Button
                       className="menuk"
@@ -233,6 +244,7 @@ export function ResAppBar() {
                     underline="none"
                     rel="noreferrer"
                     color="inherit"
+                    onClick={beforeNavigate}
                   >
                     <Button
                       className="menuk"
@@ -252,7 +264,7 @@ export function ResAppBar() {
               </>
             )}
 
-            <Box sx={{ flexGrow: 0}}>
+            <Box sx={{ flexGrow: 0 }}>
               <Tooltip title="Beállítások, Profilom, Kijelentkezés, stb">
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                   <Avatar>
@@ -263,7 +275,7 @@ export function ResAppBar() {
               </Tooltip>
 
               <Menu
-                sx={{ mt: "45px"}}
+                sx={{ mt: "45px" }}
                 id="menu-appbar"
                 anchorEl={anchorElUser}
                 anchorOrigin={{
@@ -284,6 +296,7 @@ export function ResAppBar() {
                   underline="none"
                   rel="noreferrer"
                   color="inherit"
+                  onClick={beforeNavigate}
                 >
                   <MenuItem
                     onClick={handleCloseUserMenu}
@@ -303,7 +316,9 @@ export function ResAppBar() {
                     }}
                   >
                     <PersonIcon />
-                    <Typography textAlign="center" sx={{ marginLeft: 1 }}>Profilom</Typography>
+                    <Typography textAlign="center" sx={{ marginLeft: 1 }}>
+                      Profilom
+                    </Typography>
                   </MenuItem>
                 </Link>
 
@@ -313,6 +328,7 @@ export function ResAppBar() {
                   underline="none"
                   rel="noreferrer"
                   color="inherit"
+                  onClick={beforeNavigate}
                 >
                   <MenuItem
                     onClick={handleCloseUserMenu}
@@ -321,7 +337,7 @@ export function ResAppBar() {
                       color: "black",
                       display: "flex",
                       alignItems: "center",
-                      
+
                       borderBottom: "6px solid rgba(0, 0, 0, 0.5)",
                       backgroundColor: "rgba(25, 118, 210, 0.8)",
                       transition: "background-color 0.3s ease",
@@ -331,7 +347,9 @@ export function ResAppBar() {
                     }}
                   >
                     <ManageAccountsIcon />
-                    <Typography textAlign="center" sx={{ marginLeft: 1 }}>Beállítások</Typography>
+                    <Typography textAlign="center" sx={{ marginLeft: 1 }}>
+                      Beállítások
+                    </Typography>
                   </MenuItem>
                 </Link>
 
@@ -349,7 +367,7 @@ export function ResAppBar() {
                       color: "black",
                       display: "flex",
                       alignItems: "center",
-                    
+
                       borderBottom: "6px solid rgba(0, 0, 0, 0.5)",
                       backgroundColor: "rgba(25, 118, 210, 0.8)",
                       transition: "background-color 0.3s ease",
@@ -371,6 +389,7 @@ export function ResAppBar() {
                   underline="none"
                   rel="noreferrer"
                   color="inherit"
+                  onClick={beforeNavigate}
                 >
                   <MenuItem
                     onClick={handleLogOut}
@@ -389,7 +408,9 @@ export function ResAppBar() {
                     }}
                   >
                     <LogoutIcon />
-                    <Typography textAlign="center" sx={{ marginLeft: 1 }}>Kilépés</Typography>
+                    <Typography textAlign="center" sx={{ marginLeft: 1 }}>
+                      Kilépés
+                    </Typography>
                   </MenuItem>
                 </Link>
               </Menu>

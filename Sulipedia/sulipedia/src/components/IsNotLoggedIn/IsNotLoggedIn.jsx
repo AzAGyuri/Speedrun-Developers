@@ -2,7 +2,7 @@ import axios from "axios";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
-export function IsLoggedIn() {
+export function IsNotLoggedIn() {
   const navigate = useNavigate();
   useEffect(() => {
     if (localStorage.getItem("jwt") === null) {
