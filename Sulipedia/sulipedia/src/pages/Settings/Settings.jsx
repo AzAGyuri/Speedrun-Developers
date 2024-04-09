@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Container,
   Typography,
@@ -10,6 +10,8 @@ import {
   Link,
 } from "@mui/material";
 import "./Settings.css";
+import { Loading } from "../../components/Loading/Loading";
+import axios from "axios";
 
 const styles = {
   container: {
@@ -18,14 +20,11 @@ const styles = {
     justifyContent: "center",
     alignItems: "center",
     height: "100vh",
-    //background: 'linear-gradient(135deg, #ffd500 0%, #f7971e 100%)',
-    //background: 'linear-gradient(135deg, #3494E6 0%, #EC6EAD 100%)',
   },
   paper: {
     padding: "40px",
     borderRadius: "12px",
     boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
-    //background: 'linear-gradient(45deg, #ffe259 30%, #ffa751 90%)',
     background: "linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)",
     color: "white",
     maxWidth: "600px",
@@ -55,7 +54,7 @@ const styles = {
   },
 };
 
-export function Settings({ children }) {
+export function Settings({ children, setIsLoading, isLoading }) {
   const [email, setEmail] = useState("felhasznalo@pelda.com");
   const [phoneNumber, setPhoneNumber] = useState("123-456-7890");
   const [nickname, setNickname] = useState("Felhasznalo1");
@@ -63,6 +62,7 @@ export function Settings({ children }) {
     password: "",
   });
   const [passwordError, setPasswordError] = useState(false);
+  const [avatar, setAvatar] = useState("");
 
   const handleEmailChange = (newEmail) => {
     setEmail(newEmail);
@@ -78,10 +78,23 @@ export function Settings({ children }) {
 
   const handlePasswordChange = (newPassword) => {
     setFormData((prevData) => ({ ...prevData, password: newPassword }));
-    const passwordRegex =
-      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
-    setPasswordError(!passwordRegex.test(newPassword));
   };
+
+  useEffect(() => {
+    if (formData.password.length !== 0) {
+      if (
+        formData.password.length < 8 ||
+        !/\d/.test(formData.password) ||
+        !/[a-zA-Z]/.test(formData.password)
+      ) {
+        setPasswordError(true);
+      } else {
+        setPasswordError(false);
+      }
+    } else {
+      setPasswordError(false);
+    }
+  }, [formData]);
 
   const handleSaveChanges = () => {
     if (!passwordError) {
@@ -96,6 +109,39 @@ export function Settings({ children }) {
     }
   };
 
+  const currentUserId = localStorage.getItem("currentUserId");
+
+  useEffect(() => {
+    if (currentUserId !== 0) {
+      axios
+        .request({
+          method: "GET",
+          url: `/user/${currentUserId}`,
+          headers: {
+            Authorization: localStorage.getItem("jwt"),
+          },
+        })
+        .then((response) => {
+          const user = response.data;
+          let nickname = user.nickname === null ? "" : user.nickname;
+          if (user.nickname !== null) nickname = user.nickname.length === 0 ? "" : user.nickname;
+          setEmail(user.email);
+          let phoneNumber = user.phoneNumber === null ? "" : user.phoneNumber;
+          if (user.phoneNumber !== null) phoneNumber = user.phoneNumber.length === 0 ? "" : user.phoneNumber;
+          setPhoneNumber(phoneNumber);
+          setNickname(nickname);
+
+          let avatar = user.nickname === null ? user.username : user.nickname;
+          if (user.nickname !== null) avatar = user.nickname.length === 0 ? user.username : user.nickname;
+          setAvatar(avatar);
+        })
+        .catch((error) => {
+          console.error("Hiba történt adat lekérdezéskor", error);
+        });
+    }
+    setIsLoading(false);
+  }, [currentUserId, setIsLoading, isLoading]);
+
   return (
     <Container maxWidth="sm" style={styles.container}>
       {children}
@@ -106,7 +152,7 @@ export function Settings({ children }) {
           <Grid container spacing={2}>
             <Grid item xs={12}>
               <Avatar className="Avatar-icon" style={styles.avatar}>
-                {nickname.length > 0 ? nickname[0].toUpperCase() : null}
+                {avatar.length > 0 ? avatar[0].toUpperCase() : null}
               </Avatar>
             </Grid>
             <Grid item xs={12}>
@@ -151,7 +197,7 @@ export function Settings({ children }) {
                 error={passwordError}
                 helperText={
                   passwordError
-                    ? "A jelszónak legalább 8 karakter hosszúnak kell lennie, tartalmaznia kell kis- és nagybetűt, számot, valamint speciális karaktert (@$!%*?&)"
+                    ? "A jelszónak legalább 8 karakter hosszúnak kell lennie, tartalmaznia kell betűt és számot"
                     : ""
                 }
                 InputProps={{
@@ -169,7 +215,7 @@ export function Settings({ children }) {
                 }}
                 InputLabelProps={{
                   style: {
-                    color: passwordError ? "#8B0000" : "inherit", // Change label color based on error
+                    color: passwordError ? "#8B0000" : "black",
                   },
                 }}
               />

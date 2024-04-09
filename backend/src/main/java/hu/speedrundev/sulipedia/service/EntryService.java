@@ -10,6 +10,7 @@ import hu.speedrundev.sulipedia.dto.entry.GetEntry;
 import hu.speedrundev.sulipedia.dto.entry.GetEntryWithID;
 import hu.speedrundev.sulipedia.dto.entry.NulledEntry;
 import hu.speedrundev.sulipedia.dto.entry.PostEntry;
+import hu.speedrundev.sulipedia.dto.entry.SubjectDto;
 import hu.speedrundev.sulipedia.dto.entry.UpdateEntry;
 import hu.speedrundev.sulipedia.dto.question.QuestionList;
 import hu.speedrundev.sulipedia.model.Attachment;
@@ -29,6 +30,8 @@ import java.time.Instant;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Predicate;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
@@ -59,12 +62,32 @@ public class EntryService {
   @Autowired
   private JwtUtil jwtUtil;
 
-  public EntryList getEntriesByOptionalCategory(String category) {
-    if (category == null || category.isBlank()) {
-      return new EntryList(entryRepository.findAll());
-    }
+  public EntryList getEntriesByOptionalCategory(SubjectDto subject) {
+    if (subject == null || subject.toString().isBlank()) return new EntryList(
+      entryRepository
+        .findAll()
+        .stream()
+        .filter(Predicate.not(Entry::getTest))
+        .toList()
+    );
 
-    return new EntryList(entryRepository.findAllByCategory(category));
+    return new EntryList(
+      entryRepository.findAllEntriesBySubject(subject.toString())
+    );
+  }
+
+  public EntryList getTestsByOptionalCategory(SubjectDto subject) {
+    if (subject == null || subject.toString().isBlank()) return new EntryList(
+      entryRepository
+        .findAll()
+        .stream()
+        .filter(Entry::getTest)
+        .toList()
+    );
+
+    return new EntryList(
+      entryRepository.findAllTestsBySubject(subject.toString())
+    );
   }
 
   public GetEntry getEntry(Integer id) {
@@ -90,7 +113,7 @@ public class EntryService {
     if (author.isEmpty()) throw modelNotFound("AUTHOR_NOT_FOUND");
 
     if (
-      !schoolClassRepository.existsByClassName(entry.getSchoolClass())
+      schoolClassRepository.existsByClassName(entry.getSchoolClass()) != 1
     ) throw modelNotFound("SCHOOL_CLASS_NOT_FOUND");
 
     if (entry.getTest() && entry.getQuestions().isEmpty()) throw badRequest(
@@ -104,6 +127,8 @@ public class EntryService {
         schoolClassRepository.getClassByClassName(entry.getSchoolClass())
       )
     );
+
+    System.out.println(savedEntry.getId());
 
     if (files != null) if (files.length != 0) {
       List<MultipartFile> fileList = Arrays.asList(files);
@@ -135,7 +160,7 @@ public class EntryService {
       );
     }
 
-    return new GetEntryWithID(entryRepository.save(savedEntry));
+    return new GetEntryWithID((savedEntry));
   }
 
   public GetEntry updateEntry(Integer id, UpdateEntry changes) {

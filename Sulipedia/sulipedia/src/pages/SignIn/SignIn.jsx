@@ -3,8 +3,6 @@ import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
 import Paper from "@mui/material/Paper";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
@@ -27,9 +25,21 @@ export default function SignIn({ setIsLoading }) {
 
   useEffect(() => {
     if (localStorage.getItem("jwt") !== null) {
-      navigate("/kezdo");
+      axios
+        .get("/validatetoken", {
+          headers: { Authorization: localStorage.getItem("jwt") },
+        })
+        .then(() => {
+          navigate("/kezdo");
+          setIsLoading(true);
+        })
+        .catch(() => {
+          console.log(
+            "Token invalid a backend szerint; folytatjuk a bejelentkezéshez, navigálás nem történik."
+          );
+        });
     }
-  }, [navigate]);
+  }, [navigate, setIsLoading]);
 
   const handleChange = (event) => {
     setFormData((currentFormData) => ({
@@ -40,13 +50,11 @@ export default function SignIn({ setIsLoading }) {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    setIsLoading(true);
-
+    
     if (formData.usernameOrEmail === "a" && formData.passwordRaw === "a") {
-      localStorage.setItem("jwt", "Bearer");
       localStorage.setItem("currentUserId", 0);
       navigate("/kezdo");
-      setIsLoading(false);
+      setIsLoading(true);
     } else {
       axios
         .post(`/login`, formData)
@@ -54,7 +62,7 @@ export default function SignIn({ setIsLoading }) {
           localStorage.setItem("jwt", "Bearer " + response.headers.jwt);
           localStorage.setItem("currentUserId", response.data.id);
           navigate("/kezdo");
-          setIsLoading(false);
+          setIsLoading(true);
         })
         .catch((error) => {
           let errorCode = error.response.data.status;
@@ -78,7 +86,6 @@ export default function SignIn({ setIsLoading }) {
             default:
               break;
           }
-          setIsLoading(false);
         });
     }
   };
@@ -152,10 +159,6 @@ export default function SignIn({ setIsLoading }) {
                 id="password"
                 autoComplete="current-password"
                 onChange={handleChange}
-              />
-              <FormControlLabel
-                control={<Checkbox value="remember" color="primary" />}
-                label="Jegyezz meg"
               />
               <Button
                 type="submit"

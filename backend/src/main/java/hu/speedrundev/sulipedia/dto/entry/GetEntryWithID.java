@@ -53,8 +53,8 @@ public class GetEntryWithID extends GetEntry {
       entry.getDeleted(),
       entry.getDeletedOn(),
       new GetUser(entry.getAuthor()),
-      new AttachmentList(entry.getAttachments()),
-      new QuestionList(entry.getQuestions()),
+      entry.getAttachments() == null ? new AttachmentList() : new AttachmentList(entry.getAttachments()),
+      entry.getQuestions() == null ? new QuestionList() : new QuestionList(entry.getQuestions()),
       entry.getId()
     );
   }

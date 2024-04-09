@@ -18,7 +18,12 @@ import SulipediaLogo from "../../resources/logo.png";
 import FormatListBulletedTwoToneIcon from "@mui/icons-material/FormatListBulletedTwoTone";
 import SupervisedUserCircleTwoToneIcon from "@mui/icons-material/SupervisedUserCircleTwoTone";
 
-export function ResAppBar() {
+import PersonIcon from "@mui/icons-material/Person";
+import ManageAccountsIcon from "@mui/icons-material/ManageAccounts";
+import EngineeringIcon from "@mui/icons-material/Engineering";
+import LogoutIcon from "@mui/icons-material/Logout";
+
+export function ResAppBar({ setIsLoading }) {
   const isSmallScreen = useMediaQuery("(max-width:950px)");
   const [anchorElUser, setAnchorElUser] = React.useState(null);
   const [drawerOpen, setDrawerOpen] = React.useState(false);
@@ -41,6 +46,10 @@ export function ResAppBar() {
     setDrawerOpen(!drawerOpen);
   };
 
+  const beforeNavigate = () => {
+    setIsLoading(true);
+  };
+
   return (
     <>
       <AppBar position="static">
@@ -59,10 +68,10 @@ export function ResAppBar() {
                   anchor="right"
                   open={drawerOpen}
                   onClose={toggleDrawer}
-                  sx={{ "& .MuiDrawer-paper": { backgroundColor: "#f0f0f0" } }}
+                  sx={{ "& .MuiDrawer-paper": { backgroundColor: "#87a19f", height: '40vh'  }}}
                 >
                   <Box
-                    sx={{ width: 250 }}
+                    sx={{ width: 250, height: '100vh'}}
                     role="presentation"
                     onClick={toggleDrawer}
                     onKeyDown={toggleDrawer}
@@ -72,14 +81,16 @@ export function ResAppBar() {
                         to="/kezdo"
                         rel="noreferrer"
                         style={{ textDecoration: "none", color: "black" }}
+                        onClick={beforeNavigate}
                       >
                         <MenuItem
                           sx={{
-                            my: 2,
+                            my: 1,
                             color: "white",
                             display: "block",
                             backgroundColor: "#33FFBE",
                             border: "1px solid black",
+                            height: '22%'
                           }}
                         >
                           <Typography textAlign="center">Sulipedia</Typography>
@@ -89,14 +100,16 @@ export function ResAppBar() {
                     <Link
                       to="/Curriculums"
                       style={{ textDecoration: "none", color: "black" }}
+                      onClick={beforeNavigate}
                     >
                       <MenuItem
                         sx={{
-                          my: 2,
+                          my: 1,
                           color: "white",
                           display: "block",
                           backgroundColor: "#FFF033",
                           border: "1px solid black",
+                          height: '22%'
                         }}
                       >
                         <Typography textAlign="center">Tananyagok</Typography>
@@ -105,14 +118,16 @@ export function ResAppBar() {
                     <Link
                       to="/Tests"
                       style={{ textDecoration: "none", color: "black" }}
+                      onClick={beforeNavigate}
                     >
                       <MenuItem
                         sx={{
-                          my: 2,
+                          my: 1,
                           color: "white",
                           display: "block",
                           backgroundColor: "#FF5733",
                           border: "1px solid black",
+                          height: '22%'
                         }}
                       >
                         <Typography textAlign="center">Tesztek</Typography>
@@ -121,14 +136,16 @@ export function ResAppBar() {
                     <Link
                       to="/MyGroups"
                       style={{ textDecoration: "none", color: "black" }}
+                      onClick={beforeNavigate}
                     >
                       <MenuItem
                         sx={{
-                          my: 2,
+                          my: 1,
                           color: "white",
                           display: "block",
                           backgroundColor: "#7AFF33",
                           border: "1px solid black",
+                          height: '22%',
                         }}
                       >
                         <Typography textAlign="center">Csoportjaim</Typography>
@@ -141,7 +158,7 @@ export function ResAppBar() {
               <>
                 <div>
                   <Tooltip title="Főoldal">
-                    <Link to="/kezdo" rel="noreferrer">
+                    <Link to="/kezdo" rel="noreferrer" onClick={beforeNavigate}>
                       <img
                         alt="Sulipedia logója"
                         id="suliLogo"
@@ -173,6 +190,7 @@ export function ResAppBar() {
                       rel="noreferrer"
                       style={{ textDecoration: "none", color: "white" }}
                       underline="none"
+                      onClick={beforeNavigate}
                     >
                       Sulipedia
                     </Link>
@@ -186,6 +204,7 @@ export function ResAppBar() {
                     underline="none"
                     rel="noreferrer"
                     color="inherit"
+                    onClick={beforeNavigate}
                   >
                     <Button
                       className="menuk"
@@ -207,6 +226,7 @@ export function ResAppBar() {
                     underline="none"
                     rel="noreferrer"
                     color="inherit"
+                    onClick={beforeNavigate}
                   >
                     <Button
                       className="menuk"
@@ -228,6 +248,7 @@ export function ResAppBar() {
                     underline="none"
                     rel="noreferrer"
                     color="inherit"
+                    onClick={beforeNavigate}
                   >
                     <Button
                       className="menuk"
@@ -279,18 +300,29 @@ export function ResAppBar() {
                   underline="none"
                   rel="noreferrer"
                   color="inherit"
+                  onClick={beforeNavigate}
                 >
                   <MenuItem
                     onClick={handleCloseUserMenu}
                     sx={{
-                      my: 2,
-                      color: "white",
-                      display: "block",
-                      backgroundColor: "#7AFF33",
-                      border: "1px solid black",
+                      my: -1,
+                      color: "black",
+                      display: "flex",
+                      alignItems: "center",
+                      marginBottom: "0.3px",
+                      borderTop: "10px solid rgba(0, 0, 0, 0.5)",
+                      borderBottom: "6px solid rgba(0, 0, 0, 0.5)",
+                      backgroundColor: "rgba(25, 118, 210, 0.8)",
+                      transition: "background-color 0.3s ease",
+                      "&:hover": {
+                        backgroundColor: "rgba(25, 118, 210)",
+                      },
                     }}
                   >
-                    <Typography textAlign="center">Profilom</Typography>
+                    <PersonIcon />
+                    <Typography textAlign="center" sx={{ marginLeft: 1 }}>
+                      Profilom
+                    </Typography>
                   </MenuItem>
                 </Link>
 
@@ -300,39 +332,28 @@ export function ResAppBar() {
                   underline="none"
                   rel="noreferrer"
                   color="inherit"
+                  onClick={beforeNavigate}
                 >
                   <MenuItem
                     onClick={handleCloseUserMenu}
                     sx={{
-                      my: 2,
-                      color: "white",
-                      display: "block",
-                      backgroundColor: "#7AFF33",
-                      border: "1px solid black",
-                    }}
-                  >
-                    <Typography textAlign="center">Beállítások</Typography>
-                  </MenuItem>
-                </Link>
+                      my: 0,
+                      color: "black",
+                      display: "flex",
+                      alignItems: "center",
 
-                <Link
-                  style={{ textDecoration: "none", color: "black" }}
-                  to="/SignIn"
-                  underline="none"
-                  rel="noreferrer"
-                  color="inherit"
-                >
-                  <MenuItem
-                    onClick={handleCloseUserMenu}
-                    sx={{
-                      my: 2,
-                      color: "white",
-                      display: "block",
-                      backgroundColor: "#7AFF33",
-                      border: "1px solid black",
+                      borderBottom: "6px solid rgba(0, 0, 0, 0.5)",
+                      backgroundColor: "rgba(25, 118, 210, 0.8)",
+                      transition: "background-color 0.3s ease",
+                      "&:hover": {
+                        backgroundColor: "rgba(25, 118, 210)",
+                      },
                     }}
                   >
-                    <Typography textAlign="center">Bejelentkezés</Typography>
+                    <ManageAccountsIcon />
+                    <Typography textAlign="center" sx={{ marginLeft: 1 }}>
+                      Beállítások
+                    </Typography>
                   </MenuItem>
                 </Link>
 
@@ -346,14 +367,21 @@ export function ResAppBar() {
                   <MenuItem
                     onClick={handleCloseUserMenu}
                     sx={{
-                      my: 2,
-                      color: "white",
-                      display: "block",
-                      backgroundColor: "#7AFF33",
-                      border: "1px solid black",
+                      my: 0,
+                      color: "black",
+                      display: "flex",
+                      alignItems: "center",
+
+                      borderBottom: "6px solid rgba(0, 0, 0, 0.5)",
+                      backgroundColor: "rgba(25, 118, 210, 0.8)",
+                      transition: "background-color 0.3s ease",
+                      "&:hover": {
+                        backgroundColor: "rgba(25, 118, 210)",
+                      },
                     }}
                   >
-                    <Typography textAlign="center">
+                    <EngineeringIcon />
+                    <Typography textAlign="center" sx={{ marginLeft: 1 }}>
                       Rólunk, a készítőkről
                     </Typography>
                   </MenuItem>
@@ -365,18 +393,28 @@ export function ResAppBar() {
                   underline="none"
                   rel="noreferrer"
                   color="inherit"
+                  onClick={beforeNavigate}
                 >
                   <MenuItem
                     onClick={handleLogOut}
                     sx={{
-                      my: 2,
-                      color: "white",
-                      display: "block",
-                      backgroundColor: "#7AFF33",
-                      border: "1px solid black",
+                      my: -1,
+                      color: "black",
+                      display: "flex",
+                      alignItems: "center",
+                      marginTop: "0.2px",
+                      borderBottom: "10px solid rgba(0, 0, 0, 0.5)",
+                      backgroundColor: "rgba(25, 118, 210, 0.8)",
+                      transition: "background-color 0.3s ease",
+                      "&:hover": {
+                        backgroundColor: "rgba(25, 118, 210)",
+                      },
                     }}
                   >
-                    <Typography textAlign="center">Kilépés</Typography>
+                    <LogoutIcon />
+                    <Typography textAlign="center" sx={{ marginLeft: 1 }}>
+                      Kilépés
+                    </Typography>
                   </MenuItem>
                 </Link>
               </Menu>

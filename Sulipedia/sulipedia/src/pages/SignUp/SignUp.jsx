@@ -17,18 +17,24 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import "./SignUp.css";
 import { Tooltip } from "@mui/material";
 
+import PhoneInput from 'react-phone-input-2'
+import 'react-phone-input-2/lib/style.css'
+import LocalPhoneIcon from '@mui/icons-material/LocalPhone';
+import AccountCircle from '@mui/icons-material/AccountCircle';
+import InputAdornment from '@mui/material/InputAdornment';
+
 const defaultTheme = createTheme();
 
-export default function SignUp({children}) {
+export default function SignUp({ children, setIsLoading }) {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     surName: "",
     realName: "",
-    nickname: "",
+    nickname: null,
     email: "",
     password: "",
     confirmPassword: "",
-    phone: "",
+    phone: null,
     allowExtraEmails: false,
   });
 
@@ -41,18 +47,28 @@ export default function SignUp({children}) {
 
   useEffect(() => {
     if (localStorage.getItem("jwt") !== null) {
-      navigate("/kezdo");
+      axios
+        .get("/validatetoken", {
+          headers: { Authorization: localStorage.getItem("jwt") },
+        })
+        .then(() => {
+          navigate("/kezdo");
+          setIsLoading(true);
+        })
+        .catch(() => {
+          console.log(
+            "Token invalid a backend szerint; folytatjuk a regisztrációhoz, navigálás nem történik."
+          );
+        });
     }
-  }, []);
+  }, [navigate, setIsLoading]);
 
   const handleSubmit = (event) => {
     event.preventDefault();
     validateForm();
-    console.log(emailError, passwordError, lastNameError, firstNameError, phoneError);
-    console.log(isFormValid());
     if (isFormValid()) {
       const finalFormData = {
-        userName: `${formData.surName} ${formData.realName}`,
+        username: `${formData.surName} ${formData.realName}`,
         email: formData.email,
         passwordRaw: formData.password,
         nickname: formData.nickname,
@@ -62,8 +78,9 @@ export default function SignUp({children}) {
         .post("/register", finalFormData)
         .then((response) => {
           localStorage.setItem("jwt", `Bearer ${response.headers.jwt}`);
+          localStorage.setItem("currentUserId", response.data.id);
+          setIsLoading(true);
           navigate("/kezdo");
-          window.location.reload();
         })
         .catch((error) => {
           let errorCode = error.config.data.status;
@@ -88,13 +105,11 @@ export default function SignUp({children}) {
 
   const handleChange = (event) => {
     const { name, value, type, checked } = event.target;
-    console.log(event.target);
     setFormData((prevData) => ({
       ...prevData,
       [name]: type === "checkbox" ? checked : value,
     }));
 
-    // Reset error state when the user types
     resetErrorState(name);
   };
 
@@ -129,22 +144,29 @@ export default function SignUp({children}) {
       setEmailError(true);
     }
 
-    const passwordRegex =
-      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
-    if (!passwordRegex.test(formData.password)) {
+    if (formData.password.length < 8 || !/\d/.test(formData.password) || !/[a-zA-Z]/.test(formData.password)) {
       setPasswordError(true);
+    } else {
+      setPasswordError(false);
     }
 
     if (formData.surName.length < 2) {
       setLastNameError(true);
     }
+    else {
+      setLastNameError(false);
+    }
 
     if (formData.realName.length < 3) {
       setFirstNameError(true);
     }
-
-    const phoneRegex = /^\d{11}$/;
-    if (formData.phone && !phoneRegex.test(formData.phone)) {
+    else {
+      setFirstNameError(false);
+    }
+    if (
+      formData.phone &&
+      !(formData.phone.length > 10 && formData.phone.length < 13)
+    ) {
       setPhoneError(true);
     }
 
@@ -207,7 +229,7 @@ export default function SignUp({children}) {
                     fullWidth
                     id="lastName"
                     label="Vezetéknév"
-                    name="lastName"
+                    name="surName"
                     autoComplete="family-name"
                     minLength={3}
                     value={formData.surName}
@@ -215,7 +237,7 @@ export default function SignUp({children}) {
                     error={lastNameError}
                     helperText={
                       lastNameError
-                        ? "Vezetéknév legalább 3 karakter hosszú kell legyen"
+                        ? "A vezetéknév legalább 2 karakter hosszú kell, hogy legyen legyen"
                         : ""
                     }
                     variant="outlined"
@@ -224,7 +246,7 @@ export default function SignUp({children}) {
                 <Grid item xs={12} sm={6}>
                   <TextField
                     autoComplete="given-name"
-                    name="firstName"
+                    name="realName"
                     required
                     fullWidth
                     id="firstName"
@@ -236,7 +258,7 @@ export default function SignUp({children}) {
                     error={firstNameError}
                     helperText={
                       firstNameError
-                        ? "Keresztnév legalább 3 karakter hosszú kell legyen"
+                        ? "A Keresztnév legalább 3 karakter hosszú kell, hogy legyen"
                         : ""
                     }
                     variant="outlined"
@@ -244,12 +266,14 @@ export default function SignUp({children}) {
                 </Grid>
                 <Grid item xs={12} sm={6}>
                   <TextField
-                    name="Becenév"
+                    name="nickname"
                     fullWidth
-                    id="Nickname"
+                    id="nickname"
                     label="Becenév (opcionális)"
                     autoFocus
                     variant="outlined"
+                    value={formData.nickname}
+                    onChange={handleChange}
                   />
                 </Grid>
                 <Grid item xs={12}>
@@ -281,7 +305,7 @@ export default function SignUp({children}) {
                     error={passwordError}
                     helperText={
                       passwordError
-                        ? "A jelszónak legalább 8 karakter hosszúnak kell lennie, tartalmaznia kell kis- és nagybetűt, számot, valamint speciális karaktert (@$!%*?&)"
+                        ? "A jelszónak legalább 8 karakter hosszúnak kell lennie, tartalmaznia kell betűket és számokat"
                         : ""
                     }
                     variant="outlined"
@@ -328,8 +352,16 @@ export default function SignUp({children}) {
                   />
                 </Grid>
                 <Grid item xs={12}>
+                
                   <TextField
-                    fullWidth
+                  fullWidth
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start">
+                       <LocalPhoneIcon></LocalPhoneIcon>
+                      </InputAdornment>
+                    ),
+                  }}
                     name="phone"
                     label="Telefonszám (opcionális)"
                     type="tel"
@@ -339,10 +371,12 @@ export default function SignUp({children}) {
                     error={phoneError}
                     helperText={
                       phoneError
-                        ? "Érvénytelen telefonszám (11 számjegy szükséges)"
+                        ? "Érvénytelen telefonszám (11 vagy 12 számjegy szükséges)"
                         : ""
                     }
                     variant="outlined"
+                   
+                    
                   />
                 </Grid>
               </Grid>

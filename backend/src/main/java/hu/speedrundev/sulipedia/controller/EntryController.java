@@ -7,6 +7,7 @@ import hu.speedrundev.sulipedia.dto.entry.GetEntry;
 import hu.speedrundev.sulipedia.dto.entry.GetEntryWithID;
 import hu.speedrundev.sulipedia.dto.entry.NulledEntry;
 import hu.speedrundev.sulipedia.dto.entry.PostEntry;
+import hu.speedrundev.sulipedia.dto.entry.SubjectDto;
 import hu.speedrundev.sulipedia.dto.entry.UpdateEntry;
 import hu.speedrundev.sulipedia.service.EntryService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -42,14 +43,25 @@ public class EntryController {
   private EntryService service;
 
   @Operation(
-    summary = "List all entries with optional category filter",
-    description = "Az adatbázisban eltárolt összes bejegyzés lekérdezése, opcionálisan kategória alapján szűrve"
+    summary = "List all non-test entries with optional category filter",
+    description = "Az adatbázisban eltárolt összes nem teszt bejegyzés lekérdezése, opcionálisan kategória alapján szűrve"
   )
   @GetMapping("/entry")
   public EntryList getEntriesByOptionalCategory(
-    @RequestParam(name = "category", required = false) String category
+    @RequestParam(name = "subject", required = false) SubjectDto subject
   ) {
-    return service.getEntriesByOptionalCategory(category);
+    return service.getEntriesByOptionalCategory(subject);
+  }
+
+  @Operation(
+    summary = "List all test entries with optional category filter",
+    description = "Az adatbázisban eltárolt összes teszt bejegyzés lekérdezése, opcionálisan kategória alapján szűrve"
+  )
+  @GetMapping("/entry/test")
+  public EntryList getTestsByOptionalCategory(
+    @RequestParam(name = "subject", required = false) SubjectDto subject
+  ) {
+    return service.getTestsByOptionalCategory(subject);
   }
 
   @Operation(
@@ -68,7 +80,7 @@ public class EntryController {
   @PostMapping("/entry")
   public GetEntryWithID createEntry(
     @Valid @RequestBody PostEntry entry,
-    @RequestParam("files") MultipartFile[] files,
+    @RequestParam(name = "files", required = false) MultipartFile[] files,
     @RequestHeader("Authorization") String jwt
   ) {
     return service.createEntry(entry, files, jwt);

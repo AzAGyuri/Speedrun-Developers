@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Container, Typography, Avatar, Paper, Button } from "@mui/material";
+import { Loading } from "../../components/Loading/Loading";
 import axios from "axios";
 
 const styles = {
@@ -92,7 +93,7 @@ const styles = {
   },
 };
 
-export function MyProfile({ children }) {
+export function MyProfile({ children, setIsLoading, isLoading }) {
   const currentUserId = localStorage.getItem("currentUserId");
   const [userData, setUserData] = useState({
     email: "pelda@email.com",
@@ -101,6 +102,7 @@ export function MyProfile({ children }) {
     registrationDate: "2024-03-01",
     userId: "123456789",
     profileImage: "path/to/profile-image.jpg",
+    randomPfPBgColor: ""
   });
 
   useEffect(() => {
@@ -115,32 +117,40 @@ export function MyProfile({ children }) {
         })
         .then((response) => {
           const user = response.data;
+          let nickname = user.nickname === null ? user.username : user.nickname;
+          if (user.nickname !== null) nickname = user.nickname.length === 0 ? user.username : user.nickname;
           setUserData({
             email: user.email,
             username: user.username,
+            nickname: nickname,
             phoneNumber: user.phoneNumber ? user.phoneNumber : "N/A",
             registrationDate: user.createdOn.split("T")[0],
             userId: currentUserId,
             profileImage: user.profilePictureBase64,
+            randomPfPBgColor: user.randomPfPBgColor,
           });
+          console.log(userData);
         })
         .catch((error) => {
           console.error("Hiba történt adat lekérdezéskor", error);
         });
     }
-  }, [currentUserId]);
+    setIsLoading(false);
+  }, [currentUserId, setIsLoading, isLoading]);
+
+  if (isLoading) return <Loading />;
 
   return (
     <Container maxWidth="lg" style={styles.container}>
       {children}
       <Paper elevation={5} style={styles.paper}>
-        <Avatar style={styles.avatar}>
+        <Avatar style={{...styles.avatar, backgroundColor: userData.randomPfPBgColor}}>
           {userData.username.length > 0
             ? userData.username[0].toUpperCase()
             : null}
         </Avatar>
         <Typography variant="h4" style={styles.heading}>
-          {`${userData.username}`}
+          {`${userData.nickname}`}
         </Typography>
         <div style={styles.userInfo}>
           <div style={styles.infoItem}>
@@ -191,7 +201,7 @@ export function MyProfile({ children }) {
           <Button
             variant="contained"
             onClick={() =>
-              window.open("https://www.paypal.me/Krisz37", "_blank")
+              window.open("https://revolut.me/krisz0925", "_blank")
             }
             style={styles.donateButton}
           >
