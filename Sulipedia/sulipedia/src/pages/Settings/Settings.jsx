@@ -10,6 +10,8 @@ import {
   Link,
 } from "@mui/material";
 import "./Settings.css";
+import { Loading } from "../../components/Loading/Loading";
+import axios from "axios";
 
 const styles = {
   container: {
@@ -52,7 +54,7 @@ const styles = {
   },
 };
 
-export function Settings({ children }) {
+export function Settings({ children, setIsLoading, isLoading }) {
   const [email, setEmail] = useState("felhasznalo@pelda.com");
   const [phoneNumber, setPhoneNumber] = useState("123-456-7890");
   const [nickname, setNickname] = useState("Felhasznalo1");
@@ -105,6 +107,46 @@ export function Settings({ children }) {
       console.error("Invalid data. Please fix the validation errors.");
     }
   };
+
+  const currentUserId = localStorage.getItem("currentUserId");
+  const [userData, setUserData] = useState({
+    email: "pelda@email.com",
+    username: "John Doe",
+    phoneNumber: "123-456-7890",
+    registrationDate: "2024-03-01",
+    userId: "123456789",
+    profileImage: "path/to/profile-image.jpg",
+  });
+
+  useEffect(() => {
+    if (currentUserId !== 0) {
+      axios
+        .request({
+          method: "GET",
+          url: `/user/${currentUserId}`,
+          headers: {
+            Authorization: localStorage.getItem("jwt"),
+          },
+        })
+        .then((response) => {
+          const user = response.data;
+          const nickname = user.nickname === null ? user.nickname : user.username
+          setUserData({
+            email: user.email,
+            username: user.username,
+            nickname: nickname,
+            phoneNumber: user.phoneNumber ? user.phoneNumber : "N/A",
+            registrationDate: user.createdOn.split("T")[0],
+            userId: currentUserId,
+            profileImage: user.profilePictureBase64,
+          });
+        })
+        .catch((error) => {
+          console.error("Hiba történt adat lekérdezéskor", error);
+        });
+    }
+    setIsLoading(false);
+  }, [currentUserId, setIsLoading, isLoading]);
 
   return (
     <Container maxWidth="sm" style={styles.container}>

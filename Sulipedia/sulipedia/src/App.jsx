@@ -36,7 +36,7 @@ function App() {
             <Route path="/tests" element={<Tests setIsLoading={setIsLoading}><IsNotLoggedIn /></Tests>} />
             <Route path="/mygroups" element={<MyGroups setIsLoading={setIsLoading}><IsNotLoggedIn /></MyGroups>} />
             <Route path="/myProfile" element={<MyProfile setIsLoading={setIsLoading} isLoading={isLoading}><IsNotLoggedIn /></MyProfile>} />
-            <Route path="/settings" element={<Settings setIsLoading={setIsLoading}><IsNotLoggedIn /></Settings>} />
+            <Route path="/settings" element={<Settings setIsLoading={setIsLoading} isLoading={isLoading}><IsNotLoggedIn /></Settings>} />
             <Route path="/signIn" element={<SignIn setIsLoading={setIsLoading} />} />
             <Route path="/signUp" element={<SignUp setIsLoading={setIsLoading} />} />
             <Route path="/kezdo" element={<LandingPage setIsLoading={setIsLoading} isLoading={isLoading}><IsNotLoggedIn /></LandingPage>} />

@@ -116,7 +116,7 @@ export function MyProfile({ children, setIsLoading, isLoading }) {
         })
         .then((response) => {
           const user = response.data;
-          const nickname = user.nickname === null ? user.nickname : user.username
+          const nickname = user.nickname !== null || user.nickname.trim().length > 0 ? user.nickname : user.username;
           setUserData({
             email: user.email,
             username: user.username,
