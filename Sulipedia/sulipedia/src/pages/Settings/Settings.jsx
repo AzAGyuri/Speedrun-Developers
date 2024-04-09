@@ -10,6 +10,8 @@ import {
   Link,
 } from "@mui/material";
 import "./Settings.css";
+import { Loading } from "../../components/Loading/Loading";
+import axios from "axios";
 
 const styles = {
   container: {
@@ -52,7 +54,7 @@ const styles = {
   },
 };
 
-export function Settings({ children }) {
+export function Settings({ children, setIsLoading, isLoading }) {
   const [email, setEmail] = useState("felhasznalo@pelda.com");
   const [phoneNumber, setPhoneNumber] = useState("123-456-7890");
   const [nickname, setNickname] = useState("Felhasznalo1");
@@ -60,6 +62,7 @@ export function Settings({ children }) {
     password: "",
   });
   const [passwordError, setPasswordError] = useState(false);
+  const [avatar, setAvatar] = useState("");
 
   const handleEmailChange = (newEmail) => {
     setEmail(newEmail);
@@ -106,6 +109,39 @@ export function Settings({ children }) {
     }
   };
 
+  const currentUserId = localStorage.getItem("currentUserId");
+
+  useEffect(() => {
+    if (currentUserId !== 0) {
+      axios
+        .request({
+          method: "GET",
+          url: `/user/${currentUserId}`,
+          headers: {
+            Authorization: localStorage.getItem("jwt"),
+          },
+        })
+        .then((response) => {
+          const user = response.data;
+          let nickname = user.nickname === null ? "" : user.nickname;
+          if (user.nickname !== null) nickname = user.nickname.length === 0 ? "" : user.nickname;
+          setEmail(user.email);
+          let phoneNumber = user.phoneNumber === null ? "" : user.phoneNumber;
+          if (user.phoneNumber !== null) phoneNumber = user.phoneNumber.length === 0 ? "" : user.phoneNumber;
+          setPhoneNumber(phoneNumber);
+          setNickname(nickname);
+
+          let avatar = user.nickname === null ? user.username : user.nickname;
+          if (user.nickname !== null) avatar = user.nickname.length === 0 ? user.username : user.nickname;
+          setAvatar(avatar);
+        })
+        .catch((error) => {
+          console.error("Hiba történt adat lekérdezéskor", error);
+        });
+    }
+    setIsLoading(false);
+  }, [currentUserId, setIsLoading, isLoading]);
+
   return (
     <Container maxWidth="sm" style={styles.container}>
       {children}
@@ -116,7 +152,7 @@ export function Settings({ children }) {
           <Grid container spacing={2}>
             <Grid item xs={12}>
               <Avatar className="Avatar-icon" style={styles.avatar}>
-                {nickname.length > 0 ? nickname[0].toUpperCase() : null}
+                {avatar.length > 0 ? avatar[0].toUpperCase() : null}
               </Avatar>
             </Grid>
             <Grid item xs={12}>
@@ -179,7 +215,7 @@ export function Settings({ children }) {
                 }}
                 InputLabelProps={{
                   style: {
-                    color: passwordError ? "#8B0000" : "inherit",
+                    color: passwordError ? "#8B0000" : "black",
                   },
                 }}
               />

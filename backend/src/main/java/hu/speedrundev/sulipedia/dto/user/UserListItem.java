@@ -12,6 +12,9 @@ public class UserListItem extends GetUserWithID {
   public UserListItem(
     String userName,
     String email,
+    String nickname,
+    String phoneNumber,
+    String randomPfPBgColor,
     String profilePictureBase64,
     Date birthDate,
     Date lastLogin,
@@ -23,8 +26,9 @@ public class UserListItem extends GetUserWithID {
     super(
       userName,
       email,
-      userName,
-      email,
+      nickname,
+      phoneNumber,
+      randomPfPBgColor,
       profilePictureBase64,
       birthDate,
       createdOn,
@@ -39,6 +43,9 @@ public class UserListItem extends GetUserWithID {
     this(
       user.getUsername(),
       user.getEmail(),
+      user.getNickname(),
+      user.getPhoneNumber(),
+      user.getRandomPfPBgColor(),
       user.getProfilePicture() == null
         ? ""
         : Base64.getEncoder().encodeToString(user.getProfilePicture()),
