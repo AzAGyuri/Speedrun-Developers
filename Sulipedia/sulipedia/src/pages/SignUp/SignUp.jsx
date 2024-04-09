@@ -114,7 +114,6 @@ export default function SignUp({ children, setIsLoading }) {
     }));
 
     resetErrorState(name);
-    validateForm();
   };
 
   const resetErrorState = (name) => {
@@ -154,12 +153,18 @@ export default function SignUp({ children, setIsLoading }) {
       setPasswordError(false);
     }
 
-    if (formData.surName.length < 3) {
+    if (formData.surName.length < 2) {
       setLastNameError(true);
     }
+    else{
+      setLastNameError(false);
+    }
 
-    if (formData.realName.length < 2) {
+    if (formData.realName.length < 3) {
       setFirstNameError(true);
+    }
+    else{
+      setFirstNameError(false);
     }
     if (
       formData.phone &&
@@ -236,7 +241,7 @@ export default function SignUp({ children, setIsLoading }) {
                     error={lastNameError}
                     helperText={
                       lastNameError
-                        ? "A vezetéknév legalább 3 karakter hosszú kell, hogy legyen legyen"
+                        ? "A vezetéknév legalább 2 karakter hosszú kell, hogy legyen legyen"
                         : ""
                     }
                     variant="outlined"
@@ -304,7 +309,7 @@ export default function SignUp({ children, setIsLoading }) {
                     error={passwordError}
                     helperText={
                       passwordError
-                        ? "A jelszónak legalább 8 karakter hosszúnak kell lennie, tartalmaznia kell kis- és nagybetűt, számot, valamint speciális karaktert (@$!%*?&)"
+                        ? "A jelszónak legalább 8 karakter hosszúnak kell lennie, tartalmaznia kell betűket és számokat"
                         : ""
                     }
                     variant="outlined"
