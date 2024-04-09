@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
@@ -256,12 +257,12 @@ public class UserController {
     summary = "Update a user's data",
     description = "Az adatbázisban tárolt felhasználó adatainak frissítése"
   )
-  @PutMapping("/user/{id}")
+  @PutMapping("/user")
   public GetUser updateUser(
-    @PathVariable Integer id,
-    @Valid @RequestBody UpdateUser changes
+    @Valid @RequestBody UpdateUser changes,
+    @RequestHeader(name = "Authorization") String jwt
   ) {
-    return service.updateUser(id, changes);
+    return service.updateUser(changes, jwt);
   }
 
   /**
