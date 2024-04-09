@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Button,
   Typography,
@@ -449,31 +449,37 @@ export function Tests({ children }) {
     ],
   };
 
-  const filteredTests = selectedSubject
-    ? testsData.filter((test) => test.subject === selectedSubject)
-    : testsData;
+  const [filteredTests, setFilteredTests] = useState(testsData);
+
+  useEffect(() => {
+    setFilteredTests(
+      selectedSubject
+        ? testsData.filter((test) => test.subject === selectedSubject)
+        : testsData
+    );
+    setSelectedTest(filteredTests.length === 0 ? null : filteredTests[0]);
+  }, [setSelectedTest, setFilteredTests, selectedSubject, filteredTests]);
+
   const getTitleText = () => {
-    if (selectedSubject === "Vegyes tesztek") {
-      return "Válassz különböző tesztek közül!";
-    } else if (selectedSubject) {
+    if (selectedSubject) {
       return `Válassz ${selectedSubject} tesztek közül`;
     } else {
       return "Válassz különböző tesztek közül!";
     }
   };
   const getDescriptionText = () => {
-    if (selectedSubject === "Vegyes tesztek") {
-      return "Itt különböző tantárgyakhoz kapcsolódó tesztek láthatók!";
-    } else if (selectedSubject) {
+    if (selectedSubject) {
       return `Itt a ${selectedSubject} tantárgyhoz kapcsolódó tesztek láthatók!`;
     } else {
       return "Itt különböző tantárgyakhoz kapcsolódó tesztek láthatók!";
     }
   };
 
-  const handleSubjectClick = (subject) => {
-    setSelectedSubject(subject === "Vegyes tesztek" ? "" : subject);
-    setSelectedTest(subject === "Vegyes tesztek" ? testsData[0] : selectedTest);
+  const handleSubject = (event) => {
+    let subject = event.target.id;
+    setSelectedSubject(subject);
+    console.log(subject);
+    console.log(selectedSubject);
   };
 
   const handleTestSelection = (test) => {
@@ -542,7 +548,8 @@ export function Tests({ children }) {
                     backgroundColor: "#FF5733",
                     border: "1px solid black",
                   }}
-                  onClick={() => handleSubjectClick("Szakmai Angol")}
+                  id="Szakmai Angol"
+                  onClick={handleSubject}
                 >
                   Szakmai Angol
                 </MenuItem>
@@ -553,7 +560,8 @@ export function Tests({ children }) {
                     backgroundColor: "#FF5733",
                     border: "1px solid black",
                   }}
-                  onClick={() => handleSubjectClick("Matematika")}
+                  id="Matematika"
+                  onClick={handleSubject}
                 >
                   Matematika
                 </MenuItem>
@@ -564,7 +572,8 @@ export function Tests({ children }) {
                     backgroundColor: "#FF5733",
                     border: "1px solid black",
                   }}
-                  onClick={() => handleSubjectClick("Magyar Nyelv")}
+                  id="Magyar Nyelv"
+                  onClick={handleSubject}
                 >
                   Magyar Nyelv
                 </MenuItem>
@@ -575,7 +584,8 @@ export function Tests({ children }) {
                     backgroundColor: "#FF5733",
                     border: "1px solid black",
                   }}
-                  onClick={() => handleSubjectClick("Történelem")}
+                  id="Történelem"
+                  onClick={handleSubject}
                 >
                   Történelem
                 </MenuItem>
@@ -586,37 +596,34 @@ export function Tests({ children }) {
                     backgroundColor: "#FF5733",
                     border: "1px solid black",
                   }}
-                  onClick={() => handleSubjectClick("Informatika")}
+                  id="Informatika"
+                  onClick={handleSubject}
                 >
                   Informatika
                 </MenuItem>
-                <VegyesButton
-                  onClick={() => handleSubjectClick("Vegyes tesztek")}
-                >
+                <VegyesButton onClick={handleSubject}>
                   Vegyes tesztek
                 </VegyesButton>
               </Drawer>{" "}
             </>
           ) : (
             <FlexContainer>
-              <StyledButton onClick={() => handleSubjectClick("Szakmai Angol")}>
+              <StyledButton id="Szakmai Angol" onClick={handleSubject}>
                 Szakmai Angol
               </StyledButton>
-              <StyledButton onClick={() => handleSubjectClick("Matematika")}>
+              <StyledButton id="Matematika" onClick={handleSubject}>
                 Matematika
               </StyledButton>
-              <StyledButton onClick={() => handleSubjectClick("Magyar Nyelv")}>
+              <StyledButton id="Magyar nyelv" onClick={handleSubject}>
                 Magyar Nyelv
               </StyledButton>
-              <StyledButton onClick={() => handleSubjectClick("Történelem")}>
+              <StyledButton id="Történelem" onClick={handleSubject}>
                 Történelem
               </StyledButton>
-              <StyledButton onClick={() => handleSubjectClick("Informatika")}>
+              <StyledButton id="Informatika" onClick={handleSubject}>
                 Informatika
               </StyledButton>
-              <VegyesButton
-                onClick={() => handleSubjectClick("Vegyes tesztek")}
-              >
+              <VegyesButton id="" onClick={handleSubject}>
                 Vegyes tesztek
               </VegyesButton>
             </FlexContainer>
