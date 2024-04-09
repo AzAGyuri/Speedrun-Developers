@@ -17,11 +17,13 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import "./SignUp.css";
 import { Tooltip } from "@mui/material";
 
-import PhoneInput from 'react-phone-input-2'
-import 'react-phone-input-2/lib/style.css'
 import LocalPhoneIcon from '@mui/icons-material/LocalPhone';
-import AccountCircle from '@mui/icons-material/AccountCircle';
 import InputAdornment from '@mui/material/InputAdornment';
+import EnhancedEncryptionIcon from '@mui/icons-material/EnhancedEncryption';
+import LockSharpIcon from '@mui/icons-material/LockSharp';
+import EmailSharpIcon from '@mui/icons-material/EmailSharp';
+import BadgeIcon from '@mui/icons-material/Badge';
+
 
 const defaultTheme = createTheme();
 
@@ -44,6 +46,8 @@ export default function SignUp({ children, setIsLoading }) {
   const [firstNameError, setFirstNameError] = useState(false);
   const [phoneError, setPhoneError] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+  const [phoneLengthError, setPhoneLengthError] = useState(false);
+
 
   useEffect(() => {
     if (localStorage.getItem("jwt") !== null) {
@@ -73,6 +77,7 @@ export default function SignUp({ children, setIsLoading }) {
         passwordRaw: formData.password,
         nickname: formData.nickname,
         phoneNumber: formData.phone,
+        
       };
       axios
         .post("/register", finalFormData)
@@ -81,6 +86,7 @@ export default function SignUp({ children, setIsLoading }) {
           localStorage.setItem("currentUserId", response.data.id);
           setIsLoading(true);
           navigate("/kezdo");
+          console.log(formData.phone);
         })
         .catch((error) => {
           let errorCode = error.config.data.status;
@@ -103,21 +109,45 @@ export default function SignUp({ children, setIsLoading }) {
     }
   };
 
-  const handleChange = (event) => {
-    const { name, value, type, checked } = event.target;
-    setFormData((prevData) => ({
-      ...prevData,
-      [name]: type === "checkbox" ? checked : value,
-    }));
+      const handleChange = (event) => {
+        const { name, value, type, checked } = event.target;
+        let formattedValue = value;
+      
+        if (name === "phone") {
+          formattedValue = value.replace(/\D/g, "");
+          if (formattedValue.length > 11) {
+            setPhoneLengthError(true);
+            formattedValue = formattedValue.substring(0, 11);
+          } else {
+            setPhoneLengthError(false);
+            formattedValue = formattedValue.substring(0, formattedValue.length);
+          }
 
-    resetErrorState(name);
-  };
+            if (formattedValue.length > 2) {
+              formattedValue = `${formattedValue.substring(0, 2)} ${formattedValue.substring(2)}`;
+            }
+            if (formattedValue.length > 5) {
+              formattedValue = `${formattedValue.substring(0, 5)} ${formattedValue.substring(5)}`;
+            }
+            if (formattedValue.length > 9) {
+              formattedValue = `${formattedValue.substring(0, 9)} ${formattedValue.substring(9)}`;
+          
+          }
+        }
+      
+        setFormData((prevData) => ({
+          ...prevData,
+          [name]: type === "checkbox" ? checked : formattedValue,
+        }));
+        resetErrorState(name);
+      };
+
 
   const resetErrorState = (name) => {
     switch (name) {
       case "email":
         setEmailError(false);
-        break;
+        break;  
       case "password":
         setPasswordError(false);
         break;
@@ -163,9 +193,9 @@ export default function SignUp({ children, setIsLoading }) {
     else {
       setFirstNameError(false);
     }
-    if (
+    if (  
       formData.phone &&
-      !(formData.phone.length > 10 && formData.phone.length < 13)
+      !(formData.phone.length > 13 && formData.phone.length < 15)
     ) {
       setPhoneError(true);
     }
@@ -225,6 +255,13 @@ export default function SignUp({ children, setIsLoading }) {
               <Grid container spacing={2}>
                 <Grid item xs={12} sm={6}>
                   <TextField
+                   InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start">
+                       <BadgeIcon></BadgeIcon>
+                      </InputAdornment>
+                    ),
+                  }}
                     required
                     fullWidth
                     id="lastName"
@@ -245,6 +282,13 @@ export default function SignUp({ children, setIsLoading }) {
                 </Grid>
                 <Grid item xs={12} sm={6}>
                   <TextField
+                   InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start">
+                       <BadgeIcon></BadgeIcon>
+                      </InputAdornment>
+                    ),
+                  }}
                     autoComplete="given-name"
                     name="realName"
                     required
@@ -266,6 +310,13 @@ export default function SignUp({ children, setIsLoading }) {
                 </Grid>
                 <Grid item xs={12} sm={6}>
                   <TextField
+                   InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start">
+                       <BadgeIcon></BadgeIcon>
+                      </InputAdornment>
+                    ),
+                  }}
                     name="nickname"
                     fullWidth
                     id="nickname"
@@ -278,6 +329,13 @@ export default function SignUp({ children, setIsLoading }) {
                 </Grid>
                 <Grid item xs={12}>
                   <TextField
+                   InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start">
+                       <EmailSharpIcon></EmailSharpIcon>
+                      </InputAdornment>
+                    ),
+                  }}
                     required
                     fullWidth
                     id="email"
@@ -293,6 +351,7 @@ export default function SignUp({ children, setIsLoading }) {
                 </Grid>
                 <Grid item xs={12}>
                   <TextField
+                  
                     required
                     fullWidth
                     name="password"
@@ -310,6 +369,11 @@ export default function SignUp({ children, setIsLoading }) {
                     }
                     variant="outlined"
                     InputProps={{
+                      startAdornment: (
+                        <InputAdornment position="start">
+                          <LockSharpIcon />
+                        </InputAdornment>
+                      ),
                       endAdornment: (
                         <Link
                           onClick={handleTogglePasswordVisibility}
@@ -333,6 +397,13 @@ export default function SignUp({ children, setIsLoading }) {
                 </Grid>
                 <Grid item xs={12}>
                   <TextField
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start">
+                       <EnhancedEncryptionIcon></EnhancedEncryptionIcon>
+                      </InputAdornment>
+                    ),
+                  }}
                     required
                     fullWidth
                     name="confirmPassword"
@@ -361,9 +432,10 @@ export default function SignUp({ children, setIsLoading }) {
                        <LocalPhoneIcon></LocalPhoneIcon>
                       </InputAdornment>
                     ),
+                    maxLength:11
                   }}
                     name="phone"
-                    label="Telefonszám (opcionális)"
+                    label="Telefonszám (opcionális) (06)"
                     type="tel"
                     id="phone"
                     value={formData.phone}
@@ -371,7 +443,9 @@ export default function SignUp({ children, setIsLoading }) {
                     error={phoneError}
                     helperText={
                       phoneError
-                        ? "Érvénytelen telefonszám (11 vagy 12 számjegy szükséges)"
+                        ? "Érvénytelen telefonszám (11 számjegy szükséges)"
+                        : phoneLengthError
+                        ? "A telefonszám nem lehet hosszabb 11 karakternél"
                         : ""
                     }
                     variant="outlined"

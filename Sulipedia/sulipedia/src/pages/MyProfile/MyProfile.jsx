@@ -2,6 +2,14 @@ import React, { useState, useEffect } from "react";
 import { Container, Typography, Avatar, Paper, Button } from "@mui/material";
 import { Loading } from "../../components/Loading/Loading";
 import axios from "axios";
+import LocalPhoneIcon from '@mui/icons-material/LocalPhone';
+import InputAdornment from '@mui/material/InputAdornment';
+import EnhancedEncryptionIcon from '@mui/icons-material/EnhancedEncryption';
+import LockSharpIcon from '@mui/icons-material/LockSharp';
+import EmailSharpIcon from '@mui/icons-material/EmailSharp';
+import BadgeIcon from '@mui/icons-material/Badge';
+import NumbersIcon from '@mui/icons-material/Numbers';
+import DateRangeIcon from '@mui/icons-material/DateRange';
 
 const styles = {
   container: {
@@ -155,6 +163,7 @@ export function MyProfile({ children, setIsLoading, isLoading }) {
         <div style={styles.userInfo}>
           <div style={styles.infoItem}>
             <Typography variant="body1" style={styles.infoLabel}>
+              <EmailSharpIcon></EmailSharpIcon>
               Email:
             </Typography>
             <Typography variant="body1" style={styles.infoValue}>
@@ -163,6 +172,7 @@ export function MyProfile({ children, setIsLoading, isLoading }) {
           </div>
           <div style={styles.infoItem}>
             <Typography variant="body1" style={styles.infoLabel}>
+              <BadgeIcon></BadgeIcon>
               Név:
             </Typography>
             <Typography variant="body1" style={styles.infoValue}>
@@ -171,6 +181,7 @@ export function MyProfile({ children, setIsLoading, isLoading }) {
           </div>
           <div style={styles.infoItem}>
             <Typography variant="body1" style={styles.infoLabel}>
+              <LocalPhoneIcon></LocalPhoneIcon>
               Telefonszám:
             </Typography>
             <Typography variant="body1" style={styles.infoValue}>
@@ -179,6 +190,7 @@ export function MyProfile({ children, setIsLoading, isLoading }) {
           </div>
           <div style={styles.infoItem}>
             <Typography variant="body1" style={styles.infoLabel}>
+              <DateRangeIcon></DateRangeIcon>
               Regisztáció napja:
             </Typography>
             <Typography variant="body1" style={styles.infoValue}>
@@ -187,6 +199,7 @@ export function MyProfile({ children, setIsLoading, isLoading }) {
           </div>
           <div style={styles.infoItem}>
             <Typography variant="body1" style={styles.infoLabel}>
+              <NumbersIcon></NumbersIcon>
               ID:
             </Typography>
             <Typography variant="body1" style={styles.infoValue}>

@@ -12,6 +12,12 @@ import {
 import "./Settings.css";
 import { Loading } from "../../components/Loading/Loading";
 import axios from "axios";
+import EnhancedEncryptionIcon from '@mui/icons-material/EnhancedEncryption';
+import LockSharpIcon from '@mui/icons-material/LockSharp';
+import EmailSharpIcon from '@mui/icons-material/EmailSharp';
+import BadgeIcon from '@mui/icons-material/Badge';
+import InputAdornment from '@mui/material/InputAdornment';
+import LocalPhoneIcon from '@mui/icons-material/LocalPhone';
 
 const styles = {
   container: {
@@ -157,7 +163,14 @@ export function Settings({ children, setIsLoading, isLoading }) {
             </Grid>
             <Grid item xs={12}>
               <TextField
-                label="E-mail"
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">
+                   <EmailSharpIcon></EmailSharpIcon>
+                  </InputAdornment>
+                ),
+              }}
+                label="E-mail megváltoztatása"
                 variant="outlined"
                 value={email}
                 onChange={(e) => handleEmailChange(e.target.value)}
@@ -167,7 +180,14 @@ export function Settings({ children, setIsLoading, isLoading }) {
             </Grid>
             <Grid item xs={12}>
               <TextField
-                label="Telefonszám"
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">
+                   <LocalPhoneIcon></LocalPhoneIcon>
+                  </InputAdornment>
+                ),
+              }}
+                label="Telefonszám megváltoztatása"
                 variant="outlined"
                 value={phoneNumber}
                 onChange={(e) => handlePhoneNumberChange(e.target.value)}
@@ -177,7 +197,14 @@ export function Settings({ children, setIsLoading, isLoading }) {
             </Grid>
             <Grid item xs={12}>
               <TextField
-                label="Becenév"
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">
+                   <BadgeIcon></BadgeIcon>
+                  </InputAdornment>
+                ),
+              }}
+                label="Becenév megváltoztatása"
                 variant="outlined"
                 value={nickname}
                 onChange={(e) => handleNicknameChange(e.target.value)}
@@ -201,6 +228,11 @@ export function Settings({ children, setIsLoading, isLoading }) {
                     : ""
                 }
                 InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">
+                     <EnhancedEncryptionIcon></EnhancedEncryptionIcon>
+                    </InputAdornment>
+                  ),
                   endAdornment: (
                     <Link onClick={() => {}} style={{ cursor: "pointer" }}>
                       {""}
