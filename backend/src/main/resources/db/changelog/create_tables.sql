@@ -62,7 +62,7 @@ CREATE TABLE
     IF NOT EXISTS registered_users (
         id INT (9) PRIMARY KEY AUTO_INCREMENT,
         created_on DATE NOT NULL,
-        username varchar(100) NOT NULL UNIQUE,
+        username varchar(100) NOT NULL,
         user_password varchar(80) NOT NULL,
         email varchar(70) not NULL unique,
         random_pfpbg_color varchar(7) not null,
