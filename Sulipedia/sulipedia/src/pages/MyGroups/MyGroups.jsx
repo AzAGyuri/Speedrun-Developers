@@ -70,10 +70,13 @@ const style = {
   left: '50%',
   transform: 'translate(-50%, -50%)',
   width: 400,
-  bgcolor: 'background.paper',
+  bgcolor: '#e0dede',
   border: '2px solid #000',
   boxShadow: 24,
   p: 4,
+  borderRadius:"15px",
+  borderStyle:"double",
+  borderColor:"#db140d",
 };
 const styleSmall = {
   position: 'absolute',
@@ -81,10 +84,13 @@ const styleSmall = {
   left: '50%',
   transform: 'translate(-50%, -50%)',
   width: '80vw',
-  bgcolor: 'background.paper',
+  bgcolor: '#e0dede',
   border: '2px solid #000',
   boxShadow: 24,
   p: 4,
+  borderRadius:"15px",
+  borderStyle:"double",
+  borderColor:"#db140d",
 };
 
 export function MyGroups({ children }) {
@@ -302,14 +308,14 @@ export function MyGroups({ children }) {
                   }
                 />
                 <div style={styles.actions}>
-                  <Tooltip title="Csoport törlése">
+                  <Tooltip title={`${group.name} csoport törlése`}>
                     <IconButton color="secondary" aria-label="delete" style={styles.deleteButton} onClick={() => { deleteGroup(group.id) }}>
                       <Delete sx={{ color: '#d32f2f' }} />
                     </IconButton>
                   </Tooltip>
                 </div>
               </ListItem>
-              <Divider variant="inset" component="li" />
+              <Divider variant="fullwidth" component="li"  sx={{ borderBottomWidth: 3 }} />
             </React.Fragment>
           ))}
           <ListItem alignItems="center">
@@ -436,14 +442,18 @@ export function MyGroups({ children }) {
           </Typography>
           <List>
             {selectedGroup && selectedGroup.members && selectedGroup.members.map(member => (
-              <ListItem key={member.id} alignItems="flex-start">
+              <ListItem sx={{border:"2px solid black", marginTop:"2px", borderRadius:"15px"}} key={member.id}>
                 <ListItemAvatar>
                   <Avatar>{member.name[0]}</Avatar>
                 </ListItemAvatar>
                 <ListItemText primary={member.name} />
+                <Tooltip title={`${member.name} kidobása a csoportból`}>
                 <IconButton edge="end" aria-label="delete" onClick={() => handleDeleteMember(member.id)}>
-                  <Delete />
+                  
+                  <Delete sx={{ color: '#d32f2f' }} />
+                  
                 </IconButton>
+                </Tooltip>
               </ListItem>
             ))}
           </List>
