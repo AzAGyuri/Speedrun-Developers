@@ -17,6 +17,7 @@ import EmailSharpIcon from "@mui/icons-material/EmailSharp";
 import BadgeIcon from "@mui/icons-material/Badge";
 import InputAdornment from "@mui/material/InputAdornment";
 import LocalPhoneIcon from "@mui/icons-material/LocalPhone";
+import { useNavigate } from "react-router-dom";
 
 const styles = {
   container: {
@@ -60,6 +61,7 @@ const styles = {
 };
 
 export function Settings({ children, setIsLoading, isLoading }) {
+  const navigate = useNavigate();
   const [phoneLengthError, setPhoneLengthError] = useState(false);
   const [randomPfPBgColor, setRandomPfPBgColor] = useState("#bdbdbd");
   const [formData, setFormData] = useState({
@@ -151,6 +153,8 @@ export function Settings({ children, setIsLoading, isLoading }) {
       })
       .then((response) => {
         console.log("Felhasználói adatok sikeresen frissítve:", response.data);
+        setIsLoading(true);
+        navigate("/MyProfile");
       })
       .catch((error) => {
         console.log(requestData);
