@@ -15,6 +15,7 @@ const SectionContainer = styled(Box)({
   boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.1)",
   backgroundColor: "#333",
   color: "#fff",
+  border:"2px solid white"
 });
 
 const StyledLink = styled(Link)({
