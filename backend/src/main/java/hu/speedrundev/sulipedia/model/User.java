@@ -138,20 +138,36 @@ public class User {
     username = "deleted_user: " + id;
   }
 
-  public boolean isAllUnchanged(UpdateUser changes) {
+  public boolean doesAllMatch(UpdateUser changes) {
     return (
-      this.nickname.equalsIgnoreCase(changes.getNickname()) &&
+      (
+        this.nickname == null
+          ? false
+          : this.nickname.equalsIgnoreCase(changes.getNickname())
+      ) &&
       this.email.equalsIgnoreCase(changes.getEmail()) &&
-      this.phoneNumber.equalsIgnoreCase(changes.getPhoneNumber())
+      (
+        this.phoneNumber == null
+          ? false
+          : this.phoneNumber.equalsIgnoreCase(changes.getPhoneNumber())
+      )
     );
   }
 
   public boolean isAllUnchanged(User updatingUser) {
     return (
-      this.nickname.equalsIgnoreCase(updatingUser.getNickname()) &&
+      (
+        this.nickname == null
+          ? false
+          : this.nickname.equalsIgnoreCase(updatingUser.getNickname())
+      ) &&
       this.userPassword.equalsIgnoreCase(updatingUser.getUserPassword()) &&
       this.email.equalsIgnoreCase(updatingUser.getEmail()) &&
-      this.phoneNumber.equalsIgnoreCase(updatingUser.getPhoneNumber())
+      (
+        this.phoneNumber == null
+          ? false
+          : this.phoneNumber.equalsIgnoreCase(updatingUser.getPhoneNumber())
+      )
     );
   }
 
