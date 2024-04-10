@@ -67,7 +67,7 @@ CREATE TABLE
         email varchar(70) not NULL unique,
         random_pfpbg_color varchar(7) not null,
         nickname varchar(80) null,
-        phone_number varchar(12) null,
+        phone_number varchar(14) null,
         birth_date DATE null,
         deleted boolean null,
         deleted_on date null,
