@@ -40,6 +40,7 @@ public class Entry {
     this.content = entry.getContent();
     this.deleted = false;
     this.deletedOn = null;
+    this.createdOn = new Date();
     this.keep = entry.getKeep();
     this.linkedClass = linkedClass;
     this.subject = Subjects.valueOf(entry.getSubject().toString());
@@ -63,6 +64,8 @@ public class Entry {
   private Boolean deleted;
 
   private Date deletedOn;
+
+  private Date createdOn;
 
   @Enumerated(EnumType.STRING)
   @Column(name = "subject_name", nullable = false)

@@ -20,6 +20,7 @@ public class GetEntry extends BaseEntry {
     Boolean test,
     Boolean deleted,
     Date deletedOn,
+    Date createdOn,
     GetUser author,
     AttachmentList attachments,
     QuestionList questions
@@ -27,6 +28,7 @@ public class GetEntry extends BaseEntry {
     super(title, content, keep, test);
     this.deleted = deleted;
     this.deletedOn = deletedOn;
+    this.createdOn = createdOn;
     this.author = author;
     this.attachments = attachments;
     this.questions = questions;
@@ -44,6 +46,7 @@ public class GetEntry extends BaseEntry {
       entry.getTest(),
       entry.getDeleted(),
       entry.getDeletedOn(),
+      entry.getCreatedOn(),
       new GetUser(entry.getAuthor()),
       new AttachmentList(entry.getAttachments()),
       new QuestionList(entry.getQuestions())
@@ -52,7 +55,7 @@ public class GetEntry extends BaseEntry {
 
   private Boolean deleted;
 
-  private Date deletedOn;
+  private Date deletedOn, createdOn;
 
   private GetUser author;
 

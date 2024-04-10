@@ -21,6 +21,7 @@ public class GetEntryWithID extends GetEntry {
     Boolean test,
     Boolean deleted,
     Date deletedOn,
+    Date createdOn,
     GetUser author,
     AttachmentList attachments,
     QuestionList questions,
@@ -34,6 +35,7 @@ public class GetEntryWithID extends GetEntry {
       test,
       deleted,
       deletedOn,
+      createdOn,
       author,
       attachments,
       questions
@@ -52,6 +54,7 @@ public class GetEntryWithID extends GetEntry {
       entry.getTest(),
       entry.getDeleted(),
       entry.getDeletedOn(),
+      entry.getCreatedOn(),
       new GetUser(entry.getAuthor()),
       entry.getAttachments() == null ? new AttachmentList() : new AttachmentList(entry.getAttachments()),
       entry.getQuestions() == null ? new QuestionList() : new QuestionList(entry.getQuestions()),
