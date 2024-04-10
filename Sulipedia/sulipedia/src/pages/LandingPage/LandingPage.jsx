@@ -89,8 +89,6 @@ export function LandingPage({ children, setIsLoading, isLoading }) {
   });
   const jwt = localStorage.getItem("jwt");
 
-  console.log(sessionStorage.getItem("modalOpen"));
-
   function modalStayClosed() {
     sessionStorage.setItem("modalOpen", "false");
     handleClose();
@@ -119,18 +117,15 @@ export function LandingPage({ children, setIsLoading, isLoading }) {
 
   useEffect(() => {
     axios
-      .get(`/entry?category=${subject}`, { headers: { Authorization: jwt } })
+      .get(`/entry?subject=${subject}`, { headers: { Authorization: jwt } })
       .then((response) => {
         setEntries(response.data);
       })
       .catch((error) => {
         console.error("Hiba történt az adatok lekérdezése során", error);
       });
-
     setIsLoading(false);
-  }, [jwt, subject, setIsLoading]);
-
-  console.log(entries);
+  }, [jwt, subject, setIsLoading, isLoading]);
 
   if (isLoading) return <Loading />;
 
