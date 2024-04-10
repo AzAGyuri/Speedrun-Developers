@@ -295,8 +295,7 @@ export function Tests({ children }) {
     setFilteredTests(
       subject ? testsData.filter((test) => test.subject === subject) : testsData
     );
-    console.log(subject);
-    console.log(selectedSubject);
+    setShowResults(false);
   };
 
   const handleTestSelection = (test) => {
