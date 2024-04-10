@@ -105,6 +105,7 @@ CREATE TABLE
         test boolean not null,
         deleted boolean null,
         deleted_on date null,
+        created_on date null,
         subject_name varchar(50) not null,
         author_id int (9),
         class_id int (9),
