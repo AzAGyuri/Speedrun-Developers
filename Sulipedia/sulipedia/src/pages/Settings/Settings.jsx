@@ -12,12 +12,11 @@ import {
 import "./Settings.css";
 import { Loading } from "../../components/Loading/Loading";
 import axios from "axios";
-import EnhancedEncryptionIcon from '@mui/icons-material/EnhancedEncryption';
-import LockSharpIcon from '@mui/icons-material/LockSharp';
-import EmailSharpIcon from '@mui/icons-material/EmailSharp';
-import BadgeIcon from '@mui/icons-material/Badge';
-import InputAdornment from '@mui/material/InputAdornment';
-import LocalPhoneIcon from '@mui/icons-material/LocalPhone';
+import EnhancedEncryptionIcon from "@mui/icons-material/EnhancedEncryption";
+import EmailSharpIcon from "@mui/icons-material/EmailSharp";
+import BadgeIcon from "@mui/icons-material/Badge";
+import InputAdornment from "@mui/material/InputAdornment";
+import LocalPhoneIcon from "@mui/icons-material/LocalPhone";
 
 const styles = {
   container: {
@@ -61,57 +60,84 @@ const styles = {
 };
 
 export function Settings({ children, setIsLoading, isLoading }) {
-  const [email, setEmail] = useState("felhasznalo@pelda.com");
-  const [phoneNumber, setPhoneNumber] = useState("123-456-7890");
-  const [nickname, setNickname] = useState("Felhasznalo1");
+  const [phoneLengthError, setPhoneLengthError] = useState(false);
+  const [randomPfPBgColor, setRandomPfPBgColor] = useState("#bdbdbd");
   const [formData, setFormData] = useState({
-    password: "",
+    email: null,
+    phoneNumber: null,
+    nickname: null,
+    password: null,
   });
   const [passwordError, setPasswordError] = useState(false);
   const [avatar, setAvatar] = useState("");
 
-  const handleEmailChange = (newEmail) => {
-    setEmail(newEmail);
-  };
+  const handleFormChange = (event) => {
+    const { name, value } = event.target;
+    let formattedValue = value;
+    console.log("HERE");
 
-  const handlePhoneNumberChange = (newPhoneNumber) => {
-    setPhoneNumber(newPhoneNumber);
-  };
+    if (name === "phoneNumber" || name === "password" || name === "nickname") {
+      if (value.length === 0) {
+        formattedValue = null;
+      } else if (name === "phoneNumber") {
+        formattedValue = value.replace(/\D/g, "");
+        if (formattedValue.length > 11) {
+          setPhoneLengthError(true);
+          formattedValue = formattedValue.substring(0, 11);
+        } else {
+          setPhoneLengthError(false);
+          formattedValue = formattedValue.substring(0, formattedValue.length);
+        }
 
-  const handleNicknameChange = (newNickname) => {
-    setNickname(newNickname);
-  };
-
-  const handlePasswordChange = (newPassword) => {
-    setFormData((prevData) => ({ ...prevData, password: newPassword }));
+        if (formattedValue.length > 2) {
+          formattedValue = `${formattedValue.substring(
+            0,
+            2
+          )} ${formattedValue.substring(2)}`;
+        }
+        if (formattedValue.length > 5) {
+          formattedValue = `${formattedValue.substring(
+            0,
+            5
+          )} ${formattedValue.substring(5)}`;
+        }
+        if (formattedValue.length > 9) {
+          formattedValue = `${formattedValue.substring(
+            0,
+            9
+          )} ${formattedValue.substring(9)}`;
+        }
+      }
+    }
+    setFormData((oldData) => ({
+      ...oldData,
+      [name]: formattedValue,
+    }));
+    console.log(formattedValue);
+    console.log(formData);
   };
 
   useEffect(() => {
-    if (formData.password.length !== 0) {
-      if (
-        formData.password.length < 8 ||
-        !/\d/.test(formData.password) ||
-        !/[a-zA-Z]/.test(formData.password)
-      ) {
-        setPasswordError(true);
+    if (formData.password !== null) {
+      if (formData.password.length !== 0) {
+        if (
+          formData.password.length < 8 ||
+          !/\d/.test(formData.password) ||
+          !/[a-zA-Z]/.test(formData.password)
+        ) {
+          setPasswordError(true);
+        } else {
+          setPasswordError(false);
+        }
       } else {
         setPasswordError(false);
       }
-    } else {
-      setPasswordError(false);
     }
-  }, [formData]);
+  }, [formData.password]);
 
   const handleSaveChanges = () => {
     if (!passwordError) {
-      console.log("Changes saved:", {
-        email,
-        phoneNumber,
-        nickname,
-        password: formData.password,
-      });
-    } else {
-      console.error("Invalid data. Please fix the validation errors.");
+      //ide axios.put
     }
   };
 
@@ -129,17 +155,21 @@ export function Settings({ children, setIsLoading, isLoading }) {
         })
         .then((response) => {
           const user = response.data;
-          let nickname = user.nickname === null ? "" : user.nickname;
-          if (user.nickname !== null) nickname = user.nickname.length === 0 ? "" : user.nickname;
-          setEmail(user.email);
-          let phoneNumber = user.phoneNumber === null ? "" : user.phoneNumber;
-          if (user.phoneNumber !== null) phoneNumber = user.phoneNumber.length === 0 ? "" : user.phoneNumber;
-          setPhoneNumber(phoneNumber);
-          setNickname(nickname);
-
-          let avatar = user.nickname === null ? user.username : user.nickname;
-          if (user.nickname !== null) avatar = user.nickname.length === 0 ? user.username : user.nickname;
-          setAvatar(avatar);
+          setFormData((prevData) => ({
+            ...prevData,
+            email: user.email,
+            nickname: user.nickname,
+            phoneNumber: user.phoneNumber,
+          }));
+          setRandomPfPBgColor(user.randomPfPBgColor);
+          setAvatar(
+            user.nickname !== null
+              ? user.nickname.length === 0
+                ? user.username
+                : user.nickname
+              : user.username
+          );
+          console.log(formData, avatar);
         })
         .catch((error) => {
           console.error("Hiba történt adat lekérdezéskor", error);
@@ -147,6 +177,8 @@ export function Settings({ children, setIsLoading, isLoading }) {
     }
     setIsLoading(false);
   }, [currentUserId, setIsLoading, isLoading]);
+
+  if (isLoading) return <Loading />;
 
   return (
     <Container maxWidth="sm" style={styles.container}>
@@ -157,57 +189,69 @@ export function Settings({ children, setIsLoading, isLoading }) {
           <Typography variant="h6">Saját adatok megváltoztatása</Typography>
           <Grid container spacing={2}>
             <Grid item xs={12}>
-              <Avatar className="Avatar-icon" style={styles.avatar}>
+              <Avatar
+                className="Avatar-icon"
+                style={{ ...styles.avatar, backgroundColor: randomPfPBgColor }}
+              >
                 {avatar.length > 0 ? avatar[0].toUpperCase() : null}
               </Avatar>
             </Grid>
             <Grid item xs={12}>
               <TextField
-              InputProps={{
-                startAdornment: (
-                  <InputAdornment position="start">
-                   <EmailSharpIcon></EmailSharpIcon>
-                  </InputAdornment>
-                ),
-              }}
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <EmailSharpIcon></EmailSharpIcon>
+                    </InputAdornment>
+                  ),
+                }}
                 label="E-mail megváltoztatása"
                 variant="outlined"
-                value={email}
-                onChange={(e) => handleEmailChange(e.target.value)}
+                name="email"
+                value={formData.email}
+                onChange={handleFormChange}
                 fullWidth
                 margin="normal"
               />
             </Grid>
             <Grid item xs={12}>
               <TextField
-              InputProps={{
-                startAdornment: (
-                  <InputAdornment position="start">
-                   <LocalPhoneIcon></LocalPhoneIcon>
-                  </InputAdornment>
-                ),
-              }}
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <LocalPhoneIcon></LocalPhoneIcon>
+                    </InputAdornment>
+                  ),
+                }}
                 label="Telefonszám megváltoztatása"
                 variant="outlined"
-                value={phoneNumber}
-                onChange={(e) => handlePhoneNumberChange(e.target.value)}
+                name="phoneNumber"
+                error={false}
+                value={formData.phoneNumber}
+                onChange={handleFormChange}
                 fullWidth
                 margin="normal"
+                helperText={
+                  phoneLengthError
+                    ? "A telefonszám nem lehet hosszabb 11 karakternél"
+                    : ""
+                }
               />
             </Grid>
             <Grid item xs={12}>
               <TextField
-              InputProps={{
-                startAdornment: (
-                  <InputAdornment position="start">
-                   <BadgeIcon></BadgeIcon>
-                  </InputAdornment>
-                ),
-              }}
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <BadgeIcon></BadgeIcon>
+                    </InputAdornment>
+                  ),
+                }}
                 label="Becenév megváltoztatása"
                 variant="outlined"
-                value={nickname}
-                onChange={(e) => handleNicknameChange(e.target.value)}
+                value={formData.nickname}
+                name="nickname"
+                onChange={handleFormChange}
                 fullWidth
                 margin="normal"
               />
@@ -220,7 +264,7 @@ export function Settings({ children, setIsLoading, isLoading }) {
                 type="text"
                 autoComplete="new-password"
                 value={formData.password}
-                onChange={(e) => handlePasswordChange(e.target.value)}
+                onChange={handleFormChange}
                 error={passwordError}
                 helperText={
                   passwordError
@@ -230,7 +274,7 @@ export function Settings({ children, setIsLoading, isLoading }) {
                 InputProps={{
                   startAdornment: (
                     <InputAdornment position="start">
-                     <EnhancedEncryptionIcon></EnhancedEncryptionIcon>
+                      <EnhancedEncryptionIcon></EnhancedEncryptionIcon>
                     </InputAdornment>
                   ),
                   endAdornment: (
