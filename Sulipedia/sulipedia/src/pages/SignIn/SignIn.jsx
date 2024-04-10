@@ -13,6 +13,9 @@ import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import "./SignIn.css";
 import axios from "axios";
+import LockSharpIcon from "@mui/icons-material/LockSharp";
+import EmailSharpIcon from "@mui/icons-material/EmailSharp";
+import InputAdornment from "@mui/material/InputAdornment";
 
 const defaultTheme = createTheme();
 
@@ -148,6 +151,13 @@ export default function SignIn({ setIsLoading }) {
                 autoComplete="email"
                 autoFocus
                 onChange={handleChange}
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <EmailSharpIcon></EmailSharpIcon>
+                    </InputAdornment>
+                  ),
+                }}
               />
               <TextField
                 margin="normal"
@@ -159,6 +169,13 @@ export default function SignIn({ setIsLoading }) {
                 id="password"
                 autoComplete="current-password"
                 onChange={handleChange}
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <LockSharpIcon></LockSharpIcon>
+                    </InputAdornment>
+                  ),
+                }}
               />
               <Button
                 type="submit"
