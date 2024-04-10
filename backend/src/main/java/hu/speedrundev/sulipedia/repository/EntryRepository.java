@@ -11,7 +11,7 @@ public interface EntryRepository extends JpaRepository<Entry, Integer> {
     value = "SELECT * FROM entries e " +
     "WHERE e.subject_name LIKE ?1 " +
     "AND e.deleted IS NULL " +
-    "AND e.test IS NULL"
+    "AND e.test = 0"
   )
   List<Entry> findAllEntriesBySubject(String subject);
 
@@ -20,7 +20,7 @@ public interface EntryRepository extends JpaRepository<Entry, Integer> {
     value = "SELECT * FROM entries e " +
     "WHERE e.subject_name LIKE ?1 " +
     "AND e.deleted IS NULL " +
-    "AND e.test IS NOT NULL"
+    "AND e.test = 1"
   )
   List<Entry> findAllTestsBySubject(String subject);
 

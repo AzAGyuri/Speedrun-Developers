@@ -38,8 +38,6 @@ public class Entry {
   ) {
     this.author = author;
     this.content = entry.getContent();
-    this.deleted = false;
-    this.deletedOn = null;
     this.createdOn = new Date();
     this.keep = entry.getKeep();
     this.linkedClass = linkedClass;
