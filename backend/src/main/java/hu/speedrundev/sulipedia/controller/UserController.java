@@ -262,7 +262,7 @@ public class UserController {
     @Valid @RequestBody UpdateUser changes,
     @RequestHeader(name = "Authorization") String jwt
   ) {
-    return service.updateUser(changes, jwt);
+    return service.updateUser(changes, jwt.substring("Bearer".length()).trim());
   }
 
   /**
