@@ -52,9 +52,7 @@ public class User {
   @Column(nullable = false)
   private String userPassword;
 
-  @Email(
-    regexp = "^[a-zA-Z0-9_!#$%&’*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$"
-  )
+  @Email(regexp = "^[a-zA-Z0-9_!#$%&’*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$")
   @Column(nullable = false, unique = true)
   private String email;
 
@@ -155,5 +153,12 @@ public class User {
       this.email.equalsIgnoreCase(updatingUser.getEmail()) &&
       this.phoneNumber.equalsIgnoreCase(updatingUser.getPhoneNumber())
     );
+  }
+
+  public User(User referencedUser) {
+    this.nickname = referencedUser.nickname;
+    this.userPassword = referencedUser.userPassword;
+    this.email = referencedUser.email;
+    this.phoneNumber = referencedUser.phoneNumber;
   }
 }

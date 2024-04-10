@@ -50,6 +50,6 @@ public class Availability {
   private AvailType availabilityType;
 
   @ManyToOne
-  @JoinColumn(name = "linked_user_id")
+  @JoinColumn(name = "user_id")
   private User linkedUser;
 }
