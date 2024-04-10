@@ -17,11 +17,11 @@ public class UpdateUser {
 
   private String email;
 
-  private String password;
+  private String passwordRaw;
 
   private String phoneNumber;
 
   public boolean isAllNull() {
-    return nickname == null && email == null && password == null;
+    return nickname == null && email == null && passwordRaw == null && phoneNumber == null;
   }
 }

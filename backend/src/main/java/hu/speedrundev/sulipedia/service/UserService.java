@@ -98,7 +98,7 @@ public class UserService {
 
     if (
       passwordEncoder.matches(
-        changes.getPassword(),
+        changes.getPasswordRaw() == null ? "" : changes.getPasswordRaw(),
         oldData.getUserPassword()
       ) &&
       oldData.isAllUnchanged(changes)
@@ -106,25 +106,42 @@ public class UserService {
 
     User updatingUser = repository.getByUsername(subject);
 
-    if (changes.getEmail() != null) {
+    if (
+      changes.getEmail() != null &&
+      !oldData.getEmail().equalsIgnoreCase(changes.getEmail())
+    ) {
       updatingUser.setEmail(changes.getEmail());
     }
 
-    if (changes.getNickname() != null) {
-      updatingUser.setUsername(changes.getNickname());
+    if (
+      changes.getNickname() != null &&
+      !oldData.getNickname().equalsIgnoreCase(changes.getNickname())
+    ) {
+      updatingUser.setNickname(changes.getNickname());
     }
 
-    if (changes.getPassword() != null) {
-      updatingUser.setUserPassword(changes.getPassword());
+    if (
+      changes.getPasswordRaw() != null &&
+      !passwordEncoder.matches(
+        changes.getPasswordRaw(),
+        oldData.getUserPassword()
+      )
+    ) {
+      updatingUser.setUserPassword(
+        passwordEncoder.encode(changes.getPasswordRaw())
+      );
     }
 
-    if (changes.getPhoneNumber() != null) {
+    if (
+      changes.getPhoneNumber() != null &&
+      !oldData.getPhoneNumber().equalsIgnoreCase(changes.getPhoneNumber())
+    ) {
       updatingUser.setPhoneNumber(changes.getPhoneNumber());
     }
 
-    if (oldData.isAllUnchanged(updatingUser)) throw badRequest(
-      "UPDATED_ENTITY_DATA_MATCHED_OLD"
-    );
+    if (
+      oldData.isAllUnchanged(updatingUser)
+    ) throw badRequest("UPDATED_ENTITY_DATA_MATCHED_OLD");
 
     return new GetUser(repository.save(updatingUser));
   }

@@ -142,17 +142,18 @@ public class User {
 
   public boolean isAllUnchanged(UpdateUser changes) {
     return (
-      this.nickname.equals(changes.getNickname()) &&
-      this.email.equals(changes.getEmail()) &&
-      this.phoneNumber.equals(changes.getPhoneNumber())
+      this.nickname.equalsIgnoreCase(changes.getNickname()) &&
+      this.email.equalsIgnoreCase(changes.getEmail()) &&
+      this.phoneNumber.equalsIgnoreCase(changes.getPhoneNumber())
     );
   }
 
   public boolean isAllUnchanged(User updatingUser) {
     return (
-      this.username.equals(updatingUser.getUsername()) &&
-      this.userPassword.equals(updatingUser.getUserPassword()) &&
-      this.email.equals(updatingUser.getEmail())
+      this.nickname.equalsIgnoreCase(updatingUser.getNickname()) &&
+      this.userPassword.equalsIgnoreCase(updatingUser.getUserPassword()) &&
+      this.email.equalsIgnoreCase(updatingUser.getEmail()) &&
+      this.phoneNumber.equalsIgnoreCase(updatingUser.getPhoneNumber())
     );
   }
 }
