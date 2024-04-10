@@ -136,8 +136,27 @@ export function Settings({ children, setIsLoading, isLoading }) {
   }, [formData.password]);
 
   const handleSaveChanges = () => {
+    const requestData = {
+      nickname: formData.nickname,
+      email: formData.email,
+      passwordRaw: formData.password,
+      phoneNumber: formData.phoneNumber,
+    };
+    console.log(localStorage.getItem('jwt'));
     if (!passwordError) {
-      //ide axios.put
+      axios.put(`/user`, requestData, {
+        headers: {
+          Authorization: localStorage.getItem("jwt").trim(),
+        },
+      })
+      .then((response) => {
+        console.log("Felhasználói adatok sikeresen frissítve:", response.data);
+      })
+      .catch((error) => {
+        console.log(requestData);
+        console.error("Hiba történt a felhasználói adatok frissítése közben:", error);
+      });
+      
     }
   };
 
