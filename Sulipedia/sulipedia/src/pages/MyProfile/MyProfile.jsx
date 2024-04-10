@@ -66,9 +66,12 @@ const styles = {
     marginRight: "10px",
     fontWeight: "bold",
     color: "#fff",
+    display: "flex",
+    alignItems: "center",
   },
   infoValue: {
     color: "#f0f0f0",
+    marginLeft: "15px",
   },
   footer: {
     marginTop: "20px",
