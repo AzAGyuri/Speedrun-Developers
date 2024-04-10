@@ -182,7 +182,7 @@ export function ResAppBar({ setIsLoading }) {
                     letterSpacing: ".3rem",
                     color: "inherit",
                     textDecoration: "none",
-                    textShadow: "2px 2px #ff0000"
+                    textShadow: "2px 2px #000"
                   }}
                 >
                   <Tooltip title="Főoldal">
