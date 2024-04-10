@@ -269,7 +269,10 @@ export function Tests({ children }) {
   } else {
     setSelectedTest(null);
   }
-}, [filteredTests]);
+  if (selectedSubject) {
+    setSelectedTest(filteredTests.length > 0 ? filteredTests[0] : null);
+  }
+}, [filteredTests,selectedSubject]);
 
   const getTitleText = () => {
     if (selectedSubject) {
@@ -289,6 +292,9 @@ export function Tests({ children }) {
   const handleSubject = (event) => {
     let subject = event.target.id;
     setSelectedSubject(subject);
+    setFilteredTests(
+      subject ? testsData.filter((test) => test.subject === subject) : testsData
+    );
     console.log(subject);
     console.log(selectedSubject);
   };
