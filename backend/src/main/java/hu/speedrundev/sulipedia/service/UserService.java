@@ -101,7 +101,7 @@ public class UserService {
         changes.getPasswordRaw() == null ? "" : changes.getPasswordRaw(),
         oldData.getUserPassword()
       ) &&
-      oldData.isAllUnchanged(changes)
+      oldData.doesAllMatch(changes)
     ) throw badRequest("NEW_DATA_IDENTICAL_TO_OLD");
 
     User updatingUser = repository.getByUsername(subject);
@@ -117,7 +117,7 @@ public class UserService {
       if (oldData.getNickname() == null) updatingUser.setNickname(
         changes.getNickname()
       ); else if (
-        oldData.getNickname().equalsIgnoreCase(changes.getPhoneNumber())
+        !oldData.getNickname().equalsIgnoreCase(changes.getPhoneNumber())
       ) updatingUser.setNickname(changes.getNickname());
     }
 
@@ -137,7 +137,7 @@ public class UserService {
       if (oldData.getPhoneNumber() == null) updatingUser.setPhoneNumber(
         changes.getPhoneNumber()
       ); else if (
-        oldData.getPhoneNumber().equalsIgnoreCase(changes.getPhoneNumber())
+        !oldData.getPhoneNumber().equalsIgnoreCase(changes.getPhoneNumber())
       ) updatingUser.setPhoneNumber(changes.getPhoneNumber());
     }
 
