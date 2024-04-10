@@ -61,9 +61,9 @@ const style = {
   border: "4px solid #000",
   boxShadow: 24,
   p: 4,
-  borderRadius:"15px",
-  borderStyle:"double",
-  borderColor:"#db140d",
+  borderRadius: "15px",
+  borderStyle: "double",
+  borderColor: "#db140d",
 };
 const styleSmall = {
   position: "absolute",
@@ -75,9 +75,9 @@ const styleSmall = {
   border: "4px solid #000",
   boxShadow: 24,
   p: 4,
-  borderRadius:"15px",
-  borderStyle:"double",
-  borderColor:"#db140d",
+  borderRadius: "15px",
+  borderStyle: "double",
+  borderColor: "#db140d",
 };
 
 export function LandingPage({ children, setIsLoading, isLoading }) {
@@ -104,8 +104,11 @@ export function LandingPage({ children, setIsLoading, isLoading }) {
     setOpen(false);
   };
   const handleClosePost = () => {
-    setPosts([...posts, { title: newPostTitle, content: newPostContent }]);
+    const currentDate = new Date();
+    const formattedDate = `${currentDate.getFullYear()}-${currentDate.getMonth() + 1}-${currentDate.getDate()} ${currentDate.getHours()}:${currentDate.getMinutes()}`;
+    setPosts([{ title: newPostTitle, content: newPostContent, date: formattedDate }, ...posts]);
   };
+  
 
   const handleNewsModalOpen = () => {
     setNewsModalOpen(true);
@@ -203,8 +206,33 @@ export function LandingPage({ children, setIsLoading, isLoading }) {
 
       {isSmallScreen ? (
         <>
+        <div id="kisHozza">
+            <Button
+              onClick={handleNewsModalOpen}
+              variant="contained"
+              color="primary"
+            >
+              Új hír hozzáadása
+            </Button>
+          </div>
           <div className="flex-container">
             <div className="flex-item">
+              <div className="flex-container">
+                <div className="flex-item">
+                  {posts.map((post, index) => (
+                    <div className="contente-flex" key={index}>
+                      <div className="flexcontente-item">
+                        <div className="contente-box">
+                          <div className="contente-title">{post.title}</div>
+                          <div>Tudtad-e?</div>
+                          <div className="contente">{post.content}</div>
+                          <div className="post-date">{post.date}</div>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
               <div className="contente-flex">
                 <div className="flexcontente-item">
                   <div className="contente-box">
@@ -291,32 +319,7 @@ export function LandingPage({ children, setIsLoading, isLoading }) {
                   </div>
                 </div>
               </div>
-
-              <div className="flex-container">
-                <div className="flex-item">
-                  {posts.map((post, index) => (
-                    <div className="contente-flex" key={index}>
-                      <div className="flexcontente-item">
-                        <div className="contente-box">
-                          <div className="contente-title">{post.title}</div>
-                          <div>Tudtad-e?</div>
-                          <div className="contente">{post.content}</div>
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
             </div>
-          </div>
-          <div id="kisHozza">
-            <Button
-              onClick={handleNewsModalOpen}
-              variant="contained"
-              color="primary"
-            >
-              Új hír hozzáadása
-            </Button>
           </div>
         </>
       ) : (
@@ -410,6 +413,24 @@ export function LandingPage({ children, setIsLoading, isLoading }) {
             </div>
           </div>
           <div className="flex-item">
+
+            <div className="flex-container" style={{ my: 2 }}>
+              <div className="flex-item">
+                {posts.map((post, index) => (
+                  <div className="contente-flex" key={index}>
+                    <div className="flexcontente-item">
+                      <div className="contente-box">
+                        <div className="contente-title">{post.title}</div>
+                        <div>Tudtad-e?</div>
+                        <div className="contente">{post.content}</div>
+                        <div className="post-date">{post.date}</div>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
             <div className="contente-flex">
               <div className="flexcontente-item">
                 <div className="contente-box">
@@ -493,22 +514,6 @@ export function LandingPage({ children, setIsLoading, isLoading }) {
                     gépi tanulás legújabb fejlesztéseinek eredményei.
                   </div>
                 </div>
-              </div>
-            </div>
-
-            <div className="flex-container" style={{ my: 2 }}>
-              <div className="flex-item">
-                {posts.map((post, index) => (
-                  <div className="contente-flex" key={index}>
-                    <div className="flexcontente-item">
-                      <div className="contente-box">
-                        <div className="contente-title">{post.title}</div>
-                        <div>Tudtad-e?</div>
-                        <div className="contente">{post.content}</div>
-                      </div>
-                    </div>
-                  </div>
-                ))}
               </div>
             </div>
           </div>

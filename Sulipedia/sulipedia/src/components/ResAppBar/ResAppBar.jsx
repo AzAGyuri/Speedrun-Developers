@@ -22,6 +22,7 @@ import PersonIcon from "@mui/icons-material/Person";
 import ManageAccountsIcon from "@mui/icons-material/ManageAccounts";
 import EngineeringIcon from "@mui/icons-material/Engineering";
 import LogoutIcon from "@mui/icons-material/Logout";
+import { borderRadius } from "@mui/system";
 
 export function ResAppBar({ setIsLoading }) {
   const isSmallScreen = useMediaQuery("(max-width:950px)");
@@ -162,7 +163,7 @@ export function ResAppBar({ setIsLoading }) {
                       <img
                         alt="Sulipedia logója"
                         id="suliLogo"
-                        sx={{ display: { xs: "none", md: "flex" }, mr: 1 }}
+                        sx={{ display: { xs: "none", md: "flex"}, mr: 1 }}
                         src={SulipediaLogo}
                       />
                     </Link>
