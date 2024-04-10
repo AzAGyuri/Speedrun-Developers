@@ -263,14 +263,13 @@ export function Tests({ children }) {
 
   const [filteredTests, setFilteredTests] = useState(testsData);
 
-  useEffect(() => {
-    setFilteredTests(
-      selectedSubject
-        ? testsData.filter((test) => test.subject === selectedSubject)
-        : testsData
-    );
-    setSelectedTest(filteredTests.length === 0 ? null : filteredTests[0]);
-  }, [setSelectedTest, setFilteredTests, selectedSubject, filteredTests]);
+ useEffect(() => {
+  if (filteredTests.length > 0) {
+    setSelectedTest(selectedTest => selectedTest ? filteredTests.find(test => test.title === selectedTest.title) || filteredTests[0] : filteredTests[0]);
+  } else {
+    setSelectedTest(null);
+  }
+}, [filteredTests]);
 
   const getTitleText = () => {
     if (selectedSubject) {
