@@ -43,8 +43,12 @@ const LargeText = styled(Typography)({
   textAlign: "justify",
   lineHeight: "1.6",
 });
+
 const CommentSection = styled("div")({
+  margin: "0 auto",
   marginTop: (theme) => theme.spacing(3),
+  marginBottom: (theme) => theme.spacing(3),
+  maxWidth: "1000px",
   backgroundColor: "#f0f0f0",
   padding: (theme) => theme.spacing(3),
   borderRadius: "10px",
@@ -54,8 +58,10 @@ const CommentSection = styled("div")({
   alignItems: "stretch",
 });
 
+
 const CommentHeader = styled("div")({
   marginBottom: (theme) => theme.spacing(2),
+  marginLeft: "5px",
   fontSize: "1.8rem",
   fontWeight: "bold",
   color: "#333",
@@ -83,6 +89,7 @@ const CommentButton = styled(Button)({
 const Comment = styled("div")({
   marginTop: (theme) => theme.spacing(2),
   padding: (theme) => theme.spacing(2),
+  marginTop: "20px",
   backgroundColor: "#fff",
   borderRadius: "5px",
   boxShadow: "0px 3px 8px rgba(0, 0, 0, 0.1)",
@@ -92,18 +99,21 @@ const CommentContent = styled("p")({
   marginBottom: (theme) => theme.spacing(1),
   fontSize: "1.4rem",
   textAlign: "justify",
+  marginLeft: "5px",
 });
 
 const CommentAuthor = styled("span")({
   fontSize: "1rem",
   color: "#777",
   marginRight: (theme) => theme.spacing(1),
+  marginLeft: "5px",
   fontWeight: "bold",
 });
 
 const CommentDate = styled("span")({
   fontSize: "1rem",
   color: "#777",
+  marginLeft: "6px",
 });
 
 const StyledDrawerButton = styled(IconButton)({
