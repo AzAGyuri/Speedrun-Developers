@@ -57,10 +57,13 @@ const style = {
   left: "50%",
   transform: "translate(-50%, -50%)",
   width: 700,
-  bgcolor: "background.paper",
-  border: "2px solid #000",
+  bgcolor: "#adacac",
+  border: "4px solid #000",
   boxShadow: 24,
   p: 4,
+  borderRadius:"15px",
+  borderStyle:"double",
+  borderColor:"#db140d",
 };
 const styleSmall = {
   position: "absolute",
@@ -68,10 +71,13 @@ const styleSmall = {
   left: "50%",
   transform: "translate(-50%, -50%)",
   width: 350,
-  bgcolor: "background.paper",
-  border: "2px solid #000",
+  bgcolor: "#adacac",
+  border: "4px solid #000",
   boxShadow: 24,
   p: 4,
+  borderRadius:"15px",
+  borderStyle:"double",
+  borderColor:"#db140d",
 };
 
 export function LandingPage({ children, setIsLoading, isLoading }) {
@@ -139,7 +145,7 @@ export function LandingPage({ children, setIsLoading, isLoading }) {
           aria-labelledby="modal-modal-title"
           aria-describedby="modal-modal-description"
         >
-          <Box sx={isSmallScreen ? styleSmall : style}>
+          <Box sx={isSmallScreen ? styleSmall : style} >
             <CloseButton onClick={handleClose} color="primary">
               X
             </CloseButton>

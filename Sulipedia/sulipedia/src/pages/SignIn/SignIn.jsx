@@ -16,6 +16,8 @@ import axios from "axios";
 import LockSharpIcon from "@mui/icons-material/LockSharp";
 import EmailSharpIcon from "@mui/icons-material/EmailSharp";
 import InputAdornment from "@mui/material/InputAdornment";
+import BadgeIcon from "@mui/icons-material/Badge";
+import { Badge } from "@mui/base";
 
 const defaultTheme = createTheme();
 
@@ -146,7 +148,7 @@ export default function SignIn({ setIsLoading }) {
                 required
                 fullWidth
                 id="email"
-                label="Email cím"
+                label="Email cím vagy teljes név"
                 name="usernameOrEmail"
                 autoComplete="email"
                 autoFocus
@@ -155,6 +157,8 @@ export default function SignIn({ setIsLoading }) {
                   startAdornment: (
                     <InputAdornment position="start">
                       <EmailSharpIcon></EmailSharpIcon>
+                      /
+                      <BadgeIcon></BadgeIcon>
                     </InputAdornment>
                   ),
                 }}
