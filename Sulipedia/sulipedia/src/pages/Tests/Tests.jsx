@@ -24,6 +24,8 @@ import Tooltip from "@mui/material/Tooltip";
 import Avatar from "@mui/material/Avatar";
 import Drawer from "@mui/material/Drawer";
 import MenuItem from "@mui/material/MenuItem";
+import { Loading } from "../../components/Loading/Loading";
+import axios from "axios";
 
 const StyledButton = styled(Button)({
   backgroundColor: "#ff9800",
@@ -72,7 +74,7 @@ const FlexContainer = styled("div")({
   padding: "20px",
 });
 
-export function Tests({ children }) {
+export function Tests({ children, setIsLoading, isLoading }) {
   const [selectedSubject, setSelectedSubject] = useState("");
   const [selectedTest, setSelectedTest] = useState(null);
   const [answers, setAnswers] = useState({});
@@ -81,6 +83,7 @@ export function Tests({ children }) {
   const [showCorrectAnswer, setShowCorrectAnswer] = useState({});
   const [drawerOpen, setDrawerOpen] = React.useState(false);
   const isSmallScreen = useMediaQuery("(max-width:950px)");
+  const [subject, setSubject] = useState("");
 
   const testsData = [
     { title: "Algebrai kifejezések", subject: "Matematika" },
@@ -99,12 +102,7 @@ export function Tests({ children }) {
     "Algebrai kifejezések": [
       {
         question: "Mennyi 6*6",
-        answers: [
-          "36",
-          "7",
-          "18",
-          "11",
-        ],
+        answers: ["36", "7", "18", "11"],
         correctAnswer: "36",
       },
       {
@@ -121,12 +119,7 @@ export function Tests({ children }) {
       },
       {
         question: "Melyik alábbi szög típusra jellemző az 1 fokos szög?",
-        answers: [
-          "Hegyes szög",
-          "Derékszög",
-          "Tompaszög",
-          "Teljes szög",
-        ],
+        answers: ["Hegyes szög", "Derékszög", "Tompaszög", "Teljes szög"],
         correctAnswer: "Élesen szöget",
       },
     ],
@@ -261,18 +254,109 @@ export function Tests({ children }) {
     ],
   };
 
+  const [requestedTestData, setRequestedTestData] = useState(testsData);
+  const [requestedQuestionsAndAnswers, setRequestedQuestionsAndAnswers] =
+    useState(questionsAndAnswers);
+
   const [filteredTests, setFilteredTests] = useState(testsData);
 
- useEffect(() => {
-  if (filteredTests.length > 0) {
-    setSelectedTest(selectedTest => selectedTest ? filteredTests.find(test => test.title === selectedTest.title) || filteredTests[0] : filteredTests[0]);
-  } else {
-    setSelectedTest(null);
-  }
-  if (selectedSubject) {
-    setSelectedTest(filteredTests.length > 0 ? filteredTests[0] : null);
-  }
-}, [filteredTests,selectedSubject]);
+  useEffect(() => {
+    if (filteredTests.length > 0) {
+      setSelectedTest((selectedTest) =>
+        selectedTest
+          ? filteredTests.find((test) => test.title === selectedTest.title) ||
+            filteredTests[0]
+          : filteredTests[0]
+      );
+    } else {
+      setSelectedTest(null);
+    }
+    if (selectedSubject) {
+      setSelectedTest(filteredTests.length > 0 ? filteredTests[0] : null);
+    }
+  }, [filteredTests, selectedSubject]);
+
+  useEffect(() => {
+    switch (selectedSubject) {
+      case "Szakmai Angol":
+        setSubject("TECHNICAL_ENGLISH");
+        break;
+      case "Matematika":
+        setSubject("MATHS");
+        break;
+      case "Informatika":
+        setSubject("ICT");
+        break;
+      case "Történelem":
+        setSubject("HISTORY");
+        break;
+      case "Magyar nyelv":
+        setSubject("HUNGARIAN");
+        break;
+      default:
+        setSubject(null);
+        break;
+    }
+  }, [selectedSubject]);
+
+  useEffect(() => {
+    console.log(`/entry/test?subject=${subject}`);
+    axios
+      .get(subject ? `/entry/test?subject=${subject}` : "/entry/test", {
+        headers: { Authorization: localStorage.getItem("jwt") },
+      })
+      .then((response) => {
+        const entries = response.data;
+        console.log(entries);
+        entries.entries.forEach((entry) => {
+          setRequestedTestData(
+            [
+              { title: entry.title, subject: reverseGetSubject(entry.subject) },
+            ].concat(testsData)
+          );
+
+          let questions = [];
+          entry.questions.questions.forEach((question) => {
+            let correctAnswerText = question.answers.answers
+              .filter((answer) => answer.correct)
+              .map((answer) => answer.text);
+
+            questions.push({
+              question: question.text,
+              answers: question.answers.answers.map((answer) => answer.text),
+              correctAnswer: correctAnswerText,
+            });
+          });
+
+          setRequestedQuestionsAndAnswers(() => ({
+            [entry.title]: questions,
+            ...questionsAndAnswers,
+          }));
+        });
+        console.log(requestedTestData, requestedQuestionsAndAnswers);
+      })
+      .catch((error) => {
+        console.error("Hiba történt adat lekérdezéskor", error);
+      });
+    setIsLoading(false);
+  }, [subject, setIsLoading, isLoading]);
+
+  const reverseGetSubject = (subject) => {
+    switch (subject) {
+      case "HISTORY":
+        return "Történelem";
+      case "HUNGARIAN":
+        return "Magyar nyelv";
+      case "ICT":
+        return "Informatika";
+      case "MATHS":
+        return "Matematika";
+      case "TECHNICAL_ENGLISH":
+        return "Szakmai angol";
+      default:
+        break;
+    }
+  };
 
   const getTitleText = () => {
     if (selectedSubject) {
@@ -291,9 +375,10 @@ export function Tests({ children }) {
 
   const handleSubject = (event) => {
     let subject = event.target.id;
+    setIsLoading(true);
     setSelectedSubject(subject);
     setFilteredTests(
-      subject ? testsData.filter((test) => test.subject === subject) : testsData
+      subject ? requestedTestData.filter((test) => test.subject === subject) : requestedTestData
     );
     setShowResults(false);
   };
@@ -315,8 +400,8 @@ export function Tests({ children }) {
 
   const handleCheckAnswers = () => {
     const correctAnswersData = {};
-    Object.keys(questionsAndAnswers[selectedTest.title]).forEach((key) => {
-      const question = questionsAndAnswers[selectedTest.title][key];
+    Object.keys(requestedQuestionsAndAnswers[selectedTest.title]).forEach((key) => {
+      const question = requestedQuestionsAndAnswers[selectedTest.title][key];
       correctAnswersData[key] = question.correctAnswer;
     });
     setCorrectAnswers(correctAnswersData);
@@ -333,6 +418,8 @@ export function Tests({ children }) {
   const handleShowCorrectAnswer = (questionIndex) => {
     setShowCorrectAnswer({ ...showCorrectAnswer, [questionIndex]: true });
   };
+
+  if (isLoading) return <Loading />;
 
   return (
     <StyledContainer maxWidth="xl">
@@ -505,48 +592,50 @@ export function Tests({ children }) {
               {selectedTest.title} - {selectedTest.subject}
             </Typography>
             <List>
-              {questionsAndAnswers[selectedTest.title].map((item, index) => (
-                <div key={index} style={{ marginBottom: "20px" }}>
-                  <ListItem
-                    style={{
-                      backgroundColor: "#f0f0f0",
-                      borderRadius: "5px",
-                      padding: "10px",
-                      border: "1px solid #ccc",
-                    }}
-                  >
-                    <ListItemText
-                      primary={`${index + 1}. kérdés: ${item.question}`}
-                      style={{ color: "#333" }}
-                    />
-                  </ListItem>
-                  <ListItem
-                    style={{
-                      backgroundColor: "#f0f0f0",
-                      borderRadius: "5px",
-                      padding: "10px",
-                      border: "1px solid #ccc",
-                    }}
-                  >
-                    <RadioGroup
-                      value={answers[index] || ""}
-                      onChange={(event) => handleAnswerChange(event, index)}
+              {requestedQuestionsAndAnswers[selectedTest.title].map(
+                (item, index) => (
+                  <div key={index} style={{ marginBottom: "20px" }}>
+                    <ListItem
+                      style={{
+                        backgroundColor: "#f0f0f0",
+                        borderRadius: "5px",
+                        padding: "10px",
+                        border: "1px solid #ccc",
+                      }}
                     >
-                      {item.answers.map((answer, answerIndex) => (
-                        <FormControlLabel
-                          key={answerIndex}
-                          value={answer}
-                          control={<Radio />}
-                          label={answer}
-                          disabled={showResults}
-                          style={{ color: "#333" }}
-                        />
-                      ))}
-                    </RadioGroup>
-                  </ListItem>
-                  <hr style={{ margin: "10px 0", borderColor: "#ddd" }} />
-                </div>
-              ))}
+                      <ListItemText
+                        primary={`${index + 1}. kérdés: ${item.question}`}
+                        style={{ color: "#333" }}
+                      />
+                    </ListItem>
+                    <ListItem
+                      style={{
+                        backgroundColor: "#f0f0f0",
+                        borderRadius: "5px",
+                        padding: "10px",
+                        border: "1px solid #ccc",
+                      }}
+                    >
+                      <RadioGroup
+                        value={answers[index] || ""}
+                        onChange={(event) => handleAnswerChange(event, index)}
+                      >
+                        {item.answers.map((answer, answerIndex) => (
+                          <FormControlLabel
+                            key={answerIndex}
+                            value={answer}
+                            control={<Radio />}
+                            label={answer}
+                            disabled={showResults}
+                            style={{ color: "#333" }}
+                          />
+                        ))}
+                      </RadioGroup>
+                    </ListItem>
+                    <hr style={{ margin: "10px 0", borderColor: "#ddd" }} />
+                  </div>
+                )
+              )}
             </List>
 
             <StyledButton
@@ -575,9 +664,10 @@ export function Tests({ children }) {
               {Object.keys(answers).map((questionIndex) => (
                 <ListItem key={questionIndex}>
                   <ListItemText
-                    primary={`${parseInt(questionIndex) + 1}. kérdés: ${questionsAndAnswers[selectedTest.title][questionIndex]
-                      .question
-                      }`}
+                    primary={`${parseInt(questionIndex) + 1}. kérdés: ${
+                      requestedQuestionsAndAnswers[selectedTest.title][questionIndex]
+                        .question
+                    }`}
                     secondary={
                       <div style={{ display: "flex", alignItems: "center" }}>
                         <Typography
@@ -610,7 +700,7 @@ export function Tests({ children }) {
                             style={{ marginLeft: "10px", color: "blue" }}
                           >
                             {
-                              questionsAndAnswers[selectedTest.title][
+                              requestedQuestionsAndAnswers[selectedTest.title][
                                 questionIndex
                               ].correctAnswer
                             }
