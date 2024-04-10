@@ -94,7 +94,7 @@ public class UserService {
       repository.existsUserByEmail(changes.getEmail())
     ) throw notUnique("USERNAME_ALREADY_TAKEN");
 
-    User oldData = repository.getByUsername(subject);
+    User oldData = new User(repository.getByUsername(subject));
 
     if (
       passwordEncoder.matches(
@@ -113,11 +113,12 @@ public class UserService {
       updatingUser.setEmail(changes.getEmail());
     }
 
-    if (
-      changes.getNickname() != null &&
-      !oldData.getNickname().equalsIgnoreCase(changes.getNickname())
-    ) {
-      updatingUser.setNickname(changes.getNickname());
+    if (changes.getNickname() != null) {
+      if (oldData.getNickname() == null) updatingUser.setNickname(
+        changes.getNickname()
+      ); else if (
+        oldData.getNickname().equalsIgnoreCase(changes.getPhoneNumber())
+      ) updatingUser.setNickname(changes.getNickname());
     }
 
     if (
@@ -132,16 +133,17 @@ public class UserService {
       );
     }
 
-    if (
-      changes.getPhoneNumber() != null &&
-      !oldData.getPhoneNumber().equalsIgnoreCase(changes.getPhoneNumber())
-    ) {
-      updatingUser.setPhoneNumber(changes.getPhoneNumber());
+    if (changes.getPhoneNumber() != null) {
+      if (oldData.getPhoneNumber() == null) updatingUser.setPhoneNumber(
+        changes.getPhoneNumber()
+      ); else if (
+        oldData.getPhoneNumber().equalsIgnoreCase(changes.getPhoneNumber())
+      ) updatingUser.setPhoneNumber(changes.getPhoneNumber());
     }
 
-    if (
-      oldData.isAllUnchanged(updatingUser)
-    ) throw badRequest("UPDATED_ENTITY_DATA_MATCHED_OLD");
+    if (oldData.isAllUnchanged(updatingUser)) throw badRequest(
+      "UPDATED_ENTITY_DATA_MATCHED_OLD"
+    );
 
     return new GetUser(repository.save(updatingUser));
   }
