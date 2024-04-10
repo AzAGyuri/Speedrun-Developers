@@ -85,43 +85,32 @@ export function Tests({ children }) {
   const testsData = [
     { title: "Algebrai kifejezések", subject: "Matematika" },
     { title: "Geometriai háromszögek", subject: "Matematika" },
-    { title: "Magyarország történelmi korszakai ", subject: "Történelem" },
-    { title: "Szóbeli kifejezés", subject: "Magyar Nyelv" },
-    { title: "Az epika", subject: "Magyar Nyelv" },
-    { title: "Az reneszánsz", subject: "Magyar Nyelv" },
     { title: "Informatikai alapok", subject: "Informatika" },
     { title: "Informatikai alapok 3", subject: "Informatika" },
     { title: "Programozási paradigma", subject: "Informatika" },
-    { title: "Magyarország történelmi korszakai 2", subject: "Történelem" },
-    { title: "A reneszánsz kora", subject: "Történelem" },
-    { title: "Szakmai angol nyelv", subject: "Szakmai Angol" },
-    { title: "Szakmai angol szókincs", subject: "Szakmai Angol" },
-    { title: "Szóbeli kifejezés 2", subject: "Magyar Nyelv" },
+    { title: "Magyarország történelmi korszakai", subject: "Történelem" },
     { title: "Szakmai angol szókincs 2", subject: "Szakmai Angol" },
-    { title: "Magyarország történelmi korszakai 3", subject: "Történelem" },
     { title: "Szakmai angol szókincs 3", subject: "Szakmai Angol" },
-    { title: "Szakmai angol szókincs 4", subject: "Szakmai Angol" },
-    { title: "Algebrai kifejezések 2", subject: "Matematika" },
-    { title: "Algebrai kifejezések 3", subject: "Matematika" },
+    { title: "Szakmai angol szókincs 1", subject: "Szakmai Angol" },
     { title: "Informatikai alapok 2", subject: "Informatika" },
   ];
 
   const questionsAndAnswers = {
     "Algebrai kifejezések": [
       {
-        question: "Mi a főnevek elsődleges funkciója a mondatban?",
+        question: "Mennyi 6*6",
         answers: [
-          "Tárgy szerep",
-          "Alany szerep",
-          "Határozó szerep",
-          "Állítmány szerep",
+          "36",
+          "7",
+          "18",
+          "11",
         ],
-        correctAnswer: "Alany szerep",
+        correctAnswer: "36",
       },
       {
-        question: "Melyik alábbi szó összetett főnév?",
-        answers: ["Házépítő", "Kutya", "Futball", "Iskola"],
-        correctAnswer: "Házépítő",
+        question: "Melyik nem matematikai kifejezése",
+        answers: ["Pitagorasz-tétel", "Kutya", "Számok", "Egyenlet"],
+        correctAnswer: "Kutya",
       },
     ],
     "Geometriai háromszögek": [
@@ -133,83 +122,15 @@ export function Tests({ children }) {
       {
         question: "Melyik alábbi szög típusra jellemző az 1 fokos szög?",
         answers: [
-          "Élesen szöget",
-          "Derékszöget",
-          "Tompaszöget",
-          "Fél egyenest",
+          "Hegyes szög",
+          "Derékszög",
+          "Tompaszög",
+          "Teljes szög",
         ],
         correctAnswer: "Élesen szöget",
       },
     ],
-    "Magyarország történelmi korszakai ": [
-      {
-        question:
-          "Melyik történelmi korszakot nevezzük az Árpád-házi királyok kora néven?",
-        answers: ["Középkor", "Ókor", "Kora újkor", "Korai középkor"],
-        correctAnswer: "Korai középkor",
-      },
-      {
-        question: "Melyik évben tartották az Aradi vértanúk kivégzését?",
-        answers: ["1857", "1848", "1849", "1867"],
-        correctAnswer: "1849",
-      },
-    ],
-    "Szóbeli kifejezés": [
-      {
-        question: "Melyik a helyes mondat?",
-        answers: [
-          "Én tanultam meg a leckét.",
-          "Én tanultam megtanulni a leckét.",
-          "Én tanultam meg a leckétet.",
-          "Én tanultam meg, hogy a lecke.",
-        ],
-        correctAnswer: "Én tanultam meg a leckét.",
-      },
-      {
-        question: "Melyik a helyes írásmód?",
-        answers: ["Hogy vagy?", "Hogyvagy?", "Hogy vagy", "Hogy vagy!"],
-        correctAnswer: "Hogy vagy?",
-      },
-    ],
-    "Az epika": [
-      {
-        question: "Ki az A tanár úr című regény írója?",
-        answers: [
-          "Perczel Róbert",
-          "Németh László",
-          "Molnár Ferenc",
-          "Fekete István",
-        ],
-        correctAnswer: "Molnár Ferenc",
-      },
-      {
-        question: "Ki az Egy magyar nábob írója?",
-        answers: [
-          "Perczel Róbert",
-          "Németh László",
-          "Molnár Ferenc",
-          "Fekete István",
-        ],
-        correctAnswer: "Jókai Mór",
-      },
-    ],
-    "Az reneszánsz": [
-      {
-        question: "Melyik országban bontakozott ki a reneszánsz?",
-        answers: ["Németország", "Spanyolország", "Olaszország", "Anglia"],
-        correctAnswer: "Olaszország",
-      },
-      {
-        question: "Ki volt a reneszánsz kor egyik kiemelkedő festőművésze?",
-        answers: [
-          "Leonardo da Vinci",
-          "Pablo Picasso",
-          "Vincent van Gogh",
-          "Rembrandt",
-        ],
-        correctAnswer: "Leonardo da Vinci",
-      },
-    ],
+
     "Informatikai alapok": [
       {
         question: "Melyik az alapvető adattípus a JavaScriptben?",
@@ -248,7 +169,7 @@ export function Tests({ children }) {
         correctAnswer: "Inkapszuláció",
       },
     ],
-    "Magyarország történelmi korszakai 2": [
+    "Magyarország történelmi korszakai": [
       {
         question: "Melyik történelmi korszakban éltek a honfoglaló magyarok?",
         answers: ["Római kor", "Kora újkor", "Ókor", "Középkor"],
@@ -258,74 +179,6 @@ export function Tests({ children }) {
         question: "Melyik évben került sor a Mohácsi csatára?",
         answers: ["1456", "1526", "1492", "1568"],
         correctAnswer: "1526",
-      },
-    ],
-    "A reneszánsz kora": [
-      {
-        question: "Ki volt a reneszánsz kor legnagyobb festőművésze?",
-        answers: [
-          "Leonardo da Vinci",
-          "Michelangelo",
-          "Raffaello Sanzio",
-          "Titian",
-        ],
-        correctAnswer: "Leonardo da Vinci",
-      },
-      {
-        question: "Melyik város volt a reneszánsz egyik központja?",
-        answers: ["Párizs", "Firenze", "London", "Budapest"],
-        correctAnswer: "Firenze",
-      },
-    ],
-    "Szakmai angol nyelv": [
-      {
-        question: 'Mi a jelentése a "database" kifejezésnek?',
-        answers: ["Adatbázis", "Fájl", "Kereső", "Tár"],
-        correctAnswer: "Adatbázis",
-      },
-      {
-        question: 'Mi a jelentése a "server" kifejezésnek?',
-        answers: ["Szerver", "Ügyfél", "Hálózat", "Kapcsolat"],
-        correctAnswer: "Szerver",
-      },
-    ],
-    "Szakmai angol szókincs": [
-      {
-        question: 'Hogyan mondod angolul: "Készítettél már valaha weboldalt?"',
-        answers: [
-          "Did you ever make a website?",
-          "Did you ever make website?",
-          "Did you made a website ever?",
-          "Did ever you make a website?",
-        ],
-        correctAnswer: "Did you ever make a website?",
-      },
-      {
-        question: 'Hogyan mondod angolul: "Hol szereztél tapasztalatot?"',
-        answers: [
-          "Where did you gain experience?",
-          "Where did you gained experience?",
-          "Where you did gain experience?",
-          "Where did gain you experience?",
-        ],
-        correctAnswer: "Where did you gain experience?",
-      },
-    ],
-    "Szóbeli kifejezés 2": [
-      {
-        question: "Melyik az igaz mondat?",
-        answers: ["A nap süt.", "A felhő süt.", "A felhők süt.", "A hó süt."],
-        correctAnswer: "A nap süt.",
-      },
-      {
-        question: "Melyik a helyes mondat?",
-        answers: [
-          "Ezt a mondatot írtam le.",
-          "Ezt a mondatot irtam le.",
-          "Ezt a mondatot írta le.",
-          "Ezt a mondatot írta írta le.",
-        ],
-        correctAnswer: "Ezt a mondatot írtam le.",
       },
     ],
     "Szakmai angol szókincs 2": [
@@ -350,23 +203,6 @@ export function Tests({ children }) {
         correctAnswer: "What experience do you have?",
       },
     ],
-    "Magyarország történelmi korszakai 3": [
-      {
-        question: "Melyik évben volt a mohácsi csata?",
-        answers: ["1526", "1456", "1848", "1867"],
-        correctAnswer: "1526",
-      },
-      {
-        question: "Ki volt a mohácsi csata magyar királya?",
-        answers: [
-          "I. Ferdinánd",
-          "II. Lajos",
-          "III. Béla",
-          "I. Szapolyai János",
-        ],
-        correctAnswer: "II. Lajos",
-      },
-    ],
     "Szakmai angol szókincs 3": [
       {
         question: 'Hogyan mondod angolul: "Mi a neved?"',
@@ -389,7 +225,7 @@ export function Tests({ children }) {
         correctAnswer: "Where do you live?",
       },
     ],
-    "Szakmai angol szókincs 4": [
+    "Szakmai angol szókincs 1": [
       {
         question: 'Hogyan mondod angolul: "Mi a szakmai célod?"',
         answers: [
@@ -409,30 +245,6 @@ export function Tests({ children }) {
           "Do you speak what languages?",
         ],
         correctAnswer: "What languages do you speak?",
-      },
-    ],
-    "Algebrai kifejezések 2": [
-      {
-        question: "Melyik a helyes alábbi főnév?",
-        answers: ["Futóverseny", "Futó", "Futás", "Futók"],
-        correctAnswer: "Futóverseny",
-      },
-      {
-        question: "Melyik a helyes alábbi melléknév?",
-        answers: ["Szép", "Szépség", "Szépesség", "Széplelkű"],
-        correctAnswer: "Szép",
-      },
-    ],
-    "Algebrai kifejezések 3": [
-      {
-        question: 'Milyen alábbi szóösszetétel nevezi a "házőr" kifejezés?',
-        answers: ["Egyszerű", "Alanyi", "Összetett", "Többes"],
-        correctAnswer: "Összetett",
-      },
-      {
-        question: "Mi a helyes alábbi összetett szó?",
-        answers: ["Házépítő", "Házikó", "Ház", "Házba"],
-        correctAnswer: "Házépítő",
       },
     ],
     "Informatikai alapok 2": [
@@ -528,7 +340,7 @@ export function Tests({ children }) {
         >
           {isSmallScreen ? (
             <>
-              <Tooltip title="Főoldal, Tananyagok, Tesztek, Csoportjaim">
+              <Tooltip title="Tesztek kiválasztása">
                 <IconButton onClick={toggleDrawer} sx={{ p: 0, mr: 1 }}>
                   <Avatar>
                     <FormatListBulletedTwoToneIcon />
@@ -759,10 +571,9 @@ export function Tests({ children }) {
               {Object.keys(answers).map((questionIndex) => (
                 <ListItem key={questionIndex}>
                   <ListItemText
-                    primary={`Kérdés ${parseInt(questionIndex) + 1}: ${
-                      questionsAndAnswers[selectedTest.title][questionIndex]
-                        .question
-                    }`}
+                    primary={`Kérdés ${parseInt(questionIndex) + 1}: ${questionsAndAnswers[selectedTest.title][questionIndex]
+                      .question
+                      }`}
                     secondary={
                       <div style={{ display: "flex", alignItems: "center" }}>
                         <Typography
