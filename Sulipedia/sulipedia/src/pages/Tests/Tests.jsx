@@ -516,7 +516,7 @@ export function Tests({ children }) {
                     }}
                   >
                     <ListItemText
-                      primary={`Question ${index + 1}: ${item.question}`}
+                      primary={`${index + 1}. kérdés: ${item.question}`}
                       style={{ color: "#333" }}
                     />
                   </ListItem>
@@ -575,7 +575,7 @@ export function Tests({ children }) {
               {Object.keys(answers).map((questionIndex) => (
                 <ListItem key={questionIndex}>
                   <ListItemText
-                    primary={`Kérdés ${parseInt(questionIndex) + 1}: ${questionsAndAnswers[selectedTest.title][questionIndex]
+                    primary={`${parseInt(questionIndex) + 1}. kérdés: ${questionsAndAnswers[selectedTest.title][questionIndex]
                       .question
                       }`}
                     secondary={
