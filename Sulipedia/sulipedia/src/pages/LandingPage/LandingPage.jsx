@@ -128,7 +128,7 @@ export function LandingPage({ children, setIsLoading, isLoading }) {
       test: false,
       subject: newSubject,
     };
-
+  
     axios.post(`/entry`, requestData, {
       headers: {
         Authorization: localStorage.getItem("jwt").trim(),
@@ -136,18 +136,30 @@ export function LandingPage({ children, setIsLoading, isLoading }) {
     })
       .then((response) => {
         console.log("Post sikeresen közzétéve:", response.data);
+        axios.get(`/entry/keep`, {
+          headers: {
+            Authorization: localStorage.getItem("jwt"),
+          },
+        })
+        .then(response => {
+          setKeepPosts(response.data.entries);
+        })
+        .catch(error => {
+          console.error("Hiba történt adatok lekérdezéskor", error);
+        });
       })
       .catch((error) => {
         console.error("Hiba történt a Post közzététele közben:", error);
       });
-
+  
     console.log(newPostTitle, newPostContent, newSubject);
-
+  
     setNewsModalOpen(false);
     setNewPostTitle("");
     setNewPostContent("");
     setNewSubject("");
   };
+  
 
   const handleCategorySelect = (event) => {
     setSubject(event.target.id);
@@ -170,35 +182,23 @@ export function LandingPage({ children, setIsLoading, isLoading }) {
 
 
 
-  const [keepPost, setKeepPost] = useState({
-    postTitle: "Title",
-    content: "Content",
-    createdOn: "Created",
-    author: "Author",
-    subject: "Subject",
-    id: "Id"
-  });
+  const [keepPosts, setKeepPosts] = useState([]);
+
   
   useEffect(() => {
-  axios.get(`/entry/keep`, {headers: {
-    Authorization: localStorage.getItem("jwt"),
-  }})
-  .then(response => {
-    const existingPost = response.data;
-          setKeepPost({
-            postTitle: existingPost.title,
-            content: existingPost.content,
-            createdOn: existingPost.createdOn,
-            author: existingPost.author,
-            subject: existingPost.subject,
-            id: existingPost.id
-          });
-        console.log(keepPost.title);
-  })
-  .catch(error => {
-    console.error("Hiba történt adatok lekérdezéskor", error);
-  });}, [setIsLoading]);
-
+    axios.get(`/entry/keep`, {
+      headers: {
+        Authorization: localStorage.getItem("jwt"),
+      },
+    })
+    .then(response => {
+      setKeepPosts(response.data.entries);
+    })
+    .catch(error => {
+      console.error("Hiba történt adatok lekérdezéskor", error);
+    });
+  }, []);
+  
 
   if (isLoading) return <Loading />;
 
@@ -491,18 +491,20 @@ export function LandingPage({ children, setIsLoading, isLoading }) {
               </div>
             </div>
               
-          <div className="contente-flex">
+            {keepPosts.map((post) => (
+              <div className="contente-flex">
               <div className="flexcontente-item">
                 <div className="contente-box">
                   <div className="contente-title">
-                  {keepPost.postTitle}
+                  {post.title}
                   </div>
                   <div className="contente">
-                  {keepPost.content}
+                    {post.content}
                   </div>
                 </div>
               </div>
-            </div>
+              </div>
+            ))}
 
 
             <div className="contente-flex">
