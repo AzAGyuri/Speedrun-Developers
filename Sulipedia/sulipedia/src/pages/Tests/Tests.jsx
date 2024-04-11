@@ -322,6 +322,7 @@ export function Tests({ children, setIsLoading, isLoading }) {
       })
       .catch((error) => {
         console.error("Hiba történt adat lekérdezéskor", error);
+        alert("Hiba történt adat lekérdezéskor. Beépített tesztek megjelenítése", error);
         setRequestedTestData(testsData);
         setRequestedQuestionsAndAnswers(questionsAndAnswers);
       });
