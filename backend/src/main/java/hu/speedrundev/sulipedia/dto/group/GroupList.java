@@ -17,7 +17,8 @@ public class GroupList {
   }
 
   public GroupList(Set<Group> groups) {
-    this.groups = groups.stream().map(GroupListItem::new).toList();
+    this.groups =
+      groups == null ? null : groups.stream().map(GroupListItem::new).toList();
   }
 
   private List<GroupListItem> groups;
