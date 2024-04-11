@@ -177,6 +177,28 @@ export function SzakAngol({ children }) {
   const handleCommentChange = (event) => {
     setNewComment(event.target.value);
   };
+  const fetchComments = () => {
+    const backendUrl = '/comment';
+    axios.get(backendUrl)
+      .then(response => {
+        const fetchedComments = response.data.comments;
+        console.log('Komment', fetchedComments);
+      })
+      .catch(error => {
+        console.error('Error fetching comments:', error);
+      });
+  };
+  const deleteComment = (commentId) => {
+    const backendUrl = `/comment/${commentId}`;
+  
+    axios.delete(backendUrl)
+      .then(response => {
+        console.log('Komment törölve', response.data);
+      })
+      .catch(error => {
+        console.error('Error deleting comment:', error);
+      });
+  };
 
   const handleCommentSubmit = () => {  
     const backendUrl = '/comment';
@@ -184,7 +206,7 @@ export function SzakAngol({ children }) {
       content: newComment,
       entryId: 0 
     };
-    axios.post(backendUrl, requestBody)
+    axios.post(backendUrl, requestBody, {headers:{Authorization:localStorage.getItem("jwt")}})
       .then(response => {
         const newComments = [
           ...comments,
