@@ -241,7 +241,7 @@ export function LandingPage({ children, setIsLoading, isLoading }) {
               variant="contained"
               color="primary"
             >
-              Új hír hozzáadása
+              Új Bejegyzés hozzáadása
             </Button>
           </div>
           <div className="flex-container">
@@ -253,7 +253,7 @@ export function LandingPage({ children, setIsLoading, isLoading }) {
                       <div className="flexcontente-item">
                         <div className="contente-box">
                           <div className="contente-title">{post.title}</div>
-                          <div>Tudtad-e?</div>
+
                           <div className="contente">{post.content}</div>
                           <div className="post-date">{post.date}</div>
                         </div>
@@ -268,7 +268,7 @@ export function LandingPage({ children, setIsLoading, isLoading }) {
                     <div className="contente-title">
                       Algoritmusok és Adatszerkezetek
                     </div>
-                    <div>Tudtad-e?</div>
+
                     <div className="contente">
                       Az algoritmusok és adatszerkezetek kulcsfontosságú
                       fogalmak az informatikában. Az algoritmusok hatékony
@@ -286,7 +286,7 @@ export function LandingPage({ children, setIsLoading, isLoading }) {
                     <div className="contente-title">
                       Felhőalapú Számítástechnika
                     </div>
-                    <div>Tudtad-e?</div>
+
                     <div className="contente">
                       A felhőalapú számítástechnika forradalmasította az
                       informatikát. Az egyre növekvő számú vállalat és
@@ -303,7 +303,7 @@ export function LandingPage({ children, setIsLoading, isLoading }) {
                     <div className="contente-title">
                       Kiberbiztonság és Hálózatbiztonság
                     </div>
-                    <div>Tudtad-e?</div>
+
                     <div className="contente">
                       A kiberbiztonság és hálózatbiztonság napjainkban
                       kulcsfontosságú területe az informatikának. Az internetes
@@ -321,7 +321,7 @@ export function LandingPage({ children, setIsLoading, isLoading }) {
                     <div className="contente-title">
                       Adattudomány és Nagy Adat
                     </div>
-                    <div>Tudtad-e?</div>
+
                     <div className="contente">
                       Az adattudomány és a nagy adat elemzésének képességei
                       forradalmasítják az üzleti és tudományos területeket
@@ -338,7 +338,7 @@ export function LandingPage({ children, setIsLoading, isLoading }) {
                     <div className="contente-title">
                       Mesterséges Intelligencia és Gépi Tanulás
                     </div>
-                    <div>Tudtad-e?</div>
+
                     <div className="contente">
                       A mesterséges intelligencia és a gépi tanulás területei
                       forradalmasítják az informatikát. Az olyan alkalmazások,
@@ -450,7 +450,7 @@ export function LandingPage({ children, setIsLoading, isLoading }) {
                     <div className="flexcontente-item">
                       <div className="contente-box">
                         <div className="contente-title">{post.title}</div>
-                        <div>Tudtad-e?</div>
+
                         <div className="contente">{post.content}</div>
                         <div className="post-date">{post.date}</div>
                       </div>
@@ -466,7 +466,7 @@ export function LandingPage({ children, setIsLoading, isLoading }) {
                   <div className="contente-title">
                     Algoritmusok és Adatszerkezetek
                   </div>
-                  <div>Tudtad-e?</div>
+
                   <div className="contente">
                     Az algoritmusok és adatszerkezetek kulcsfontosságú fogalmak
                     az informatikában. Az algoritmusok hatékony megvalósítása és
@@ -483,7 +483,7 @@ export function LandingPage({ children, setIsLoading, isLoading }) {
                   <div className="contente-title">
                     Felhőalapú Számítástechnika
                   </div>
-                  <div>Tudtad-e?</div>
+
                   <div className="contente">
                     A felhőalapú számítástechnika forradalmasította az
                     informatikát. Az egyre növekvő számú vállalat és felhasználó
@@ -500,7 +500,7 @@ export function LandingPage({ children, setIsLoading, isLoading }) {
                   <div className="contente-title">
                     Kiberbiztonság és Hálózatbiztonság
                   </div>
-                  <div>Tudtad-e?</div>
+
                   <div className="contente">
                     A kiberbiztonság és hálózatbiztonság napjainkban
                     kulcsfontosságú területe az informatikának. Az internetes
@@ -518,7 +518,7 @@ export function LandingPage({ children, setIsLoading, isLoading }) {
                   <div className="contente-title">
                     Adattudomány és Nagy Adat
                   </div>
-                  <div>Tudtad-e?</div>
+
                   <div className="contente">
                     Az adattudomány és a nagy adat elemzésének képességei
                     forradalmasítják az üzleti és tudományos területeket
@@ -535,7 +535,7 @@ export function LandingPage({ children, setIsLoading, isLoading }) {
                   <div className="contente-title">
                     Mesterséges Intelligencia és Gépi Tanulás
                   </div>
-                  <div>Tudtad-e?</div>
+
                   <div className="contente">
                     A mesterséges intelligencia és a gépi tanulás területei
                     forradalmasítják az informatikát. Az olyan alkalmazások,
@@ -554,7 +554,7 @@ export function LandingPage({ children, setIsLoading, isLoading }) {
               color="primary"
               id="addNewsButton"
             >
-              Új hír hozzáadása
+              Új Bejegyzés hozzáadása
             </Button>
           </div>
         </div>
@@ -571,7 +571,7 @@ export function LandingPage({ children, setIsLoading, isLoading }) {
             X
           </CloseButton>
           <Typography variant="h6" component="div" id="news-modal-title">
-            Új hír hozzáadása
+            Új Bejegyzés hozzáadása
           </Typography>
           <TextField
             label="Cím"
