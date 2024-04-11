@@ -5,7 +5,6 @@ import hu.speedrundev.sulipedia.model.User;
 import hu.speedrundev.sulipedia.repository.UserRepository;
 import hu.speedrundev.sulipedia.util.MiscUtils;
 import io.jsonwebtoken.lang.Arrays;
-import java.util.Date;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -20,15 +19,12 @@ public class CommandLineAppStartupRunner implements CommandLineRunner {
 
   @Override
   public void run(String... args) throws Exception {
-    if (!repository.existsUserByUsername("admin")) {
-      User admin = new User();
-      admin.setCreatedOn(new Date());
-      admin.setUsername("admin");
+    if (repository.existsUserByUsername("admin")) {
+      User admin = repository.getByUsername("admin");
       admin.setUserPassword(new BCryptPasswordEncoder().encode("admin"));
       admin.setRoles(
         Arrays.asList(Roles.values()).stream().collect(Collectors.toSet())
       );
-      admin.setEmail("CHANGE_ME@example.com");
       admin.setRandomPfPBgColor(MiscUtils.generateThreeRandomColors());
       
       repository.save(admin);

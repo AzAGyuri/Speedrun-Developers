@@ -74,7 +74,7 @@ CREATE TABLE
         deleted_on date null,
         last_login date null,
         last_logoff date null,
-        profile_picture mediumblob null,
+        profile_picture mediumblob null
     ) AUTO_INCREMENT = 100000001;
 
 CREATE TABLE
@@ -114,7 +114,7 @@ CREATE TABLE
         deleted_on date null,
         created_on date null,
         subject_name varchar(50) not null,
-        author_id int (9) not null,
+        author_id int (9),
         FOREIGN KEY (subject_name) REFERENCES subjects (id) ON DELETE RESTRICT ON UPDATE CASCADE,
         FOREIGN KEY (author_id) REFERENCES registered_users (id) ON DELETE SET NULL ON UPDATE CASCADE
     ) AUTO_INCREMENT = 200000001;
@@ -156,6 +156,23 @@ CREATE TABLE
         FOREIGN KEY (author_id) REFERENCES registered_users (id) ON DELETE SET NULL ON UPDATE CASCADE,
         FOREIGN KEY (entry_id) REFERENCES entries (id) ON DELETE CASCADE ON UPDATE CASCADE
     ) AUTO_INCREMENT = 600000001;
+
+INSERT INTO
+    registered_users (
+        created_on,
+        username,
+        user_password,
+        email,
+        random_pfpbg_color
+    )
+values
+    (
+        NOW(),
+        "admin",
+        "admin",
+        "CHANGE_ME@example.com",
+        ""
+    );
 
 INSERT INTO
     groups (group_name)
