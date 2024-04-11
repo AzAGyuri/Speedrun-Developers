@@ -266,17 +266,21 @@ export function MyGroups({ children }) {
             <React.Fragment key={group.id}>
               <ListItem alignItems="flex-start">
                 <ListItemAvatar onClick={() => handleOpenMembers(group)}>
+                  <Tooltip title={`${group.name} csoport tagjainak megtekintése`}>
                   <Avatar
                     alt={group.name}
                     style={{
                       ...styles.avatar,
                       backgroundColor: avatarColors[group.id],
                       width: '70px',
-                      height: '70px'
+                      height: '70px',
+                      cursor:"pointer"
+                      
                     }}
                   >
                     {group.name[0].toUpperCase()}
                   </Avatar>
+                  </Tooltip>
 
                 </ListItemAvatar>
                 <ListItemText style={styles.listItemTextMargin}
