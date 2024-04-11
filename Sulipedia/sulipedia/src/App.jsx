@@ -34,7 +34,7 @@ function App() {
           <Routes>
             <Route path="/curriculums" element={<Curriculums setIsLoading={setIsLoading}><IsNotLoggedIn /></Curriculums>} />
             <Route path="/tests" element={<Tests setIsLoading={setIsLoading} isLoading={isLoading}><IsNotLoggedIn /></Tests>} />
-            <Route path="/mygroups" element={<MyGroups setIsLoading={setIsLoading}><IsNotLoggedIn /></MyGroups>} />
+            <Route path="/mygroups" element={<MyGroups setIsLoading={setIsLoading} isLoading={isLoading}><IsNotLoggedIn /></MyGroups>} />
             <Route path="/myProfile" element={<MyProfile setIsLoading={setIsLoading} isLoading={isLoading}><IsNotLoggedIn /></MyProfile>} />
             <Route path="/settings" element={<Settings setIsLoading={setIsLoading} isLoading={isLoading}><IsNotLoggedIn /></Settings>} />
             <Route path="/signIn" element={<SignIn setIsLoading={setIsLoading} />} />
