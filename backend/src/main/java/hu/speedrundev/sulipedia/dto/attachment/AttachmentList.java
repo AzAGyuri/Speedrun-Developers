@@ -1,11 +1,16 @@
 package hu.speedrundev.sulipedia.dto.attachment;
 
 import hu.speedrundev.sulipedia.model.Attachment;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import java.util.List;
 
+@Getter
+@Setter
+@NoArgsConstructor
 public class AttachmentList {
-
-  public AttachmentList() {}
 
   public AttachmentList(List<Attachment> attachments) {
     this.attachments =
@@ -13,12 +18,4 @@ public class AttachmentList {
   }
 
   private List<AttachmentListItem> attachments;
-
-  public List<AttachmentListItem> getAttachments() {
-    return attachments;
-  }
-
-  public void setAttachments(List<AttachmentListItem> attachments) {
-    this.attachments = attachments;
-  }
 }

@@ -1,11 +1,16 @@
 package hu.speedrundev.sulipedia.dto.question;
 
 import hu.speedrundev.sulipedia.model.Question;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import java.util.List;
 
+@Getter
+@Setter
+@NoArgsConstructor
 public class QuestionList {
-
-  public QuestionList() {}
 
   public QuestionList(List<Question> questions) {
     this.questions =
@@ -16,12 +21,4 @@ public class QuestionList {
   }
 
   private List<QuestionListItem> questions;
-
-  public List<QuestionListItem> getQuestions() {
-    return questions;
-  }
-
-  public void setQuestions(List<QuestionListItem> questions) {
-    this.questions = questions;
-  }
 }

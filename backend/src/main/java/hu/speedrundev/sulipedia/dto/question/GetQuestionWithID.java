@@ -2,7 +2,13 @@ package hu.speedrundev.sulipedia.dto.question;
 
 import hu.speedrundev.sulipedia.dto.answer.AnswerList;
 import hu.speedrundev.sulipedia.model.Question;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+@Getter
+@Setter
+@NoArgsConstructor
 public class GetQuestionWithID extends GetQuestion {
 
   public GetQuestionWithID(
@@ -15,8 +21,6 @@ public class GetQuestionWithID extends GetQuestion {
     this.id = id;
   }
 
-  public GetQuestionWithID() {}
-
   public GetQuestionWithID(Question question) {
     this(
       question.getContent(),
@@ -27,12 +31,4 @@ public class GetQuestionWithID extends GetQuestion {
   }
 
   private Integer id;
-
-  public Integer getId() {
-    return id;
-  }
-
-  public void setId(Integer id) {
-    this.id = id;
-  }
 }

@@ -100,8 +100,8 @@ public class User {
   private Set<Roles> roles;
 
   @ManyToOne
-  @JoinColumn(name = "class_id")
-  private SchoolClass linkedClass;
+  @JoinColumn(name = "group_id")
+  private Group group;
 
   @OneToMany(mappedBy = "author")
   private List<Comment> createdComments;

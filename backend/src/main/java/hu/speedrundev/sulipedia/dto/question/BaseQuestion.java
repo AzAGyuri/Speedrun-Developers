@@ -1,20 +1,16 @@
 package hu.speedrundev.sulipedia.dto.question;
 
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Getter
+@Setter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor(access = AccessLevel.PROTECTED)
 public class BaseQuestion {
 
-  public BaseQuestion() {}
-
-  public BaseQuestion(String text) {
-    this.text = text;
-  }
-
   private String text;
-
-  public String getText() {
-    return text;
-  }
-
-  public void setText(String text) {
-    this.text = text;
-  }
 }

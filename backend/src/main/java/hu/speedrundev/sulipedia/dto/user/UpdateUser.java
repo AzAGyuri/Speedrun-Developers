@@ -1,5 +1,6 @@
 package hu.speedrundev.sulipedia.dto.user;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -21,6 +22,7 @@ public class UpdateUser {
 
   private String phoneNumber;
 
+  @JsonIgnore
   public boolean isAllNull() {
     return nickname == null && email == null && passwordRaw == null && phoneNumber == null;
   }

@@ -33,14 +33,12 @@ public class Entry {
 
   public Entry(
     PostEntry entry,
-    User author,
-    SchoolClass linkedClass
+    User author
   ) {
     this.author = author;
     this.content = entry.getContent();
     this.createdOn = new Date();
     this.keep = entry.getKeep();
-    this.linkedClass = linkedClass;
     this.subject = Subjects.valueOf(entry.getSubject().toString());
     this.test = entry.getTest();
     this.title = entry.getTitle();
@@ -72,10 +70,6 @@ public class Entry {
   @ManyToOne
   @JoinColumn(name = "author_id")
   private User author;
-
-  @ManyToOne
-  @JoinColumn(name = "class_id")
-  private SchoolClass linkedClass;
 
   @OneToMany(mappedBy = "linkedEntry")
   private List<Attachment> attachments;

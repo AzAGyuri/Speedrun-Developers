@@ -1,5 +1,6 @@
 package hu.speedrundev.sulipedia.dto.entry;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.util.List;
 import lombok.Getter;
@@ -34,6 +35,7 @@ public class UpdateEntry extends BaseEntry {
     return questionIds.isEmpty();
   }
 
+  @JsonIgnore
   public boolean isAllNull() {
     return (
       getKeep() == null &&

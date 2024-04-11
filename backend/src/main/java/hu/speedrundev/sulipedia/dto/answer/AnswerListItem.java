@@ -1,10 +1,10 @@
 package hu.speedrundev.sulipedia.dto.answer;
 
 import hu.speedrundev.sulipedia.model.Answer;
+import lombok.NoArgsConstructor;
 
+@NoArgsConstructor
 public class AnswerListItem extends GetAnswerWithID {
-
-  public AnswerListItem() {}
 
   public AnswerListItem(
     Boolean correct,

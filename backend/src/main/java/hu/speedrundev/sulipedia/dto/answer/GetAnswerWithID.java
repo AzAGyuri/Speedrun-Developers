@@ -1,8 +1,13 @@
 package hu.speedrundev.sulipedia.dto.answer;
 
-public class GetAnswerWithID extends GetAnswer {
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-  public GetAnswerWithID() {}
+@Getter
+@Setter
+@NoArgsConstructor
+public class GetAnswerWithID extends GetAnswer {
 
   public GetAnswerWithID(
     Boolean correct,
@@ -15,12 +20,4 @@ public class GetAnswerWithID extends GetAnswer {
   }
 
   private Integer id;
-
-  public Integer getId() {
-    return id;
-  }
-
-  public void setId(Integer id) {
-    this.id = id;
-  }
 }

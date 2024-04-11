@@ -1,4 +1,6 @@
-package hu.speedrundev.sulipedia.dto.schoolclass;
+package hu.speedrundev.sulipedia.dto.group;
+
+import java.util.Set;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -10,9 +12,9 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
-public class BaseSchoolClass {
+public class BaseGroup {
 
-  private Integer classYear;
+  private String groupName;
 
-  private Character classLabel;
+  private Set<SpecializationDto> specializations;
 }

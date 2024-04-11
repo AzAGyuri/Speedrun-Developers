@@ -20,6 +20,7 @@ public class GetUser extends BaseUser {
     String phoneNumber,
     String randomPfPBgColor,
     String profilePictureBase64,
+    String groupName,
     Date birthDate,
     Date createdOn,
     Date lastLogin,
@@ -29,6 +30,7 @@ public class GetUser extends BaseUser {
     super(username, email, nickname, phoneNumber);
     this.randomPfPBgColor = randomPfPBgColor;
     this.profilePictureBase64 = profilePictureBase64;
+    this.groupName = groupName;
     this.birthDate = birthDate;
     this.createdOn = createdOn;
     this.lastLogin = lastLogin;
@@ -46,6 +48,7 @@ public class GetUser extends BaseUser {
       user.getProfilePicture() == null
         ? ""
         : Base64.getEncoder().encodeToString(user.getProfilePicture()),
+      user.getGroup() == null ? "" : user.getGroup().getGroupName(),
       user.getBirthDate(),
       user.getCreatedOn(),
       user.getLastLogin(),
@@ -54,7 +57,7 @@ public class GetUser extends BaseUser {
     );
   }
 
-  private String randomPfPBgColor, profilePictureBase64;
+  private String randomPfPBgColor, profilePictureBase64, groupName;
 
   private Date birthDate, createdOn, lastLogin, lastLogoff;
 

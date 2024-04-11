@@ -20,6 +20,7 @@ public class GetUserWithID extends GetUser {
     String phoneNumber,
     String randomPfPBgColor,
     String profilePictureBase64,
+    String groupName,
     Date birthDate,
     Date createdOn,
     Date lastLogin,
@@ -34,6 +35,7 @@ public class GetUserWithID extends GetUser {
       phoneNumber,
       randomPfPBgColor,
       profilePictureBase64,
+      groupName,
       birthDate,
       createdOn,
       lastLogin,
@@ -53,6 +55,7 @@ public class GetUserWithID extends GetUser {
       user.getProfilePicture() == null
         ? ""
         : Base64.getEncoder().encodeToString((user.getProfilePicture())),
+      user.getGroup() == null ? "" : user.getGroup().getGroupName(),
       user.getBirthDate(),
       user.getCreatedOn(),
       user.getLastLogin(),

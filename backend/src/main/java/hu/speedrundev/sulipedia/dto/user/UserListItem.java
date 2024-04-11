@@ -16,6 +16,7 @@ public class UserListItem extends GetUserWithID {
     String phoneNumber,
     String randomPfPBgColor,
     String profilePictureBase64,
+    String groupName,
     Date birthDate,
     Date lastLogin,
     Date lastLogoff,
@@ -30,6 +31,7 @@ public class UserListItem extends GetUserWithID {
       phoneNumber,
       randomPfPBgColor,
       profilePictureBase64,
+      groupName,
       birthDate,
       createdOn,
       lastLogin,
@@ -49,6 +51,7 @@ public class UserListItem extends GetUserWithID {
       user.getProfilePicture() == null
         ? ""
         : Base64.getEncoder().encodeToString(user.getProfilePicture()),
+      user.getGroup() == null ? "" : user.getGroup().getGroupName(),
       user.getBirthDate(),
       user.getLastLogin(),
       user.getLastLogoff(),

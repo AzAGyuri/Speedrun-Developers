@@ -1,18 +1,16 @@
 package hu.speedrundev.sulipedia.dto.availability;
 
 import hu.speedrundev.sulipedia.model.Availability;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+@Getter
+@Setter
+@NoArgsConstructor
 public class AvailabilityListItem extends GetAvailabilityWithID {
 
   private Integer linkedUserId;
-
-  public Integer getLinkedUserId() {
-    return linkedUserId;
-  }
-
-  public void setLinkedUserId(Integer linkedUserId) {
-    this.linkedUserId = linkedUserId;
-  }
 
   public AvailabilityListItem(Availability availability) {
     this(
@@ -22,8 +20,6 @@ public class AvailabilityListItem extends GetAvailabilityWithID {
       availability.getLinkedUser().getId()
     );
   }
-
-  public AvailabilityListItem() {}
 
   public AvailabilityListItem(
     String link,

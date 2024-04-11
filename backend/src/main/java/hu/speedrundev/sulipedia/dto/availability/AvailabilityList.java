@@ -1,11 +1,16 @@
 package hu.speedrundev.sulipedia.dto.availability;
 
 import hu.speedrundev.sulipedia.model.Availability;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import java.util.List;
 
+@NoArgsConstructor
+@Getter
+@Setter
 public class AvailabilityList {
-
-  public AvailabilityList() {}
 
   public AvailabilityList(List<Availability> availabilities) {
     this.availabilities =
@@ -16,12 +21,4 @@ public class AvailabilityList {
   }
 
   List<AvailabilityListItem> availabilities;
-
-  public List<AvailabilityListItem> getAvailabilities() {
-    return availabilities;
-  }
-
-  public void setAvailabilities(List<AvailabilityListItem> availabilities) {
-    this.availabilities = availabilities;
-  }
 }

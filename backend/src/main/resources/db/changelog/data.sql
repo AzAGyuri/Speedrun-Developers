@@ -5,7 +5,7 @@ INSERT INTO
     specialization (id)
 VALUES
     ("ECONOMY"),
-    ("FINANCE"),
+    ("MANAGEMENT"),
     ("IT");
 
 CREATE TABLE
@@ -46,22 +46,17 @@ VALUES
     ("TECHNICAL_ENGLISH");
 
 CREATE TABLE
-    IF NOT EXISTS school_class (
+    IF NOT EXISTS groups (
         id INT (9) PRIMARY KEY AUTO_INCREMENT,
-        starting_year INT (5) NOT NULL,
-        class_year INT (2) CHECK (
-            class_year >= 1
-            AND class_year <= 14
-        ),
-        class_label char(1) not null,
+        group_name varchar(75) not null
     ) AUTO_INCREMENT = 700000001;
 
 CREATE TABLE
-    IF NOT EXISTS school_class_specialization (
-        school_class_id int (9) NOT NULL,
+    IF NOT EXISTS group_specialization (
+        group_id int (9) NOT NULL,
         specialization varchar(50) NOT NULL,
         FOREIGN KEY (specialization) REFERENCES specialization (id) ON DELETE RESTRICT ON UPDATE CASCADE,
-        FOREIGN KEY (school_class_id) REFERENCES school_class (id) ON DELETE RESTRICT ON UPDATE CASCADE
+        FOREIGN KEY (group_id) REFERENCES groups (id) ON DELETE RESTRICT ON UPDATE CASCADE
     );
 
 CREATE TABLE
@@ -80,8 +75,8 @@ CREATE TABLE
         last_login date null,
         last_logoff date null,
         profile_picture mediumblob null,
-        class_id int (9),
-        FOREIGN KEY (class_id) REFERENCES school_class (id) ON DELETE SET NULL ON UPDATE CASCADE
+        group_id int (9),
+        FOREIGN KEY (group_id) REFERENCES groups (id) ON DELETE SET NULL ON UPDATE CASCADE
     ) AUTO_INCREMENT = 100000001;
 
 CREATE TABLE
@@ -114,10 +109,10 @@ CREATE TABLE
         created_on date null,
         subject_name varchar(50) not null,
         author_id int (9),
-        class_id int (9),
+        group_id int (9),
         FOREIGN KEY (subject_name) REFERENCES subjects (id) ON DELETE RESTRICT ON UPDATE CASCADE,
         FOREIGN KEY (author_id) REFERENCES registered_users (id) ON DELETE SET NULL ON UPDATE CASCADE,
-        FOREIGN KEY (class_id) REFERENCES school_class (id) ON DELETE SET NULL ON UPDATE CASCADE
+        FOREIGN KEY (group_id) REFERENCES groups (id) ON DELETE SET NULL ON UPDATE CASCADE
     ) AUTO_INCREMENT = 200000001;
 
 CREATE TABLE
@@ -159,19 +154,29 @@ CREATE TABLE
     ) AUTO_INCREMENT = 600000001;
 
 INSERT INTO
-    school_class (class_year, class_label, starting_year)
+    groups (group_name)
 values
-    (14, 'B', 2023),
-    (12, 'D', 2019),
-    (12, 'A', 2018);
+    ('Szakmai Angol 2/14B'),
+    ('Magyar nyelv 12D'),
+    ('Történelem 12C'),
+    ('Matematika 12C'),
+    ('Digitális Kultúra 12A'),
+    ('Gigachad (Backend) 2/14B'),
+    ('2_14b_frontend');
 
 INSERT INTO
-    school_class_specialization (school_class_id, specialization)
+    group_specialization (group_id, specialization)
 values
     (700000001, 'IT'),
     (700000002, 'IT'),
     (700000003, 'IT'),
-    (700000003, 'ECONOMY');
+    (700000003, 'MANAGEMENT'),
+    (700000004, 'IT'),
+    (700000004, 'MANAGEMENT'),
+    (700000005, 'IT'),
+    (700000005, 'ECONOMY'),
+    (700000006, 'IT'),
+    (700000007, 'IT'),
 
 INSERT INTO
     entries (
@@ -183,7 +188,7 @@ INSERT INTO
         created_on,
         subject_name,
         author_id,
-        class_id
+        group_id
     )
 values
     (

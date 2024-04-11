@@ -21,7 +21,6 @@ import hu.speedrundev.sulipedia.repository.AnswerRepository;
 import hu.speedrundev.sulipedia.repository.AttachmentRepository;
 import hu.speedrundev.sulipedia.repository.EntryRepository;
 import hu.speedrundev.sulipedia.repository.QuestionRepository;
-import hu.speedrundev.sulipedia.repository.SchoolClassRepository;
 import hu.speedrundev.sulipedia.repository.UserRepository;
 import hu.speedrundev.sulipedia.util.JwtUtil;
 import io.jsonwebtoken.lang.Arrays;
@@ -55,9 +54,6 @@ public class EntryService {
 
   @Autowired
   private QuestionRepository questionRepository;
-
-  @Autowired
-  private SchoolClassRepository schoolClassRepository;
 
   @Autowired
   private JwtUtil jwtUtil;
@@ -112,10 +108,6 @@ public class EntryService {
 
     if (author.isEmpty()) throw modelNotFound("AUTHOR_NOT_FOUND");
 
-    if (
-      schoolClassRepository.existsByClassName(entry.getSchoolClass()) != 1
-    ) throw modelNotFound("SCHOOL_CLASS_NOT_FOUND");
-
     if (entry.getTest() && entry.getQuestions().isEmpty()) throw badRequest(
       "NO_QUESTIONS_SUPPLIED_FOR_TEST_ENTRY"
     );
@@ -123,8 +115,7 @@ public class EntryService {
     Entry savedEntry = entryRepository.save(
       new Entry(
         entry,
-        author.get(),
-        schoolClassRepository.getClassByClassName(entry.getSchoolClass())
+        author.get()
       )
     );
 

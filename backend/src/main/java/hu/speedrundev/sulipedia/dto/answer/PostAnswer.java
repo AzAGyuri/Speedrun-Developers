@@ -1,8 +1,9 @@
 package hu.speedrundev.sulipedia.dto.answer;
 
-public class PostAnswer extends BaseAnswer {
+import lombok.NoArgsConstructor;
 
-  public PostAnswer() {}
+@NoArgsConstructor
+public class PostAnswer extends BaseAnswer {
 
   public PostAnswer(Boolean correct, String text) {
     super(correct, text);
