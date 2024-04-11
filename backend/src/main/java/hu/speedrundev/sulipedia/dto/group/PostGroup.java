@@ -12,8 +12,9 @@ public class PostGroup extends BaseGroup {
 
   public PostGroup(
     String groupName,
-    Set<SpecializationDto> specializations
+    Set<SpecializationDto> specializations,
+    String descriptionContent
   ) {
-    super(groupName, specializations);
+    super(groupName, descriptionContent, specializations);
   }
 }

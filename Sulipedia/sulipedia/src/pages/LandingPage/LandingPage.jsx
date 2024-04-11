@@ -128,7 +128,7 @@ export function LandingPage({ children, setIsLoading, isLoading }) {
       test: false,
       subject: newSubject,
     };
-
+  
     axios.post(`/entry`, requestData, {
       headers: {
         Authorization: localStorage.getItem("jwt").trim(),
@@ -136,18 +136,30 @@ export function LandingPage({ children, setIsLoading, isLoading }) {
     })
       .then((response) => {
         console.log("Post sikeresen közzétéve:", response.data);
+        axios.get(`/entry/keep`, {
+          headers: {
+            Authorization: localStorage.getItem("jwt"),
+          },
+        })
+        .then(response => {
+          setKeepPosts(response.data.entries);
+        })
+        .catch(error => {
+          console.error("Hiba történt adatok lekérdezéskor", error);
+        });
       })
       .catch((error) => {
         console.error("Hiba történt a Post közzététele közben:", error);
       });
-
+  
     console.log(newPostTitle, newPostContent, newSubject);
-
+  
     setNewsModalOpen(false);
     setNewPostTitle("");
     setNewPostContent("");
     setNewSubject("");
   };
+  
 
   const handleCategorySelect = (event) => {
     setSubject(event.target.id);
@@ -167,6 +179,26 @@ export function LandingPage({ children, setIsLoading, isLoading }) {
       setIsLoading(false);
     }, 300);
   }, [jwt, subject, setIsLoading, isLoading]);
+
+
+
+  const [keepPosts, setKeepPosts] = useState([]);
+
+  
+  useEffect(() => {
+    axios.get(`/entry/keep`, {
+      headers: {
+        Authorization: localStorage.getItem("jwt"),
+      },
+    })
+    .then(response => {
+      setKeepPosts(response.data.entries);
+    })
+    .catch(error => {
+      console.error("Hiba történt adatok lekérdezéskor", error);
+    });
+  }, []);
+  
 
   if (isLoading) return <Loading />;
 
@@ -249,22 +281,18 @@ export function LandingPage({ children, setIsLoading, isLoading }) {
           </div>
           <div className="flex-container">
             <div className="flex-item">
-              <div className="flex-container">
-                <div className="flex-item">
-                  {posts.map((post, index) => (
-                    <div className="contente-flex" key={index}>
-                      <div className="flexcontente-item">
-                        <div className="contente-box">
-                          <div className="contente-title">{post.title}</div>
-
-                          <div className="contente">{post.content}</div>
-                          <div className="post-date">{post.date}</div>
-                        </div>
-                      </div>
-                    </div>
-                  ))}
+              
+            {keepPosts.slice(0).reverse().map((post) => (
+              <div className="contente-flex" key={post.id}>
+                <div className="flexcontente-item">
+                  <div className="contente-box">
+                    <div className="contente-title">{post.title}</div>
+                    <div className="contente">{post.content}</div>
+                  </div>
                 </div>
               </div>
+            ))}
+
               <div className="contente-flex">
                 <div className="flexcontente-item">
                   <div className="contente-box">
@@ -355,6 +383,7 @@ export function LandingPage({ children, setIsLoading, isLoading }) {
           </div>
         </>
       ) : (
+        
         <div className="flex-container">
           <div className="flex-item">
             <div className="drawer">
@@ -460,6 +489,19 @@ export function LandingPage({ children, setIsLoading, isLoading }) {
                 ))}
               </div>
             </div>
+              
+            {keepPosts.slice(0).reverse().map((post) => (
+              <div className="contente-flex" key={post.id}>
+                <div className="flexcontente-item">
+                  <div className="contente-box">
+                    <div className="contente-title">{post.title}</div>
+                    <div className="contente">{post.content}</div>
+                  </div>
+                </div>
+              </div>
+            ))}
+
+
 
             <div className="contente-flex">
               <div className="flexcontente-item">

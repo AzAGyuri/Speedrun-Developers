@@ -19,23 +19,27 @@ public class GetGroupWithUsers extends GetGroupWithID {
     String groupName,
     Set<SpecializationDto> specializations,
     Integer id,
+    String descriptionContent,
+    String randomAvatarBgColor,
     UserList users
   ) {
-    super(groupName, specializations, id);
+    super(groupName, specializations, id, descriptionContent, randomAvatarBgColor);
     this.users = users;
   }
 
-  public GetGroupWithUsers(Group groupName) {
+  public GetGroupWithUsers(Group group) {
     this(
-      groupName.getGroupName(),
-      groupName
+      group.getGroupName(),
+      group
         .getSpecializations()
         .stream()
         .map(Specialization::toString)
         .map(SpecializationDto::valueOf)
         .collect(Collectors.toSet()),
-      groupName.getId(),
-      new UserList(groupName.getUsers())
+      group.getId(),
+      group.getDescriptionContent(),
+      group.getRandomAvatarBgColor(),
+      new UserList(group.getUsers())
     );
   }
 

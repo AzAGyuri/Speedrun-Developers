@@ -1,5 +1,7 @@
 package hu.speedrundev.sulipedia.model;
 
+import hu.speedrundev.sulipedia.dto.group.PostGroup;
+import hu.speedrundev.sulipedia.dto.group.SpecializationDto;
 import jakarta.persistence.CollectionTable;
 import jakarta.persistence.Column;
 import jakarta.persistence.ElementCollection;
@@ -16,9 +18,6 @@ import jakarta.persistence.Table;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
-
-import hu.speedrundev.sulipedia.dto.group.PostGroup;
-import hu.speedrundev.sulipedia.dto.group.SpecializationDto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -49,16 +48,18 @@ public class Group {
 
   private String groupName;
 
+  private String descriptionContent;
+
+  @Column(name = "random_avatar_bg_color")
+  private String randomAvatarBgColor;
+
   @ElementCollection(
     targetClass = Specialization.class,
     fetch = FetchType.EAGER
   )
   @CollectionTable(
     name = "group_specialization",
-    joinColumns = @JoinColumn(
-      name = "group_id",
-      referencedColumnName = "id"
-    )
+    joinColumns = @JoinColumn(name = "group_id", referencedColumnName = "id")
   )
   @Enumerated(EnumType.STRING)
   @Column(name = "specialization")

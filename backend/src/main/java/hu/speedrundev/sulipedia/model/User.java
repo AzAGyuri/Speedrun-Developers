@@ -57,8 +57,8 @@ public class User {
   @Column(nullable = false, unique = true)
   private String email;
 
-  @Column(nullable = false)
-  private String randomPfPBgColor;
+  @Column(nullable = false, name = "random_avatar_bg_color")
+  private String randomAvatarBgColor;
 
   @Column(nullable = true)
   private String nickname;
@@ -117,7 +117,7 @@ public class User {
     userPassword = user.getPasswordRaw();
     username = user.getUsername();
     roles.add(Roles.ROLE_STUDENT);
-    randomPfPBgColor = generateThreeRandomColors();
+    randomAvatarBgColor = generateThreeRandomColors();
   }
 
   public User(UserRegistration user) {
@@ -129,7 +129,7 @@ public class User {
     roles.add(Roles.ROLE_STUDENT);
     nickname = user.getNickname();
     phoneNumber = user.getPhoneNumber();
-    randomPfPBgColor = generateThreeRandomColors();
+    randomAvatarBgColor = generateThreeRandomColors();
   }
 
   public void nulledDelete() {

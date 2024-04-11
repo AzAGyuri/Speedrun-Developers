@@ -16,9 +16,11 @@ public class GetGroupWithID extends GetGroup {
   public GetGroupWithID(
     String groupName,
     Set<SpecializationDto> specializations,
-    Integer id
+    Integer id,
+    String descriptionContent,
+    String randomAvatarBgColor
   ) {
-    super(groupName, specializations);
+    super(groupName, specializations, descriptionContent, randomAvatarBgColor);
     this.id = id;
   }
 
@@ -31,7 +33,9 @@ public class GetGroupWithID extends GetGroup {
         .map(Specialization::toString)
         .map(SpecializationDto::valueOf)
         .collect(Collectors.toSet()),
-      group.getId()
+      group.getId(),
+      group.getDescriptionContent(),
+      group.getRandomAvatarBgColor()
     );
   }
 

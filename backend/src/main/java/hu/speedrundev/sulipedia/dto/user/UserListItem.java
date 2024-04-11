@@ -48,7 +48,7 @@ public class UserListItem extends GetUserWithID {
       user.getEmail(),
       user.getNickname(),
       user.getPhoneNumber(),
-      user.getRandomPfPBgColor(),
+      user.getRandomAvatarBgColor(),
       user.getProfilePicture() == null
         ? ""
         : Base64.getEncoder().encodeToString(user.getProfilePicture()),
