@@ -83,7 +83,6 @@ export function Tests({ children, setIsLoading, isLoading }) {
   const [showCorrectAnswer, setShowCorrectAnswer] = useState({});
   const [drawerOpen, setDrawerOpen] = React.useState(false);
   const isSmallScreen = useMediaQuery("(max-width:950px)");
-  const [subject, setSubject] = useState("");
 
   const testsData = useMemo(
     () => [
@@ -288,29 +287,6 @@ export function Tests({ children, setIsLoading, isLoading }) {
   }, [filteredTests, selectedSubject]);
 
   useEffect(() => {
-    switch (selectedSubject) {
-      case "Szakmai Angol":
-        setSubject("TECHNICAL_ENGLISH");
-        break;
-      case "Matematika":
-        setSubject("MATHS");
-        break;
-      case "Informatika":
-        setSubject("ICT");
-        break;
-      case "Történelem":
-        setSubject("HISTORY");
-        break;
-      case "Magyar nyelv":
-        setSubject("HUNGARIAN");
-        break;
-      default:
-        setSubject(null);
-        break;
-    }
-  }, [selectedSubject]);
-
-  useEffect(() => {
     axios
       .get("/entry/test", {
         headers: { Authorization: localStorage.getItem("jwt") },
@@ -389,6 +365,7 @@ export function Tests({ children, setIsLoading, isLoading }) {
   const handleSubject = (event) => {
     let subject = event.target.id;
     setSelectedSubject(subject);
+    setIsLoading(true);
     setShowResults(false);
     setShowCorrectAnswer({});
     setFilteredTests(
@@ -396,6 +373,9 @@ export function Tests({ children, setIsLoading, isLoading }) {
         ? requestedTestData.filter((test) => test.subject === subject)
         : requestedTestData
     );
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 300);
   };
 
   const handleTestSelection = (test) => {
