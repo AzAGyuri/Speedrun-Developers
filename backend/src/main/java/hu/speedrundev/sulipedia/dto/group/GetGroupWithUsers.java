@@ -20,9 +20,10 @@ public class GetGroupWithUsers extends GetGroupWithID {
     Set<SpecializationDto> specializations,
     Integer id,
     String descriptionContent,
+    String randomAvatarBgColor,
     UserList users
   ) {
-    super(groupName, specializations, id, descriptionContent);
+    super(groupName, specializations, id, descriptionContent, randomAvatarBgColor);
     this.users = users;
   }
 
@@ -37,6 +38,7 @@ public class GetGroupWithUsers extends GetGroupWithID {
         .collect(Collectors.toSet()),
       group.getId(),
       group.getDescriptionContent(),
+      group.getRandomAvatarBgColor(),
       new UserList(group.getUsers())
     );
   }

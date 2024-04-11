@@ -14,9 +14,10 @@ public class GroupListItem extends GetGroupWithID {
     String groupName,
     Set<SpecializationDto> specializations,
     Integer id,
-    String descriptionContent
+    String descriptionContent,
+    String randomAvatarBgColor
   ) {
-    super(groupName, specializations, id, descriptionContent);
+    super(groupName, specializations, id, descriptionContent, randomAvatarBgColor);
   }
 
   public GroupListItem(Group group) {
@@ -29,7 +30,8 @@ public class GroupListItem extends GetGroupWithID {
         .map(SpecializationDto::valueOf)
         .collect(Collectors.toSet()),
       group.getId(),
-      group.getDescriptionContent()
+      group.getDescriptionContent(),
+      group.getRandomAvatarBgColor()
     );
   }
 }
