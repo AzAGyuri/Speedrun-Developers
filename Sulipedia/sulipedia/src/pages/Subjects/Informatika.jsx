@@ -1,16 +1,5 @@
 import React from "react";
-import {
-  Container,
-  Typography,
-  IconButton,
-  Drawer,
-  List,
-  ListItem,
-  ListItemText,
-  Collapse,
-  Button,
-  Tooltip,
-} from "@mui/material";
+import {Container,Typography,IconButton,Drawer,List,ListItem,ListItemText,Collapse,Button,Tooltip,} from "@mui/material";
 import { styled } from "@mui/system";
 import MenuIcon from "@mui/icons-material/Menu";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -186,6 +175,7 @@ export function Informatika({ children }) {
       })
       .catch(error => {
         console.error('Error fetching comments:', error);
+        alert('Hiba történt a kommentek lekérdezésekor',error);
       });
   };
   const deleteComment = (commentId) => {
@@ -197,6 +187,7 @@ export function Informatika({ children }) {
       })
       .catch(error => {
         console.error('Error deleting comment:', error);
+        alert('Hiba a komment törlésekor',error);
       });
   };
 
@@ -221,6 +212,7 @@ export function Informatika({ children }) {
       })
       .catch(error => {
         console.error('Error submitting comment:', error);
+        alert('Hiba a komment elküldésekor',error);
       });
   };
   const handleCommentDelete = (index) => {

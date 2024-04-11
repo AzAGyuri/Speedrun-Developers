@@ -64,7 +64,6 @@ export function LearnMore({ children }) {
           </Content>
         </Box>
       </SectionContainer>
-
       <SectionContainer>
         <Box
           borderBottom="2px solid #fff"
@@ -90,7 +89,6 @@ export function LearnMore({ children }) {
           </Content>
         </Box>
       </SectionContainer>
-
       <SectionContainer>
         <Box
           borderBottom="2px solid #fff"
@@ -118,7 +116,6 @@ export function LearnMore({ children }) {
           </Content>
         </Box>
       </SectionContainer>
-
       <SectionContainer>
         <Title variant="h2" gutterBottom>
           Szeretnének kérdést feltenni?

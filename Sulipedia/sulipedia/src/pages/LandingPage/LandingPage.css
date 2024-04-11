@@ -11,7 +11,7 @@
 
 .flex-item {
     position: relative;
-    flex: 1;    
+    flex: 1;
     text-align: center;
     position: sticky;
     top: 0;
@@ -118,9 +118,9 @@ body {
 
 .contente {
     margin: 20px 0px 20px 0px;
-    border: 2px solid #555050; 
-    padding: 10px; 
-    border-radius: 5px; 
+    border: 2px solid #555050;
+    padding: 10px;
+    border-radius: 5px;
     margin-right: 10px;
     margin-left: 10px;
 }
@@ -146,14 +146,16 @@ body {
     border: 1px solid black;
     border-radius: 20px;
 }
-.drawer span, #addNewsButton {
+
+.drawer span,
+#addNewsButton {
     position: sticky;
-    top: 10px; 
-    z-index: 1; 
+    top: 10px;
+    z-index: 1;
 }
 
 #addNewsButton {
-    position: absolute; 
-    top: 10px; 
+    position: absolute;
+    top: 10px;
     right: 200px;
 }

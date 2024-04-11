@@ -1,14 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {
-  Container,
-  Typography,
-  Paper,
-  TextField,
-  Button,
-  Grid,
-  Avatar,
-  Link,
-} from "@mui/material";
+import {Container,Typography,Paper,TextField,Button,Grid,Avatar,Link,} from "@mui/material";
 import "./Settings.css";
 import { Loading } from "../../components/Loading/Loading";
 import axios from "axios";
@@ -196,6 +187,7 @@ export function Settings({ children, setIsLoading, isLoading }) {
         })
         .catch((error) => {
           console.error("Hiba történt adat lekérdezéskor", error);
+          alert("Hiba történt adat lekérdezskor", error);
         });
     }
     setTimeout(()=>{

@@ -8,11 +8,11 @@ import SzakmaiAngolImage from '../../resources/iteng.png';
 import MatematikaImage from '../../resources/mat.png';
 import MagyarNyelvImage from '../../resources/grammer.png';
 import TortenelemImage from '../../resources/history.png';
- 
+
 const SubjectCard = styled(Card)({
   backgroundColor: '#f5f5f5',
   borderRadius: '10px',
-  border: '2px solid grey', 
+  border: '2px solid grey',
   boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
   transition: 'transform 0.2s',
   overflow: 'hidden',
@@ -60,7 +60,7 @@ const IconImage = styled('img')({
   marginLeft: '8px',
 });
 
-export function Curriculums({children}) {
+export function Curriculums({ children }) {
   const subjects = [
     {
       title: 'Szakmai Angol',
@@ -99,15 +99,12 @@ export function Curriculums({children}) {
     },
   ];
 
-  // const gridRows = Math.ceil(subjects.length / 2);
-
   return (
     <Container>
       {children}
       <Typography variant="h2" style={{ margin: '32px 0', textAlign: 'center', color: '#333' }}>
         Tantárgyak
       </Typography>
-
       <Grid container spacing={3} justifyContent="center">
         {subjects.map((subject, index) => (
           <Grid item key={index} xs={12} sm={6} md={4}>

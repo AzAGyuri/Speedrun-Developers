@@ -3,9 +3,6 @@ import { Container, Typography, Avatar, Paper, Button } from "@mui/material";
 import { Loading } from "../../components/Loading/Loading";
 import axios from "axios";
 import LocalPhoneIcon from '@mui/icons-material/LocalPhone';
-import InputAdornment from '@mui/material/InputAdornment';
-import EnhancedEncryptionIcon from '@mui/icons-material/EnhancedEncryption';
-import LockSharpIcon from '@mui/icons-material/LockSharp';
 import EmailSharpIcon from '@mui/icons-material/EmailSharp';
 import BadgeIcon from '@mui/icons-material/Badge';
 import NumbersIcon from '@mui/icons-material/Numbers';
@@ -144,6 +141,7 @@ export function MyProfile({ children, setIsLoading, isLoading }) {
         })
         .catch((error) => {
           console.error("Hiba történt adat lekérdezéskor", error);
+          alert("Hiba történt adat lekérdezéskor", error);
         });
     }
     setTimeout(()=>{

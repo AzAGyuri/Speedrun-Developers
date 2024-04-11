@@ -17,7 +17,7 @@ import LockSharpIcon from "@mui/icons-material/LockSharp";
 import EmailSharpIcon from "@mui/icons-material/EmailSharp";
 import InputAdornment from "@mui/material/InputAdornment";
 import BadgeIcon from "@mui/icons-material/Badge";
-import { Badge } from "@mui/base";
+import { Tooltip } from "@mui/material";
 
 const defaultTheme = createTheme();
 
@@ -131,9 +131,11 @@ export default function SignIn({ setIsLoading }) {
               alignItems: "center",
             }}
           >
+            <Tooltip placement="top" title="Ez egy biztonságos bejelentkezési felület">
             <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
               <LockOutlinedIcon />
             </Avatar>
+            </Tooltip>
             <Typography component="h1" variant="h5">
               Bejelentkezés
             </Typography>

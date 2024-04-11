@@ -20,6 +20,10 @@ import history from "../../resources/history.png";
 import it from "../../resources/it.png";
 import iteng from "../../resources/iteng.png";
 import axios from "axios";
+import Select from '@mui/material/Select';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
 
 const HeaderTypography = styled(Typography)({
   marginBottom: "16px",
@@ -88,6 +92,7 @@ export function LandingPage({ children, setIsLoading, isLoading }) {
   const [newsModalOpen, setNewsModalOpen] = useState(false);
   const [newPostTitle, setNewPostTitle] = useState("");
   const [newPostContent, setNewPostContent] = useState("");
+  const [newSubject, setNewSubject] = useState("");
   const isSmallScreen = useMediaQuery("(max-width:950px)");
   let [subject, setSubject] = useState("");
   let [entries, setEntries] = useState({
@@ -103,21 +108,45 @@ export function LandingPage({ children, setIsLoading, isLoading }) {
   const handleClose = () => {
     setOpen(false);
   };
-  const handleClosePost = () => {
+
+  /*const handleClosePost = () => {
     const currentDate = new Date();
     const formattedDate = `${currentDate.getFullYear()}-${currentDate.getMonth() + 1}-${currentDate.getDate()} ${currentDate.getHours()}:${currentDate.getMinutes()}`;
     setPosts([{ title: newPostTitle, content: newPostContent, date: formattedDate }, ...posts]);
-  };
-  
+  };*/
+
 
   const handleNewsModalOpen = () => {
     setNewsModalOpen(true);
   };
 
   const handleNewsModalClose = () => {
+    const requestData = {
+      title: newPostTitle,
+      content: newPostContent,
+      keep: true,
+      test: false,
+      subject: newSubject,
+    };
+
+    axios.post(`/entry`, requestData, {
+      headers: {
+        Authorization: localStorage.getItem("jwt").trim(),
+      },
+    })
+      .then((response) => {
+        console.log("Post sikeresen közzétéve:", response.data);
+      })
+      .catch((error) => {
+        console.error("Hiba történt a Post közzététele közben:", error);
+      });
+
+    console.log(newPostTitle, newPostContent, newSubject);
+
     setNewsModalOpen(false);
     setNewPostTitle("");
     setNewPostContent("");
+    setNewSubject("");
   };
 
   const handleCategorySelect = (event) => {
@@ -132,10 +161,11 @@ export function LandingPage({ children, setIsLoading, isLoading }) {
       })
       .catch((error) => {
         console.error("Hiba történt az adatok lekérdezése során", error);
+        alert("Hiba történt az adatok lekérdezése során", error);
       });
-    setTimeout(()=>{
+    setTimeout(() => {
       setIsLoading(false);
-    },300);
+    }, 300);
   }, [jwt, subject, setIsLoading, isLoading]);
 
   if (isLoading) return <Loading />;
@@ -179,7 +209,6 @@ export function LandingPage({ children, setIsLoading, isLoading }) {
               paypal <a href="https://www.paypal.me/Krisz37">linken</a>{" "}
               megteheti!
             </Typography>
-
             <BottomButtonsContainer>
               <Button
                 variant="contained"
@@ -189,7 +218,6 @@ export function LandingPage({ children, setIsLoading, isLoading }) {
               >
                 Tudj meg többet
               </Button>
-
               <Button
                 variant="contained"
                 color="error"
@@ -197,7 +225,6 @@ export function LandingPage({ children, setIsLoading, isLoading }) {
               >
                 Ne jelenjen meg újra!
               </Button>
-
               <SignInButton component={Link} to="/AboutUs">
                 Rólunk
               </SignInButton>
@@ -208,7 +235,7 @@ export function LandingPage({ children, setIsLoading, isLoading }) {
 
       {isSmallScreen ? (
         <>
-        <div id="kisHozza">
+          <div id="kisHozza">
             <Button
               onClick={handleNewsModalOpen}
               variant="contained"
@@ -551,6 +578,7 @@ export function LandingPage({ children, setIsLoading, isLoading }) {
             fullWidth
             value={newPostTitle}
             onChange={(e) => setNewPostTitle(e.target.value)}
+            style={{ marginTop: "15px" }}
           />
           <TextField
             label="Tartalom"
@@ -559,13 +587,30 @@ export function LandingPage({ children, setIsLoading, isLoading }) {
             fullWidth
             value={newPostContent}
             onChange={(e) => setNewPostContent(e.target.value)}
+            style={{ marginTop: "15px", marginBottom: "15px" }}
           />
+          <FormControl fullWidth>
+            <InputLabel id="demo-simple-select-label">Tantárgy</InputLabel>
+            <Select
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              value={newSubject}
+              label="Tantárgy"
+              onChange={(e) => setNewSubject(e.target.value)}
+            >
+              <MenuItem value={"HISTORY"}>Történelem</MenuItem>
+              <MenuItem value={"HUNGARIAN"}>Magyar</MenuItem>
+              <MenuItem value={"MATHS"}>Matematika</MenuItem>
+              <MenuItem value={"ICT"}>Informatika</MenuItem>
+              <MenuItem value={"TECHNICAL_ENGLISH"}>Szakmai Angol</MenuItem>
+            </Select>
+          </FormControl>
           <Button
             variant="contained"
             color="secondary"
             style={{ marginTop: "16px" }}
             onClick={() => {
-              handleClosePost();
+              //handleClosePost();
               handleNewsModalClose();
             }}
           >
