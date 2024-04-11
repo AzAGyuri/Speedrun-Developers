@@ -16,8 +16,9 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
 import jakarta.persistence.Lob;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Email;
@@ -99,9 +100,13 @@ public class User {
   @Column(name = "role_id")
   private Set<Roles> roles;
 
-  @ManyToOne
-  @JoinColumn(name = "group_id")
-  private Group group;
+  @ManyToMany
+  @JoinTable(
+    name = "grouped_user",
+    joinColumns = @JoinColumn(name = "user_id"),
+    inverseJoinColumns = @JoinColumn(name = "group_id")
+  )
+  private Set<Group> joinedGroups;
 
   @OneToMany(mappedBy = "author")
   private List<Comment> createdComments;

@@ -75,9 +75,15 @@ CREATE TABLE
         last_login date null,
         last_logoff date null,
         profile_picture mediumblob null,
-        group_id int (9),
-        FOREIGN KEY (group_id) REFERENCES groups (id) ON DELETE SET NULL ON UPDATE CASCADE
     ) AUTO_INCREMENT = 100000001;
+
+CREATE TABLE
+    IF NOT EXISTS grouped_user (
+        user_id int (9) not null,
+        group_id int (9) not null,
+        FOREIGN KEY (user_id) REFERENCES registered_users (id) ON DELETE RESTRICT ON UPDATE CASCADE,
+        FOREIGN KEY (group_id) REFERENCES groups (id) ON DELETE RESTRICT ON UPDATE CASCADE
+    );
 
 CREATE TABLE
     IF NOT EXISTS user_roles (
@@ -108,7 +114,7 @@ CREATE TABLE
         deleted_on date null,
         created_on date null,
         subject_name varchar(50) not null,
-        author_id int (9),
+        author_id int (9) not null,
         FOREIGN KEY (subject_name) REFERENCES subjects (id) ON DELETE RESTRICT ON UPDATE CASCADE,
         FOREIGN KEY (author_id) REFERENCES registered_users (id) ON DELETE SET NULL ON UPDATE CASCADE
     ) AUTO_INCREMENT = 200000001;
@@ -174,7 +180,7 @@ values
     (700000005, 'IT'),
     (700000005, 'ECONOMY'),
     (700000006, 'IT'),
-    (700000007, 'IT'),
+    (700000007, 'IT');
 
 INSERT INTO
     entries (
@@ -185,8 +191,7 @@ INSERT INTO
         deleted,
         created_on,
         subject_name,
-        author_id,
-        group_id
+        author_id
     )
 values
     (
@@ -197,8 +202,7 @@ values
         0,
         NOW (),
         'MATHS',
-        100000001,
-        700000001
+        100000001
     ),
     (
         "Geometriai háromszögek",
@@ -208,8 +212,7 @@ values
         0,
         NOW (),
         'MATHS',
-        100000001,
-        700000001
+        100000001
     ),
     (
         "Informatikai alapok 1",
@@ -219,8 +222,7 @@ values
         0,
         NOW (),
         'ICT',
-        100000001,
-        700000001
+        100000001
     ),
     (
         "Informatikai alapok 2",
@@ -230,8 +232,7 @@ values
         0,
         NOW (),
         'ICT',
-        100000001,
-        700000001
+        100000001
     ),
     (
         "Informatikai alapok 3",
@@ -241,8 +242,7 @@ values
         0,
         NOW (),
         'ICT',
-        100000001,
-        700000001
+        100000001
     ),
     (
         "Programozási paradigma",
@@ -252,8 +252,7 @@ values
         0,
         NOW (),
         'ICT',
-        100000001,
-        700000001
+        100000001
     ),
     (
         "Magyarország történelmi korszakai",
@@ -263,8 +262,7 @@ values
         0,
         NOW (),
         'HISTORY',
-        100000001,
-        700000001
+        100000001
     ),
     (
         "Szakmai Angol szókincs",
@@ -274,8 +272,7 @@ values
         0,
         NOW (),
         'TECHNICAL_ENGLISH',
-        100000001,
-        700000001
+        100000001
     ),
     (
         "Szakmai Angol szókincs 2",
@@ -285,8 +282,7 @@ values
         0,
         NOW (),
         'TECHNICAL_ENGLISH',
-        100000001,
-        700000001
+        100000001
     ),
     (
         "Szakmai Angol szókincs 3",
@@ -296,8 +292,7 @@ values
         0,
         NOW (),
         'TECHNICAL_ENGLISH',
-        100000001,
-        700000001
+        100000001
     );
 
 INSERT INTO
