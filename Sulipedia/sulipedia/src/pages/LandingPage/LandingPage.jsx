@@ -168,6 +168,38 @@ export function LandingPage({ children, setIsLoading, isLoading }) {
     }, 300);
   }, [jwt, subject, setIsLoading, isLoading]);
 
+
+
+  const [keepPost, setKeepPost] = useState({
+    postTitle: "Title",
+    content: "Content",
+    createdOn: "Created",
+    author: "Author",
+    subject: "Subject",
+    id: "Id"
+  });
+  
+  useEffect(() => {
+  axios.get(`/entry/keep`, {headers: {
+    Authorization: localStorage.getItem("jwt"),
+  }})
+  .then(response => {
+    const existingPost = response.data;
+          setKeepPost({
+            postTitle: existingPost.title,
+            content: existingPost.content,
+            createdOn: existingPost.createdOn,
+            author: existingPost.author,
+            subject: existingPost.subject,
+            id: existingPost.id
+          });
+        console.log(keepPost.title);
+  })
+  .catch(error => {
+    console.error("Hiba történt adatok lekérdezéskor", error);
+  });}, [setIsLoading]);
+
+
   if (isLoading) return <Loading />;
 
   return (
@@ -352,6 +384,7 @@ export function LandingPage({ children, setIsLoading, isLoading }) {
           </div>
         </>
       ) : (
+        
         <div className="flex-container">
           <div className="flex-item">
             <div className="drawer">
@@ -457,6 +490,20 @@ export function LandingPage({ children, setIsLoading, isLoading }) {
                 ))}
               </div>
             </div>
+              
+          <div className="contente-flex">
+              <div className="flexcontente-item">
+                <div className="contente-box">
+                  <div className="contente-title">
+                  {keepPost.postTitle}
+                  </div>
+                  <div className="contente">
+                  {keepPost.content}
+                  </div>
+                </div>
+              </div>
+            </div>
+
 
             <div className="contente-flex">
               <div className="flexcontente-item">
