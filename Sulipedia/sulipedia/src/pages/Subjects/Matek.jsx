@@ -14,6 +14,8 @@ import {
 import { styled } from "@mui/system";
 import MenuIcon from "@mui/icons-material/Menu";
 import DeleteIcon from "@mui/icons-material/Delete";
+import axios from 'axios';
+
 
 const StyledContainer = styled(Container)({
   display: "flex",
@@ -177,18 +179,30 @@ export function Matek({ children }) {
     setNewComment(event.target.value);
   };
 
-  const handleCommentSubmit = () => {
-    const newComments = [
-      ...comments,
-      {
-        content: newComment,
-        author: "Felhasználó", // itt később a bejelentkezett felhasználó adatait kellene használni
-        date: new Date().toLocaleDateString(),
-      },
-    ];
-    setComments(newComments);
-    setNewComment("");
+  const handleCommentSubmit = () => {  
+    const backendUrl = '/comment';
+    const requestBody = {
+      content: newComment,
+      entryId: 0 
+    };
+    axios.post(backendUrl, requestBody)
+      .then(response => {
+        const newComments = [
+          ...comments,
+          {
+            content: newComment,
+            author: "Felhasználó",
+            date: new Date().toLocaleDateString(),
+          },
+        ];
+        setComments(newComments);
+        setNewComment("");
+      })
+      .catch(error => {
+        console.error('Error submitting comment:', error);
+      });
   };
+  
 
   const handleCommentDelete = (index) => {
     const updatedComments = [...comments];
