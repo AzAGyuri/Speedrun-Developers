@@ -553,7 +553,9 @@ export function MyGroups({ children, setIsLoading, isLoading }) {
         aria-describedby="modal-modal-description"
       >
         <Box sx={isSmallScreen ? styleSmall : style}>
-          <Typography id="modal-modal-title" variant="h6" component="h2">
+          <Typography id="modal-modal-title" variant="h6" component="h2" style={{
+                      cursor:"cell"
+                    }}>
             Új tag hozzáadása - {selectedGroup && selectedGroup.name}
           </Typography>
           <Typography id="modal-modal-description" sx={{ mt: 2 }}>

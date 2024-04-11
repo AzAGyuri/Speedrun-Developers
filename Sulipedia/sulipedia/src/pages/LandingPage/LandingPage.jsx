@@ -272,28 +272,27 @@ export function LandingPage({ children, setIsLoading, isLoading }) {
               onClick={handleNewsModalOpen}
               variant="contained"
               color="primary"
+              style={{
+                cursor:"cell"
+              }}
             >
               Új Bejegyzés hozzáadása
             </Button>
           </div>
           <div className="flex-container">
             <div className="flex-item">
-              <div className="flex-container">
-                <div className="flex-item">
-                  {posts.map((post, index) => (
-                    <div className="contente-flex" key={index}>
-                      <div className="flexcontente-item">
-                        <div className="contente-box">
-                          <div className="contente-title">{post.title}</div>
-
-                          <div className="contente">{post.content}</div>
-                          <div className="post-date">{post.date}</div>
-                        </div>
-                      </div>
-                    </div>
-                  ))}
+              
+            {keepPosts.slice(0).reverse().map((post) => (
+              <div className="contente-flex" key={post.id}>
+                <div className="flexcontente-item">
+                  <div className="contente-box">
+                    <div className="contente-title">{post.title}</div>
+                    <div className="contente">{post.content}</div>
+                  </div>
                 </div>
               </div>
+            ))}
+
               <div className="contente-flex">
                 <div className="flexcontente-item">
                   <div className="contente-box">
@@ -491,20 +490,17 @@ export function LandingPage({ children, setIsLoading, isLoading }) {
               </div>
             </div>
               
-            {keepPosts.map((post) => (
-              <div className="contente-flex">
-              <div className="flexcontente-item">
-                <div className="contente-box">
-                  <div className="contente-title">
-                  {post.title}
-                  </div>
-                  <div className="contente">
-                    {post.content}
+            {keepPosts.slice(0).reverse().map((post) => (
+              <div className="contente-flex" key={post.id}>
+                <div className="flexcontente-item">
+                  <div className="contente-box">
+                    <div className="contente-title">{post.title}</div>
+                    <div className="contente">{post.content}</div>
                   </div>
                 </div>
               </div>
-              </div>
             ))}
+
 
 
             <div className="contente-flex">
@@ -589,12 +585,18 @@ export function LandingPage({ children, setIsLoading, isLoading }) {
             </div>
           </div>
 
-          <div className="flex-item">
+          <div className="flex-item" style={{
+                cursor:"cell"
+              }}>
             <Button
               onClick={handleNewsModalOpen}
               variant="contained"
               color="primary"
               id="addNewsButton"
+              style={{
+                cursor:"cell"
+              }}
+              
             >
               Új Bejegyzés hozzáadása
             </Button>
@@ -612,7 +614,8 @@ export function LandingPage({ children, setIsLoading, isLoading }) {
           <CloseButton onClick={handleNewsModalClose} color="primary">
             X
           </CloseButton>
-          <Typography variant="h6" component="div" id="news-modal-title">
+          <Typography variant="h6" component="div" id="news-modal-title" 
+                    >
             Új Bejegyzés hozzáadása
           </Typography>
           <TextField
@@ -648,9 +651,10 @@ export function LandingPage({ children, setIsLoading, isLoading }) {
             </Select>
           </FormControl>
           <Button
+          id="cellButton"
             variant="contained"
             color="secondary"
-            style={{ marginTop: "16px" }}
+            style={{ marginTop: "16px", cursor: "cell" }}
             onClick={() => {
               //handleClosePost();
               handleNewsModalClose();
