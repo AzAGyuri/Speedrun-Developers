@@ -27,7 +27,7 @@ public interface EntryRepository extends JpaRepository<Entry, Integer> {
   @Query(
     nativeQuery = true,
     value = "SELECT * FROM entries e " +
-    "WHERE e.keep = 1 " +
+    "WHERE e.kept = 1 " +
     "AND e.deleted IS NULL"
   )
   List<Entry> findAllKept();
@@ -35,7 +35,7 @@ public interface EntryRepository extends JpaRepository<Entry, Integer> {
   @Query(
     nativeQuery = true,
     value = "SELECT * FROM entries e " +
-    "WHERE e.keep = 0 " +
+    "WHERE e.kept = 0 " +
     "AND e.deleted IS NULL"
   )
   List<Entry> findAllNotKept();
