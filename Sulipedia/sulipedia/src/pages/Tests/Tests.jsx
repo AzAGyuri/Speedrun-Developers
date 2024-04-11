@@ -1,8 +1,22 @@
-import React, { useEffect, useState } from "react";
-
-import {Button,Typography,Container,Paper,Grid,Card,CardContent,AppBar,styled,List,ListItem,ListItemText,Radio,
-RadioGroup,FormControlLabel,IconButton,}from "@mui/material";
-
+import React, { useEffect, useMemo, useState } from "react";
+import {
+  Button,
+  Typography,
+  Container,
+  Paper,
+  Grid,
+  Card,
+  CardContent,
+  AppBar,
+  styled,
+  List,
+  ListItem,
+  ListItemText,
+  Radio,
+  RadioGroup,
+  FormControlLabel,
+  IconButton,
+} from "@mui/material";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import FormatListBulletedTwoToneIcon from "@mui/icons-material/FormatListBulletedTwoTone";
@@ -71,178 +85,189 @@ export function Tests({ children, setIsLoading, isLoading }) {
   const isSmallScreen = useMediaQuery("(max-width:950px)");
   const [subject, setSubject] = useState("");
 
-  const testsData = [
-    { title: "Algebrai kifejezések", subject: "Matematika" },
-    { title: "Geometriai háromszögek", subject: "Matematika" },
-    { title: "Informatikai alapok", subject: "Informatika" },
-    { title: "Informatikai alapok 3", subject: "Informatika" },
-    { title: "Programozási paradigma", subject: "Informatika" },
-    { title: "Magyarország történelmi korszakai", subject: "Történelem" },
-    { title: "Szakmai angol szókincs 2", subject: "Szakmai Angol" },
-    { title: "Szakmai angol szókincs 3", subject: "Szakmai Angol" },
-    { title: "Szakmai angol szókincs 1", subject: "Szakmai Angol" },
-    { title: "Informatikai alapok 2", subject: "Informatika" },
-  ];
+  const testsData = useMemo(
+    () => [
+      { title: "Algebrai kifejezések", subject: "Matematika" },
+      { title: "Geometriai háromszögek", subject: "Matematika" },
+      { title: "Informatikai alapok", subject: "Informatika" },
+      { title: "Informatikai alapok 3", subject: "Informatika" },
+      { title: "Programozási paradigma", subject: "Informatika" },
+      { title: "Magyarország történelmi korszakai", subject: "Történelem" },
+      { title: "Szakmai angol szókincs 2", subject: "Szakmai Angol" },
+      { title: "Szakmai angol szókincs 3", subject: "Szakmai Angol" },
+      { title: "Szakmai angol szókincs 1", subject: "Szakmai Angol" },
+      { title: "Informatikai alapok 2", subject: "Informatika" },
+    ],
+    []
+  );
 
-  const questionsAndAnswers = {
-    "Algebrai kifejezések": [
-      {
-        question: "Mennyi 6*6",
-        answers: ["36", "7", "18", "11"],
-        correctAnswer: "36",
-      },
-      {
-        question: "Melyik nem matematikai kifejezése",
-        answers: ["Pitagorasz-tétel", "Kutya", "Számok", "Egyenlet"],
-        correctAnswer: "Kutya",
-      },
-    ],
-    "Geometriai háromszögek": [
-      {
-        question: "Mi a háromszögek belső szögeinek összege?",
-        answers: ["180 fok", "270 fok", "360 fok"],
-        correctAnswer: "180 fok",
-      },
-      {
-        question: "Melyik alábbi szög típusra jellemző az 1 fokos szög?",
-        answers: ["Hegyes szög", "Derékszög", "Tompaszög", "Teljes szög"],
-        correctAnswer: "Élesen szöget",
-      },
-    ],
+  const questionsAndAnswers = useMemo(
+    () => ({
+      "Algebrai kifejezések": [
+        {
+          question: "Mennyi 6*6",
+          answers: ["36", "7", "18", "11"],
+          correctAnswer: "36",
+        },
+        {
+          question: "Melyik nem matematikai kifejezése",
+          answers: ["Pitagorasz-tétel", "Kutya", "Számok", "Egyenlet"],
+          correctAnswer: "Kutya",
+        },
+      ],
+      "Geometriai háromszögek": [
+        {
+          question: "Mi a háromszögek belső szögeinek összege?",
+          answers: ["180 fok", "270 fok", "360 fok"],
+          correctAnswer: "180 fok",
+        },
+        {
+          question: "Melyik alábbi szög típusra jellemző az 1 fokos szög?",
+          answers: ["Hegyes szög", "Derékszög", "Tompaszög", "Teljes szög"],
+          correctAnswer: "Élesen szöget",
+        },
+      ],
 
-    "Informatikai alapok": [
-      {
-        question: "Melyik az alapvető adattípus a JavaScriptben?",
-        answers: ["Integer", "String", "Boolean", "Array"],
-        correctAnswer: "String",
-      },
-      {
-        question:
-          "Melyik nyelvet használják leginkább az internetes fejlesztés során?",
-        answers: ["Java", "Python", "HTML", "JavaScript"],
-        correctAnswer: "JavaScript",
-      },
-    ],
-    "Informatikai alapok 3": [
-      {
-        question: "Mi a legismertebb szövegszerkesztő program?",
-        answers: ["Microsoft Word", "Google Docs", "Notepad", "Sublime Text"],
-        correctAnswer: "Microsoft Word",
-      },
-      {
-        question: "Melyik az egyik legnépszerűbb webes böngésző?",
-        answers: ["Internet Explorer", "Firefox", "Safari", "Opera"],
-        correctAnswer: "Firefox",
-      },
-    ],
-    "Programozási paradigma": [
-      {
-        question:
-          "Mi a népszerű programozási nyelvek között számon tartott Python másik neve?",
-        answers: ["Snake", "Viper", "Lizard", "Cobra"],
-        correctAnswer: "Snake",
-      },
-      {
-        question: "Mi az objektumorientált programozás egyik alapelke?",
-        answers: ["Inkapszuláció", "Polimorfizmus", "Öröklődés", "Absztrakció"],
-        correctAnswer: "Inkapszuláció",
-      },
-    ],
-    "Magyarország történelmi korszakai": [
-      {
-        question: "Melyik történelmi korszakban éltek a honfoglaló magyarok?",
-        answers: ["Római kor", "Kora újkor", "Ókor", "Középkor"],
-        correctAnswer: "Középkor",
-      },
-      {
-        question: "Melyik évben került sor a Mohácsi csatára?",
-        answers: ["1456", "1526", "1492", "1568"],
-        correctAnswer: "1526",
-      },
-    ],
-    "Szakmai angol szókincs 2": [
-      {
-        question: 'Hogyan mondod angolul: "Hol szerezted a tapasztalatod?"',
-        answers: [
-          "Where did you gain experience?",
-          "Where did you gained experience?",
-          "Where you did gain experience?",
-          "Where did gain you experience?",
-        ],
-        correctAnswer: "Where did you gain experience?",
-      },
-      {
-        question: 'Hogyan mondod angolul: "Milyen tapasztalatod van?"',
-        answers: [
-          "What experience do you have?",
-          "What do you experience have?",
-          "What do experience you have?",
-          "What have experience you do?",
-        ],
-        correctAnswer: "What experience do you have?",
-      },
-    ],
-    "Szakmai angol szókincs 3": [
-      {
-        question: 'Hogyan mondod angolul: "Mi a neved?"',
-        answers: [
-          "What is your name?",
-          "What is name you?",
-          "What your name is?",
-          "Your name is what?",
-        ],
-        correctAnswer: "What is your name?",
-      },
-      {
-        question: 'Hogyan mondod angolul: "Hol laksz?"',
-        answers: [
-          "Where do you live?",
-          "Where you live?",
-          "You live where?",
-          "Do you live where?",
-        ],
-        correctAnswer: "Where do you live?",
-      },
-    ],
-    "Szakmai angol szókincs 1": [
-      {
-        question: 'Hogyan mondod angolul: "Mi a szakmai célod?"',
-        answers: [
-          "What is your professional goal?",
-          "What is professional goal you?",
-          "What your professional goal is?",
-          "Your professional goal is what?",
-        ],
-        correctAnswer: "What is your professional goal?",
-      },
-      {
-        question: 'Hogyan mondod angolul: "Milyen nyelveket beszélsz?"',
-        answers: [
-          "What languages do you speak?",
-          "What languages speak you?",
-          "You speak what languages?",
-          "Do you speak what languages?",
-        ],
-        correctAnswer: "What languages do you speak?",
-      },
-    ],
-    "Informatikai alapok 2": [
-      {
-        question: "Melyik a legnépszerűbb programozási nyelv?",
-        answers: ["Python", "Java", "C++", "JavaScript"],
-        correctAnswer: "JavaScript",
-      },
-      {
-        question: "Milyen típusú adattároló a JavaScript-ben a tömb?",
-        answers: ["Sorozat", "Tároló", "Adattábla", "Vektor"],
-        correctAnswer: "Sorozat",
-      },
-    ],
-  };
+      "Informatikai alapok": [
+        {
+          question: "Melyik az alapvető adattípus a JavaScriptben?",
+          answers: ["Integer", "String", "Boolean", "Array"],
+          correctAnswer: "String",
+        },
+        {
+          question:
+            "Melyik nyelvet használják leginkább az internetes fejlesztés során?",
+          answers: ["Java", "Python", "HTML", "JavaScript"],
+          correctAnswer: "JavaScript",
+        },
+      ],
+      "Informatikai alapok 3": [
+        {
+          question: "Mi a legismertebb szövegszerkesztő program?",
+          answers: ["Microsoft Word", "Google Docs", "Notepad", "Sublime Text"],
+          correctAnswer: "Microsoft Word",
+        },
+        {
+          question: "Melyik az egyik legnépszerűbb webes böngésző?",
+          answers: ["Internet Explorer", "Firefox", "Safari", "Opera"],
+          correctAnswer: "Firefox",
+        },
+      ],
+      "Programozási paradigma": [
+        {
+          question:
+            "Mi a népszerű programozási nyelvek között számon tartott Python másik neve?",
+          answers: ["Snake", "Viper", "Lizard", "Cobra"],
+          correctAnswer: "Snake",
+        },
+        {
+          question: "Mi az objektumorientált programozás egyik alapelke?",
+          answers: [
+            "Inkapszuláció",
+            "Polimorfizmus",
+            "Öröklődés",
+            "Absztrakció",
+          ],
+          correctAnswer: "Inkapszuláció",
+        },
+      ],
+      "Magyarország történelmi korszakai": [
+        {
+          question: "Melyik történelmi korszakban éltek a honfoglaló magyarok?",
+          answers: ["Római kor", "Kora újkor", "Ókor", "Középkor"],
+          correctAnswer: "Középkor",
+        },
+        {
+          question: "Melyik évben került sor a Mohácsi csatára?",
+          answers: ["1456", "1526", "1492", "1568"],
+          correctAnswer: "1526",
+        },
+      ],
+      "Szakmai angol szókincs 2": [
+        {
+          question: 'Hogyan mondod angolul: "Hol szerezted a tapasztalatod?"',
+          answers: [
+            "Where did you gain experience?",
+            "Where did you gained experience?",
+            "Where you did gain experience?",
+            "Where did gain you experience?",
+          ],
+          correctAnswer: "Where did you gain experience?",
+        },
+        {
+          question: 'Hogyan mondod angolul: "Milyen tapasztalatod van?"',
+          answers: [
+            "What experience do you have?",
+            "What do you experience have?",
+            "What do experience you have?",
+            "What have experience you do?",
+          ],
+          correctAnswer: "What experience do you have?",
+        },
+      ],
+      "Szakmai angol szókincs 3": [
+        {
+          question: 'Hogyan mondod angolul: "Mi a neved?"',
+          answers: [
+            "What is your name?",
+            "What is name you?",
+            "What your name is?",
+            "Your name is what?",
+          ],
+          correctAnswer: "What is your name?",
+        },
+        {
+          question: 'Hogyan mondod angolul: "Hol laksz?"',
+          answers: [
+            "Where do you live?",
+            "Where you live?",
+            "You live where?",
+            "Do you live where?",
+          ],
+          correctAnswer: "Where do you live?",
+        },
+      ],
+      "Szakmai angol szókincs 1": [
+        {
+          question: 'Hogyan mondod angolul: "Mi a szakmai célod?"',
+          answers: [
+            "What is your professional goal?",
+            "What is professional goal you?",
+            "What your professional goal is?",
+            "Your professional goal is what?",
+          ],
+          correctAnswer: "What is your professional goal?",
+        },
+        {
+          question: 'Hogyan mondod angolul: "Milyen nyelveket beszélsz?"',
+          answers: [
+            "What languages do you speak?",
+            "What languages speak you?",
+            "You speak what languages?",
+            "Do you speak what languages?",
+          ],
+          correctAnswer: "What languages do you speak?",
+        },
+      ],
+      "Informatikai alapok 2": [
+        {
+          question: "Melyik a legnépszerűbb programozási nyelv?",
+          answers: ["Python", "Java", "C++", "JavaScript"],
+          correctAnswer: "JavaScript",
+        },
+        {
+          question: "Milyen típusú adattároló a JavaScript-ben a tömb?",
+          answers: ["Sorozat", "Tároló", "Adattábla", "Vektor"],
+          correctAnswer: "Sorozat",
+        },
+      ],
+    }),
+    []
+  );
 
-  const [requestedTestData, setRequestedTestData] = useState(testsData);
+  const [requestedTestData, setRequestedTestData] = useState([]);
   const [requestedQuestionsAndAnswers, setRequestedQuestionsAndAnswers] =
-    useState(questionsAndAnswers);
+    useState({});
 
   const [filteredTests, setFilteredTests] = useState(testsData);
 
@@ -286,18 +311,19 @@ export function Tests({ children, setIsLoading, isLoading }) {
   }, [selectedSubject]);
 
   useEffect(() => {
-    console.log(`/entry/test?subject=${subject}`);
     axios
-      .get(subject ? `/entry/test?subject=${subject}` : "/entry/test", {
+      .get("/entry/test", {
         headers: { Authorization: localStorage.getItem("jwt") },
       })
       .then((response) => {
+        let acquiredTestData = [];
+        let acquiredQuestionsAndAnswers = {};
+
         response.data.entries.forEach((entry) => {
-          setRequestedTestData(
-            [
-              { title: entry.title, subject: reverseGetSubject(entry.subject) },
-            ].concat(testsData)
-          );
+          acquiredTestData.push({
+            title: entry.title,
+            subject: reverseGetSubject(entry.subject),
+          });
 
           let questions = [];
           entry.questions.questions.forEach((question) => {
@@ -312,20 +338,21 @@ export function Tests({ children, setIsLoading, isLoading }) {
             });
           });
 
-          setRequestedQuestionsAndAnswers((prevData) => ({
-            [entry.title]: questions,
-            ...prevData
-          }));
+          acquiredQuestionsAndAnswers[entry.title] = questions;
         });
-        console.log(requestedTestData, requestedQuestionsAndAnswers);
+
+        setRequestedTestData(acquiredTestData);
+        setRequestedQuestionsAndAnswers(acquiredQuestionsAndAnswers);
       })
       .catch((error) => {
         console.error("Hiba történt adat lekérdezéskor", error);
+        setRequestedTestData(testsData);
+        setRequestedQuestionsAndAnswers(questionsAndAnswers);
       });
-    setTimeout(()=>{
+    setTimeout(() => {
       setIsLoading(false);
-    },300)
-  }, [subject, setIsLoading, isLoading]);
+    }, 300);
+  }, [setIsLoading]);
 
   const reverseGetSubject = (subject) => {
     switch (subject) {
@@ -338,7 +365,7 @@ export function Tests({ children, setIsLoading, isLoading }) {
       case "MATHS":
         return "Matematika";
       case "TECHNICAL_ENGLISH":
-        return "Szakmai angol";
+        return "Szakmai Angol";
       default:
         break;
     }
@@ -361,7 +388,6 @@ export function Tests({ children, setIsLoading, isLoading }) {
 
   const handleSubject = (event) => {
     let subject = event.target.id;
-    setIsLoading(true);
     setSelectedSubject(subject);
     setShowResults(false);
     setShowCorrectAnswer({});
