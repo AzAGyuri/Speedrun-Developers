@@ -109,10 +109,8 @@ CREATE TABLE
         created_on date null,
         subject_name varchar(50) not null,
         author_id int (9),
-        group_id int (9),
         FOREIGN KEY (subject_name) REFERENCES subjects (id) ON DELETE RESTRICT ON UPDATE CASCADE,
-        FOREIGN KEY (author_id) REFERENCES registered_users (id) ON DELETE SET NULL ON UPDATE CASCADE,
-        FOREIGN KEY (group_id) REFERENCES groups (id) ON DELETE SET NULL ON UPDATE CASCADE
+        FOREIGN KEY (author_id) REFERENCES registered_users (id) ON DELETE SET NULL ON UPDATE CASCADE
     ) AUTO_INCREMENT = 200000001;
 
 CREATE TABLE
