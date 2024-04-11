@@ -525,6 +525,7 @@ export function LandingPage({ children, setIsLoading, isLoading }) {
               onClick={handleNewsModalOpen}
               variant="contained"
               color="primary"
+              id="addNewsButton"
             >
               Új hír hozzáadása
             </Button>
