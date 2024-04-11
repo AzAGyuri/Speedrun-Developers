@@ -39,8 +39,14 @@ public class CommentController {
   }
 
   @PostMapping("/comment")
-  public GetCommentWithID createComment(@RequestBody PostComment comment, @RequestHeader(name = "Authorization") String token) {
-    return service.createComment(comment, token);
+  public GetCommentWithID createComment(
+    @RequestBody PostComment comment,
+    @RequestHeader(name = "Authorization") String token
+  ) {
+    return service.createComment(
+      comment,
+      token.substring("Bearer".length()).trim()
+    );
   }
 
   @DeleteMapping("/comment/{id}")
