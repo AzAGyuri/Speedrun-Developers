@@ -11,7 +11,7 @@
         készüljenek el először, ahol nincsen foreign key állítás
         Pro tip: ALT+SHIFT+( fel/le ) a barátunk :)
     -->
-    <include file="create_tables.sql" relativeToChangelogFile="true" />
+    <include file="data.sql" relativeToChangelogFile="true" />
 
     <!--
         a táblák után jöhetnek a dummy adatok;
