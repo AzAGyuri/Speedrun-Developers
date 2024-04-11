@@ -248,7 +248,7 @@ export default function SignUp({ children, setIsLoading }) {
             }}
             className="signup-form"
           >
-            <Tooltip title="Ez egy biztonságos létrehozási felület">
+            <Tooltip placement="top" title="Ez egy biztonságos létrehozási felület">
               <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
                 <LockOutlinedIcon />
               </Avatar>
