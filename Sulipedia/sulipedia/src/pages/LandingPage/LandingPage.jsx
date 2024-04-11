@@ -132,6 +132,7 @@ export function LandingPage({ children, setIsLoading, isLoading }) {
       })
       .catch((error) => {
         console.error("Hiba történt az adatok lekérdezése során", error);
+        alert("Hiba történt az adatok lekérdezése során", error);
       });
     setTimeout(()=>{
       setIsLoading(false);

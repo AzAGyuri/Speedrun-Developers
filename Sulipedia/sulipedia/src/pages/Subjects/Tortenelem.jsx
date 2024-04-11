@@ -185,6 +185,7 @@ export function Tortenelem({ children }) {
       })
       .catch(error => {
         console.error('Error fetching comments:', error);
+        alert('Hiba a kommentek lekérdezésekor',error);
       });
   };
   const deleteComment = (commentId) => {
@@ -196,6 +197,7 @@ export function Tortenelem({ children }) {
       })
       .catch(error => {
         console.error('Error deleting comment:', error);
+        alert('Hiba a komment törlésekor',error);
       });
   };
   const handleCommentSubmit = () => {  
@@ -219,6 +221,7 @@ export function Tortenelem({ children }) {
       })
       .catch(error => {
         console.error('Error submitting comment:', error);
+        alert('Hiba a komment elküldésekor',error);
       });
   };
 

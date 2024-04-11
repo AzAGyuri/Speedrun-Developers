@@ -196,6 +196,7 @@ export function Settings({ children, setIsLoading, isLoading }) {
         })
         .catch((error) => {
           console.error("Hiba történt adat lekérdezéskor", error);
+          alert("Hiba történt adat lekérdezskor", error);
         });
     }
     setTimeout(()=>{
