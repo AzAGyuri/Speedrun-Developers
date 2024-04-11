@@ -13,8 +13,9 @@ public class GetGroup extends BaseGroup {
 
   public GetGroup(
     String groupName,
-    Set<SpecializationDto> specializations
+    Set<SpecializationDto> specializations,
+    String descriptionContent
   ) {
-    super(groupName, specializations);
+    super(groupName, descriptionContent, specializations);
   }
 }

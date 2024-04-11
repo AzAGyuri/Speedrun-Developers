@@ -14,7 +14,7 @@ import lombok.Setter;
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
 public class BaseGroup {
 
-  private String groupName;
+  private String groupName, descriptionContent;
 
   private Set<SpecializationDto> specializations;
 }

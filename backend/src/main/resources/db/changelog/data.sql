@@ -48,7 +48,9 @@ VALUES
 CREATE TABLE
     IF NOT EXISTS school_groups (
         id INT (9) PRIMARY KEY AUTO_INCREMENT,
-        group_name varchar(75) not null
+        group_name varchar(75) not null,
+        random_avatar_bg_color varchar(7) null,
+        description_content varchar(100) null
     ) AUTO_INCREMENT = 700000001;
 
 CREATE TABLE
@@ -66,7 +68,7 @@ CREATE TABLE
         username varchar(100) NOT NULL,
         user_password varchar(80) NOT NULL,
         email varchar(70) not NULL unique,
-        random_pfpbg_color varchar(7) not null,
+        random_avatar_bg_color varchar(7) not null,
         nickname varchar(80) null,
         phone_number varchar(14) null,
         birth_date DATE null,
@@ -163,14 +165,112 @@ INSERT INTO
         username,
         user_password,
         email,
-        random_pfpbg_color
+        random_avatar_bg_color
     )
 values
     (
-        NOW(),
+        NOW (),
         "admin",
         "admin",
         "CHANGE_ME@example.com",
+        ""
+    ),
+    (
+        NOW (),
+        "Seres Marcell",
+        "Feltorhetetlen123",
+        "marcell2003.sm@gmail.com",
+        ""
+    ),
+    (
+        NOW (),
+        "Polyák György",
+        "jelszo123",
+        "23g_polyakg@nyirszikszi.hu",
+        ""
+    ),
+    (
+        NOW (),
+        "Beri Alex",
+        "ozslej321",
+        "23g_beria@nyirszikszi.hu",
+        ""
+    ),
+    (
+        NOW (),
+        "Mikovics Ábel",
+        "321neltetehrotleF",
+        "23g_mikovicsa@nyirszikszi.hu",
+        ""
+    ),
+    (
+        NOW (),
+        "Kohán Milán Zsolt",
+        "qwertz12345",
+        "23g_kohanmzs@nyirszikszi.hu",
+        ""
+    ),
+    (
+        NOW (),
+        "Orosz Kristóf",
+        "Ae123456",
+        "23g_oroszk@nyirszikszi.hu",
+        ""
+    ),
+    (
+        NOW (),
+        "John Doe",
+        "Password123!",
+        "john.doe@example.com",
+        ""
+    ),
+    (
+        NOW (),
+        "Alice Smith",
+        "p4ssw0rD!",
+        "alice.smith@protonmail.com",
+        ""
+    ),
+    (
+        NOW (),
+        "Emily Brown",
+        "crossMyHeartAndHopeToFly123",
+        "emily_b@gmail.com",
+        ""
+    ),
+    (
+        NOW (),
+        "Michael Wilson",
+        "changeme123",
+        "wilsonmike@freemail.hu",
+        ""
+    ),
+    (
+        NOW (),
+        "Jane Smith",
+        "user1234",
+        "kovacsjanka@hotmail.com",
+        ""
+    ),
+    (
+        NOW (),
+        "David Lee",
+        "samsung1",
+        "davidlee2006@live.com",
+        ""
+    ),
+    (
+        NOW (),
+        "Alex Johnson",
+        "abbcccdddd66666",
+        "alex2007@outlook.com",
+        ""
+    ),
+    (
+        NOW (),
+        "Sophia Garcia",
+        "theworldinyourhand1",
+        "sophiagarcia@gmail.es",
         ""
     );
 
@@ -198,6 +298,40 @@ values
     (700000005, 'ECONOMY'),
     (700000006, 'IT'),
     (700000007, 'IT');
+
+INSERT INTO
+    grouped_user (user_id, group_id)
+values
+    (100000001, 700000001),
+    (100000001, 700000002),
+    (100000001, 700000003),
+    (100000001, 700000004),
+    (100000001, 700000005),
+    (100000001, 700000006),
+    (100000001, 700000007),
+    (100000001, 700000001),
+    (100000002, 700000001),
+    (100000003, 700000001),
+    (100000004, 700000001),
+    (100000005, 700000001),
+    (100000006, 700000001),
+    (100000007, 700000001),
+    (100000002, 700000006),
+    (100000005, 700000006),
+    (100000006, 700000006),
+    (100000007, 700000006),
+    (100000003, 700000007),
+    (100000004, 700000007),
+    (100000006, 700000007),
+    (100000007, 700000007),
+    (100000008, 700000002),
+    (100000009, 700000002),
+    (100000010, 700000003),
+    (100000011, 700000003),
+    (100000012, 700000004),
+    (100000013, 700000004),
+    (100000014, 700000005),
+    (100000015, 700000005);
 
 INSERT INTO
     entries (
