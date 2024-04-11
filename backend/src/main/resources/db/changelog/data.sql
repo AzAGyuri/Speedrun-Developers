@@ -46,7 +46,7 @@ VALUES
     ("TECHNICAL_ENGLISH");
 
 CREATE TABLE
-    IF NOT EXISTS groups (
+    IF NOT EXISTS school_groups (
         id INT (9) PRIMARY KEY AUTO_INCREMENT,
         group_name varchar(75) not null
     ) AUTO_INCREMENT = 700000001;
@@ -56,7 +56,7 @@ CREATE TABLE
         group_id int (9) NOT NULL,
         specialization varchar(50) NOT NULL,
         FOREIGN KEY (specialization) REFERENCES specialization (id) ON DELETE RESTRICT ON UPDATE CASCADE,
-        FOREIGN KEY (group_id) REFERENCES groups (id) ON DELETE RESTRICT ON UPDATE CASCADE
+        FOREIGN KEY (group_id) REFERENCES school_groups (id) ON DELETE RESTRICT ON UPDATE CASCADE
     );
 
 CREATE TABLE
@@ -74,10 +74,16 @@ CREATE TABLE
         deleted_on date null,
         last_login date null,
         last_logoff date null,
-        profile_picture mediumblob null,
-        group_id int (9),
-        FOREIGN KEY (group_id) REFERENCES groups (id) ON DELETE SET NULL ON UPDATE CASCADE
+        profile_picture mediumblob null
     ) AUTO_INCREMENT = 100000001;
+
+CREATE TABLE
+    IF NOT EXISTS grouped_user (
+        user_id int (9) not null,
+        group_id int (9) not null,
+        FOREIGN KEY (user_id) REFERENCES registered_users (id) ON DELETE RESTRICT ON UPDATE CASCADE,
+        FOREIGN KEY (group_id) REFERENCES school_groups (id) ON DELETE RESTRICT ON UPDATE CASCADE
+    );
 
 CREATE TABLE
     IF NOT EXISTS user_roles (
@@ -152,7 +158,24 @@ CREATE TABLE
     ) AUTO_INCREMENT = 600000001;
 
 INSERT INTO
-    groups (group_name)
+    registered_users (
+        created_on,
+        username,
+        user_password,
+        email,
+        random_pfpbg_color
+    )
+values
+    (
+        NOW(),
+        "admin",
+        "admin",
+        "CHANGE_ME@example.com",
+        ""
+    );
+
+INSERT INTO
+    school_groups (group_name)
 values
     ('Szakmai Angol 2/14B'),
     ('Magyar nyelv 12D'),
@@ -174,7 +197,7 @@ values
     (700000005, 'IT'),
     (700000005, 'ECONOMY'),
     (700000006, 'IT'),
-    (700000007, 'IT'),
+    (700000007, 'IT');
 
 INSERT INTO
     entries (
@@ -182,11 +205,9 @@ INSERT INTO
         content,
         kept,
         test,
-        deleted,
         created_on,
         subject_name,
-        author_id,
-        group_id
+        author_id
     )
 values
     (
@@ -194,110 +215,90 @@ values
         "",
         0,
         1,
-        0,
         NOW (),
         'MATHS',
-        100000001,
-        700000001
+        100000001
     ),
     (
         "Geometriai háromszögek",
         "",
         0,
         1,
-        0,
         NOW (),
         'MATHS',
-        100000001,
-        700000001
+        100000001
     ),
     (
         "Informatikai alapok 1",
         "",
         0,
         1,
-        0,
         NOW (),
         'ICT',
-        100000001,
-        700000001
+        100000001
     ),
     (
         "Informatikai alapok 2",
         "",
         0,
         1,
-        0,
         NOW (),
         'ICT',
-        100000001,
-        700000001
+        100000001
     ),
     (
         "Informatikai alapok 3",
         "",
         0,
         1,
-        0,
         NOW (),
         'ICT',
-        100000001,
-        700000001
+        100000001
     ),
     (
         "Programozási paradigma",
         "",
         0,
         1,
-        0,
         NOW (),
         'ICT',
-        100000001,
-        700000001
+        100000001
     ),
     (
         "Magyarország történelmi korszakai",
         "",
         0,
         1,
-        0,
         NOW (),
         'HISTORY',
-        100000001,
-        700000001
+        100000001
     ),
     (
         "Szakmai Angol szókincs",
         "",
         0,
         1,
-        0,
         NOW (),
         'TECHNICAL_ENGLISH',
-        100000001,
-        700000001
+        100000001
     ),
     (
         "Szakmai Angol szókincs 2",
         "",
         0,
         1,
-        0,
         NOW (),
         'TECHNICAL_ENGLISH',
-        100000001,
-        700000001
+        100000001
     ),
     (
         "Szakmai Angol szókincs 3",
         "",
         0,
         1,
-        0,
         NOW (),
         'TECHNICAL_ENGLISH',
-        100000001,
-        700000001
+        100000001
     );
 
 INSERT INTO

@@ -11,7 +11,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 import java.util.List;
 import java.util.Set;
@@ -25,7 +25,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name = "groups")
+@Table(name = "school_groups")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -64,6 +64,6 @@ public class Group {
   @Column(name = "specialization")
   private Set<Specialization> specializations;
 
-  @OneToMany(mappedBy = "group")
+  @ManyToMany(mappedBy = "joinedGroups")
   private List<User> users;
 }
