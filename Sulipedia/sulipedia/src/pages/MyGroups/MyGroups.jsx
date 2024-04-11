@@ -307,7 +307,9 @@ export function MyGroups({ children }) {
           <ListItem alignItems="center">
             <Tooltip title="Új csoport létrehozása">
               <IconButton color="primary" aria-label="add" onClick={handleOpen} style={styles.addButton}>
-                <Add />
+                <Add  style={{
+                      cursor:"cell"
+                    }}/>
               </IconButton>
             </Tooltip>
           </ListItem>
@@ -366,7 +368,9 @@ export function MyGroups({ children }) {
             </Button>
           </Stack>
         </Box>) : (<Box sx={style}>
-          <Typography id="modal-modal-title" variant="h6" component="h2">
+          <Typography id="modal-modal-title" variant="h6" component="h2" style={{
+                      cursor:"cell"
+                    }}>
             Új csoport létrehozása
           </Typography>
           <Typography id="modal-modal-description" sx={{ mt: 2 }}>
@@ -442,7 +446,9 @@ export function MyGroups({ children }) {
           </List>
           <Divider sx={{ my: 2 }} />
           <Stack direction="row" spacing={2} justifyContent="flex-end">
-            <Button variant="contained" color="primary" onClick={handleOpenAddMember}>
+            <Button variant="contained" color="primary" onClick={handleOpenAddMember} style={{
+                      cursor:"cell"
+                    }}>
               Tag hozzáadása
             </Button>
             <Button variant="outlined" color="error" onClick={handleCloseMembers}>
@@ -459,7 +465,9 @@ export function MyGroups({ children }) {
         aria-describedby="modal-modal-description"
       >
         <Box sx={isSmallScreen ? styleSmall : style}>
-          <Typography id="modal-modal-title" variant="h6" component="h2">
+          <Typography id="modal-modal-title" variant="h6" component="h2" style={{
+                      cursor:"cell"
+                    }}>
             Új tag hozzáadása - {selectedGroup && selectedGroup.name}
           </Typography>
           <Typography id="modal-modal-description" sx={{ mt: 2 }}>
@@ -484,7 +492,7 @@ export function MyGroups({ children }) {
             <Button variant="contained" color="error" onClick={handleCloseAddMember}>
               Mégse
             </Button>
-            <Button variant="contained" color="success" onClick={() => addMemberToGroup()} style={styles.addButton}>
+            <Button variant="contained" color="success" onClick={() => addMemberToGroup()} style={styles.addButton} >
               Hozzáadás
             </Button>
           </Stack>

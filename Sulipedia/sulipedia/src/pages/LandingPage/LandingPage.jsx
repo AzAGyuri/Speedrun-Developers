@@ -240,6 +240,9 @@ export function LandingPage({ children, setIsLoading, isLoading }) {
               onClick={handleNewsModalOpen}
               variant="contained"
               color="primary"
+              style={{
+                cursor:"cell"
+              }}
             >
               Új Bejegyzés hozzáadása
             </Button>
@@ -540,12 +543,18 @@ export function LandingPage({ children, setIsLoading, isLoading }) {
             </div>
           </div>
 
-          <div className="flex-item">
+          <div className="flex-item" style={{
+                cursor:"cell"
+              }}>
             <Button
               onClick={handleNewsModalOpen}
               variant="contained"
               color="primary"
               id="addNewsButton"
+              style={{
+                cursor:"cell"
+              }}
+              
             >
               Új Bejegyzés hozzáadása
             </Button>
@@ -563,7 +572,8 @@ export function LandingPage({ children, setIsLoading, isLoading }) {
           <CloseButton onClick={handleNewsModalClose} color="primary">
             X
           </CloseButton>
-          <Typography variant="h6" component="div" id="news-modal-title">
+          <Typography variant="h6" component="div" id="news-modal-title" 
+                    >
             Új Bejegyzés hozzáadása
           </Typography>
           <TextField
@@ -599,9 +609,10 @@ export function LandingPage({ children, setIsLoading, isLoading }) {
             </Select>
           </FormControl>
           <Button
+          id="cellButton"
             variant="contained"
             color="secondary"
-            style={{ marginTop: "16px" }}
+            style={{ marginTop: "16px", cursor: "cell" }}
             onClick={() => {
               //handleClosePost();
               handleNewsModalClose();
