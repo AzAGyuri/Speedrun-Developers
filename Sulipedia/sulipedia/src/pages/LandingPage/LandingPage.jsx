@@ -442,7 +442,6 @@ export function LandingPage({ children, setIsLoading, isLoading }) {
             </div>
           </div>
           <div className="flex-item">
-
             <div className="flex-container" style={{ my: 2 }}>
               <div className="flex-item">
                 {posts.map((post, index) => (
@@ -450,7 +449,6 @@ export function LandingPage({ children, setIsLoading, isLoading }) {
                     <div className="flexcontente-item">
                       <div className="contente-box">
                         <div className="contente-title">{post.title}</div>
-
                         <div className="contente">{post.content}</div>
                         <div className="post-date">{post.date}</div>
                       </div>
@@ -466,7 +464,6 @@ export function LandingPage({ children, setIsLoading, isLoading }) {
                   <div className="contente-title">
                     Algoritmusok és Adatszerkezetek
                   </div>
-
                   <div className="contente">
                     Az algoritmusok és adatszerkezetek kulcsfontosságú fogalmak
                     az informatikában. Az algoritmusok hatékony megvalósítása és
@@ -483,7 +480,6 @@ export function LandingPage({ children, setIsLoading, isLoading }) {
                   <div className="contente-title">
                     Felhőalapú Számítástechnika
                   </div>
-
                   <div className="contente">
                     A felhőalapú számítástechnika forradalmasította az
                     informatikát. Az egyre növekvő számú vállalat és felhasználó
@@ -500,7 +496,6 @@ export function LandingPage({ children, setIsLoading, isLoading }) {
                   <div className="contente-title">
                     Kiberbiztonság és Hálózatbiztonság
                   </div>
-
                   <div className="contente">
                     A kiberbiztonság és hálózatbiztonság napjainkban
                     kulcsfontosságú területe az informatikának. Az internetes
@@ -518,7 +513,6 @@ export function LandingPage({ children, setIsLoading, isLoading }) {
                   <div className="contente-title">
                     Adattudomány és Nagy Adat
                   </div>
-
                   <div className="contente">
                     Az adattudomány és a nagy adat elemzésének képességei
                     forradalmasítják az üzleti és tudományos területeket
@@ -535,7 +529,6 @@ export function LandingPage({ children, setIsLoading, isLoading }) {
                   <div className="contente-title">
                     Mesterséges Intelligencia és Gépi Tanulás
                   </div>
-
                   <div className="contente">
                     A mesterséges intelligencia és a gépi tanulás területei
                     forradalmasítják az informatikát. Az olyan alkalmazások,
