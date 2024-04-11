@@ -17,7 +17,6 @@ import LockSharpIcon from "@mui/icons-material/LockSharp";
 import EmailSharpIcon from "@mui/icons-material/EmailSharp";
 import InputAdornment from "@mui/material/InputAdornment";
 import BadgeIcon from "@mui/icons-material/Badge";
-import { Badge } from "@mui/base";
 
 const defaultTheme = createTheme();
 

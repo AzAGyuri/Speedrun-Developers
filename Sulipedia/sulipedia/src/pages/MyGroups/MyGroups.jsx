@@ -8,7 +8,6 @@ import Stack from '@mui/material/Stack';
 import Box from '@mui/material/Box';
 import useMediaQuery from "@mui/material/useMediaQuery";
 
-
 const styles = {
   container: {
     paddingTop: '20px',
@@ -63,7 +62,6 @@ const styles = {
   }
 };
 
-
 const style = {
   position: 'absolute',
   top: '50%',
@@ -74,9 +72,9 @@ const style = {
   border: '2px solid #000',
   boxShadow: 24,
   p: 4,
-  borderRadius:"15px",
-  borderStyle:"double",
-  borderColor:"#db140d",
+  borderRadius: "15px",
+  borderStyle: "double",
+  borderColor: "#db140d",
 };
 const styleSmall = {
   position: 'absolute',
@@ -88,9 +86,9 @@ const styleSmall = {
   border: '2px solid #000',
   boxShadow: 24,
   p: 4,
-  borderRadius:"15px",
-  borderStyle:"double",
-  borderColor:"#db140d",
+  borderRadius: "15px",
+  borderStyle: "double",
+  borderColor: "#db140d",
 };
 
 export function MyGroups({ children }) {
@@ -164,9 +162,6 @@ export function MyGroups({ children }) {
     setAvatarColors(colors);
   }, [groups]);
 
-
-
-
   const handleOpen = () => {
     setOpen(true);
   };
@@ -180,7 +175,6 @@ export function MyGroups({ children }) {
     setShowMembers(true);
   };
 
-
   const handleCloseMembers = () => {
     setShowMembers(false);
   };
@@ -193,11 +187,9 @@ export function MyGroups({ children }) {
     setShowAddMemberModal(false);
   };
 
-
   const [groupName, setGroupName] = useState('');
   const [groupDesc, setGroupDesc] = useState('');
   const [newMemberName, setNewMemberName] = useState('');
-
 
   function createNewGroup() {
     if (!groupName.trim() || !groupDesc.trim()) {
@@ -213,13 +205,10 @@ export function MyGroups({ children }) {
 
     const updatedGroups = [...groups, newGroup];
     setGroups(updatedGroups);
-
     handleClose();
-
     setGroupName('');
     setGroupDesc('');
   }
-
 
   function deleteGroup(id) {
     const updatedGroups = groups.filter(group => group.id !== id);
@@ -235,29 +224,22 @@ export function MyGroups({ children }) {
       alert('A tag nevének legalább 1 karakter hosszúnak kell lennie!');
       return;
     }
-
     const newMember = {
       id: selectedGroup.members.length + 1,
       name: newMemberName.trim(),
     };
-
     const updatedGroup = {
       ...selectedGroup,
       members: [...selectedGroup.members, newMember],
     };
-
     const updatedGroups = groups.map(group =>
       group.id === selectedGroup.id ? updatedGroup : group
     );
 
     setGroups(updatedGroups);
-
     handleCloseAddMember();
-
     handleOpenMembers(updatedGroup);
-
     setNewMemberName('');
-    
   }
 
   const handleDeleteMember = (memberId) => {
@@ -315,7 +297,7 @@ export function MyGroups({ children }) {
                   </Tooltip>
                 </div>
               </ListItem>
-              <Divider variant="fullwidth" component="li"  sx={{ borderBottomWidth: 3 }} />
+              <Divider variant="fullwidth" component="li" sx={{ borderBottomWidth: 3 }} />
             </React.Fragment>
           ))}
           <ListItem alignItems="center">
@@ -327,7 +309,6 @@ export function MyGroups({ children }) {
           </ListItem>
         </List>
       </Paper>
-
 
       <Modal
         open={open}
@@ -428,8 +409,6 @@ export function MyGroups({ children }) {
         </Box>)}
       </Modal>
 
-
-
       <Modal
         open={showMembers}
         onClose={handleCloseMembers}
@@ -442,17 +421,17 @@ export function MyGroups({ children }) {
           </Typography>
           <List>
             {selectedGroup && selectedGroup.members && selectedGroup.members.map(member => (
-              <ListItem sx={{border:"2px solid black", marginTop:"2px", borderRadius:"15px"}} key={member.id}>
+              <ListItem sx={{ border: "2px solid black", marginTop: "2px", borderRadius: "15px" }} key={member.id}>
                 <ListItemAvatar>
                   <Avatar>{member.name[0]}</Avatar>
                 </ListItemAvatar>
                 <ListItemText primary={member.name} />
                 <Tooltip title={`${member.name} kidobása a csoportból`}>
-                <IconButton edge="end" aria-label="delete" onClick={() => handleDeleteMember(member.id)}>
-                  
-                  <Delete sx={{ color: '#d32f2f' }} />
-                  
-                </IconButton>
+                  <IconButton edge="end" aria-label="delete" onClick={() => handleDeleteMember(member.id)}>
+
+                    <Delete sx={{ color: '#d32f2f' }} />
+
+                  </IconButton>
                 </Tooltip>
               </ListItem>
             ))}
@@ -468,9 +447,6 @@ export function MyGroups({ children }) {
           </Stack>
         </Box>
       </Modal>
-
-
-
 
       <Modal
         open={showAddMemberModal}

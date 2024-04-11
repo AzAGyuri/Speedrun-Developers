@@ -20,7 +20,7 @@ import history from "../../resources/history.png";
 import it from "../../resources/it.png";
 import iteng from "../../resources/iteng.png";
 import axios from "axios";
-import Select, { SelectChangeEvent } from '@mui/material/Select';
+import Select from '@mui/material/Select';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
@@ -114,7 +114,7 @@ export function LandingPage({ children, setIsLoading, isLoading }) {
     const formattedDate = `${currentDate.getFullYear()}-${currentDate.getMonth() + 1}-${currentDate.getDate()} ${currentDate.getHours()}:${currentDate.getMinutes()}`;
     setPosts([{ title: newPostTitle, content: newPostContent, date: formattedDate }, ...posts]);
   };*/
-  
+
 
   const handleNewsModalOpen = () => {
     setNewsModalOpen(true);
@@ -128,19 +128,19 @@ export function LandingPage({ children, setIsLoading, isLoading }) {
       test: false,
       subject: newSubject,
     };
-    
+
     axios.post(`/entry`, requestData, {
       headers: {
         Authorization: localStorage.getItem("jwt").trim(),
       },
     })
-    .then((response) => {
-      console.log("Post sikeresen közzétéve:", response.data);
-    })
-    .catch((error) => {
-      console.error("Hiba történt a Post közzététele közben:", error);
-    });
-    
+      .then((response) => {
+        console.log("Post sikeresen közzétéve:", response.data);
+      })
+      .catch((error) => {
+        console.error("Hiba történt a Post közzététele közben:", error);
+      });
+
     console.log(newPostTitle, newPostContent, newSubject);
 
     setNewsModalOpen(false);
@@ -163,9 +163,9 @@ export function LandingPage({ children, setIsLoading, isLoading }) {
         console.error("Hiba történt az adatok lekérdezése során", error);
         alert("Hiba történt az adatok lekérdezése során", error);
       });
-    setTimeout(()=>{
+    setTimeout(() => {
       setIsLoading(false);
-    },300);
+    }, 300);
   }, [jwt, subject, setIsLoading, isLoading]);
 
   if (isLoading) return <Loading />;
@@ -209,7 +209,6 @@ export function LandingPage({ children, setIsLoading, isLoading }) {
               paypal <a href="https://www.paypal.me/Krisz37">linken</a>{" "}
               megteheti!
             </Typography>
-
             <BottomButtonsContainer>
               <Button
                 variant="contained"
@@ -219,7 +218,6 @@ export function LandingPage({ children, setIsLoading, isLoading }) {
               >
                 Tudj meg többet
               </Button>
-
               <Button
                 variant="contained"
                 color="error"
@@ -227,7 +225,6 @@ export function LandingPage({ children, setIsLoading, isLoading }) {
               >
                 Ne jelenjen meg újra!
               </Button>
-
               <SignInButton component={Link} to="/AboutUs">
                 Rólunk
               </SignInButton>
@@ -238,7 +235,7 @@ export function LandingPage({ children, setIsLoading, isLoading }) {
 
       {isSmallScreen ? (
         <>
-        <div id="kisHozza">
+          <div id="kisHozza">
             <Button
               onClick={handleNewsModalOpen}
               variant="contained"

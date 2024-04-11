@@ -1,14 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {
-  Container,
-  Typography,
-  Paper,
-  TextField,
-  Button,
-  Grid,
-  Avatar,
-  Link,
-} from "@mui/material";
+import {Container,Typography,Paper,TextField,Button,Grid,Avatar,Link,} from "@mui/material";
 import "./Settings.css";
 import { Loading } from "../../components/Loading/Loading";
 import axios from "axios";
