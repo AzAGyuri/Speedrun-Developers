@@ -146,7 +146,9 @@ export function MyProfile({ children, setIsLoading, isLoading }) {
           console.error("Hiba történt adat lekérdezéskor", error);
         });
     }
-    setIsLoading(false);
+    setTimeout(()=>{
+      setIsLoading(false);
+    },300);
   }, [currentUserId, setIsLoading, isLoading]);
 
   if (isLoading) return <Loading />;

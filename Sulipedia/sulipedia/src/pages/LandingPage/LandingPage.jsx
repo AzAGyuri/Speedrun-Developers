@@ -133,7 +133,9 @@ export function LandingPage({ children, setIsLoading, isLoading }) {
       .catch((error) => {
         console.error("Hiba történt az adatok lekérdezése során", error);
       });
-    setIsLoading(false);
+    setTimeout(()=>{
+      setIsLoading(false);
+    },300);
   }, [jwt, subject, setIsLoading, isLoading]);
 
   if (isLoading) return <Loading />;
@@ -523,6 +525,7 @@ export function LandingPage({ children, setIsLoading, isLoading }) {
               onClick={handleNewsModalOpen}
               variant="contained"
               color="primary"
+              id="addNewsButton"
             >
               Új hír hozzáadása
             </Button>
