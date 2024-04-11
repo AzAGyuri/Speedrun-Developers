@@ -336,7 +336,9 @@ export function Tests({ children, setIsLoading, isLoading }) {
       .catch((error) => {
         console.error("Hiba történt adat lekérdezéskor", error);
       });
-    setIsLoading(false);
+    setTimeout(()=>{
+      setIsLoading(false);
+    },300)
   }, [subject, setIsLoading, isLoading]);
 
   const reverseGetSubject = (subject) => {
@@ -375,12 +377,13 @@ export function Tests({ children, setIsLoading, isLoading }) {
     let subject = event.target.id;
     setIsLoading(true);
     setSelectedSubject(subject);
+    setShowResults(false);
+    setShowCorrectAnswer({});
     setFilteredTests(
       subject
         ? requestedTestData.filter((test) => test.subject === subject)
         : requestedTestData
     );
-    setShowResults(false);
   };
 
   const handleTestSelection = (test) => {
