@@ -278,22 +278,18 @@ export function LandingPage({ children, setIsLoading, isLoading }) {
           </div>
           <div className="flex-container">
             <div className="flex-item">
-              <div className="flex-container">
-                <div className="flex-item">
-                  {posts.map((post, index) => (
-                    <div className="contente-flex" key={index}>
-                      <div className="flexcontente-item">
-                        <div className="contente-box">
-                          <div className="contente-title">{post.title}</div>
-
-                          <div className="contente">{post.content}</div>
-                          <div className="post-date">{post.date}</div>
-                        </div>
-                      </div>
-                    </div>
-                  ))}
+              
+            {keepPosts.slice(0).reverse().map((post) => (
+              <div className="contente-flex" key={post.id}>
+                <div className="flexcontente-item">
+                  <div className="contente-box">
+                    <div className="contente-title">{post.title}</div>
+                    <div className="contente">{post.content}</div>
+                  </div>
                 </div>
               </div>
+            ))}
+
               <div className="contente-flex">
                 <div className="flexcontente-item">
                   <div className="contente-box">
@@ -491,20 +487,17 @@ export function LandingPage({ children, setIsLoading, isLoading }) {
               </div>
             </div>
               
-            {keepPosts.map((post) => (
-              <div className="contente-flex">
-              <div className="flexcontente-item">
-                <div className="contente-box">
-                  <div className="contente-title">
-                  {post.title}
-                  </div>
-                  <div className="contente">
-                    {post.content}
+            {keepPosts.slice(0).reverse().map((post) => (
+              <div className="contente-flex" key={post.id}>
+                <div className="flexcontente-item">
+                  <div className="contente-box">
+                    <div className="contente-title">{post.title}</div>
+                    <div className="contente">{post.content}</div>
                   </div>
                 </div>
               </div>
-              </div>
             ))}
+
 
 
             <div className="contente-flex">
