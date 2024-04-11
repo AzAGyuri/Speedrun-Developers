@@ -53,6 +53,7 @@ public class CommandLineAppStartupRunner implements CommandLineRunner {
         .findAll()
         .forEach(group -> {
           group.setRandomAvatarBgColor(MiscUtils.generateThreeRandomColors());
+          groupRepository.save(group);
         });
     }
   }

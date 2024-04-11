@@ -10,10 +10,10 @@ public interface GroupRepository
   extends JpaRepository<Group, Integer> {
   @Query(
     nativeQuery = true,
-    value = "SELECT * FROM group g " +
-    "inner join registered_users u " +
-    "on u.group_id = g.id " +
-    "WHERE u.id = :userId"
+    value = "SELECT * FROM school_groups sg " +
+    "inner join grouped_user gu " +
+    "on gu.group_id = sg.id " +
+    "WHERE gu.user_id = :userId"
   )
   List<Group> findAllByUserId(@Param(value = "userId") Integer userId);
 }
