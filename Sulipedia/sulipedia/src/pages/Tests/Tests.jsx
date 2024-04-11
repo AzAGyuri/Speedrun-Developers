@@ -306,9 +306,7 @@ export function Tests({ children, setIsLoading, isLoading }) {
         headers: { Authorization: localStorage.getItem("jwt") },
       })
       .then((response) => {
-        const entries = response.data;
-        console.log(entries);
-        entries.entries.forEach((entry) => {
+        response.data.entries.forEach((entry) => {
           setRequestedTestData(
             [
               { title: entry.title, subject: reverseGetSubject(entry.subject) },
@@ -319,7 +317,7 @@ export function Tests({ children, setIsLoading, isLoading }) {
           entry.questions.questions.forEach((question) => {
             let correctAnswerText = question.answers.answers
               .filter((answer) => answer.correct)
-              .map((answer) => answer.text);
+              .map((answer) => answer.text)[0];
 
             questions.push({
               question: question.text,
@@ -328,9 +326,9 @@ export function Tests({ children, setIsLoading, isLoading }) {
             });
           });
 
-          setRequestedQuestionsAndAnswers(() => ({
+          setRequestedQuestionsAndAnswers((prevData) => ({
             [entry.title]: questions,
-            ...questionsAndAnswers,
+            ...prevData
           }));
         });
         console.log(requestedTestData, requestedQuestionsAndAnswers);
@@ -378,7 +376,9 @@ export function Tests({ children, setIsLoading, isLoading }) {
     setIsLoading(true);
     setSelectedSubject(subject);
     setFilteredTests(
-      subject ? requestedTestData.filter((test) => test.subject === subject) : requestedTestData
+      subject
+        ? requestedTestData.filter((test) => test.subject === subject)
+        : requestedTestData
     );
     setShowResults(false);
   };
@@ -400,10 +400,12 @@ export function Tests({ children, setIsLoading, isLoading }) {
 
   const handleCheckAnswers = () => {
     const correctAnswersData = {};
-    Object.keys(requestedQuestionsAndAnswers[selectedTest.title]).forEach((key) => {
-      const question = requestedQuestionsAndAnswers[selectedTest.title][key];
-      correctAnswersData[key] = question.correctAnswer;
-    });
+    Object.keys(requestedQuestionsAndAnswers[selectedTest.title]).forEach(
+      (key) => {
+        const question = requestedQuestionsAndAnswers[selectedTest.title][key];
+        correctAnswersData[key] = question.correctAnswer;
+      }
+    );
     setCorrectAnswers(correctAnswersData);
     setShowResults(true);
   };
@@ -665,8 +667,9 @@ export function Tests({ children, setIsLoading, isLoading }) {
                 <ListItem key={questionIndex}>
                   <ListItemText
                     primary={`${parseInt(questionIndex) + 1}. kérdés: ${
-                      requestedQuestionsAndAnswers[selectedTest.title][questionIndex]
-                        .question
+                      requestedQuestionsAndAnswers[selectedTest.title][
+                        questionIndex
+                      ].question
                     }`}
                     secondary={
                       <div style={{ display: "flex", alignItems: "center" }}>
