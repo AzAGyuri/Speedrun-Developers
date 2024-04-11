@@ -205,7 +205,6 @@ INSERT INTO
         content,
         kept,
         test,
-        deleted,
         created_on,
         subject_name,
         author_id
@@ -216,7 +215,6 @@ values
         "",
         0,
         1,
-        0,
         NOW (),
         'MATHS',
         100000001
@@ -226,7 +224,6 @@ values
         "",
         0,
         1,
-        0,
         NOW (),
         'MATHS',
         100000001
@@ -236,7 +233,6 @@ values
         "",
         0,
         1,
-        0,
         NOW (),
         'ICT',
         100000001
@@ -246,7 +242,6 @@ values
         "",
         0,
         1,
-        0,
         NOW (),
         'ICT',
         100000001
@@ -256,7 +251,6 @@ values
         "",
         0,
         1,
-        0,
         NOW (),
         'ICT',
         100000001
@@ -266,7 +260,6 @@ values
         "",
         0,
         1,
-        0,
         NOW (),
         'ICT',
         100000001
@@ -276,7 +269,6 @@ values
         "",
         0,
         1,
-        0,
         NOW (),
         'HISTORY',
         100000001
@@ -286,7 +278,6 @@ values
         "",
         0,
         1,
-        0,
         NOW (),
         'TECHNICAL_ENGLISH',
         100000001
@@ -296,7 +287,6 @@ values
         "",
         0,
         1,
-        0,
         NOW (),
         'TECHNICAL_ENGLISH',
         100000001
@@ -306,7 +296,6 @@ values
         "",
         0,
         1,
-        0,
         NOW (),
         'TECHNICAL_ENGLISH',
         100000001

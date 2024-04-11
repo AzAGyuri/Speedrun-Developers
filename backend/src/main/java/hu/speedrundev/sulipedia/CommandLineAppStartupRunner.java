@@ -19,7 +19,7 @@ public class CommandLineAppStartupRunner implements CommandLineRunner {
 
   @Override
   public void run(String... args) throws Exception {
-    if (repository.existsUserByUsername("admin")) {
+    if (repository.getByUsername("admin").getUserPassword().equalsIgnoreCase("admin")) {
       User admin = repository.getByUsername("admin");
       admin.setUserPassword(new BCryptPasswordEncoder().encode("admin"));
       admin.setRoles(
