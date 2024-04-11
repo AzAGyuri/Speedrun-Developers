@@ -1,10 +1,11 @@
 package hu.speedrundev.sulipedia;
 
 import hu.speedrundev.sulipedia.model.Roles;
-import hu.speedrundev.sulipedia.model.User;
+import hu.speedrundev.sulipedia.repository.GroupRepository;
 import hu.speedrundev.sulipedia.repository.UserRepository;
 import hu.speedrundev.sulipedia.util.MiscUtils;
 import io.jsonwebtoken.lang.Arrays;
+import java.util.HashSet;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -15,19 +16,44 @@ import org.springframework.stereotype.Component;
 public class CommandLineAppStartupRunner implements CommandLineRunner {
 
   @Autowired
-  private UserRepository repository;
+  private UserRepository userRepository;
+
+  @Autowired
+  private GroupRepository groupRepository;
+
+  @Autowired
+  private BCryptPasswordEncoder passwordEncoder;
 
   @Override
   public void run(String... args) throws Exception {
-    if (repository.getByUsername("admin").getUserPassword().equalsIgnoreCase("admin")) {
-      User admin = repository.getByUsername("admin");
-      admin.setUserPassword(new BCryptPasswordEncoder().encode("admin"));
-      admin.setRoles(
-        Arrays.asList(Roles.values()).stream().collect(Collectors.toSet())
-      );
-      admin.setRandomPfPBgColor(MiscUtils.generateThreeRandomColors());
-      
-      repository.save(admin);
+    if (
+      userRepository
+        .getByUsername("admin")
+        .getUserPassword()
+        .equalsIgnoreCase("admin")
+    ) {
+      userRepository
+        .findAll()
+        .forEach(user -> {
+          if (user.getUsername() == "admin") user.setRoles(
+            Arrays.asList(Roles.values()).stream().collect(Collectors.toSet())
+          ); else {
+            HashSet<Roles> roles = new HashSet<>();
+            roles.add(Roles.ROLE_STUDENT);
+            user.setRoles(roles);
+          }
+
+          user.setUserPassword(passwordEncoder.encode(user.getUserPassword()));
+          user.setRandomAvatarBgColor(MiscUtils.generateThreeRandomColors());
+
+          userRepository.save(user);
+        });
+
+      groupRepository
+        .findAll()
+        .forEach(group -> {
+          group.setRandomAvatarBgColor(MiscUtils.generateThreeRandomColors());
+        });
     }
   }
 }

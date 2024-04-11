@@ -29,7 +29,7 @@ public class GetUser extends BaseUser {
     Set<RoleDto> roles
   ) {
     super(username, email, nickname, phoneNumber);
-    this.randomPfPBgColor = randomPfPBgColor;
+    this.randomAvatarBgColor = randomPfPBgColor;
     this.profilePictureBase64 = profilePictureBase64;
     this.groups = groups;
     this.birthDate = birthDate;
@@ -45,7 +45,7 @@ public class GetUser extends BaseUser {
       user.getEmail(),
       user.getNickname(),
       user.getPhoneNumber(),
-      user.getRandomPfPBgColor(),
+      user.getRandomAvatarBgColor(),
       user.getProfilePicture() == null
         ? ""
         : Base64.getEncoder().encodeToString(user.getProfilePicture()),
@@ -58,7 +58,7 @@ public class GetUser extends BaseUser {
     );
   }
 
-  private String randomPfPBgColor, profilePictureBase64;
+  private String randomAvatarBgColor, profilePictureBase64;
 
   private GroupList groups;
 
