@@ -66,6 +66,13 @@ export default function SignUp({ children, setIsLoading }) {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    const isPasswordValid = validatePassword(formData.password);
+    const isConfirmPasswordValid = formData.password === formData.confirmPassword;
+  
+    if (!isPasswordValid || !isConfirmPasswordValid) {
+      setPasswordError(true);
+      return;
+    }
     validateForm();
     if (isFormValid()) {
       const finalFormData = {
@@ -178,42 +185,44 @@ export default function SignUp({ children, setIsLoading }) {
 
   const validateForm = () => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    
     if (!emailRegex.test(formData.email)) {
       setEmailError(true);
     }
-
-    if (
-      formData.password.length < 8 ||
-      !/\d/.test(formData.password) ||
-      !/[a-zA-Z]/.test(formData.password)
-    ) {
-      setPasswordError(true);
-    } else {
-      setPasswordError(false);
-    }
-
+  
+    const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
+    const isPasswordValid = passwordRegex.test(formData.password);
+    const isConfirmPasswordValid = formData.password === formData.confirmPassword;
+  
+    setPasswordError(!isPasswordValid || !isConfirmPasswordValid);
+    
     if (formData.surName.length < 2) {
       setLastNameError(true);
     } else {
       setLastNameError(false);
     }
-
+  
     if (formData.realName.length < 3) {
       setFirstNameError(true);
     } else {
       setFirstNameError(false);
     }
+    
     if (
       formData.phone &&
       !(formData.phone.length > 13 && formData.phone.length < 15)
     ) {
       setPhoneError(true);
     }
-
-    if (formData.password !== formData.confirmPassword) {
+  
+    if (!isConfirmPasswordValid) {
       setPasswordError(true);
     }
   };
+  const validatePassword = (password) => {
+    const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
+    return passwordRegex.test(password);
+  };  
 
   const isFormValid = () => {
     return (
