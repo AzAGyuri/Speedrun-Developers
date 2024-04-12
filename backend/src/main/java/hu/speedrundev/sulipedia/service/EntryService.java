@@ -33,11 +33,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 @Service
-@Transactional
 public class EntryService {
 
   @Autowired
@@ -84,7 +82,7 @@ public class EntryService {
 
   public GetEntry getEntry(Integer id) {
     if (id == null) throw nullPointer();
-    if (entryRepository.existsById(id)) throw modelNotFound("ENTRY_NOT_FOUND");
+    if (!entryRepository.existsById(id)) throw modelNotFound("ENTRY_NOT_FOUND");
 
     return new GetEntry(entryRepository.getReferenceById(id));
   }
