@@ -98,23 +98,23 @@ public class EntryController {
     return service.updateEntry(id, changes);
   }
 
-  @Operation(
-    summary = "List all entries that will be kept in DB",
-    description = "Az adatbázisban eltárolt, új tanév kezdése során megtartása kerülő bejegyzések listázása"
-  )
-  @GetMapping("/entry/keep")
-  public EntryList getEntriesKept() {
-    return service.getEntriesThatAreKept();
-  }
+  // @Operation(
+  //   summary = "List all entries that will be kept in DB",
+  //   description = "Az adatbázisban eltárolt, új tanév kezdése során megtartása kerülő bejegyzések listázása"
+  // )
+  // @GetMapping("/entry/keep")
+  // public EntryList getEntriesKept() {
+  //   return service.getEntriesThatAreKept();
+  // }
 
-  @Operation(
-    summary = "List all entries that will not be kept in DB",
-    description = "Az adatbázisban eltárolt, új tanév kezdése során megtartásra nem kerülő bejegyzések listázása"
-  )
-  @GetMapping("/entry/not-keep")
-  public EntryList getEntriesNotKept() {
-    return service.getEntriesNotKept();
-  }
+  // @Operation(
+  //   summary = "List all entries that will not be kept in DB",
+  //   description = "Az adatbázisban eltárolt, új tanév kezdése során megtartásra nem kerülő bejegyzések listázása"
+  // )
+  // @GetMapping("/entry/not-keep")
+  // public EntryList getEntriesNotKept() {
+  //   return service.getEntriesNotKept();
+  // }
 
   @Operation(
     summary = "Delete one entry from DB logically",
