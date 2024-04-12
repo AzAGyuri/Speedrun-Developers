@@ -13,10 +13,8 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
-
-import java.time.Instant;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -31,13 +29,10 @@ import lombok.Setter;
 @AllArgsConstructor
 public class Entry {
 
-  public Entry(
-    PostEntry entry,
-    User author
-  ) {
+  public Entry(PostEntry entry, User author) {
     this.author = author;
     this.content = entry.getContent();
-    this.createdOn = new Date();
+    this.createdOn = LocalDateTime.now();
     this.keep = entry.getKeep();
     this.subject = Subjects.valueOf(entry.getSubject().toString());
     this.test = entry.getTest();
@@ -59,9 +54,9 @@ public class Entry {
 
   private Boolean deleted;
 
-  private Date deletedOn;
+  private LocalDateTime deletedOn;
 
-  private Date createdOn;
+  private LocalDateTime createdOn;
 
   @Enumerated(EnumType.STRING)
   @Column(name = "subject_name", nullable = false)
@@ -86,7 +81,7 @@ public class Entry {
     subject = null;
     content = null;
     deleted = true;
-    deletedOn = Date.from(Instant.now());
+    deletedOn = LocalDateTime.now();
     keep = null;
     questions = null;
     test = null;
@@ -112,7 +107,10 @@ public class Entry {
       updatingEntry.content.equals(this.content) &&
       updatingEntry.title.equals(this.title) &&
       updatingEntry.test == this.test &&
-      compareQuestionLists(new ArrayList<>(this.questions), updatingEntry.questions)
+      compareQuestionLists(
+        new ArrayList<>(this.questions),
+        updatingEntry.questions
+      )
     );
   }
 

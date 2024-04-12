@@ -1,7 +1,7 @@
 CREATE TABLE
     IF NOT EXISTS specialization (id varchar(50) primary key not null);
 
-INSERT INTO
+INSERT IGNORE INTO
     specialization (id)
 VALUES
     ("ECONOMY"),
@@ -11,7 +11,7 @@ VALUES
 CREATE TABLE
     IF NOT EXISTS roles (id varchar(50) PRIMARY KEY NOT NULL);
 
-INSERT INTO
+INSERT IGNORE INTO
     roles (id)
 VALUES
     ("ROLE_ADMIN"),
@@ -21,7 +21,7 @@ VALUES
 CREATE TABLE
     IF NOT EXISTS avail_type (id varchar(50) PRIMARY KEY NOT NULL);
 
-INSERT INTO
+INSERT IGNORE INTO
     avail_type (id)
 VALUES
     ("DISCORD"),
@@ -36,7 +36,7 @@ VALUES
 CREATE TABLE
     IF NOT EXISTS subjects (id varchar(50) PRIMARY KEY NOT NULL);
 
-INSERT INTO
+INSERT IGNORE INTO
     subjects (id)
 VALUES
     ("HISTORY"),
@@ -64,18 +64,18 @@ CREATE TABLE
 CREATE TABLE
     IF NOT EXISTS registered_users (
         id INT (9) PRIMARY KEY AUTO_INCREMENT,
-        created_on DATE NOT NULL,
+        created_on datetime NOT NULL,
         username varchar(100) NOT NULL,
         user_password varchar(80) NOT NULL,
         email varchar(70) not NULL unique,
         random_avatar_bg_color varchar(7) not null,
         nickname varchar(80) null,
         phone_number varchar(14) null,
-        birth_date DATE null,
+        birth_date datetime null,
         deleted boolean null,
-        deleted_on date null,
-        last_login date null,
-        last_logoff date null,
+        deleted_on datetime null,
+        last_login datetime null,
+        last_logoff datetime null,
         profile_picture mediumblob null
     ) AUTO_INCREMENT = 100000001;
 
@@ -113,8 +113,8 @@ CREATE TABLE
         kept boolean not null,
         test boolean not null,
         deleted boolean null,
-        deleted_on date null,
-        created_on date null,
+        deleted_on datetime null,
+        created_on datetime null,
         subject_name varchar(50) not null,
         author_id int (9),
         FOREIGN KEY (subject_name) REFERENCES subjects (id) ON DELETE RESTRICT ON UPDATE CASCADE,
@@ -151,7 +151,7 @@ CREATE TABLE
 CREATE TABLE
     IF NOT EXISTS comment (
         id int (9) PRIMARY KEY AUTO_INCREMENT,
-        created_on date not null,
+        created_on datetime not null,
         content varchar(2000) not null,
         author_id int (9),
         entry_id int (9) NOT NULL,
@@ -159,7 +159,7 @@ CREATE TABLE
         FOREIGN KEY (entry_id) REFERENCES entries (id) ON DELETE CASCADE ON UPDATE CASCADE
     ) AUTO_INCREMENT = 600000001;
 
-INSERT INTO
+INSERT IGNORE INTO
     registered_users (
         created_on,
         username,
@@ -274,65 +274,7 @@ values
         ""
     );
 
-INSERT INTO
-    school_groups (group_name)
-values
-    ('Szakmai Angol 2/14B'),
-    ('Magyar nyelv 12D'),
-    ('Történelem 12C'),
-    ('Matematika 12C'),
-    ('Digitális Kultúra 12A'),
-    ('Gigachad (Backend) 2/14B'),
-    ('2_14b_frontend');
-
-INSERT INTO
-    group_specialization (group_id, specialization)
-values
-    (700000001, 'IT'),
-    (700000002, 'IT'),
-    (700000003, 'IT'),
-    (700000003, 'MANAGEMENT'),
-    (700000004, 'IT'),
-    (700000004, 'MANAGEMENT'),
-    (700000005, 'IT'),
-    (700000005, 'ECONOMY'),
-    (700000006, 'IT'),
-    (700000007, 'IT');
-
-INSERT INTO
-    grouped_user (user_id, group_id)
-values
-    (100000001, 700000001),
-    (100000001, 700000002),
-    (100000001, 700000003),
-    (100000001, 700000004),
-    (100000001, 700000005),
-    (100000001, 700000006),
-    (100000001, 700000007),
-    (100000002, 700000001),
-    (100000003, 700000001),
-    (100000004, 700000001),
-    (100000005, 700000001),
-    (100000006, 700000001),
-    (100000007, 700000001),
-    (100000002, 700000006),
-    (100000005, 700000006),
-    (100000006, 700000006),
-    (100000007, 700000006),
-    (100000003, 700000007),
-    (100000004, 700000007),
-    (100000006, 700000007),
-    (100000007, 700000007),
-    (100000008, 700000002),
-    (100000009, 700000002),
-    (100000010, 700000003),
-    (100000011, 700000003),
-    (100000012, 700000004),
-    (100000013, 700000004),
-    (100000014, 700000005),
-    (100000015, 700000005);
-
-INSERT INTO
+INSERT IGNORE INTO
     entries (
         title,
         content,
@@ -432,9 +374,112 @@ values
         NOW (),
         'TECHNICAL_ENGLISH',
         100000001
+    ),
+    (
+        "Algoritmusok és Adatszerkezetek",
+        "Az algoritmusok és adatszerkezetek kulcsfontosságú fogalmak az informatikában. Az algoritmusok hatékony megvalósítása és az optimális adatszerkezetek kiválasztása lehetővé teszi az informatikai problémák hatékony megoldását.",
+        0,
+        0,
+        NOW (),
+        'ICT',
+        100000001
+    ),
+    (
+        "Felhőalapú Számítástechnika",
+        "A felhőalapú számítástechnika forradalmasította az informatikát. Az egyre növekvő számú vállalat és felhasználó számára biztosítja az adatok tárolását, szolgáltatásokat és alkalmazásokat a világhálón keresztül.",
+        0,
+        0,
+        NOW (),
+        'ICT',
+        100000001
+    ),
+    (
+        "Kiberbiztonság és Hálózatbiztonság",
+        "A kiberbiztonság és hálózatbiztonság napjainkban kulcsfontosságú területe az informatikának. Az internetes fenyegetések és a számítógépes bűnözés elleni védelem elengedhetetlen a biztonságos online környezet megteremtéséhez.",
+        0,
+        0,
+        NOW (),
+        'ICT',
+        100000001
+    ),
+    (
+        "Adattudomány és Nagy Adat",
+        "Az adattudomány és a nagy adat elemzésének képességei forradalmasítják az üzleti és tudományos területeket egyaránt. Az adatokból való értelmezés lehetővé teszi a trendek felismerését és a jövőbeli döntések meghozatalát.",
+        0,
+        0,
+        NOW (),
+        'ICT',
+        100000001
+    ),
+    (
+        "Mesterséges Intelligencia és Gépi Tanulás",
+        "A mesterséges intelligencia és a gépi tanulás területei forradalmasítják az informatikát. Az olyan alkalmazások, mint az autonóm járművek és a nyelvi felismerés, az MI és a gépi tanulás legújabb fejlesztéseinek eredményei.",
+        0,
+        0,
+        NOW (),
+        'ICT',
+        100000001
     );
 
-INSERT INTO
+INSERT IGNORE INTO
+    school_groups (group_name)
+values
+    ('Szakmai Angol 2/14B'),
+    ('Magyar nyelv 12D'),
+    ('Történelem 12C'),
+    ('Matematika 12C'),
+    ('Digitális Kultúra 12A'),
+    ('Gigachad (Backend) 2/14B'),
+    ('2_14b_frontend');
+
+INSERT IGNORE INTO
+    group_specialization (group_id, specialization)
+values
+    (700000001, 'IT'),
+    (700000002, 'IT'),
+    (700000003, 'IT'),
+    (700000003, 'MANAGEMENT'),
+    (700000004, 'IT'),
+    (700000004, 'MANAGEMENT'),
+    (700000005, 'IT'),
+    (700000005, 'ECONOMY'),
+    (700000006, 'IT'),
+    (700000007, 'IT');
+
+INSERT IGNORE INTO
+    grouped_user (user_id, group_id)
+values
+    (100000001, 700000001),
+    (100000001, 700000002),
+    (100000001, 700000003),
+    (100000001, 700000004),
+    (100000001, 700000005),
+    (100000001, 700000006),
+    (100000001, 700000007),
+    (100000002, 700000001),
+    (100000003, 700000001),
+    (100000004, 700000001),
+    (100000005, 700000001),
+    (100000006, 700000001),
+    (100000007, 700000001),
+    (100000002, 700000006),
+    (100000005, 700000006),
+    (100000006, 700000006),
+    (100000007, 700000006),
+    (100000003, 700000007),
+    (100000004, 700000007),
+    (100000006, 700000007),
+    (100000007, 700000007),
+    (100000008, 700000002),
+    (100000009, 700000002),
+    (100000010, 700000003),
+    (100000011, 700000003),
+    (100000012, 700000004),
+    (100000013, 700000004),
+    (100000014, 700000005),
+    (100000015, 700000005);
+
+INSERT IGNORE INTO
     question (content, entry_id)
 values
     ('Mennyi 6*6?', 200000001),
@@ -506,7 +551,7 @@ values
     ('Hogyan mondod angolul: "Mi a neved?"', 200000010),
     ('Hogyan mondod angolul: "Hol laksz?"', 200000010);
 
-INSERT INTO
+INSERT IGNORE INTO
     answer (correct, content, question_id)
 values
     (1, '36', 400000001),

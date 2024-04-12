@@ -25,12 +25,10 @@ import hu.speedrundev.sulipedia.repository.UserRepository;
 import hu.speedrundev.sulipedia.util.JwtUtil;
 import io.jsonwebtoken.lang.Arrays;
 import java.io.IOException;
-import java.time.Instant;
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
@@ -74,11 +72,7 @@ public class EntryService {
 
   public EntryList getTestsByOptionalCategory(SubjectDto subject) {
     if (subject == null || subject.toString().isBlank()) return new EntryList(
-      entryRepository
-        .findAll()
-        .stream()
-        .filter(Entry::getTest)
-        .toList()
+      entryRepository.findAll().stream().filter(Entry::getTest).toList()
     );
 
     return new EntryList(
@@ -112,12 +106,7 @@ public class EntryService {
       "NO_QUESTIONS_SUPPLIED_FOR_TEST_ENTRY"
     );
 
-    Entry savedEntry = entryRepository.save(
-      new Entry(
-        entry,
-        author.get()
-      )
-    );
+    Entry savedEntry = entryRepository.save(new Entry(entry, author.get()));
 
     System.out.println(savedEntry.getId());
 
@@ -234,7 +223,7 @@ public class EntryService {
 
     Entry softDeletedEntry = entryRepository.getReferenceById(id);
     softDeletedEntry.setDeleted(true);
-    softDeletedEntry.setDeletedOn(Date.from(Instant.now()));
+    softDeletedEntry.setDeletedOn(LocalDateTime.now());
 
     return new GetEntry(entryRepository.save(softDeletedEntry));
   }

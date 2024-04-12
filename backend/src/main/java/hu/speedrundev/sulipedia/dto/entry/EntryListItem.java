@@ -3,7 +3,7 @@ package hu.speedrundev.sulipedia.dto.entry;
 import hu.speedrundev.sulipedia.dto.attachment.AttachmentList;
 import hu.speedrundev.sulipedia.dto.question.QuestionList;
 import hu.speedrundev.sulipedia.model.Entry;
-import java.util.Date;
+import java.time.LocalDateTime;
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
@@ -16,8 +16,8 @@ public class EntryListItem extends GetEntryWithID {
     Boolean keep,
     Boolean test,
     Boolean deleted,
-    Date deletedOn,
-    Date createdOn,
+    LocalDateTime deletedOn,
+    LocalDateTime createdOn,
     String author,
     AttachmentList attachments,
     QuestionList questions,

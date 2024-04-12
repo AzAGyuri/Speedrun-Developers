@@ -22,8 +22,7 @@ import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Email;
-import java.time.Instant;
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -45,7 +44,7 @@ public class User {
   private Integer id;
 
   @Column(nullable = false)
-  private Date createdOn;
+  private LocalDateTime createdOn;
 
   @Column(nullable = false)
   private String username;
@@ -67,19 +66,19 @@ public class User {
   private String phoneNumber;
 
   @Column(nullable = true)
-  private Date birthDate;
+  private LocalDateTime birthDate;
 
   @Column(nullable = true)
   private Boolean deleted;
 
   @Column(nullable = true)
-  private Date deletedOn;
+  private LocalDateTime deletedOn;
 
   @Column(nullable = true)
-  private Date lastLogin;
+  private LocalDateTime lastLogin;
 
   @Column(nullable = true)
-  private Date lastLogoff;
+  private LocalDateTime lastLogoff;
 
   @Lob
   @Column(nullable = true)
@@ -112,7 +111,7 @@ public class User {
   private List<Comment> createdComments;
 
   public User(PostUser user) {
-    createdOn = Date.from(Instant.now());
+    createdOn = LocalDateTime.now();
     email = user.getEmail();
     userPassword = user.getPasswordRaw();
     username = user.getUsername();
@@ -121,7 +120,7 @@ public class User {
   }
 
   public User(UserRegistration user) {
-    createdOn = Date.from(Instant.now());
+    createdOn = LocalDateTime.now();
     email = user.getEmail();
     userPassword = user.getPasswordRaw();
     username = user.getUsername();
@@ -134,9 +133,9 @@ public class User {
 
   public void nulledDelete() {
     availabilities = null;
-    birthDate = Date.from(Instant.EPOCH);
+    birthDate = LocalDateTime.MIN;
     deleted = true;
-    deletedOn = Date.from(Instant.now());
+    deletedOn = LocalDateTime.now();
     email = "";
     entries = null;
     userPassword = "";

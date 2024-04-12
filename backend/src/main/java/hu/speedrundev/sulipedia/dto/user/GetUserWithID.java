@@ -2,8 +2,8 @@ package hu.speedrundev.sulipedia.dto.user;
 
 import hu.speedrundev.sulipedia.dto.group.GroupList;
 import hu.speedrundev.sulipedia.model.User;
+import java.time.LocalDateTime;
 import java.util.Base64;
-import java.util.Date;
 import java.util.Set;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -22,10 +22,10 @@ public class GetUserWithID extends GetUser {
     String randomPfPBgColor,
     String profilePictureBase64,
     GroupList groups,
-    Date birthDate,
-    Date createdOn,
-    Date lastLogin,
-    Date lastLogoff,
+    LocalDateTime birthDate,
+    LocalDateTime createdOn,
+    LocalDateTime lastLogin,
+    LocalDateTime lastLogoff,
     Set<RoleDto> roles,
     Integer id
   ) {

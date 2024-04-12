@@ -8,7 +8,7 @@ import hu.speedrundev.sulipedia.dto.user.UserRegistration;
 import hu.speedrundev.sulipedia.model.User;
 import hu.speedrundev.sulipedia.repository.UserRepository;
 import hu.speedrundev.sulipedia.util.JwtUtil;
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -53,7 +53,7 @@ public class SecurityService {
       )
     ) throw unauthorized("PROVIDED_PASSWORD_DOES_NOT_MATCH_FOR_USERNAME");
 
-    possibleLogin.setLastLogin(new Date());
+    possibleLogin.setLastLogin(LocalDateTime.now());
 
     return new GetUserWithID(repository.save(possibleLogin));
   }
@@ -82,7 +82,7 @@ public class SecurityService {
     );
 
     User logout = repository.getByUsername(username);
-    logout.setLastLogoff(new Date());
+    logout.setLastLogoff(LocalDateTime.now());
     repository.save(logout);
 
     return true;

@@ -15,8 +15,8 @@ import hu.speedrundev.sulipedia.model.User;
 import hu.speedrundev.sulipedia.repository.UserRepository;
 import hu.speedrundev.sulipedia.util.JwtUtil;
 import jakarta.validation.Valid;
-import java.time.Instant;
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -46,7 +46,7 @@ public class UserService {
     return new UserList(repository.getUnderageStudents());
   }
 
-  public UserList getNewUsersSinceDate(Date date) {
+  public UserList getNewUsersSinceDate(LocalDate date) {
     if (date == null) throw nullPointer();
 
     return new UserList(repository.getUsersCreatedSinceDate(date));
@@ -175,7 +175,7 @@ public class UserService {
 
     User softDeletedUser = repository.getReferenceById(id);
     softDeletedUser.setDeleted(true);
-    softDeletedUser.setDeletedOn(Date.from(Instant.now()));
+    softDeletedUser.setDeletedOn(LocalDateTime.now());
 
     return new GetUser(repository.save(softDeletedUser));
   }

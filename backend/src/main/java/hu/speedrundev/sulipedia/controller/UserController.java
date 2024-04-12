@@ -12,9 +12,8 @@ import hu.speedrundev.sulipedia.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.Set;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
@@ -33,7 +32,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 /**
  * <h3>User API Controller</h3>
- * 
+ *
  * {@code @RestController} class for the User API's endpoints,
  */
 @Tag(
@@ -45,7 +44,7 @@ public class UserController {
 
   /**
    * <h3>SERVICE</h3>
-   * 
+   *
    * Service for the controller of type {@code UserService},<br></br>
    * responsible for serving the controller
    */
@@ -54,7 +53,7 @@ public class UserController {
 
   /**
    * <h3>GET(/user)</h3>
-   * 
+   *
    * Request all users from DB
    *
    * @return a new {@code UserList},
@@ -72,7 +71,7 @@ public class UserController {
 
   /**
    * <h3>GET(/user/teacher)</h3>
-   * 
+   *
    * Request all teacher users from the DB
    *
    * @return a new {@code UserList},
@@ -91,7 +90,7 @@ public class UserController {
 
   /**
    * <h3>GET(/user/teacher)</h3>
-   * 
+   *
    * Request all underage student users from the DB
    *
    * @return a new {@code UserList},
@@ -110,7 +109,7 @@ public class UserController {
 
   /**
    * <h3>GET(/user/since?date=yyyy-MM-dd&time=HH:mm:ss)</h3>
-   * 
+   *
    * Request all users created in the DB since a given date (e.g. last login)
    *
    * @param date a date to base the search on (required) ({@code Date})
@@ -133,15 +132,15 @@ public class UserController {
   @GetMapping("/user/since")
   public UserList getNewUsersSinceDate(
     @RequestParam(value = "date") @DateTimeFormat(
-      pattern = "yyyy-MM-dd_hh:mm:ss"
-    ) @Valid Date date
+      pattern = "yyyy-MM-dd"
+    ) @Valid LocalDate date
   ) {
     return service.getNewUsersSinceDate(date);
   }
 
   /**
    * <h3>GET(/user/{id})</h3>
-   * 
+   *
    * Request a user from the DB by ID
    *
    * @param id the ID of the user we're looking for<br></br>
@@ -173,7 +172,7 @@ public class UserController {
 
   /**
    * <h3>POST(/user)</h3>
-   * 
+   *
    * Create a user in the DB
    *
    * @param user the user to be created,<br></br>
@@ -209,7 +208,7 @@ public class UserController {
 
   /**
    * <h3>PUT(/user/{id})</h3>
-   * 
+   *
    * Update a user's information stored in the DB
    *
    * @param id the ID of the user, whose data to be updated<br></br>
@@ -267,7 +266,7 @@ public class UserController {
 
   /**
    * <h3>PATCH(/user/{id})</h3>
-   * 
+   *
    * Update a user's permissions and roles stored in the DB
    *
    * @param id the ID of the user, whose data to be updated<br></br>
@@ -316,7 +315,7 @@ public class UserController {
 
   /**
    * <h3>DELETE(/user/{id})</h3>
-   * 
+   *
    * Delete a user logically<br></br>
    *
    * @param id the ID of the user to be set for deletion<br></br>
@@ -347,12 +346,12 @@ public class UserController {
 
   /**
    * <h3>DELETE(/user/nulled/{id})</h3>
-   * 
+   *
    * Set one user's information to empty, and logically delete it<br></br>
-   * 
+   *
    * @param id the ID of the user, whose data to be deleted<br></br>
    * (required) ({@code @PathVariable} {@code Integer})
-   * 
+   *
    * @return a new {@code NulledUser}<br></br>
    * containing oldData {@code GetUser} and nulledData {@code GetUser}<br></br>
    * to confirm the nulling of the users previous data,<br></br>
