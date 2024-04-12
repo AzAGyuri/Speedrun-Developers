@@ -335,9 +335,6 @@ export function Tests({ children, setIsLoading, isLoading, jwt }) {
         setRequestedTestData(testsData);
         setRequestedQuestionsAndAnswers(questionsAndAnswers);
       });
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 300);
   }, [setIsLoading, questionsAndAnswers, testsData, jwt]);
 
   const reverseGetSubject = (subject) => {
@@ -383,9 +380,6 @@ export function Tests({ children, setIsLoading, isLoading, jwt }) {
         ? requestedTestData.filter((test) => test.subject === subject)
         : requestedTestData
     );
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 300);
   };
 
   const handleTestSelection = (test) => {
