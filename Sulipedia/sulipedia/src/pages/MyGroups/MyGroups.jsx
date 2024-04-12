@@ -175,7 +175,7 @@ export function MyGroups({ children, setIsLoading, isLoading }) {
       });
       setAvatarColors(colors);
     }
-  }, [groups]);
+  }, [groups, loaded]);
 
   useEffect(() => {
     axios.get(`/group?userId=${localStorage.getItem("currentUserId")}`, {

@@ -137,7 +137,6 @@ export function MyProfile({ children, setIsLoading, isLoading }) {
             profileImage: user.profilePictureBase64,
             randomPfPBgColor: user.randomPfPBgColor,
           });
-          console.log(userData);
         })
         .catch((error) => {
           console.error("Hiba történt adat lekérdezéskor", error);

@@ -183,7 +183,6 @@ export function Settings({ children, setIsLoading, isLoading }) {
                 : user.nickname
               : user.username
           );
-          console.log(formData, avatar);
         })
         .catch((error) => {
           console.error("Hiba történt adat lekérdezéskor", error);

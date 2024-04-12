@@ -329,7 +329,7 @@ export function Tests({ children, setIsLoading, isLoading }) {
     setTimeout(() => {
       setIsLoading(false);
     }, 300);
-  }, [setIsLoading]);
+  }, [setIsLoading, questionsAndAnswers, testsData]);
 
   const reverseGetSubject = (subject) => {
     switch (subject) {
