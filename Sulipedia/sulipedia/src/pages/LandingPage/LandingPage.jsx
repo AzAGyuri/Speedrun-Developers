@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import {
   Container,
   Box,
@@ -20,10 +20,10 @@ import history from "../../resources/history.png";
 import it from "../../resources/it.png";
 import iteng from "../../resources/iteng.png";
 import axios from "axios";
-import Select from '@mui/material/Select';
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
+import Select from "@mui/material/Select";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
 
 const HeaderTypography = styled(Typography)({
   marginBottom: "16px",
@@ -85,20 +85,63 @@ const styleSmall = {
 };
 
 export function LandingPage({ children, setIsLoading, isLoading }) {
-  const [posts, setPosts] = useState([]);
+  const staticEntries = useMemo(
+    () => [
+      {
+        id: 1,
+        title: "Algoritmusok és Adatszerkezetek",
+        content:
+          "Az algoritmusok és adatszerkezetek kulcsfontosságú fogalmak az informatikában. Az algoritmusok hatékony megvalósítása és az optimális adatszerkezetek kiválasztása lehetővé teszi az informatikai problémák hatékony megoldását.",
+        createdOn: "2024-04-01 12:00:00",
+        subject: "ICT",
+      },
+      {
+        id: 2,
+        title: "Felhőalapú Számítástechnika",
+        content:
+          "A felhőalapú számítástechnika forradalmasította az informatikát. Az egyre növekvő számú vállalat és felhasználó számára biztosítja az adatok tárolását, szolgáltatásokat és alkalmazásokat a világhálón keresztül.",
+        createdOn: "2024-04-01 12:00:00",
+        subject: "ICT",
+      },
+      {
+        id: 3,
+        title: "Kiberbiztonság és Hálózatbiztonság",
+        content:
+          "A kiberbiztonság és hálózatbiztonság napjainkban kulcsfontosságú területe az informatikának. Az internetes fenyegetések és a számítógépes bűnözés elleni védelem elengedhetetlen a biztonságos online környezet megteremtéséhez.",
+        createdOn: "2024-04-01 12:00:00",
+        subject: "ICT",
+      },
+      {
+        id: 4,
+        title: "Adattudomány és Nagy Adat",
+        content:
+          "Az adattudomány és a nagy adat elemzésének képességei forradalmasítják az üzleti és tudományos területeket egyaránt. Az adatokból való értelmezés lehetővé teszi a trendek felismerését és a jövőbeli döntések meghozatalát.",
+        createdOn: "2024-04-01 12:00:00",
+        subject: "ICT",
+      },
+      {
+        id: 5,
+        title: "Mesterséges Intelligencia és Gépi Tanulás",
+        content:
+          "A mesterséges intelligencia és a gépi tanulás területei forradalmasítják az informatikát. Az olyan alkalmazások, mint az autonóm járművek és a nyelvi felismerés, az MI és a gépi tanulás legújabb fejlesztéseinek eredményei.",
+        createdOn: "2024-04-01 12:00:00",
+        subject: "ICT",
+      },
+    ],
+    []
+  );
+
   const [open, setOpen] = useState(
     sessionStorage.getItem("modalOpen") === "false" ? false : true
   );
-  const [newsModalOpen, setNewsModalOpen] = useState(false);
-  const [newPostTitle, setNewPostTitle] = useState("");
-  const [newPostContent, setNewPostContent] = useState("");
-  const [newSubject, setNewSubject] = useState("");
+  const [newEntryModalOpen, setNewEntryModalOpen] = useState(false);
+  const [newEntryTitle, setNewEntryTitle] = useState("");
+  const [newEntryContent, setNewEntryContent] = useState("");
+  const [newSubject, setNewSubject] = useState("HISTORY");
+  const [subject, setSubject] = useState("");
+  const [entries, setEntries] = useState(staticEntries);
+  const [filteredEntries, setFilteredEntries] = useState(entries);
   const isSmallScreen = useMediaQuery("(max-width:950px)");
-  let [subject, setSubject] = useState("");
-  let [entries, setEntries] = useState({
-    entries: [],
-  });
-  const jwt = localStorage.getItem("jwt");
 
   function modalStayClosed() {
     sessionStorage.setItem("modalOpen", "false");
@@ -115,90 +158,76 @@ export function LandingPage({ children, setIsLoading, isLoading }) {
     setPosts([{ title: newPostTitle, content: newPostContent, date: formattedDate }, ...posts]);
   };*/
 
-
-  const handleNewsModalOpen = () => {
-    setNewsModalOpen(true);
+  const handleNewEntryModalOpen = () => {
+    setNewEntryModalOpen(true);
   };
 
-  const handleNewsModalClose = () => {
+  const handleNewEntryClose = () => {
     const requestData = {
-      title: newPostTitle,
-      content: newPostContent,
-      keep: true,
+      title: newEntryTitle,
+      content: newEntryContent,
+      keep: false,
       test: false,
       subject: newSubject,
     };
-  
-    axios.post(`/entry`, requestData, {
-      headers: {
-        Authorization: localStorage.getItem("jwt").trim(),
-      },
-    })
+    setIsLoading(true);
+
+    axios
+      .post(`/entry`, requestData, {
+        headers: {
+          Authorization: localStorage.getItem("jwt").trim(),
+        },
+      })
       .then((response) => {
-        console.log("Post sikeresen közzétéve:", response.data);
-        axios.get(`/entry/keep`, {
-          headers: {
-            Authorization: localStorage.getItem("jwt"),
-          },
-        })
-        .then(response => {
-          setKeepPosts(response.data.entries);
-        })
-        .catch(error => {
-          console.error("Hiba történt adatok lekérdezéskor", error);
-        });
+        let newEntry = response.data;
+        console.log("Entry sikeresen közzétéve:", newEntry);
+        setEntries(entries.concat(newEntry));
       })
       .catch((error) => {
-        console.error("Hiba történt a Post közzététele közben:", error);
+        console.error("Hiba történt a bejegyzés közzététele közben:", error);
       });
-  
-    console.log(newPostTitle, newPostContent, newSubject);
-  
-    setNewsModalOpen(false);
-    setNewPostTitle("");
-    setNewPostContent("");
+
+    setNewEntryModalOpen(false);
+    setNewEntryTitle("");
+    setNewEntryContent("");
     setNewSubject("");
   };
-  
 
-  const handleCategorySelect = (event) => {
+  const handleNewEntryModalCancel = () => {
+    setNewEntryModalOpen(false);
+  };
+
+  const handleSubjectSelect = (event) => {
     setSubject(event.target.id);
   };
 
   useEffect(() => {
     axios
-      .get(`/entry?subject=${subject}`, { headers: { Authorization: jwt } })
+      .get(`/entry`, {
+        headers: {
+          Authorization: localStorage.getItem("jwt"),
+        },
+      })
       .then((response) => {
-        setEntries(response.data);
+        setEntries(response.data.entries);
       })
       .catch((error) => {
-        console.error("Hiba történt az adatok lekérdezése során", error);
-        alert("Hiba történt az adatok lekérdezése során", error);
+        console.error("Hiba történt adatok lekérdezéskor", error);
+        setEntries(staticEntries);
       });
     setTimeout(() => {
       setIsLoading(false);
     }, 300);
-  }, [jwt, subject, setIsLoading, isLoading]);
+  }, [setIsLoading, staticEntries]);
 
-
-
-  const [keepPosts, setKeepPosts] = useState([]);
-
-  
   useEffect(() => {
-    axios.get(`/entry/keep`, {
-      headers: {
-        Authorization: localStorage.getItem("jwt"),
-      },
-    })
-    .then(response => {
-      setKeepPosts(response.data.entries);
-    })
-    .catch(error => {
-      console.error("Hiba történt adatok lekérdezéskor", error);
-    });
-  }, []);
-  
+    setFilteredEntries(
+      subject ? entries.filter((entry) => entry.subject === subject) : entries
+    );
+    setTimeout(() => {
+      setIsLoading(false)
+    }, 300)
+  }, [entries, subject, setIsLoading]);
 
   if (isLoading) return <Loading />;
 
@@ -212,7 +241,7 @@ export function LandingPage({ children, setIsLoading, isLoading }) {
           aria-labelledby="modal-modal-title"
           aria-describedby="modal-modal-description"
         >
-          <Box sx={isSmallScreen ? styleSmall : style} >
+          <Box sx={isSmallScreen ? styleSmall : style}>
             <CloseButton onClick={handleClose} color="primary">
               X
             </CloseButton>
@@ -269,11 +298,11 @@ export function LandingPage({ children, setIsLoading, isLoading }) {
         <>
           <div id="kisHozza">
             <Button
-              onClick={handleNewsModalOpen}
+              onClick={handleNewEntryModalOpen}
               variant="contained"
               color="primary"
               style={{
-                cursor:"cell"
+                cursor: "cell",
               }}
             >
               Új Bejegyzés hozzáadása
@@ -281,121 +310,37 @@ export function LandingPage({ children, setIsLoading, isLoading }) {
           </div>
           <div className="flex-container">
             <div className="flex-item">
-              
-            {keepPosts.slice(0).reverse().map((post) => (
-              <div className="contente-flex" key={post.id}>
-                <div className="flexcontente-item">
-                  <div className="contente-box">
-                    <div className="contente-title">{post.title}</div>
-                    <div className="contente">{post.content}</div>
-                  </div>
-                </div>
-              </div>
-            ))}
-
-              <div className="contente-flex">
-                <div className="flexcontente-item">
-                  <div className="contente-box">
-                    <div className="contente-title">
-                      Algoritmusok és Adatszerkezetek
-                    </div>
-
-                    <div className="contente">
-                      Az algoritmusok és adatszerkezetek kulcsfontosságú
-                      fogalmak az informatikában. Az algoritmusok hatékony
-                      megvalósítása és az optimális adatszerkezetek kiválasztása
-                      lehetővé teszi az informatikai problémák hatékony
-                      megoldását.
+              {filteredEntries
+                .slice(0)
+                .reverse()
+                .map((entry) => (
+                  <div className="contente-flex" key={entry.id}>
+                    <div className="flexcontente-item">
+                      <div className="contente-box">
+                        <div className="contente-title">{entry.title}</div>
+                        <div className="contente">{entry.content}</div>
+                        <div className="post-date">{entry.createdOn}</div>
+                      </div>
                     </div>
                   </div>
-                </div>
-              </div>
-
-              <div className="contente-flex">
-                <div className="flexcontente-item">
-                  <div className="contente-box">
-                    <div className="contente-title">
-                      Felhőalapú Számítástechnika
-                    </div>
-
-                    <div className="contente">
-                      A felhőalapú számítástechnika forradalmasította az
-                      informatikát. Az egyre növekvő számú vállalat és
-                      felhasználó számára biztosítja az adatok tárolását,
-                      szolgáltatásokat és alkalmazásokat a világhálón keresztül.
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="contente-flex">
-                <div className="flexcontente-item">
-                  <div className="contente-box">
-                    <div className="contente-title">
-                      Kiberbiztonság és Hálózatbiztonság
-                    </div>
-
-                    <div className="contente">
-                      A kiberbiztonság és hálózatbiztonság napjainkban
-                      kulcsfontosságú területe az informatikának. Az internetes
-                      fenyegetések és a számítógépes bűnözés elleni védelem
-                      elengedhetetlen a biztonságos online környezet
-                      megteremtéséhez.
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="contente-flex">
-                <div className="flexcontente-item">
-                  <div className="contente-box">
-                    <div className="contente-title">
-                      Adattudomány és Nagy Adat
-                    </div>
-
-                    <div className="contente">
-                      Az adattudomány és a nagy adat elemzésének képességei
-                      forradalmasítják az üzleti és tudományos területeket
-                      egyaránt. Az adatokból való értelmezés lehetővé teszi a
-                      trendek felismerését és a jövőbeli döntések meghozatalát.
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="contente-flex">
-                <div className="flexcontente-item">
-                  <div className="contente-box">
-                    <div className="contente-title">
-                      Mesterséges Intelligencia és Gépi Tanulás
-                    </div>
-
-                    <div className="contente">
-                      A mesterséges intelligencia és a gépi tanulás területei
-                      forradalmasítják az informatikát. Az olyan alkalmazások,
-                      mint az autonóm járművek és a nyelvi felismerés, az MI és
-                      a gépi tanulás legújabb fejlesztéseinek eredményei.
-                    </div>
-                  </div>
-                </div>
-              </div>
+                ))}
             </div>
           </div>
         </>
       ) : (
-        
         <div className="flex-container">
           <div className="flex-item">
             <div className="drawer">
               <Container
                 style={{ textDecoration: "none", color: "white", padding: 0 }}
-                onClick={handleCategorySelect}
                 underline="none"
                 rel="noreferrer"
                 color="inherit"
               >
                 <div className="subject-container">
-                  <span id="">Vegyes</span>
+                  <span onClick={handleSubjectSelect} id="">
+                    Vegyes
+                  </span>
                   <PublicIcon
                     className="subjectIMG"
                     style={{ color: "black" }}
@@ -404,13 +349,14 @@ export function LandingPage({ children, setIsLoading, isLoading }) {
               </Container>
               <Container
                 style={{ textDecoration: "none", color: "white", padding: 0 }}
-                onClick={handleCategorySelect}
                 underline="none"
                 rel="noreferrer"
                 color="inherit"
               >
                 <div className="subject-container">
-                  <span id="MATHS">Matematika</span>
+                  <span onClick={handleSubjectSelect} id="MATHS">
+                    Matematika
+                  </span>
                   <img
                     src={mathematics}
                     alt="Matematika"
@@ -420,13 +366,14 @@ export function LandingPage({ children, setIsLoading, isLoading }) {
               </Container>
               <Container
                 style={{ textDecoration: "none", color: "white", padding: 0 }}
-                onClick={handleCategorySelect}
                 underline="none"
                 rel="noreferrer"
                 color="inherit"
               >
                 <div className="subject-container">
-                  <span id="HUNGARIAN">Magyar Nyelv</span>
+                  <span onClick={handleSubjectSelect} id="HUNGARIAN">
+                    Magyar Nyelv
+                  </span>
                   <img
                     src={grammer}
                     alt="Magyar Nyelv"
@@ -436,37 +383,40 @@ export function LandingPage({ children, setIsLoading, isLoading }) {
               </Container>
               <Container
                 style={{ textDecoration: "none", color: "white", padding: 0 }}
-                onClick={handleCategorySelect}
                 underline="none"
                 rel="noreferrer"
                 color="inherit"
               >
                 <div className="subject-container">
-                  <span id="HISTORY">Történelem</span>
+                  <span onClick={handleSubjectSelect} id="HISTORY">
+                    Történelem
+                  </span>
                   <img src={history} alt="Történelem" className="subjectIMG" />
                 </div>
               </Container>
               <Container
                 style={{ textDecoration: "none", color: "white", padding: 0 }}
-                onClick={handleCategorySelect}
                 underline="none"
                 rel="noreferrer"
                 color="inherit"
               >
                 <div className="subject-container">
-                  <span id="TECHNICAL_ENGLISH">Szakmai angol</span>
+                  <span onClick={handleSubjectSelect} id="TECHNICAL_ENGLISH">
+                    Szakmai angol
+                  </span>
                   <img src={iteng} alt="Szakmai angol" className="subjectIMG" />
                 </div>
               </Container>
               <Container
                 style={{ textDecoration: "none", color: "white", padding: 0 }}
-                onClick={handleCategorySelect}
                 underline="none"
                 rel="noreferrer"
                 color="inherit"
               >
                 <div className="subject-container">
-                  <span id="ICT">Informatika</span>
+                  <span onClick={handleSubjectSelect} id="ICT">
+                    Informatika
+                  </span>
                   <img src={it} alt="Informatika" className="subjectIMG" />
                 </div>
               </Container>
@@ -474,129 +424,36 @@ export function LandingPage({ children, setIsLoading, isLoading }) {
             </div>
           </div>
           <div className="flex-item">
-            <div className="flex-container" style={{ my: 2 }}>
-              <div className="flex-item">
-                {posts.map((post, index) => (
-                  <div className="contente-flex" key={index}>
-                    <div className="flexcontente-item">
-                      <div className="contente-box">
-                        <div className="contente-title">{post.title}</div>
-                        <div className="contente">{post.content}</div>
-                        <div className="post-date">{post.date}</div>
-                      </div>
+            {filteredEntries
+              .slice(0)
+              .reverse()
+              .map((entry) => (
+                <div className="contente-flex" key={entry.id}>
+                  <div className="flexcontente-item">
+                    <div className="contente-box">
+                      <div className="contente-title">{entry.title}</div>
+                      <div className="contente">{entry.content}</div>
+                      <div className="post-date">{entry.createdOn}</div>
                     </div>
                   </div>
-                ))}
-              </div>
-            </div>
-              
-            {keepPosts.slice(0).reverse().map((post) => (
-              <div className="contente-flex" key={post.id}>
-                <div className="flexcontente-item">
-                  <div className="contente-box">
-                    <div className="contente-title">{post.title}</div>
-                    <div className="contente">{post.content}</div>
-                  </div>
                 </div>
-              </div>
-            ))}
-
-
-
-            <div className="contente-flex">
-              <div className="flexcontente-item">
-                <div className="contente-box">
-                  <div className="contente-title">
-                    Algoritmusok és Adatszerkezetek
-                  </div>
-                  <div className="contente">
-                    Az algoritmusok és adatszerkezetek kulcsfontosságú fogalmak
-                    az informatikában. Az algoritmusok hatékony megvalósítása és
-                    az optimális adatszerkezetek kiválasztása lehetővé teszi az
-                    informatikai problémák hatékony megoldását.
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div className="contente-flex">
-              <div className="flexcontente-item">
-                <div className="contente-box">
-                  <div className="contente-title">
-                    Felhőalapú Számítástechnika
-                  </div>
-                  <div className="contente">
-                    A felhőalapú számítástechnika forradalmasította az
-                    informatikát. Az egyre növekvő számú vállalat és felhasználó
-                    számára biztosítja az adatok tárolását, szolgáltatásokat és
-                    alkalmazásokat a világhálón keresztül.
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div className="contente-flex">
-              <div className="flexcontente-item">
-                <div className="contente-box">
-                  <div className="contente-title">
-                    Kiberbiztonság és Hálózatbiztonság
-                  </div>
-                  <div className="contente">
-                    A kiberbiztonság és hálózatbiztonság napjainkban
-                    kulcsfontosságú területe az informatikának. Az internetes
-                    fenyegetések és a számítógépes bűnözés elleni védelem
-                    elengedhetetlen a biztonságos online környezet
-                    megteremtéséhez.
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div className="contente-flex">
-              <div className="flexcontente-item">
-                <div className="contente-box">
-                  <div className="contente-title">
-                    Adattudomány és Nagy Adat
-                  </div>
-                  <div className="contente">
-                    Az adattudomány és a nagy adat elemzésének képességei
-                    forradalmasítják az üzleti és tudományos területeket
-                    egyaránt. Az adatokból való értelmezés lehetővé teszi a
-                    trendek felismerését és a jövőbeli döntések meghozatalát.
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div className="contente-flex">
-              <div className="flexcontente-item">
-                <div className="contente-box">
-                  <div className="contente-title">
-                    Mesterséges Intelligencia és Gépi Tanulás
-                  </div>
-                  <div className="contente">
-                    A mesterséges intelligencia és a gépi tanulás területei
-                    forradalmasítják az informatikát. Az olyan alkalmazások,
-                    mint az autonóm járművek és a nyelvi felismerés, az MI és a
-                    gépi tanulás legújabb fejlesztéseinek eredményei.
-                  </div>
-                </div>
-              </div>
-            </div>
+              ))}
           </div>
 
-          <div className="flex-item" style={{
-                cursor:"cell"
-              }}>
+          <div
+            className="flex-item"
+            style={{
+              cursor: "cell",
+            }}
+          >
             <Button
-              onClick={handleNewsModalOpen}
+              onClick={handleNewEntryModalOpen}
               variant="contained"
               color="primary"
               id="addNewsButton"
               style={{
-                cursor:"cell"
+                cursor: "cell",
               }}
-              
             >
               Új Bejegyzés hozzáadása
             </Button>
@@ -605,24 +462,23 @@ export function LandingPage({ children, setIsLoading, isLoading }) {
       )}
 
       <Modal
-        open={newsModalOpen}
-        onClose={handleNewsModalClose}
+        open={newEntryModalOpen}
+        onClose={handleNewEntryClose}
         aria-labelledby="news-modal-title"
         aria-describedby="news-modal-description"
       >
         <Box sx={isSmallScreen ? styleSmall : style}>
-          <CloseButton onClick={handleNewsModalClose} color="primary">
+          <CloseButton onClick={handleNewEntryModalCancel} color="primary">
             X
           </CloseButton>
-          <Typography variant="h6" component="div" id="news-modal-title" 
-                    >
+          <Typography variant="h6" component="div" id="news-modal-title">
             Új Bejegyzés hozzáadása
           </Typography>
           <TextField
             label="Cím"
             fullWidth
-            value={newPostTitle}
-            onChange={(e) => setNewPostTitle(e.target.value)}
+            value={newEntryTitle}
+            onChange={(e) => setNewEntryTitle(e.target.value)}
             style={{ marginTop: "15px" }}
           />
           <TextField
@@ -630,8 +486,8 @@ export function LandingPage({ children, setIsLoading, isLoading }) {
             multiline
             rows={4}
             fullWidth
-            value={newPostContent}
-            onChange={(e) => setNewPostContent(e.target.value)}
+            value={newEntryContent}
+            onChange={(e) => setNewEntryContent(e.target.value)}
             style={{ marginTop: "15px", marginBottom: "15px" }}
           />
           <FormControl fullWidth>
@@ -650,18 +506,26 @@ export function LandingPage({ children, setIsLoading, isLoading }) {
               <MenuItem value={"TECHNICAL_ENGLISH"}>Szakmai Angol</MenuItem>
             </Select>
           </FormControl>
-          <Button
-          id="cellButton"
-            variant="contained"
-            color="secondary"
-            style={{ marginTop: "16px", cursor: "cell" }}
-            onClick={() => {
-              //handleClosePost();
-              handleNewsModalClose();
-            }}
-          >
-            Hozzáadás
-          </Button>
+          <BottomButtonsContainer>
+            <Button
+              id="cellButton"
+              variant="contained"
+              color="secondary"
+              style={{ marginTop: "16px", cursor: "cell" }}
+              onClick={handleNewEntryClose}
+            >
+              Hozzáadás
+            </Button>
+            <Button
+              id="cellButton"
+              variant="contained"
+              color="secondary"
+              style={{ marginTop: "16px", cursor: "cell" }}
+              onClick={handleNewEntryModalCancel}
+            >
+              Mégse
+            </Button>
+          </BottomButtonsContainer>
         </Box>
       </Modal>
     </>
