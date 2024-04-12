@@ -1,8 +1,7 @@
 package hu.speedrundev.sulipedia.dto.user;
 
-import hu.speedrundev.sulipedia.model.User;
+import hu.speedrundev.sulipedia.dto.group.GroupList;
 import java.time.LocalDateTime;
-import java.util.Base64;
 import java.util.Set;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,9 +10,9 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class GetUserWithID extends GetUser {
+public class GetUserWithGroups extends GetUser {
 
-  public GetUserWithID(
+  public GetUserWithGroups(
     String username,
     String email,
     String nickname,
@@ -25,7 +24,7 @@ public class GetUserWithID extends GetUser {
     LocalDateTime lastLogin,
     LocalDateTime lastLogoff,
     Set<RoleDto> roles,
-    Integer id
+    GroupList groups
   ) {
     super(
       username,
@@ -40,27 +39,8 @@ public class GetUserWithID extends GetUser {
       lastLogoff,
       roles
     );
-    this.id = id;
+    this.groups = groups;
   }
 
-  public GetUserWithID(User user) {
-    this(
-      user.getUsername(),
-      user.getEmail(),
-      user.getNickname(),
-      user.getPhoneNumber(),
-      user.getRandomAvatarBgColor(),
-      user.getProfilePicture() == null
-        ? ""
-        : Base64.getEncoder().encodeToString((user.getProfilePicture())),
-      user.getBirthDate(),
-      user.getCreatedOn(),
-      user.getLastLogin(),
-      user.getLastLogoff(),
-      RoleDto.dtoFrom(user.getRoles()),
-      user.getId()
-    );
-  }
-
-  private Integer id;
+  private GroupList groups;
 }

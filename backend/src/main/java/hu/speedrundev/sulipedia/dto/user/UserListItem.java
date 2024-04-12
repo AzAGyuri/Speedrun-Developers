@@ -1,6 +1,5 @@
 package hu.speedrundev.sulipedia.dto.user;
 
-import hu.speedrundev.sulipedia.dto.group.GroupList;
 import hu.speedrundev.sulipedia.model.User;
 import java.time.LocalDateTime;
 import java.util.Base64;
@@ -17,7 +16,6 @@ public class UserListItem extends GetUserWithID {
     String phoneNumber,
     String randomPfPBgColor,
     String profilePictureBase64,
-    GroupList groups,
     LocalDateTime birthDate,
     LocalDateTime createdOn,
     LocalDateTime lastLogin,
@@ -32,7 +30,6 @@ public class UserListItem extends GetUserWithID {
       phoneNumber,
       randomPfPBgColor,
       profilePictureBase64,
-      groups,
       birthDate,
       createdOn,
       lastLogin,
@@ -52,7 +49,6 @@ public class UserListItem extends GetUserWithID {
       user.getProfilePicture() == null
         ? ""
         : Base64.getEncoder().encodeToString(user.getProfilePicture()),
-      new GroupList(user.getJoinedGroups()),
       user.getBirthDate(),
       user.getCreatedOn(),
       user.getLastLogin(),
