@@ -193,7 +193,11 @@ export function MyGroups({
     });
     setAvatarColors(colors);
   }, [groups, loaded]);
-
+  useEffect(()=>{
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 300);
+  },[isLoading])
   useEffect(() => {
     axios
       .get(`/group?userId=${currentUserId}`, {
