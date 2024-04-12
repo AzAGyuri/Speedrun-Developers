@@ -11,6 +11,7 @@ import hu.speedrundev.sulipedia.model.User;
 import hu.speedrundev.sulipedia.repository.GroupRepository;
 import hu.speedrundev.sulipedia.repository.UserRepository;
 import hu.speedrundev.sulipedia.util.JwtUtil;
+import java.util.HashSet;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -50,6 +51,18 @@ public class GroupService {
 
     if (creator.isEmpty()) throw modelNotFound("USER_NOT_FOUND");
 
-    return new GetGroupWithID(repository.save(new Group(group, creator.get())));
+    User realCreator = creator.get();
+
+    Group createdGroup = new Group(group, realCreator);
+
+    if (realCreator.getJoinedGroups() == null) {
+      HashSet<Group> joinedGroups = new HashSet<>();
+      joinedGroups.add(createdGroup);
+      realCreator.setJoinedGroups(joinedGroups);
+    } else {
+      realCreator.getJoinedGroups().add(createdGroup);
+    }
+
+    return new GetGroupWithID(repository.save(createdGroup));
   }
 }

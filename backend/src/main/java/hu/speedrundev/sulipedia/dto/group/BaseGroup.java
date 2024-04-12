@@ -1,7 +1,6 @@
 package hu.speedrundev.sulipedia.dto.group;
 
 import java.util.Set;
-
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

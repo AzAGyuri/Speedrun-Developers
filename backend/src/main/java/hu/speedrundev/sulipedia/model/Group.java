@@ -2,6 +2,7 @@ package hu.speedrundev.sulipedia.model;
 
 import hu.speedrundev.sulipedia.dto.group.PostGroup;
 import hu.speedrundev.sulipedia.dto.group.SpecializationDto;
+import hu.speedrundev.sulipedia.util.MiscUtils;
 import jakarta.persistence.CollectionTable;
 import jakarta.persistence.Column;
 import jakarta.persistence.ElementCollection;
@@ -44,6 +45,7 @@ public class Group {
         .map(SpecializationDto::toString)
         .map(Specialization::valueOf)
         .collect(Collectors.toSet());
+    this.randomAvatarBgColor = MiscUtils.generateThreeRandomColors();
     this.users = new ArrayList<>();
     users.add(creator);
   }
