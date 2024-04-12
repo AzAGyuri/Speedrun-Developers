@@ -84,52 +84,52 @@
       borderColor: "#db140d",
     };
 
-    export function LandingPage({ children, setIsLoading, isLoading }) {
-      const staticEntries = useMemo(
-        () => [
-          {
-            id: 1,
-            title: "Algoritmusok és Adatszerkezetek",
-            content:
-              "Az algoritmusok és adatszerkezetek kulcsfontosságú fogalmak az informatikában. Az algoritmusok hatékony megvalósítása és az optimális adatszerkezetek kiválasztása lehetővé teszi az informatikai problémák hatékony megoldását.",
-            createdOn: "2024-04-01 12:00:00",
-            subject: "ICT",
-          },
-          {
-            id: 2,
-            title: "Felhőalapú Számítástechnika",
-            content:
-              "A felhőalapú számítástechnika forradalmasította az informatikát. Az egyre növekvő számú vállalat és felhasználó számára biztosítja az adatok tárolását, szolgáltatásokat és alkalmazásokat a világhálón keresztül.",
-            createdOn: "2024-04-01 12:00:00",
-            subject: "ICT",
-          },
-          {
-            id: 3,
-            title: "Kiberbiztonság és Hálózatbiztonság",
-            content:
-              "A kiberbiztonság és hálózatbiztonság napjainkban kulcsfontosságú területe az informatikának. Az internetes fenyegetések és a számítógépes bűnözés elleni védelem elengedhetetlen a biztonságos online környezet megteremtéséhez.",
-            createdOn: "2024-04-01 12:00:00",
-            subject: "ICT",
-          },
-          {
-            id: 4,
-            title: "Adattudomány és Nagy Adat",
-            content:
-              "Az adattudomány és a nagy adat elemzésének képességei forradalmasítják az üzleti és tudományos területeket egyaránt. Az adatokból való értelmezés lehetővé teszi a trendek felismerését és a jövőbeli döntések meghozatalát.",
-            createdOn: "2024-04-01 12:00:00",
-            subject: "ICT",
-          },
-          {
-            id: 5,
-            title: "Mesterséges Intelligencia és Gépi Tanulás",
-            content:
-              "A mesterséges intelligencia és a gépi tanulás területei forradalmasítják az informatikát. Az olyan alkalmazások, mint az autonóm járművek és a nyelvi felismerés, az MI és a gépi tanulás legújabb fejlesztéseinek eredményei.",
-            createdOn: "2024-04-01 12:00:00",
-            subject: "ICT",
-          },
-        ],
-        []
-      );
+export function LandingPage({ children, setIsLoading, isLoading }) {
+  const staticEntries = useMemo(
+    () => [
+      {
+        id: 1,
+        title: "Algoritmusok és Adatszerkezetek",
+        content:
+          "Az algoritmusok és adatszerkezetek kulcsfontosságú fogalmak az informatikában. Az algoritmusok hatékony megvalósítása és az optimális adatszerkezetek kiválasztása lehetővé teszi az informatikai problémák hatékony megoldását.",
+        createdOn: "2024-04-01 12:00:00",
+        subject: "ICT",
+      },
+      {
+        id: 2,
+        title: "Felhőalapú Számítástechnika",
+        content:
+          "A felhőalapú számítástechnika forradalmasította az informatikát. Az egyre növekvő számú vállalat és felhasználó számára biztosítja az adatok tárolását, szolgáltatásokat és alkalmazásokat a világhálón keresztül.",
+        createdOn: "2024-04-01 12:00:00",
+        subject: "ICT",
+      },
+      {
+        id: 3,
+        title: "Kiberbiztonság és Hálózatbiztonság",
+        content:
+          "A kiberbiztonság és hálózatbiztonság napjainkban kulcsfontosságú területe az informatikának. Az internetes fenyegetések és a számítógépes bűnözés elleni védelem elengedhetetlen a biztonságos online környezet megteremtéséhez.",
+        createdOn: "2024-04-01 12:00:00",
+        subject: "ICT",
+      },
+      {
+        id: 4,
+        title: "Adattudomány és Nagy Adat",
+        content:
+          "Az adattudomány és a nagy adat elemzésének képességei forradalmasítják az üzleti és tudományos területeket egyaránt. Az adatokból való értelmezés lehetővé teszi a trendek felismerését és a jövőbeli döntések meghozatalát.",
+        createdOn: "2024-04-01 12:00:00",
+        subject: "ICT",
+      },
+      {
+        id: 5,
+        title: "Mesterséges Intelligencia és Gépi Tanulás",
+        content:
+          "A mesterséges intelligencia és a gépi tanulás területei forradalmasítják az informatikát. Az olyan alkalmazások, mint az autonóm járművek és a nyelvi felismerés, az MI és a gépi tanulás legújabb fejlesztéseinek eredményei.",
+        createdOn: "2024-04-01 12:00:00",
+        subject: "ICT",
+      },
+    ],
+    []
+  );
 
       const [open, setOpen] = useState(
         sessionStorage.getItem("modalOpen") === "false" ? false : true
@@ -208,33 +208,33 @@
         setSubject(event.target.id);
       };
 
-      useEffect(() => {
-        axios
-          .get(`/entry`, {
-            headers: {
-              Authorization: localStorage.getItem("jwt"),
-            },
-          })
-          .then((response) => {
-            setEntries(response.data.entries);
-          })
-          .catch((error) => {
-            console.error("Hiba történt adatok lekérdezéskor", error);
-            setEntries(staticEntries);
-          });
-        setTimeout(() => {
-          setIsLoading(false);
-        }, 300);
-      }, [setIsLoading, staticEntries]);
+  useEffect(() => {
+    axios
+      .get(`/entry`, {
+        headers: {
+          Authorization: localStorage.getItem("jwt"),
+        },
+      })
+      .then((response) => {
+        setEntries(response.data.entries);
+      })
+      .catch((error) => {
+        console.error("Hiba történt adatok lekérdezéskor", error);
+        setEntries(staticEntries);
+      });
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 300);
+  }, [setIsLoading, staticEntries]);
 
-      useEffect(() => {
-        setFilteredEntries(
-          subject ? entries.filter((entry) => entry.subject === subject) : entries
-        );
-        setTimeout(() => {
-          setIsLoading(false)
-        }, 300)
-      }, [entries, subject, setIsLoading]);
+  useEffect(() => {
+    setFilteredEntries(
+      subject ? entries.filter((entry) => entry.subject === subject) : entries
+    );
+    setTimeout(() => {
+      setIsLoading(false)
+    }, 300)
+  }, [entries, subject, setIsLoading]);
 
       if (isLoading) return <Loading />;
 

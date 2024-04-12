@@ -26,6 +26,8 @@ import { useState } from "react";
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
+  const jwt =  localStorage.getItem("jwt");
+  const currentUserId = localStorage.getItem("currentUserId");
 
   return (
     <>
@@ -33,14 +35,14 @@ function App() {
         <ResAppBar setIsLoading={setIsLoading} />
           <Routes>
             <Route path="/curriculums" element={<Curriculums setIsLoading={setIsLoading}><IsNotLoggedIn /></Curriculums>} />
-            <Route path="/tests" element={<Tests setIsLoading={setIsLoading} isLoading={isLoading}><IsNotLoggedIn /></Tests>} />
-            <Route path="/mygroups" element={<MyGroups setIsLoading={setIsLoading} isLoading={isLoading}><IsNotLoggedIn /></MyGroups>} />
-            <Route path="/myProfile" element={<MyProfile setIsLoading={setIsLoading} isLoading={isLoading}><IsNotLoggedIn /></MyProfile>} />
-            <Route path="/settings" element={<Settings setIsLoading={setIsLoading} isLoading={isLoading}><IsNotLoggedIn /></Settings>} />
+            <Route path="/tests" element={<Tests setIsLoading={setIsLoading} isLoading={isLoading} jwt={jwt}><IsNotLoggedIn /></Tests>} />
+            <Route path="/mygroups" element={<MyGroups setIsLoading={setIsLoading} isLoading={isLoading} jwt={jwt} currentUserId={currentUserId}><IsNotLoggedIn /></MyGroups>} />
+            <Route path="/myProfile" element={<MyProfile setIsLoading={setIsLoading} isLoading={isLoading} jwt={jwt} currentUserId={currentUserId}><IsNotLoggedIn /></MyProfile>} />
+            <Route path="/settings" element={<Settings setIsLoading={setIsLoading} isLoading={isLoading} jwt={jwt} currentUserId={currentUserId}><IsNotLoggedIn /></Settings>} />
             <Route path="/signIn" element={<SignIn setIsLoading={setIsLoading} />} />
             <Route path="/signUp" element={<SignUp setIsLoading={setIsLoading} />} />
-            <Route path="/kezdo" element={<LandingPage setIsLoading={setIsLoading} isLoading={isLoading}><IsNotLoggedIn /></LandingPage>} />
-            <Route path="/" element={<LandingPage  setIsLoading={setIsLoading} isLoading={isLoading}><IsNotLoggedIn /></LandingPage>} />
+            <Route path="/kezdo" element={<LandingPage setIsLoading={setIsLoading} isLoading={isLoading} jwt={jwt}><IsNotLoggedIn /></LandingPage>} />
+            <Route path="/" element={<LandingPage  setIsLoading={setIsLoading} isLoading={isLoading} jwt={jwt}><IsNotLoggedIn /></LandingPage>} />
             <Route path="/aboutUs" element={<AboutUs  setIsLoading={setIsLoading}><IsNotLoggedIn /></AboutUs>} />
             <Route path="/learnMore" element={<LearnMore  setIsLoading={setIsLoading}><IsNotLoggedIn /></LearnMore>} />
             <Route path="/szakmai-angol" element={<SzakAngol  setIsLoading={setIsLoading}><IsNotLoggedIn /></SzakAngol>} />

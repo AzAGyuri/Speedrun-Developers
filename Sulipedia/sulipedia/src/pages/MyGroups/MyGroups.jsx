@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import {
   Container,
   Typography,
@@ -105,90 +105,123 @@ const styleSmall = {
   borderColor: "#db140d",
 };
 
-export function MyGroups({ children, setIsLoading, isLoading }) {
-  const [groups, setGroups] = useState([
-    {
-      id: 1,
-      name: "Szakmai angol",
-      description: "Szakmai angol csoport",
-      members: [
-        { id: 1, name: "John Doe" },
-        { id: 2, name: "Alice Smith" },
-        { id: 3, name: "Bob Johnson" },
-      ],
-    },
-    {
-      id: 2,
-      name: "Informatika",
-      description: "Informatika csoport",
-      members: [
-        { id: 4, name: "Emily Brown" },
-        { id: 5, name: "Michael Wilson" },
-        { id: 15, name: "Bob Johnson" },
-      ],
-    },
-    {
-      id: 3,
-      name: "Magyar",
-      description: "Magyar csoport",
-      members: [
-        { id: 6, name: "Jane Smith" },
-        { id: 7, name: "David Lee" },
-        { id: 8, name: "Grace Taylor" },
-      ],
-    },
-    {
-      id: 4,
-      name: "Matek",
-      description: "Matek csoport",
-      members: [
-        { id: 9, name: "Alex Johnson" },
-        { id: 10, name: "Sophia Garcia" },
-        { id: 11, name: "Daniel Martinez" },
-      ],
-    },
-    {
-      id: 5,
-      name: "Történelem",
-      description: "Történelem csoport",
-      members: [
-        { id: 12, name: "Liam Anderson" },
-        { id: 13, name: "Olivia Wilson" },
-        { id: 14, name: "Ethan Thompson" },
-      ],
-    },
-  ]);
-
+export function MyGroups({
+  children,
+  setIsLoading,
+  isLoading,
+  jwt,
+  currentUserId,
+}) {
+  const staticGroups = useMemo(
+    () => [
+      {
+        id: 1,
+        name: "Szakmai angol",
+        description: "Szakmai angol csoport",
+        members: [
+          { id: 1, name: "John Doe" },
+          { id: 2, name: "Alice Smith" },
+          { id: 3, name: "Bob Johnson" },
+        ],
+      },
+      {
+        id: 2,
+        name: "Informatika",
+        description: "Informatika csoport",
+        members: [
+          { id: 4, name: "Emily Brown" },
+          { id: 5, name: "Michael Wilson" },
+          { id: 15, name: "Bob Johnson" },
+        ],
+      },
+      {
+        id: 3,
+        name: "Magyar",
+        description: "Magyar csoport",
+        members: [
+          { id: 6, name: "Jane Smith" },
+          { id: 7, name: "David Lee" },
+          { id: 8, name: "Grace Taylor" },
+        ],
+      },
+      {
+        id: 4,
+        name: "Matek",
+        description: "Matek csoport",
+        members: [
+          { id: 9, name: "Alex Johnson" },
+          { id: 10, name: "Sophia Garcia" },
+          { id: 11, name: "Daniel Martinez" },
+        ],
+      },
+      {
+        id: 5,
+        name: "Történelem",
+        description: "Történelem csoport",
+        members: [
+          { id: 12, name: "Liam Anderson" },
+          { id: 13, name: "Olivia Wilson" },
+          { id: 14, name: "Ethan Thompson" },
+        ],
+      },
+    ],
+    []
+  );
+  const [groups, setGroups] = useState(staticGroups);
   const [open, setOpen] = useState(false);
   const [showMembers, setShowMembers] = useState(false);
-  const [selectedGroup, setSelectedGroup] = useState(null);
+  const [selectedGroup, setSelectedGroup] = useState({
+    id: 1,
+    name: "Szakmai angol",
+    description: "Szakmai angol csoport",
+    members: [
+      { id: 1, name: "John Doe" },
+      { id: 2, name: "Alice Smith" },
+      { id: 3, name: "Bob Johnson" },
+    ],
+    membersLoaded: true,
+  });
   const [showAddMemberModal, setShowAddMemberModal] = useState(false);
   const [loaded, setLoaded] = useState(false);
   const isSmallScreen = useMediaQuery("(max-width:950px)");
 
   const [avatarColors, setAvatarColors] = useState({});
-  React.useEffect(() => {
-    if (!loaded) {
-      const colors = {};
-      groups.forEach((group) => {
-        colors[group.id] = getRandomColor();
-      });
-      setAvatarColors(colors);
-    }
+  useEffect(() => {
+    const colors = {};
+    groups.forEach((group) => {
+      colors[group.id] = loaded ? group.color : getRandomColor();
+    });
+    setAvatarColors(colors);
   }, [groups, loaded]);
 
   useEffect(() => {
-    axios.get(`/group?userId=${localStorage.getItem("currentUserId")}`, {
-      headers: {
-        Authorization: localStorage.getItem("jwt"),
-      },
-    }).then((response) => {
-      console.log(response.data);
-    });
+    axios
+      .get(`/group?userId=${currentUserId}`, {
+        headers: { Authorization: jwt },
+      })
+      .then((response) => {
+        let localGroups = [];
+        response.data.groups.forEach((group) => {
+          localGroups.push({
+            id: group.id,
+            name: group.groupName,
+            description: group.descriptionContent,
+            members: null,
+            color: group.randomAvatarBgColor,
+          });
+        });
+        setGroups(localGroups);
+        setLoaded(true);
+      })
+      .catch((error) => {
+        console.error("Hiba történt adatok lekérdezése során", error);
+        setGroups(staticGroups);
+        setLoaded(false);
+      });
     setTimeout(() => {
       setIsLoading(false);
     }, 300);
-  }, [setIsLoading, isLoading]);
+  }, [staticGroups]);
 
   const handleOpen = () => {
     setOpen(true);
@@ -199,8 +232,49 @@ export function MyGroups({ children, setIsLoading, isLoading }) {
   };
 
   const handleOpenMembers = (group) => {
+    let localGroups = groups;
+    let index = localGroups.findIndex(
+      (innerGroup) => innerGroup.id === group.id
+    );
+    let timedOut = false;
+
+    if (group.members === null) {
+      setIsLoading(true);
+      timedOut = true;
+      let localMembers = [];
+
+      axios
+        .get(`/group/${group.id}`, {
+          headers: { Authorization: jwt },
+        })
+
+        .then((response) => {
+          response.data.users.users.forEach((user) => {
+            localMembers.push({
+              id: user.id,
+              name: user.username,
+            });
+          });
+        })
+
+        .catch((error) => {
+          console.error("Hiba történt adat lekérdezése során", error);
+        });
+
+        group.members = localMembers;
+        localGroups[index] = group;
+        setGroups(localGroups);
+    }
+
     setSelectedGroup(group);
-    setShowMembers(true);
+
+    if (!timedOut) setShowMembers(true);
+    else {
+      setTimeout(() => {
+        setIsLoading(false);
+        setShowMembers(true);
+      }, 300);
+    }
   };
 
   const handleCloseMembers = () => {
@@ -496,35 +570,33 @@ export function MyGroups({ children, setIsLoading, isLoading }) {
             component="h2"
             sx={{ mb: 2 }}
           >
-            {selectedGroup && selectedGroup.name} csoport tagjai
+            {selectedGroup.name} csoport tagjai
           </Typography>
           <List>
-            {selectedGroup &&
-              selectedGroup.members &&
-              selectedGroup.members.map((member) => (
-                <ListItem
-                  sx={{
-                    border: "2px solid black",
-                    marginTop: "2px",
-                    borderRadius: "15px",
-                  }}
-                  key={member.id}
-                >
-                  <ListItemAvatar>
-                    <Avatar>{member.name[0]}</Avatar>
-                  </ListItemAvatar>
-                  <ListItemText primary={member.name} />
-                  <Tooltip title={`${member.name} kidobása a csoportból`}>
-                    <IconButton
-                      edge="end"
-                      aria-label="delete"
-                      onClick={() => handleDeleteMember(member.id)}
-                    >
-                      <Delete sx={{ color: "#d32f2f" }} />
-                    </IconButton>
-                  </Tooltip>
-                </ListItem>
-              ))}
+            {selectedGroup.members.map((member) => (
+              <ListItem
+                sx={{
+                  border: "2px solid black",
+                  marginTop: "2px",
+                  borderRadius: "15px",
+                }}
+                key={member.id}
+              >
+                <ListItemAvatar>
+                  <Avatar>{member.name[0]}</Avatar>
+                </ListItemAvatar>
+                <ListItemText primary={member.name} />
+                <Tooltip title={`${member.name} kidobása a csoportból`}>
+                  <IconButton
+                    edge="end"
+                    aria-label="delete"
+                    onClick={() => handleDeleteMember(member.id)}
+                  >
+                    <Delete sx={{ color: "#d32f2f" }} />
+                  </IconButton>
+                </Tooltip>
+              </ListItem>
+            ))}
           </List>
           <Divider sx={{ my: 2 }} />
           <Stack direction="row" spacing={2} justifyContent="flex-end">
@@ -553,9 +625,14 @@ export function MyGroups({ children, setIsLoading, isLoading }) {
         aria-describedby="modal-modal-description"
       >
         <Box sx={isSmallScreen ? styleSmall : style}>
-          <Typography id="modal-modal-title" variant="h6" component="h2" style={{
-                      cursor:"cell"
-                    }}>
+          <Typography
+            id="modal-modal-title"
+            variant="h6"
+            component="h2"
+            style={{
+              cursor: "cell",
+            }}
+          >
             Új tag hozzáadása - {selectedGroup && selectedGroup.name}
           </Typography>
           <Typography id="modal-modal-description" sx={{ mt: 2 }}>
