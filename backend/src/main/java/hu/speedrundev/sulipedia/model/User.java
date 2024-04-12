@@ -99,7 +99,7 @@ public class User {
   @Column(name = "role_id")
   private Set<Roles> roles;
 
-  @ManyToMany
+  @ManyToMany(fetch = FetchType.EAGER)
   @JoinTable(
     name = "grouped_user",
     joinColumns = @JoinColumn(name = "user_id"),

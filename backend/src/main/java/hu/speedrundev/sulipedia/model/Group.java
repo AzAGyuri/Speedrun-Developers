@@ -59,7 +59,7 @@ public class Group {
   @Column(name = "random_avatar_bg_color")
   private String randomAvatarBgColor;
 
-  @ManyToOne
+  @ManyToOne(fetch = FetchType.EAGER)
   @JoinColumn(name = "creator_id")
   private User creator;
 
@@ -75,6 +75,6 @@ public class Group {
   @Column(name = "specialization")
   private Set<Specialization> specializations;
 
-  @ManyToMany(mappedBy = "joinedGroups")
+  @ManyToMany(mappedBy = "joinedGroups", fetch = FetchType.EAGER)
   private List<User> users;
 }
