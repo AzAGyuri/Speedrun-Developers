@@ -84,7 +84,7 @@ const styleSmall = {
   borderColor: "#db140d",
 };
 
-export function LandingPage({ children, setIsLoading, isLoading }) {
+export function LandingPage({ children, setIsLoading, isLoading, jwt }) {
   const staticEntries = useMemo(
     () => [
       {
@@ -173,11 +173,7 @@ export function LandingPage({ children, setIsLoading, isLoading }) {
     setIsLoading(true);
 
     axios
-      .post(`/entry`, requestData, {
-        headers: {
-          Authorization: localStorage.getItem("jwt").trim(),
-        },
-      })
+      .post(`/entry`, requestData, { headers: { Authorization: jwt } })
       .then((response) => {
         let newEntry = response.data;
         console.log("Entry sikeresen közzétéve:", newEntry);
@@ -203,11 +199,7 @@ export function LandingPage({ children, setIsLoading, isLoading }) {
 
   useEffect(() => {
     axios
-      .get(`/entry`, {
-        headers: {
-          Authorization: localStorage.getItem("jwt"),
-        },
-      })
+      .get(`/entry`, { headers: { Authorization: jwt } })
       .then((response) => {
         setEntries(response.data.entries);
       })
@@ -225,8 +217,8 @@ export function LandingPage({ children, setIsLoading, isLoading }) {
       subject ? entries.filter((entry) => entry.subject === subject) : entries
     );
     setTimeout(() => {
-      setIsLoading(false)
-    }, 300)
+      setIsLoading(false);
+    }, 300);
   }, [entries, subject, setIsLoading]);
 
   if (isLoading) return <Loading />;

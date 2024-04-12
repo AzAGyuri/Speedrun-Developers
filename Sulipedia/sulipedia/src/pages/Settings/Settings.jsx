@@ -1,5 +1,14 @@
 import React, { useEffect, useState } from "react";
-import {Container,Typography,Paper,TextField,Button,Grid,Avatar,Link,} from "@mui/material";
+import {
+  Container,
+  Typography,
+  Paper,
+  TextField,
+  Button,
+  Grid,
+  Avatar,
+  Link,
+} from "@mui/material";
 import "./Settings.css";
 import { Loading } from "../../components/Loading/Loading";
 import axios from "axios";
@@ -51,7 +60,7 @@ const styles = {
   },
 };
 
-export function Settings({ children, setIsLoading, isLoading }) {
+export function Settings({ children, setIsLoading, isLoading, jwt }) {
   const navigate = useNavigate();
   const [phoneLengthError, setPhoneLengthError] = useState(false);
   const [randomPfPBgColor, setRandomPfPBgColor] = useState("#bdbdbd");
@@ -135,23 +144,27 @@ export function Settings({ children, setIsLoading, isLoading }) {
       passwordRaw: formData.password,
       phoneNumber: formData.phoneNumber,
     };
-    console.log(localStorage.getItem('jwt'));
+    console.log(localStorage.getItem("jwt"));
     if (!passwordError) {
-      axios.put(`/user`, requestData, {
-        headers: {
-          Authorization: localStorage.getItem("jwt").trim(),
-        },
-      })
-      .then((response) => {
-        console.log("Felhasználói adatok sikeresen frissítve:", response.data);
-        setIsLoading(true);
-        navigate("/MyProfile");
-      })
-      .catch((error) => {
-        console.log(requestData);
-        console.error("Hiba történt a felhasználói adatok frissítése közben:", error);
-      });
-      
+      axios
+        .put(`/user`, requestData, {
+          headers: { Authorization: jwt },
+        })
+        .then((response) => {
+          console.log(
+            "Felhasználói adatok sikeresen frissítve:",
+            response.data
+          );
+          setIsLoading(true);
+          navigate("/MyProfile");
+        })
+        .catch((error) => {
+          console.log(requestData);
+          console.error(
+            "Hiba történt a felhasználói adatok frissítése közben:",
+            error
+          );
+        });
     }
   };
 
@@ -160,13 +173,7 @@ export function Settings({ children, setIsLoading, isLoading }) {
   useEffect(() => {
     if (currentUserId !== 0) {
       axios
-        .request({
-          method: "GET",
-          url: `/user/${currentUserId}`,
-          headers: {
-            Authorization: localStorage.getItem("jwt"),
-          },
-        })
+        .get(`/user/${currentUserId}`, { headers: { Authorization: jwt } })
         .then((response) => {
           const user = response.data;
           setFormData((prevData) => ({
@@ -189,9 +196,9 @@ export function Settings({ children, setIsLoading, isLoading }) {
           alert("Hiba történt adat lekérdezskor", error);
         });
     }
-    setTimeout(()=>{
+    setTimeout(() => {
       setIsLoading(false);
-    },300);
+    }, 300);
   }, [currentUserId, setIsLoading, isLoading]);
 
   if (isLoading) return <Loading />;

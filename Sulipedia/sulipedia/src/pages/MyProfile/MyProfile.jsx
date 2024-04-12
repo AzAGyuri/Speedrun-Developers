@@ -2,11 +2,11 @@ import React, { useState, useEffect } from "react";
 import { Container, Typography, Avatar, Paper, Button } from "@mui/material";
 import { Loading } from "../../components/Loading/Loading";
 import axios from "axios";
-import LocalPhoneIcon from '@mui/icons-material/LocalPhone';
-import EmailSharpIcon from '@mui/icons-material/EmailSharp';
-import BadgeIcon from '@mui/icons-material/Badge';
-import NumbersIcon from '@mui/icons-material/Numbers';
-import DateRangeIcon from '@mui/icons-material/DateRange';
+import LocalPhoneIcon from "@mui/icons-material/LocalPhone";
+import EmailSharpIcon from "@mui/icons-material/EmailSharp";
+import BadgeIcon from "@mui/icons-material/Badge";
+import NumbersIcon from "@mui/icons-material/Numbers";
+import DateRangeIcon from "@mui/icons-material/DateRange";
 
 const styles = {
   container: {
@@ -101,8 +101,7 @@ const styles = {
   },
 };
 
-export function MyProfile({ children, setIsLoading, isLoading }) {
-  const currentUserId = localStorage.getItem("currentUserId");
+export function MyProfile({ children, setIsLoading, isLoading, jwt, currentUserId }) {
   const [userData, setUserData] = useState({
     email: "pelda@email.com",
     username: "John Doe",
@@ -110,23 +109,21 @@ export function MyProfile({ children, setIsLoading, isLoading }) {
     registrationDate: "2024-03-01",
     userId: "123456789",
     profileImage: "path/to/profile-image.jpg",
-    randomPfPBgColor: ""
+    randomPfPBgColor: "",
   });
 
   useEffect(() => {
     if (currentUserId !== 0) {
       axios
-        .request({
-          method: "GET",
-          url: `/user/${currentUserId}`,
-          headers: {
-            Authorization: localStorage.getItem("jwt"),
-          },
+        .get(`/user/${currentUserId}`, {
+          headers: { Authorization: jwt },
         })
         .then((response) => {
           const user = response.data;
           let nickname = user.nickname === null ? user.username : user.nickname;
-          if (user.nickname !== null) nickname = user.nickname.length === 0 ? user.username : user.nickname;
+          if (user.nickname !== null)
+            nickname =
+              user.nickname.length === 0 ? user.username : user.nickname;
           setUserData({
             email: user.email,
             username: user.username,
@@ -143,9 +140,9 @@ export function MyProfile({ children, setIsLoading, isLoading }) {
           alert("Hiba történt adat lekérdezéskor", error);
         });
     }
-    setTimeout(()=>{
+    setTimeout(() => {
       setIsLoading(false);
-    },300);
+    }, 300);
   }, [currentUserId, setIsLoading, isLoading]);
 
   if (isLoading) return <Loading />;
@@ -154,7 +151,12 @@ export function MyProfile({ children, setIsLoading, isLoading }) {
     <Container maxWidth="lg" style={styles.container}>
       {children}
       <Paper elevation={5} style={styles.paper}>
-        <Avatar style={{...styles.avatar, backgroundColor: userData.randomPfPBgColor}}>
+        <Avatar
+          style={{
+            ...styles.avatar,
+            backgroundColor: userData.randomPfPBgColor,
+          }}
+        >
           {userData.username.length > 0
             ? userData.username[0].toUpperCase()
             : null}

@@ -74,7 +74,7 @@ const FlexContainer = styled("div")({
   padding: "20px",
 });
 
-export function Tests({ children, setIsLoading, isLoading }) {
+export function Tests({ children, setIsLoading, isLoading, jwt }) {
   const [selectedSubject, setSelectedSubject] = useState("");
   const [selectedTest, setSelectedTest] = useState(null);
   const [answers, setAnswers] = useState({});
@@ -289,7 +289,7 @@ export function Tests({ children, setIsLoading, isLoading }) {
   useEffect(() => {
     axios
       .get("/entry/test", {
-        headers: { Authorization: localStorage.getItem("jwt") },
+        headers: { Authorization: jwt },
       })
       .then((response) => {
         let acquiredTestData = [];
@@ -322,14 +322,17 @@ export function Tests({ children, setIsLoading, isLoading }) {
       })
       .catch((error) => {
         console.error("Hiba történt adat lekérdezéskor", error);
-        alert("Hiba történt adat lekérdezéskor. Beépített tesztek megjelenítése", error);
+        alert(
+          "Hiba történt adat lekérdezéskor. Beépített tesztek megjelenítése",
+          error
+        );
         setRequestedTestData(testsData);
         setRequestedQuestionsAndAnswers(questionsAndAnswers);
       });
     setTimeout(() => {
       setIsLoading(false);
     }, 300);
-  }, [setIsLoading, questionsAndAnswers, testsData]);
+  }, [setIsLoading, questionsAndAnswers, testsData, jwt]);
 
   const reverseGetSubject = (subject) => {
     switch (subject) {
