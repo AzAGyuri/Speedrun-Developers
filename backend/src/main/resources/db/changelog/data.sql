@@ -69,8 +69,8 @@ CREATE TABLE
         group_name varchar(75) not null,
         random_avatar_bg_color varchar(7) null,
         description_content varchar(100) null,
-        user_id int (9) not null,
-        FOREIGN KEY (user_id) REFERENCES registered_users (id) ON DELETE CASCADE ON UPDATE CASCADE
+        creator_id int (9) not null,
+        FOREIGN KEY (creator_id) REFERENCES registered_users (id) ON DELETE CASCADE ON UPDATE CASCADE
     ) AUTO_INCREMENT = 700000001;
 
 CREATE TABLE
@@ -424,7 +424,7 @@ values
     );
 
 INSERT IGNORE INTO
-    school_groups (group_name, user_id)
+    school_groups (group_name, creator_id)
 values
     ('Szakmai Angol 2/14B', 100000001),
     ('Magyar nyelv 12D', 100000001),
