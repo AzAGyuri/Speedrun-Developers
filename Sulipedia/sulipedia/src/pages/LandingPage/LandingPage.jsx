@@ -162,7 +162,7 @@ export function LandingPage({ children, setIsLoading, isLoading, jwt }) {
     setNewEntryModalOpen(true);
   };
 
-  const handleNewEntryClose = () => {
+  const handleNewEntrySave = () => {
     const requestData = {
       title: newEntryTitle,
       content: newEntryContent,
@@ -186,7 +186,7 @@ export function LandingPage({ children, setIsLoading, isLoading, jwt }) {
     setNewEntryModalOpen(false);
     setNewEntryTitle("");
     setNewEntryContent("");
-    setNewSubject("");
+    setNewSubject("HISTORY");
   };
 
   const handleNewEntryModalCancel = () => {
@@ -455,7 +455,7 @@ export function LandingPage({ children, setIsLoading, isLoading, jwt }) {
 
       <Modal
         open={newEntryModalOpen}
-        onClose={handleNewEntryClose}
+        onClose={handleNewEntryModalCancel}
         aria-labelledby="news-modal-title"
         aria-describedby="news-modal-description"
       >
@@ -502,16 +502,16 @@ export function LandingPage({ children, setIsLoading, isLoading, jwt }) {
             <Button
               id="cellButton"
               variant="contained"
-              color="secondary"
+              color="success"
               style={{ marginTop: "16px", cursor: "cell" }}
-              onClick={handleNewEntryClose}
+              onClick={handleNewEntrySave}
             >
               Hozzáadás
             </Button>
             <Button
               id="cellButton"
               variant="contained"
-              color="secondary"
+              color="error"
               style={{ marginTop: "16px", cursor: "cell" }}
               onClick={handleNewEntryModalCancel}
             >
