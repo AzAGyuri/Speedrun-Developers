@@ -46,22 +46,6 @@ VALUES
     ("TECHNICAL_ENGLISH");
 
 CREATE TABLE
-    IF NOT EXISTS school_groups (
-        id INT (9) PRIMARY KEY AUTO_INCREMENT,
-        group_name varchar(75) not null,
-        random_avatar_bg_color varchar(7) null,
-        description_content varchar(100) null
-    ) AUTO_INCREMENT = 700000001;
-
-CREATE TABLE
-    IF NOT EXISTS group_specialization (
-        group_id int (9) NOT NULL,
-        specialization varchar(50) NOT NULL,
-        FOREIGN KEY (specialization) REFERENCES specialization (id) ON DELETE RESTRICT ON UPDATE CASCADE,
-        FOREIGN KEY (group_id) REFERENCES school_groups (id) ON DELETE RESTRICT ON UPDATE CASCADE
-    );
-
-CREATE TABLE
     IF NOT EXISTS registered_users (
         id INT (9) PRIMARY KEY AUTO_INCREMENT,
         created_on datetime NOT NULL,
@@ -80,10 +64,28 @@ CREATE TABLE
     ) AUTO_INCREMENT = 100000001;
 
 CREATE TABLE
+    IF NOT EXISTS school_groups (
+        id INT (9) PRIMARY KEY AUTO_INCREMENT,
+        group_name varchar(75) not null,
+        random_avatar_bg_color varchar(7) null,
+        description_content varchar(100) null,
+        user_id int (9) not null,
+        FOREIGN KEY (user_id) REFERENCES registered_users (id) ON DELETE CASCADE ON UPDATE CASCADE
+    ) AUTO_INCREMENT = 700000001;
+
+CREATE TABLE
     IF NOT EXISTS grouped_user (
         user_id int (9) not null,
         group_id int (9) not null,
         FOREIGN KEY (user_id) REFERENCES registered_users (id) ON DELETE RESTRICT ON UPDATE CASCADE,
+        FOREIGN KEY (group_id) REFERENCES school_groups (id) ON DELETE RESTRICT ON UPDATE CASCADE
+    );
+
+CREATE TABLE
+    IF NOT EXISTS group_specialization (
+        group_id int (9) NOT NULL,
+        specialization varchar(50) NOT NULL,
+        FOREIGN KEY (specialization) REFERENCES specialization (id) ON DELETE RESTRICT ON UPDATE CASCADE,
         FOREIGN KEY (group_id) REFERENCES school_groups (id) ON DELETE RESTRICT ON UPDATE CASCADE
     );
 
@@ -422,15 +424,15 @@ values
     );
 
 INSERT IGNORE INTO
-    school_groups (group_name)
+    school_groups (group_name, user_id)
 values
-    ('Szakmai Angol 2/14B'),
-    ('Magyar nyelv 12D'),
-    ('Történelem 12C'),
-    ('Matematika 12C'),
-    ('Digitális Kultúra 12A'),
-    ('Gigachad (Backend) 2/14B'),
-    ('2_14b_frontend');
+    ('Szakmai Angol 2/14B', 100000001),
+    ('Magyar nyelv 12D', 100000001),
+    ('Történelem 12C', 100000001),
+    ('Matematika 12C', 100000001),
+    ('Digitális Kultúra 12A', 100000001),
+    ('Gigachad (Backend) 2/14B', 100000001),
+    ('2_14b_frontend', 100000001);
 
 INSERT IGNORE INTO
     group_specialization (group_id, specialization)

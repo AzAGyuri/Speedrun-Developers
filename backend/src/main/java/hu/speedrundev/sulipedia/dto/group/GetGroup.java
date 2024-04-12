@@ -14,11 +14,15 @@ public class GetGroup extends BaseGroup {
     String groupName,
     Set<SpecializationDto> specializations,
     String descriptionContent,
-    String randomAvatarBgColor
+    String randomAvatarBgColor,
+    Integer creatorId
   ) {
     super(groupName, descriptionContent, specializations);
     this.randomAvatarBgColor = randomAvatarBgColor;
+    this.creatorId = creatorId;
   }
 
   private String randomAvatarBgColor;
+
+  private Integer creatorId;
 }

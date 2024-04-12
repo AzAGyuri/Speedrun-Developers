@@ -14,7 +14,9 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -31,8 +33,10 @@ import lombok.Setter;
 @AllArgsConstructor
 public class Group {
 
-  public Group(PostGroup group) {
+  public Group(PostGroup group, User creator) {
     this.groupName = group.getGroupName();
+    this.descriptionContent = group.getDescriptionContent();
+    this.creator = creator;
     this.specializations =
       group
         .getSpecializations()
@@ -40,6 +44,8 @@ public class Group {
         .map(SpecializationDto::toString)
         .map(Specialization::valueOf)
         .collect(Collectors.toSet());
+    this.users = new ArrayList<>();
+    users.add(creator);
   }
 
   @Id
@@ -52,6 +58,10 @@ public class Group {
 
   @Column(name = "random_avatar_bg_color")
   private String randomAvatarBgColor;
+
+  @ManyToOne
+  @JoinColumn(name = "creator_id")
+  private User creator;
 
   @ElementCollection(
     targetClass = Specialization.class,

@@ -21,9 +21,10 @@ public class GetGroupWithUsers extends GetGroupWithID {
     Integer id,
     String descriptionContent,
     String randomAvatarBgColor,
+    Integer creatorId,
     UserList users
   ) {
-    super(groupName, specializations, id, descriptionContent, randomAvatarBgColor);
+    super(groupName, specializations, id, descriptionContent, randomAvatarBgColor, creatorId);
     this.users = users;
   }
 
@@ -39,6 +40,7 @@ public class GetGroupWithUsers extends GetGroupWithID {
       group.getId(),
       group.getDescriptionContent(),
       group.getRandomAvatarBgColor(),
+      group.getCreator().getId(),
       new UserList(group.getUsers())
     );
   }
