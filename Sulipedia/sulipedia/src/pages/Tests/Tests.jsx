@@ -286,6 +286,11 @@ export function Tests({ children, setIsLoading, isLoading, jwt }) {
     }
   }, [filteredTests, selectedSubject]);
 
+  useEffect(()=>{
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 300);
+  },[isLoading]);
   useEffect(() => {
     axios
       .get("/entry/test", {
