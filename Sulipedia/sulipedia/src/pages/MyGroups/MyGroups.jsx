@@ -62,6 +62,7 @@ const styles = {
     marginBottom: "auto",
     marginLeft: "auto",
     marginRight: "auto",
+    cursor:"cell  "
   },
   deleteButton: {
     color: "#fff",
@@ -193,11 +194,13 @@ export function MyGroups({
     });
     setAvatarColors(colors);
   }, [groups, loaded]);
-  useEffect(()=>{
+
+  useEffect(() => {
     setTimeout(() => {
       setIsLoading(false);
     }, 300);
-  },[isLoading])
+  }, [isLoading]);
+
   useEffect(() => {
     axios
       .get(`/group?userId=${currentUserId}`, {
@@ -219,6 +222,7 @@ export function MyGroups({
       })
       .catch((error) => {
         console.error("Hiba történt adatok lekérdezése során", error);
+        alert("Hiba történt adatok lekérdezése során", error);
         setGroups(staticGroups);
         setLoaded(false);
       });
@@ -263,11 +267,12 @@ export function MyGroups({
 
         .catch((error) => {
           console.error("Hiba történt adat lekérdezése során", error);
+          alert("Hiba történt adat lekérdezése során", error);
         });
 
-        group.members = localMembers;
-        localGroups[index] = group;
-        setGroups(localGroups);
+      group.members = localMembers;
+      localGroups[index] = group;
+      setGroups(localGroups);
     }
 
     setSelectedGroup(group);

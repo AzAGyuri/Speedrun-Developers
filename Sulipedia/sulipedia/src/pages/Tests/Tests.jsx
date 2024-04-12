@@ -291,6 +291,7 @@ export function Tests({ children, setIsLoading, isLoading, jwt }) {
       setIsLoading(false);
     }, 300);
   },[isLoading]);
+  
   useEffect(() => {
     axios
       .get("/entry/test", {

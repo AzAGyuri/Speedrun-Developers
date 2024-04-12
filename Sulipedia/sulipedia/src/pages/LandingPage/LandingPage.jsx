@@ -521,7 +521,7 @@ export function LandingPage({ children, setIsLoading, isLoading, jwt }) {
               id="cellButton"
               variant="contained"
               color="error"
-              style={{ marginTop: "16px", cursor: "cell" }}
+              style={{ marginTop: "16px" }}
               onClick={handleNewEntryModalCancel}
             >
               Mégse
