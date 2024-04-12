@@ -146,6 +146,19 @@ body {
     border: 1px solid black;
     border-radius: 20px;
 }
+.post-date {
+    bottom: 5px; 
+    right: 5px; 
+    padding: 5px; 
+    background-color: #333; 
+    color: #fff; 
+    font-size: 12px; 
+    font-style: italic; 
+    border: 1px solid #555; 
+    border-radius: 5px; 
+    margin-left: 75%;
+}
+
 
 .drawer span,
 #addNewsButton {
