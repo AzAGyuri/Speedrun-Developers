@@ -351,7 +351,7 @@ values
         100000001
     ),
     (
-        "Szakmai Angol szókincs",
+        "Szakmai Angol szókincs 1",
         "",
         0,
         1,

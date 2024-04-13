@@ -1,5 +1,6 @@
 package hu.speedrundev.sulipedia.util;
 
+import hu.speedrundev.sulipedia.repository.UserRepository;
 import io.jsonwebtoken.JwtParser;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
@@ -10,6 +11,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 import javax.crypto.SecretKey;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -26,6 +28,9 @@ public class JwtUtil {
   private static final long EXPIRATION_TIME = 30l * 24l * 60l * 60l * 1000l;
 
   private final JwtParser parser;
+
+  @Autowired
+  private UserRepository userRepository;
 
   public JwtUtil(@Value("${sulipedia.secret}") String secret) {
     this.KEY = Keys.hmacShaKeyFor(secret.getBytes(StandardCharsets.UTF_8));
@@ -51,7 +56,12 @@ public class JwtUtil {
   }
 
   public boolean isTokenValid(String username, String token) {
-    return username != null && !username.isBlank() && !isTokenExpired(token);
+    return (
+      username != null &&
+      !username.isBlank() &&
+      !isTokenExpired(token) &&
+      userRepository.existsUserByUsername(username)
+    );
   }
 
   public boolean isTokenExpired(String token) {
