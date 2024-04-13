@@ -56,8 +56,8 @@ public class EntryService {
   @Autowired
   private JwtUtil jwtUtil;
 
-  public EntryList getEntriesByOptionalCategory(SubjectDto subject) {
-    if (subject == null || subject.toString().isBlank()) return new EntryList(
+  public EntryList getEntriesByOptionalSubject(SubjectDto subject) {
+    if (subject == null) return new EntryList(
       entryRepository
         .findAll()
         .stream()
@@ -70,7 +70,7 @@ public class EntryService {
     );
   }
 
-  public EntryList getTestsByOptionalCategory(SubjectDto subject) {
+  public EntryList getTestsByOptionalSubject(SubjectDto subject) {
     if (subject == null || subject.toString().isBlank()) return new EntryList(
       entryRepository.findAll().stream().filter(Entry::getTest).toList()
     );

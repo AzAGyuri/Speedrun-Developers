@@ -47,10 +47,10 @@ public class EntryController {
     description = "Az adatbázisban eltárolt összes nem teszt bejegyzés lekérdezése, opcionálisan kategória alapján szűrve"
   )
   @GetMapping("/entry")
-  public EntryList getEntriesByOptionalCategory(
+  public EntryList getEntriesByOptionalSubject(
     @RequestParam(name = "subject", required = false) SubjectDto subject
   ) {
-    return service.getEntriesByOptionalCategory(subject);
+    return service.getEntriesByOptionalSubject(subject);
   }
 
   @Operation(
@@ -58,10 +58,10 @@ public class EntryController {
     description = "Az adatbázisban eltárolt összes teszt bejegyzés lekérdezése, opcionálisan kategória alapján szűrve"
   )
   @GetMapping("/entry/test")
-  public EntryList getTestsByOptionalCategory(
+  public EntryList getTestsByOptionalSubject(
     @RequestParam(name = "subject", required = false) SubjectDto subject
   ) {
-    return service.getTestsByOptionalCategory(subject);
+    return service.getTestsByOptionalSubject(subject);
   }
 
   @Operation(
