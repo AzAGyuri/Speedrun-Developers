@@ -13,7 +13,8 @@ import {
 import { styled } from "@mui/system";
 import MenuIcon from "@mui/icons-material/Menu";
 import DeleteIcon from "@mui/icons-material/Delete";
-import axios from 'axios';
+import axios from "axios";
+import { Entry } from "../../components/Entry/Entry";
 
 const StyledContainer = styled(Container)({
   display: "flex",
@@ -72,13 +73,6 @@ const Title = styled(Typography)({
   fontWeight: "bold",
 });
 
-const LargeText = styled(Typography)({
-  marginBottom: (theme) => theme.spacing(1),
-  fontSize: "1.5rem",
-  textAlign: "justify",
-  lineHeight: "1.6",
-});
-
 const StyledDrawerButton = styled(IconButton)({
   position: "fixed",
   top: "70px",
@@ -118,7 +112,6 @@ const CommentSection = styled("div")({
   flexDirection: "column",
   alignItems: "stretch",
 });
-
 
 const CommentHeader = styled("div")({
   marginBottom: (theme) => theme.spacing(2),
@@ -177,18 +170,6 @@ const CommentDate = styled("span")({
   marginLeft: "6px",
 });
 
-function Entry({ title, content, date, author }) {
-  return (
-    <StyledContainer style={{ backgroundColor: "#4caf50" }}>
-      <Title variant="h4">{title}</Title>
-      <LargeText style={{paddingBottom: "5px"}}>{content}</LargeText>
-      <div style={{ display: "flex", justifyContent: "space-between", width: "100%", borderTop: "2px solid #2f3826", marginTop: "auto", paddingRight: "16px", paddingLeft: "16px", paddingTop: "5px" }}>
-        <Typography variant="body2" style={{ padding: "7px 5px", backgroundColor: "#ba8d63", borderRadius: "8px", color: "#fff", fontWeight: "bold" }}>{new Date(date).toLocaleDateString()}</Typography>
-        <Typography variant="body2" style={{ padding: "7px 4px", backgroundColor: "#6384ba", borderRadius: "8px", color: "#fff", fontWeight: "bold", marginLeft: "10px" }}>{author}</Typography>
-      </div>
-    </StyledContainer>
-  );
-}
 export function Informatika({ children, jwt }) {
   const [drawerOpen, setDrawerOpen] = React.useState(false);
   const [selectedAuthor, setSelectedAuthor] = React.useState(null);
@@ -196,41 +177,46 @@ export function Informatika({ children, jwt }) {
   const dummyDataForEntrie = [
     {
       title: "Algoritmusok és Adatszerkezetek",
-      content: "Az algoritmusok és adatszerkezetek kulcsfontosságú fogalmak az informatikában. Az algoritmusok hatékony megvalósítása és az optimális adatszerkezetek kiválasztása lehetővé teszi az informatikai problémák hatékony megoldását.",
+      content:
+        "Az algoritmusok és adatszerkezetek kulcsfontosságú fogalmak az informatikában. Az algoritmusok hatékony megvalósítása és az optimális adatszerkezetek kiválasztása lehetővé teszi az informatikai problémák hatékony megoldását.",
       createdOn: "2024-04-01",
       author: "Emberke 1",
       category: "ICT",
     },
     {
       title: "Felhőalapú Számítástechnika",
-      content: "A felhőalapú számítástechnika forradalmasította az informatikát. Az egyre növekvő számú vállalat és felhasználó számára biztosítja az adatok tárolását, szolgáltatásokat és alkalmazásokat a világhálón keresztül.",
+      content:
+        "A felhőalapú számítástechnika forradalmasította az informatikát. Az egyre növekvő számú vállalat és felhasználó számára biztosítja az adatok tárolását, szolgáltatásokat és alkalmazásokat a világhálón keresztül.",
       createdOn: "2024-04-01",
       author: "Emberke 2",
       category: "ICT",
     },
     {
       title: "Kiberbiztonság és Hálózatbiztonság",
-      content: "A kiberbiztonság és hálózatbiztonság napjainkban kulcsfontosságú területe az informatikának. Az internetes fenyegetések és a számítógépes bűnözés elleni védelem elengedhetetlen a biztonságos online környezet megteremtéséhez.",
+      content:
+        "A kiberbiztonság és hálózatbiztonság napjainkban kulcsfontosságú területe az informatikának. Az internetes fenyegetések és a számítógépes bűnözés elleni védelem elengedhetetlen a biztonságos online környezet megteremtéséhez.",
       createdOn: "2024-04-01",
       author: "Emberke 3",
       category: "ICT",
     },
     {
       title: "Adattudomány és Nagy Adat",
-      content: "Az adattudomány és a nagy adat elemzésének képességei forradalmasítják az üzleti és tudományos területeket egyaránt. Az adatokból való értelmezés lehetővé teszi a trendek felismerését és a jövőbeli döntések meghozatalát.",
+      content:
+        "Az adattudomány és a nagy adat elemzésének képességei forradalmasítják az üzleti és tudományos területeket egyaránt. Az adatokból való értelmezés lehetővé teszi a trendek felismerését és a jövőbeli döntések meghozatalát.",
       createdOn: "2024-04-01",
       author: "Emberke 1",
       category: "ICT",
     },
     {
       title: "Mesterséges Intelligencia és Gépi Tanulás",
-      content: "A mesterséges intelligencia és a gépi tanulás területei forradalmasítják az informatikát. Az olyan alkalmazások, mint az autonóm járművek és a nyelvi felismerés, az MI és a gépi tanulás legújabb fejlesztéseinek eredményei.",
+      content:
+        "A mesterséges intelligencia és a gépi tanulás területei forradalmasítják az informatikát. Az olyan alkalmazások, mint az autonóm járművek és a nyelvi felismerés, az MI és a gépi tanulás legújabb fejlesztéseinek eredményei.",
       createdOn: "2024-04-01",
       author: "Emberke 3",
       category: "ICT",
     },
   ];
-  
+
   const [comments, setComments] = React.useState([]);
   const [newComment, setNewComment] = React.useState("");
   const [searchValue, setSearchValue] = React.useState("");
@@ -239,37 +225,42 @@ export function Informatika({ children, jwt }) {
     setNewComment(event.target.value);
   };
   const fetchComments = () => {
-    const backendUrl = '/comment';
-    axios.get(backendUrl)
-      .then(response => {
+    const backendUrl = "/comment";
+    axios
+      .get(backendUrl)
+      .then((response) => {
         const fetchedComments = response.data.comments;
-        console.log('Komment', fetchedComments);
+        console.log("Komment", fetchedComments);
       })
-      .catch(error => {
-        console.error('Error fetching comments:', error);
-        alert('Hiba a kommentek lekérdezésekor', error);
+      .catch((error) => {
+        console.error("Error fetching comments:", error);
+        alert("Hiba a kommentek lekérdezésekor", error);
       });
   };
   const deleteComment = (commentId) => {
     const backendUrl = `/comment/${commentId}`;
 
-    axios.delete(backendUrl)
-      .then(response => {
-        console.log('Komment törölve', response.data);
+    axios
+      .delete(backendUrl)
+      .then((response) => {
+        console.log("Komment törölve", response.data);
       })
-      .catch(error => {
-        console.error('Error deleting comment:', error);
-        alert('Hiba a komment törlésekor', error);
+      .catch((error) => {
+        console.error("Error deleting comment:", error);
+        alert("Hiba a komment törlésekor", error);
       });
   };
   const handleCommentSubmit = () => {
-    const backendUrl = '/comment';
+    const backendUrl = "/comment";
     const requestBody = {
       content: newComment,
-      entryId: 0
+      entryId: 0,
     };
-    axios.post(backendUrl, requestBody, { headers: { Authorization: localStorage.getItem("jwt") } })
-      .then(response => {
+    axios
+      .post(backendUrl, requestBody, {
+        headers: { Authorization: localStorage.getItem("jwt") },
+      })
+      .then((response) => {
         const newComments = [
           ...comments,
           {
@@ -281,9 +272,9 @@ export function Informatika({ children, jwt }) {
         setComments(newComments);
         setNewComment("");
       })
-      .catch(error => {
-        console.error('Error submitting comment:', error);
-        alert('Hiba a komment elküldésekor', error);
+      .catch((error) => {
+        console.error("Error submitting comment:", error);
+        alert("Hiba a komment elküldésekor", error);
       });
   };
 
@@ -305,23 +296,22 @@ export function Informatika({ children, jwt }) {
     setDrawerOpen(!drawerOpen);
   };
 
-  axios.get('/entry?subject=ICT', {
-    headers: { Authorization: jwt },
-  })
-  .then(response => {
-    const receivedEntries = response.data.entries;
-    if (receivedEntries.length === 0) {
+  axios
+    .get("/entry?subject=ICT", {
+      headers: { Authorization: jwt },
+    })
+    .then((response) => {
+      const receivedEntries = response.data.entries;
+      if (receivedEntries.length === 0) {
+        setEntries(dummyDataForEntrie);
+      } else {
+        setEntries(receivedEntries);
+      }
+    })
+    .catch((error) => {
       setEntries(dummyDataForEntrie);
-    } else {
-      setEntries(receivedEntries);
-    }
-  })
-  .catch(error => {
-    setEntries(dummyDataForEntrie);
-    console.error('Error fetching data:', error);
-  });
-  
-
+      console.error("Error fetching data:", error);
+    });
 
   return (
     <>
@@ -332,65 +322,63 @@ export function Informatika({ children, jwt }) {
         </StyledDrawerButton>
       </Tooltip>
       <StyledDrawer
-  anchor="left"
-  open={drawerOpen}
-  onClose={() => setDrawerOpen(false)}
->
-  <div style={{ padding: "16px", backgroundColor: "#333", borderBottom: "1px solid #555" }}>
-    <input
-      type="text"
-      value={searchValue}
-      onChange={(e) => setSearchValue(e.target.value)}
-      placeholder="Közzétevő keresése..."
-      style={{ 
-        padding: "8px 16px",
-        borderRadius: "20px",
-        border: "2px solid #4caf50",
-        width: "calc(100% - 32px)",
-        color: "#333",
-        backgroundColor: "#fff",
-        fontSize: "1.2rem",
-        outline: "none",
-      }}
-    />
-  </div>
-  <StyledList>
-    <StyledAllAuthorsListItem onClick={() => handleAllAuthorsSelect()}>
-      <ListItemText primary="Minden közzétevő" />
-    </StyledAllAuthorsListItem>
-    {entries
-      .reduce((authors, entry) => {
-        if (!authors.includes(entry.author)) {
-          authors.push(entry.author);
-        }
-        return authors;
-      }, [])
-      .filter(author => author.toLowerCase().includes(searchValue.toLowerCase()))
-      .map((author, index) => (
-        <StyledListItem key={index} onClick={() => handleAuthorSelect(author)}>
-          <ListItemText primary={author} />
-        </StyledListItem>
-      ))}
-  </StyledList>
-</StyledDrawer>
-
+        anchor="left"
+        open={drawerOpen}
+        onClose={() => setDrawerOpen(false)}
+      >
+        <div
+          style={{
+            padding: "16px",
+            backgroundColor: "#333",
+            borderBottom: "1px solid #555",
+          }}
+        >
+          <input
+            type="text"
+            value={searchValue}
+            onChange={(e) => setSearchValue(e.target.value)}
+            placeholder="Közzétevő keresése..."
+            style={{
+              padding: "8px 16px",
+              borderRadius: "20px",
+              border: "2px solid #4caf50",
+              width: "calc(100% - 32px)",
+              color: "#333",
+              backgroundColor: "#fff",
+              fontSize: "1.2rem",
+              outline: "none",
+            }}
+          />
+        </div>
+        <StyledList>
+          <StyledAllAuthorsListItem onClick={() => handleAllAuthorsSelect()}>
+            <ListItemText primary="Minden közzétevő" />
+          </StyledAllAuthorsListItem>
+          {entries
+            .reduce((authors, entry) => {
+              if (!authors.includes(entry.author)) {
+                authors.push(entry.author);
+              }
+              return authors;
+            }, [])
+            .filter((author) =>
+              author.toLowerCase().includes(searchValue.toLowerCase())
+            )
+            .map((author, index) => (
+              <StyledListItem
+                key={index}
+                onClick={() => handleAuthorSelect(author)}
+              >
+                <ListItemText primary={author} />
+              </StyledListItem>
+            ))}
+        </StyledList>
+      </StyledDrawer>
 
       <StyledContainer style={{ backgroundColor: "#ccc" }}>
         <Title variant="h3">Informatikai bejegyzések</Title>
-        {selectedAuthor === null ? (
-          entries.map((entry, index) => (
-            <Entry
-              key={index}
-              title={entry.title}
-              content={entry.content}
-              date={entry.createdOn}
-              author={entry.author}
-            />
-          ))
-        ) : (
-          entries
-            .filter((entry) => entry.author === selectedAuthor)
-            .map((entry, index) => (
+        {selectedAuthor === null
+          ? entries.map((entry, index) => (
               <Entry
                 key={index}
                 title={entry.title}
@@ -399,7 +387,17 @@ export function Informatika({ children, jwt }) {
                 author={entry.author}
               />
             ))
-        )}
+          : entries
+              .filter((entry) => entry.author === selectedAuthor)
+              .map((entry, index) => (
+                <Entry
+                  key={index}
+                  title={entry.title}
+                  content={entry.content}
+                  date={entry.createdOn}
+                  author={entry.author}
+                />
+              ))}
       </StyledContainer>
 
       <CommentSection>
