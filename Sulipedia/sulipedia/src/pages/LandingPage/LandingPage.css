@@ -64,9 +64,11 @@
     align-items: center;
     width: 100%;
     justify-content: flex-end;
+    border-radius: 10px;
 }
 
 .drawer span:hover {
+    border-radius: 10px;
     background-color: #f78f88;
     transition: background-color 0.3s; 
 }
@@ -185,4 +187,4 @@ body {
 .subject-container:first-child {
     margin-top: 10px;
     cursor: pointer;
-  }
+}

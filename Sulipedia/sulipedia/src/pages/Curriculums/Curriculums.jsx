@@ -10,7 +10,7 @@ import MagyarNyelvImage from '../../resources/grammer.png';
 import TortenelemImage from '../../resources/history.png';
 
 const SubjectCard = styled(Card)({
-  backgroundColor: '#f5f5f5',
+  backgroundColor: '#e3e5e8',
   borderRadius: '10px',
   border: '2px solid grey',
   boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
@@ -27,7 +27,7 @@ const CardHeader = styled('div')({
   justifyContent: 'space-between',
   padding: '16px',
   borderBottom: '1px solid #e0e0e0',
-  backgroundColor: '#ffffff',
+  backgroundColor: '#8e95de',
   borderRadius: '10px 10px 0 0',
 });
 
