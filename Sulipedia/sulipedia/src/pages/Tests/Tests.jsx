@@ -27,7 +27,6 @@ import Drawer from "@mui/material/Drawer";
 import MenuItem from "@mui/material/MenuItem";
 import { Loading } from "../../components/Loading/Loading";
 import axios from "axios";
-import './Tests.css';
 
 const StyledButton = styled(Button)({
   backgroundColor: "#ff9800",
@@ -678,12 +677,23 @@ const percentage = (correctCount / totalQuestions) * 100;
     >
       {`A kitöltött teszt ${percentage.toFixed(2)}%-ban lett helyesen megválaszolva`}
     </Typography>
-    <div className="progressBar">
     <LinearProgress
-      variant="determinate"
-      value={100-percentage}
-    />
-    </div>
+  variant="determinate"
+  value={percentage}
+  sx={{
+    background: 'cyan', 
+    borderRadius: '10px', 
+    height: '10px', 
+    marginBottom: '20px', 
+    '& > span': {
+      backgroundColor: '#FF5733', 
+      borderRadius: '10px' 
+    },
+    boxShadow: '0 2px 5px rgba(0, 0, 0, 0.2)' 
+  }}
+/>
+
+    
             <List>
               {Object.keys(answers).map((questionIndex) => (
                 <ListItem key={questionIndex}>
