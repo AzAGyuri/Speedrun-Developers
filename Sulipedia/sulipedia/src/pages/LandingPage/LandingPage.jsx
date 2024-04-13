@@ -365,7 +365,7 @@ export function LandingPage({ children, setIsLoading, isLoading, jwt }) {
                 </div>
               </Container>
               <Container
-                style={{ textDecoration: "none", color: "white", padding: 0, marginLeft:"43%" }}
+                style={{ textDecoration: "none", color: "white", padding: 0, marginLeft:"43%", borderRadius:10 }}
                 underline="none"
                 rel="noreferrer"
                 color="inherit"
