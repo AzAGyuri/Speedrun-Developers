@@ -181,18 +181,19 @@ function Entry({ title, content, date, author }) {
   return (
     <StyledContainer style={{ backgroundColor: "#4caf50" }}>
       <Title variant="h4">{title}</Title>
-      <LargeText>{content}</LargeText>
-      <div style={{ display: "flex", justifyContent: "space-between", width: "100%", borderTop: "2px solid #2f3826", marginTop: "auto", paddingRight: "16px", paddingLeft: "16px" }}>
-        <Typography variant="body2" style={{ padding: "8px 0", backgroundColor: "#ba8d63", borderRadius: "5px", color: "#fff", fontWeight: "bold" }}>{new Date(date).toLocaleDateString()}</Typography>
-        <Typography variant="body2" style={{ padding: "8px 0", backgroundColor: "#6384ba", borderRadius: "5px", color: "#fff", fontWeight: "bold" }}>{author}</Typography>
+      <LargeText style={{paddingBottom: "5px"}}>{content}</LargeText>
+      <div style={{ display: "flex", justifyContent: "space-between", width: "100%", borderTop: "2px solid #2f3826", marginTop: "auto", paddingRight: "16px", paddingLeft: "16px", paddingTop: "5px" }}>
+        <Typography variant="body2" style={{ padding: "7px 5px", backgroundColor: "#ba8d63", borderRadius: "8px", color: "#fff", fontWeight: "bold" }}>{new Date(date).toLocaleDateString()}</Typography>
+        <Typography variant="body2" style={{ padding: "7px 4px", backgroundColor: "#6384ba", borderRadius: "8px", color: "#fff", fontWeight: "bold", marginLeft: "10px" }}>{author}</Typography>
       </div>
     </StyledContainer>
   );
 }
-export function Tortenelem({ children }) {
+export function Tortenelem({ children, jwt }) {
   const [drawerOpen, setDrawerOpen] = React.useState(false);
   const [selectedAuthor, setSelectedAuthor] = React.useState(null);
-  const entries = [
+  const [entries, setEntries] = React.useState([]);
+  const dummyDataForEntrie = [
     {
       title: "Az Árpád-ház kora",
       content: "A magyar történelem kezdete",
@@ -303,6 +304,22 @@ export function Tortenelem({ children }) {
   const toggleDrawer = () => {
     setDrawerOpen(!drawerOpen);
   };
+
+  axios.get('/entry?subject=HISTORY', {
+    headers: { Authorization: jwt },
+  })
+  .then(response => {
+    const receivedEntries = response.data.entries;
+    if (receivedEntries.length === 0) {
+      setEntries(dummyDataForEntrie);
+    } else {
+      setEntries(receivedEntries);
+    }
+  })
+  .catch(error => {
+    setEntries(dummyDataForEntrie);
+    console.error('Error fetching data:', error);
+  });
 
   return (
     <>

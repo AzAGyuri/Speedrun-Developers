@@ -45,11 +45,11 @@ function App() {
             <Route path="/" element={<LandingPage  setIsLoading={setIsLoading} isLoading={isLoading} jwt={jwt}><IsNotLoggedIn /></LandingPage>} />
             <Route path="/aboutUs" element={<AboutUs  setIsLoading={setIsLoading}><IsNotLoggedIn /></AboutUs>} />
             <Route path="/learnMore" element={<LearnMore  setIsLoading={setIsLoading}><IsNotLoggedIn /></LearnMore>} />
-            <Route path="/szakmai-angol" element={<SzakAngol  setIsLoading={setIsLoading}><IsNotLoggedIn /></SzakAngol>} />
-            <Route path="/matek" element={<Matek  setIsLoading={setIsLoading}><IsNotLoggedIn /></Matek>} />
-            <Route path="/magyar" element={<Magyar  setIsLoading={setIsLoading}><IsNotLoggedIn /></Magyar>} />
-            <Route path="/tortenelem" element={<Tortenelem  setIsLoading={setIsLoading}><IsNotLoggedIn /></Tortenelem>} />
-            <Route path="/informatika" element={<Informatika  setIsLoading={setIsLoading}><IsNotLoggedIn /></Informatika>} />
+            <Route path="/szakmai-angol" element={<SzakAngol  setIsLoading={setIsLoading} jwt={jwt}><IsNotLoggedIn /></SzakAngol>} />
+            <Route path="/matek" element={<Matek  setIsLoading={setIsLoading} jwt={jwt}><IsNotLoggedIn /></Matek>} />
+            <Route path="/magyar" element={<Magyar  setIsLoading={setIsLoading} jwt={jwt}><IsNotLoggedIn /></Magyar>} />
+            <Route path="/tortenelem" element={<Tortenelem  setIsLoading={setIsLoading} jwt={jwt}><IsNotLoggedIn /></Tortenelem>} />
+            <Route path="/informatika" element={<Informatika  setIsLoading={setIsLoading} jwt={jwt}><IsNotLoggedIn /></Informatika>} />
           </Routes>
         <Copyright />
       </Router>
