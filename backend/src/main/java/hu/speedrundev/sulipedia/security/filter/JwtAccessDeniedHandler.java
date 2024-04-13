@@ -1,10 +1,10 @@
 package hu.speedrundev.sulipedia.security.filter;
 
+import static org.springframework.http.HttpStatus.FORBIDDEN;
 import static org.springframework.http.HttpStatus.UNAUTHORIZED;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-
 import hu.speedrundev.sulipedia.dto.ExceptionResponse;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -20,7 +20,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class JwtAccessDeniedHandler implements AccessDeniedHandler {
 
-  public final String ACCESS_DENIED_MESSAGE =
+  public final String FORBIDDEN_MESSAGE =
     "You do not have permission to access this page";
 
   @Override
@@ -31,10 +31,10 @@ public class JwtAccessDeniedHandler implements AccessDeniedHandler {
   ) throws IOException, ServletException {
     ExceptionResponse exceptionResponse = new ExceptionResponse(
       new Date(),
-      UNAUTHORIZED.value(),
-      UNAUTHORIZED,
-      UNAUTHORIZED.getReasonPhrase().toUpperCase(),
-      ACCESS_DENIED_MESSAGE
+      FORBIDDEN.value(),
+      FORBIDDEN.getReasonPhrase(),
+      FORBIDDEN_MESSAGE,
+      request.getServletPath()
     ); //response exeption creation
 
     //setup servlet response
