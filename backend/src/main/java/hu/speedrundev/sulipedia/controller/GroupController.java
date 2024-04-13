@@ -3,14 +3,17 @@ package hu.speedrundev.sulipedia.controller;
 import hu.speedrundev.sulipedia.dto.group.GetGroupWithID;
 import hu.speedrundev.sulipedia.dto.group.GetGroupWithUsers;
 import hu.speedrundev.sulipedia.dto.group.GroupList;
+import hu.speedrundev.sulipedia.dto.group.GroupUserPutterResponse;
 import hu.speedrundev.sulipedia.dto.group.PostGroup;
 import hu.speedrundev.sulipedia.service.GroupService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -61,5 +64,22 @@ public class GroupController {
     @RequestHeader(name = "Authorization") String jwt
   ) {
     return service.createGroup(group, jwt.substring("Bearer".length()).trim());
+  }
+
+  @Operation(
+    summary = "Put a user based on name into group in DB",
+    description = "Az adatbázisban eltárolt csoportba beszúrni egy új felhasználót név szerint"
+  )
+  @PutMapping("/group/{id}")
+  public GroupUserPutterResponse putUserIntoGroup(
+    @PathVariable Integer id,
+    @RequestHeader(name = "Authorization") String jwt,
+    @RequestBody List<String> usernames
+  ) {
+    return service.putUserIntoGroup(
+      id,
+      jwt.substring("Bearer".length()).trim(),
+      usernames
+    );
   }
 }

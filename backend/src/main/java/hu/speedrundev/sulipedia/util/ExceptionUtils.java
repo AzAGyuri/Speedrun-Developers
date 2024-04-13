@@ -39,4 +39,8 @@ public class ExceptionUtils {
   public static ResponseStatusException itsGoneBud(String reason) {
     return new ResponseStatusException(GONE, reason);
   }
+  
+  public static ResponseStatusException noYouDont(String reason) {
+    return new ResponseStatusException(FORBIDDEN, reason);
+  }
 }
