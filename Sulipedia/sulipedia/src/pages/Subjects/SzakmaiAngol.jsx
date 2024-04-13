@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   Container,
   Typography,
@@ -14,7 +14,6 @@ import { styled } from "@mui/system";
 import MenuIcon from "@mui/icons-material/Menu";
 import DeleteIcon from "@mui/icons-material/Delete";
 import axios from "axios";
-import { Entry } from "../../components/Entry/Entry";
 
 const StyledContainer = styled(Container)({
   display: "flex",
@@ -71,6 +70,13 @@ const Title = styled(Typography)({
   fontSize: "2rem",
   marginTop: (theme) => theme.spacing(1),
   fontWeight: "bold",
+});
+
+const LargeText = styled(Typography)({
+  marginBottom: (theme) => theme.spacing(1),
+  fontSize: "1.5rem",
+  textAlign: "justify",
+  lineHeight: "1.6",
 });
 
 const StyledDrawerButton = styled(IconButton)({
@@ -169,12 +175,61 @@ const CommentDate = styled("span")({
   color: "#777",
   marginLeft: "6px",
 });
+function Entry({ id, title, content, date, author, handleEntryClick }) {
+  return (
+    <StyledContainer
+      style={{ backgroundColor: "#4caf50" }}
+      onClick={() => handleEntryClick({ title, content, date, author, id })}
+    >
+      <Title variant="h4">{title}</Title>
+      <LargeText style={{ paddingBottom: "5px" }}>{content}</LargeText>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          width: "100%",
+          borderTop: "2px solid #2f3826",
+          marginTop: "auto",
+          paddingRight: "16px",
+          paddingLeft: "16px",
+          paddingTop: "5px",
+        }}
+      >
+        <Typography
+          variant="body2"
+          style={{
+            padding: "7px 5px",
+            backgroundColor: "#ba8d63",
+            borderRadius: "8px",
+            color: "#fff",
+            fontWeight: "bold",
+          }}
+        >
+          {date}
+        </Typography>
+        <Typography
+          variant="body2"
+          style={{
+            padding: "7px 4px",
+            backgroundColor: "#6384ba",
+            borderRadius: "8px",
+            color: "#fff",
+            fontWeight: "bold",
+            marginLeft: "10px",
+          }}
+        >
+          {author}
+        </Typography>
+      </div>
+    </StyledContainer>
+  );
+}
 
 export function SzakAngol({ children, jwt }) {
   const [drawerOpen, setDrawerOpen] = React.useState(false);
   const [selectedAuthor, setSelectedAuthor] = React.useState(null);
   const [entries, setEntries] = React.useState([]);
-  const dummyDataForEntrie = [
+  const dummyDataForEntries = [
     {
       title: "Exploring Quantum Mechanics",
       content: "Understanding the fundamental principles of quantum mechanics",
@@ -292,22 +347,24 @@ export function SzakAngol({ children, jwt }) {
     setDrawerOpen(!drawerOpen);
   };
 
-  axios
-    .get("/entry?subject=TECHNICAL_ENGLISH", {
-      headers: { Authorization: jwt },
-    })
-    .then((response) => {
-      const receivedEntries = response.data.entries;
-      if (receivedEntries.length === 0) {
-        setEntries(dummyDataForEntrie);
-      } else {
-        setEntries(receivedEntries);
-      }
-    })
-    .catch((error) => {
-      setEntries(dummyDataForEntrie);
-      console.error("Error fetching data:", error);
-    });
+  useEffect(() => {
+    axios
+      .get("/entry?subject=TECHNICAL_ENGLISH", {
+        headers: { Authorization: jwt },
+      })
+      .then((response) => {
+        const receivedEntries = response.data.entries;
+        if (receivedEntries.length === 0) {
+          setEntries(dummyDataForEntries);
+        } else {
+          setEntries(receivedEntries);
+        }
+      })
+      .catch((error) => {
+        setEntries(dummyDataForEntries);
+        console.error("Error fetching data:", error);
+      });
+  }, []);
 
   return (
     <>

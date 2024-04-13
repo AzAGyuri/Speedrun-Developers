@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   Container,
   Typography,
@@ -13,8 +13,7 @@ import {
 import { styled } from "@mui/system";
 import MenuIcon from "@mui/icons-material/Menu";
 import DeleteIcon from "@mui/icons-material/Delete";
-import axios from 'axios';
-import { Entry } from "../../components/Entry/Entry";
+import axios from "axios";
 
 const StyledContainer = styled(Container)({
   display: "flex",
@@ -74,6 +73,13 @@ const Title = styled(Typography)({
   fontWeight: "bold",
 });
 
+const LargeText = styled(Typography)({
+  marginBottom: (theme) => theme.spacing(1),
+  fontSize: "1.5rem",
+  textAlign: "justify",
+  lineHeight: "1.6",
+});
+
 const StyledDrawerButton = styled(IconButton)({
   position: "fixed",
   top: "70px",
@@ -113,7 +119,6 @@ const CommentSection = styled("div")({
   flexDirection: "column",
   alignItems: "stretch",
 });
-
 
 const CommentHeader = styled("div")({
   marginBottom: (theme) => theme.spacing(2),
@@ -172,11 +177,61 @@ const CommentDate = styled("span")({
   marginLeft: "6px",
 });
 
+function Entry({ id, title, content, date, author, handleEntryClick }) {
+  return (
+    <StyledContainer
+      style={{ backgroundColor: "#4caf50" }}
+      onClick={() => handleEntryClick({ title, content, date, author, id })}
+    >
+      <Title variant="h4">{title}</Title>
+      <LargeText style={{ paddingBottom: "5px" }}>{content}</LargeText>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          width: "100%",
+          borderTop: "2px solid #2f3826",
+          marginTop: "auto",
+          paddingRight: "16px",
+          paddingLeft: "16px",
+          paddingTop: "5px",
+        }}
+      >
+        <Typography
+          variant="body2"
+          style={{
+            padding: "7px 5px",
+            backgroundColor: "#ba8d63",
+            borderRadius: "8px",
+            color: "#fff",
+            fontWeight: "bold",
+          }}
+        >
+          {date}
+        </Typography>
+        <Typography
+          variant="body2"
+          style={{
+            padding: "7px 4px",
+            backgroundColor: "#6384ba",
+            borderRadius: "8px",
+            color: "#fff",
+            fontWeight: "bold",
+            marginLeft: "10px",
+          }}
+        >
+          {author}
+        </Typography>
+      </div>
+    </StyledContainer>
+  );
+}
+
 export function Magyar({ children, jwt }) {
   const [drawerOpen, setDrawerOpen] = React.useState(false);
   const [selectedAuthor, setSelectedAuthor] = React.useState(null);
   const [entries, setEntries] = React.useState([]);
-  const dummyDataForEntrie = [
+  const dummyDataForEntries = [
     {
       title: "Petőfi Sándor élete és művei",
       content: "A magyar irodalom kiemelkedő alakja és költői öröksége",
@@ -212,7 +267,7 @@ export function Magyar({ children, jwt }) {
       author: "Emberke 3",
       category: "HUNGARIAN",
     },
-  ]
+  ];
 
   const [comments, setComments] = React.useState([]);
   const [newComment, setNewComment] = React.useState("");
@@ -222,37 +277,42 @@ export function Magyar({ children, jwt }) {
     setNewComment(event.target.value);
   };
   const fetchComments = () => {
-    const backendUrl = '/comment';
-    axios.get(backendUrl)
-      .then(response => {
+    const backendUrl = "/comment";
+    axios
+      .get(backendUrl)
+      .then((response) => {
         const fetchedComments = response.data.comments;
-        console.log('Komment', fetchedComments);
+        console.log("Komment", fetchedComments);
       })
-      .catch(error => {
-        console.error('Error fetching comments:', error);
-        alert('Hiba a kommentek lekérdezésekor', error);
+      .catch((error) => {
+        console.error("Error fetching comments:", error);
+        alert("Hiba a kommentek lekérdezésekor", error);
       });
   };
   const deleteComment = (commentId) => {
     const backendUrl = `/comment/${commentId}`;
 
-    axios.delete(backendUrl)
-      .then(response => {
-        console.log('Komment törölve', response.data);
+    axios
+      .delete(backendUrl)
+      .then((response) => {
+        console.log("Komment törölve", response.data);
       })
-      .catch(error => {
-        console.error('Error deleting comment:', error);
-        alert('Hiba a komment törlésekor', error);
+      .catch((error) => {
+        console.error("Error deleting comment:", error);
+        alert("Hiba a komment törlésekor", error);
       });
   };
   const handleCommentSubmit = () => {
-    const backendUrl = '/comment';
+    const backendUrl = "/comment";
     const requestBody = {
       content: newComment,
-      entryId: 0
+      entryId: 0,
     };
-    axios.post(backendUrl, requestBody, { headers: { Authorization: localStorage.getItem("jwt") } })
-      .then(response => {
+    axios
+      .post(backendUrl, requestBody, {
+        headers: { Authorization: localStorage.getItem("jwt") },
+      })
+      .then((response) => {
         const newComments = [
           ...comments,
           {
@@ -264,9 +324,9 @@ export function Magyar({ children, jwt }) {
         setComments(newComments);
         setNewComment("");
       })
-      .catch(error => {
-        console.error('Error submitting comment:', error);
-        alert('Hiba a komment elküldésekor', error);
+      .catch((error) => {
+        console.error("Error submitting comment:", error);
+        alert("Hiba a komment elküldésekor", error);
       });
   };
 
@@ -288,22 +348,24 @@ export function Magyar({ children, jwt }) {
     setDrawerOpen(!drawerOpen);
   };
 
-  axios.get('/entry?subject=HUNGARIAN', {
-    headers: { Authorization: jwt },
-  })
-  .then(response => {
-    const receivedEntries = response.data.entries;
-    if (receivedEntries.length === 0) {
-      setEntries(dummyDataForEntrie);
-    } else {
-      setEntries(receivedEntries);
-    }
-  })
-  .catch(error => {
-    setEntries(dummyDataForEntrie);
-    console.error('Error fetching data:', error);
-  });
-  
+  useEffect(() => {
+    axios
+      .get("/entry?subject=HUNGARIAN", {
+        headers: { Authorization: jwt },
+      })
+      .then((response) => {
+        const receivedEntries = response.data.entries;
+        if (receivedEntries.length === 0) {
+          setEntries(dummyDataForEntries);
+        } else {
+          setEntries(receivedEntries);
+        }
+      })
+      .catch((error) => {
+        setEntries(dummyDataForEntries);
+        console.error("Error fetching data:", error);
+      });
+  }, []);
 
   return (
     <>
@@ -314,65 +376,63 @@ export function Magyar({ children, jwt }) {
         </StyledDrawerButton>
       </Tooltip>
       <StyledDrawer
-  anchor="left"
-  open={drawerOpen}
-  onClose={() => setDrawerOpen(false)}
->
-  <div style={{ padding: "16px", backgroundColor: "#333", borderBottom: "1px solid #555" }}>
-    <input
-      type="text"
-      value={searchValue}
-      onChange={(e) => setSearchValue(e.target.value)}
-      placeholder="Közzétevő keresése..."
-      style={{ 
-        padding: "8px 16px",
-        borderRadius: "20px",
-        border: "2px solid #4caf50",
-        width: "calc(100% - 32px)",
-        color: "#333",
-        backgroundColor: "#fff",
-        fontSize: "1.2rem",
-        outline: "none",
-      }}
-    />
-  </div>
-  <StyledList>
-    <StyledAllAuthorsListItem onClick={() => handleAllAuthorsSelect()}>
-      <ListItemText primary="Minden közzétevő" />
-    </StyledAllAuthorsListItem>
-    {entries
-      .reduce((authors, entry) => {
-        if (!authors.includes(entry.author)) {
-          authors.push(entry.author);
-        }
-        return authors;
-      }, [])
-      .filter(author => author.toLowerCase().includes(searchValue.toLowerCase()))
-      .map((author, index) => (
-        <StyledListItem key={index} onClick={() => handleAuthorSelect(author)}>
-          <ListItemText primary={author} />
-        </StyledListItem>
-      ))}
-  </StyledList>
-</StyledDrawer>
-
+        anchor="left"
+        open={drawerOpen}
+        onClose={() => setDrawerOpen(false)}
+      >
+        <div
+          style={{
+            padding: "16px",
+            backgroundColor: "#333",
+            borderBottom: "1px solid #555",
+          }}
+        >
+          <input
+            type="text"
+            value={searchValue}
+            onChange={(e) => setSearchValue(e.target.value)}
+            placeholder="Közzétevő keresése..."
+            style={{
+              padding: "8px 16px",
+              borderRadius: "20px",
+              border: "2px solid #4caf50",
+              width: "calc(100% - 32px)",
+              color: "#333",
+              backgroundColor: "#fff",
+              fontSize: "1.2rem",
+              outline: "none",
+            }}
+          />
+        </div>
+        <StyledList>
+          <StyledAllAuthorsListItem onClick={() => handleAllAuthorsSelect()}>
+            <ListItemText primary="Minden közzétevő" />
+          </StyledAllAuthorsListItem>
+          {entries
+            .reduce((authors, entry) => {
+              if (!authors.includes(entry.author)) {
+                authors.push(entry.author);
+              }
+              return authors;
+            }, [])
+            .filter((author) =>
+              author.toLowerCase().includes(searchValue.toLowerCase())
+            )
+            .map((author, index) => (
+              <StyledListItem
+                key={index}
+                onClick={() => handleAuthorSelect(author)}
+              >
+                <ListItemText primary={author} />
+              </StyledListItem>
+            ))}
+        </StyledList>
+      </StyledDrawer>
 
       <StyledContainer style={{ backgroundColor: "#ccc" }}>
         <Title variant="h3">Magyar nyelv és irodalmi bejegyzések</Title>
-        {selectedAuthor === null ? (
-          entries.map((entry, index) => (
-            <Entry
-              key={index}
-              title={entry.title}
-              content={entry.content}
-              date={entry.date}
-              author={entry.author}
-            />
-          ))
-        ) : (
-          entries
-            .filter((entry) => entry.author === selectedAuthor)
-            .map((entry, index) => (
+        {selectedAuthor === null
+          ? entries.map((entry, index) => (
               <Entry
                 key={index}
                 title={entry.title}
@@ -381,7 +441,17 @@ export function Magyar({ children, jwt }) {
                 author={entry.author}
               />
             ))
-        )}
+          : entries
+              .filter((entry) => entry.author === selectedAuthor)
+              .map((entry, index) => (
+                <Entry
+                  key={index}
+                  title={entry.title}
+                  content={entry.content}
+                  date={entry.date}
+                  author={entry.author}
+                />
+              ))}
       </StyledContainer>
 
       <CommentSection>
