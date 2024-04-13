@@ -28,7 +28,7 @@ public class CommandLineAppStartupRunner implements CommandLineRunner {
   public void run(String... args) throws Exception {
     if (
       userRepository
-        .getReferenceById(100000001)
+        .getByUsername("admin")
         .getUserPassword()
         .equalsIgnoreCase("admin")
     ) {
