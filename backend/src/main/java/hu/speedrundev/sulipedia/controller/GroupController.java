@@ -1,5 +1,6 @@
 package hu.speedrundev.sulipedia.controller;
 
+import hu.speedrundev.sulipedia.dto.group.GetGroupWithID;
 import hu.speedrundev.sulipedia.dto.group.GetGroupWithUsers;
 import hu.speedrundev.sulipedia.dto.group.GroupList;
 import hu.speedrundev.sulipedia.dto.group.GroupUserPutterResponse;
@@ -98,5 +99,17 @@ public class GroupController {
       userId,
       jwt.substring("Bearer".length()).trim()
     );
+  }
+
+  @Operation(
+    summary = "Delete on group from DB by ID",
+    description = "Az adatbázisban eltárolt csoport kitörlése ID alapján"
+  )
+  @DeleteMapping("/group/{id}")
+  public GetGroupWithID deleteGroup(
+    @PathVariable Integer id,
+    @RequestHeader(name = "Authorization") String jwt
+  ) {
+    return service.deleteGroup(id, jwt.substring("Bearer".length()).trim());
   }
 }

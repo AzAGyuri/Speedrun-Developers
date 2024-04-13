@@ -2,6 +2,7 @@ package hu.speedrundev.sulipedia.service;
 
 import static hu.speedrundev.sulipedia.util.ExceptionUtils.*;
 
+import hu.speedrundev.sulipedia.dto.group.GetGroupWithID;
 import hu.speedrundev.sulipedia.dto.group.GetGroupWithUsers;
 import hu.speedrundev.sulipedia.dto.group.GroupList;
 import hu.speedrundev.sulipedia.dto.group.GroupUserPutterResponse;
@@ -182,5 +183,35 @@ public class GroupService {
     groupToRemoveFrom.setUsers(removedUsers);
 
     return new GetGroupWithUsers(groupToRemoveFrom);
+  }
+
+  public GetGroupWithID deleteGroup(Integer id, String token) {
+    if (id == null || token == null) throw nullPointer();
+
+    if (!groupRepository.existsById(id)) throw modelNotFound("GROUP_NOT_FOUND");
+
+    Optional<User> deleter = userRepository.findByUsername(
+      jwtUtil.getSubject(token)
+    );
+
+    if (deleter.isEmpty()) throw modelNotFound("USER_NOT_FOUND");
+
+    User realDeleter = deleter.get();
+    Group deletingGroup = groupRepository.getReferenceById(id);
+
+    if (
+      deletingGroup.getCreator().getId() != realDeleter.getId()
+    ) throw noYouDont("USER_REQUESTING_GROUP_DELETE_IS_NOT_CREATOR");
+
+    Set<User> emptyUserList = deletingGroup.getUsers();
+    emptyUserList.remove(realDeleter);
+    if (!emptyUserList.isEmpty()) throw badRequest(
+      "GROUP_REQUESTED_FOR_DELETION_IS_NOT_EMPTY"
+    );
+
+    realDeleter.getJoinedGroups().remove(deletingGroup);
+    groupRepository.delete(deletingGroup);
+
+    return new GetGroupWithID(deletingGroup);
   }
 }
