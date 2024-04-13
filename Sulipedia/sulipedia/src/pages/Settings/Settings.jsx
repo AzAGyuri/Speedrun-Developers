@@ -18,6 +18,7 @@ import BadgeIcon from "@mui/icons-material/Badge";
 import InputAdornment from "@mui/material/InputAdornment";
 import LocalPhoneIcon from "@mui/icons-material/LocalPhone";
 import { useNavigate } from "react-router-dom";
+import { border } from "@mui/system";
 
 const styles = {
   container: {
@@ -229,6 +230,7 @@ export function Settings({ children, setIsLoading, isLoading, jwt }) {
             </Grid>
             <Grid item xs={12}>
               <TextField
+              style={{background:"#acc7f2",borderRight:"2px solid black",borderLeft:"2px solid black",borderBottom:"2px solid black"}}
                 InputProps={{
                   startAdornment: (
                     <InputAdornment position="start">
@@ -247,6 +249,7 @@ export function Settings({ children, setIsLoading, isLoading, jwt }) {
             </Grid>
             <Grid item xs={12}>
               <TextField
+              style={{background:"#acc7f2",borderRight:"2px solid black",borderLeft:"2px solid black",borderBottom:"2px solid black"}}
                 InputProps={{
                   startAdornment: (
                     <InputAdornment position="start">
@@ -271,6 +274,7 @@ export function Settings({ children, setIsLoading, isLoading, jwt }) {
             </Grid>
             <Grid item xs={12}>
               <TextField
+              style={{background:"#acc7f2", borderRight:"2px solid black",borderLeft:"2px solid black",borderBottom:"2px solid black"}}
                 InputProps={{
                   startAdornment: (
                     <InputAdornment position="start">
@@ -289,6 +293,7 @@ export function Settings({ children, setIsLoading, isLoading, jwt }) {
             </Grid>
             <Grid item xs={12}>
               <TextField
+              style={{background:"#acc7f2", borderRight:"2px solid black",borderLeft:"2px solid black",borderBottom:"2px solid black"}}
                 fullWidth
                 name="password"
                 label="Jelszó megváltoztatása"

@@ -19,6 +19,7 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
   },
   [`&.${tableCellClasses.body}`]: {
     fontSize: 14,
+    border:"1px solid black"
   },
 }));
 
@@ -27,7 +28,7 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
     backgroundColor: theme.palette.action.hover,
   },
   "&:last-child td, &:last-child th": {
-    border: 0,
+    border:"1px solid black"
   },
 }));
 

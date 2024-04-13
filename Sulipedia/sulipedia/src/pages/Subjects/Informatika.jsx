@@ -9,8 +9,11 @@ import {
   ListItemText,
   Button,
   Tooltip,
+
+  Box,
+  Modal,
 } from "@mui/material";
-import { styled } from "@mui/system";
+import { height, styled } from "@mui/system";
 import MenuIcon from "@mui/icons-material/Menu";
 import DeleteIcon from "@mui/icons-material/Delete";
 import axios from "axios";
@@ -176,6 +179,7 @@ export function Informatika({ children, jwt }) {
   const [entries, setEntries] = React.useState([]);
   const dummyDataForEntrie = [
     {
+      id: 1,
       title: "Algoritmusok és Adatszerkezetek",
       content:
         "Az algoritmusok és adatszerkezetek kulcsfontosságú fogalmak az informatikában. Az algoritmusok hatékony megvalósítása és az optimális adatszerkezetek kiválasztása lehetővé teszi az informatikai problémák hatékony megoldását.",
@@ -184,6 +188,7 @@ export function Informatika({ children, jwt }) {
       category: "ICT",
     },
     {
+      id: 2,
       title: "Felhőalapú Számítástechnika",
       content:
         "A felhőalapú számítástechnika forradalmasította az informatikát. Az egyre növekvő számú vállalat és felhasználó számára biztosítja az adatok tárolását, szolgáltatásokat és alkalmazásokat a világhálón keresztül.",
@@ -192,6 +197,7 @@ export function Informatika({ children, jwt }) {
       category: "ICT",
     },
     {
+      id: 3,
       title: "Kiberbiztonság és Hálózatbiztonság",
       content:
         "A kiberbiztonság és hálózatbiztonság napjainkban kulcsfontosságú területe az informatikának. Az internetes fenyegetések és a számítógépes bűnözés elleni védelem elengedhetetlen a biztonságos online környezet megteremtéséhez.",
@@ -200,6 +206,7 @@ export function Informatika({ children, jwt }) {
       category: "ICT",
     },
     {
+      id: 4,
       title: "Adattudomány és Nagy Adat",
       content:
         "Az adattudomány és a nagy adat elemzésének képességei forradalmasítják az üzleti és tudományos területeket egyaránt. Az adatokból való értelmezés lehetővé teszi a trendek felismerését és a jövőbeli döntések meghozatalát.",
@@ -208,6 +215,7 @@ export function Informatika({ children, jwt }) {
       category: "ICT",
     },
     {
+      id: 5,
       title: "Mesterséges Intelligencia és Gépi Tanulás",
       content:
         "A mesterséges intelligencia és a gépi tanulás területei forradalmasítják az informatikát. Az olyan alkalmazások, mint az autonóm járművek és a nyelvi felismerés, az MI és a gépi tanulás legújabb fejlesztéseinek eredményei.",
@@ -220,6 +228,16 @@ export function Informatika({ children, jwt }) {
   const [comments, setComments] = React.useState([]);
   const [newComment, setNewComment] = React.useState("");
   const [searchValue, setSearchValue] = React.useState("");
+
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+  const [selectedEntry, setSelectedEntry] = React.useState(null);
+  const handleEntryClick = (entry) => {
+    setSelectedEntry(entry);
+    handleOpen(); 
+  };
+
 
   const handleCommentChange = (event) => {
     setNewComment(event.target.value);
@@ -251,31 +269,17 @@ export function Informatika({ children, jwt }) {
       });
   };
   const handleCommentSubmit = () => {
-    const backendUrl = "/comment";
-    const requestBody = {
+    axios.post('/comment', {
       content: newComment,
-      entryId: 0,
-    };
-    axios
-      .post(backendUrl, requestBody, {
-        headers: { Authorization: localStorage.getItem("jwt") },
-      })
-      .then((response) => {
-        const newComments = [
-          ...comments,
-          {
-            content: newComment,
-            author: "Felhasználó",
-            date: new Date().toLocaleDateString(),
-          },
-        ];
-        setComments(newComments);
-        setNewComment("");
-      })
-      .catch((error) => {
-        console.error("Error submitting comment:", error);
-        alert("Hiba a komment elküldésekor", error);
-      });
+      entryId: selectedEntry.id
+    }, { headers: { Authorization: localStorage.getItem("jwt") } })
+    .then(function (response) {
+      console.log('Response:', response.data);
+    })
+    .catch(function (error) {
+      console.error('Error submitting comment:', error);
+      alert('Hiba a komment elküldésekor', error);
+    });
   };
 
   const handleCommentDelete = (index) => {
@@ -377,56 +381,101 @@ export function Informatika({ children, jwt }) {
 
       <StyledContainer style={{ backgroundColor: "#ccc" }}>
         <Title variant="h3">Informatikai bejegyzések</Title>
-        {selectedAuthor === null
-          ? entries.map((entry, index) => (
+        {selectedAuthor === null ? (
+          entries.map((entry, index) => (
+          <Entry
+            key={index}
+            id={entry.id} // Pass the id prop here
+            title={entry.title}
+            content={entry.content}
+            date={entry.createdOn}
+            author={entry.author}
+            handleEntryClick={handleEntryClick}
+          />
+
+          ))
+        ) : (
+          entries
+            .filter((entry) => entry.author === selectedAuthor)
+            .map((entry, index) => (
               <Entry
                 key={index}
+                id={entry.id} // Pass the id prop here
                 title={entry.title}
                 content={entry.content}
                 date={entry.createdOn}
                 author={entry.author}
+                handleEntryClick={handleEntryClick}
               />
+
             ))
-          : entries
-              .filter((entry) => entry.author === selectedAuthor)
-              .map((entry, index) => (
-                <Entry
-                  key={index}
-                  title={entry.title}
-                  content={entry.content}
-                  date={entry.createdOn}
-                  author={entry.author}
-                />
-              ))}
+        )}
       </StyledContainer>
 
-      <CommentSection>
-        <CommentHeader>Vélemények és hozzászólások</CommentHeader>
-        <CommentInput
-          placeholder="Mit gondolsz a tananyagról?..."
-          value={newComment}
-          onChange={handleCommentChange}
-        />
-        <CommentButton variant="contained" onClick={handleCommentSubmit}>
-          Hozzászólás küldése
-        </CommentButton>
-        {comments.map((comment, index) => (
-          <Comment key={index}>
-            <CommentContent>{comment.content}</CommentContent>
-            <div>
-              <CommentAuthor>{comment.author}</CommentAuthor>
-              <CommentDate>{comment.createdOn}</CommentDate>
-              <IconButton
-                edge="end"
-                color="inherit"
-                onClick={() => handleCommentDelete(index)}
-              >
-                <DeleteIcon />
-              </IconButton>
-            </div>
-          </Comment>
-        ))}
-      </CommentSection>
+      {selectedEntry && (
+        <div>
+          <Button onClick={handleOpen}>Open modal</Button>
+          <Modal
+              open={open}
+              onClose={handleClose}
+              aria-labelledby="modal-modal-title"
+              aria-describedby="modal-modal-description"
+            >
+              <Box sx={{
+                ...style,
+                backgroundColor: "#4b8efa",
+              }}>
+                <Button
+                  edge="end"
+                  color="error"
+                  variant="contained"
+                  onClick={handleClose}
+                  style={{ position: 'absolute', top: 0, right: 0, marginTop: '5px', marginRight: '5px' }}
+                >
+                  X
+                </Button>
+
+                <StyledContainer style={{ backgroundColor: "#4caf50" }}>
+                  <Title variant="h4">{selectedEntry.title}</Title>
+                  <LargeText style={{paddingBottom: "5px"}}>{selectedEntry.content}</LargeText>
+                  <div style={{ display: "flex", justifyContent: "space-between", width: "100%", borderTop: "2px solid #2f3826", marginTop: "auto", paddingRight: "16px", paddingLeft: "16px", paddingTop: "5px" }}>
+                    <Typography variant="body2" style={{ padding: "7px 5px", backgroundColor: "#ba8d63", borderRadius: "8px", color: "#fff", fontWeight: "bold" }}>{new Date(selectedEntry.createdOn).toLocaleDateString()}</Typography>
+                    <Typography variant="body2" style={{ padding: "7px 4px", backgroundColor: "#6384ba", borderRadius: "8px", color: "#fff", fontWeight: "bold", marginLeft: "10px" }}>{selectedEntry.author}</Typography>
+                  </div>
+                </StyledContainer>
+
+                <CommentSection>
+                  <CommentHeader>Vélemények és hozzászólások</CommentHeader>
+                  <CommentInput
+                    placeholder="Mit gondolsz a tananyagról?..."
+                    value={newComment}
+                    onChange={handleCommentChange}
+                  />
+                  <CommentButton variant="contained" onClick={handleCommentSubmit} style={{marginLeft: '3px', marginBottom: '3px'}}>
+                    Hozzászólás küldése
+                  </CommentButton>
+                  {comments.map((comment, index) => (
+                    <Comment key={index}>
+                      <CommentContent>{comment.content}</CommentContent>
+                      <div>
+                        <CommentAuthor>{comment.author}</CommentAuthor>
+                        <CommentDate>{comment.createdOn}</CommentDate>
+                        <IconButton
+                          edge="end"
+                          color="inherit"
+                          onClick={() => handleCommentDelete(index)}
+                        >
+                          <DeleteIcon />
+                        </IconButton>
+                      </div>
+                    </Comment>
+                  ))}
+                </CommentSection>
+              </Box>
+            </Modal>
+        </div>
+      )}
+
     </>
   );
 }
