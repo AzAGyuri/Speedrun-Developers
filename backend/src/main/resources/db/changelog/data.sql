@@ -1,4 +1,6 @@
-alter database schoolpedia collate = 'utf8mb4_hungarian_ci';
+alter database schoolpedia
+    character set 'utf8mb4'
+    collate 'utf8mb4_hungarian_ci';
 
 CREATE TABLE
     IF NOT EXISTS specialization (id varchar(50) primary key not null);
