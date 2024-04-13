@@ -235,6 +235,7 @@ export function Tortenelem({ children }) {
   );
   const [comments, setComments] = React.useState([]);
   const [newComment, setNewComment] = React.useState("");
+  const [searchValue, setSearchValue] = React.useState("");
 
   const handleCommentChange = (event) => {
     setNewComment(event.target.value);
@@ -314,30 +315,48 @@ export function Tortenelem({ children }) {
           <MenuIcon />
         </StyledDrawerButton>
       </Tooltip>
-
       <StyledDrawer
-        anchor="left"
-        open={drawerOpen}
-        onClose={() => setDrawerOpen(false)}
-      >
-        <StyledList>
-          <StyledAllAuthorsListItem onClick={() => setSelectedAuthor(null)}>
-            <ListItemText primary="Minden közzétevő" />
-          </StyledAllAuthorsListItem>
-          {entries
-            .reduce((authors, entry) => {
-              if (!authors.includes(entry.author)) {
-                authors.push(entry.author);
-              }
-              return authors;
-            }, [])
-            .map((author, index) => (
-              <StyledListItem key={index} onClick={() => setSelectedAuthor(author)}>
-                <ListItemText primary={author} />
-              </StyledListItem>
-            ))}
-        </StyledList>
-      </StyledDrawer>
+  anchor="left"
+  open={drawerOpen}
+  onClose={() => setDrawerOpen(false)}
+>
+  <div style={{ padding: "16px", backgroundColor: "#333", borderBottom: "1px solid #555" }}>
+    <input
+      type="text"
+      value={searchValue}
+      onChange={(e) => setSearchValue(e.target.value)}
+      placeholder="Közzétevő keresése..."
+      style={{ 
+        padding: "8px 16px",
+        borderRadius: "20px",
+        border: "2px solid #4caf50",
+        width: "calc(100% - 32px)",
+        color: "#333",
+        backgroundColor: "#fff",
+        fontSize: "1.2rem",
+        outline: "none",
+      }}
+    />
+  </div>
+  <StyledList>
+    <StyledAllAuthorsListItem onClick={() => handleAllAuthorsSelect()}>
+      <ListItemText primary="Minden közzétevő" />
+    </StyledAllAuthorsListItem>
+    {entries
+      .reduce((authors, entry) => {
+        if (!authors.includes(entry.author)) {
+          authors.push(entry.author);
+        }
+        return authors;
+      }, [])
+      .filter(author => author.toLowerCase().includes(searchValue.toLowerCase()))
+      .map((author, index) => (
+        <StyledListItem key={index} onClick={() => handleAuthorSelect(author)}>
+          <ListItemText primary={author} />
+        </StyledListItem>
+      ))}
+  </StyledList>
+</StyledDrawer>
 
 
       <StyledContainer style={{ backgroundColor: "#ccc" }}>
