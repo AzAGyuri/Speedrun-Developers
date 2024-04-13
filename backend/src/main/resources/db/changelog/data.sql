@@ -1,6 +1,6 @@
-alter database schoolpedia
-    character set 'utf8mb4'
-    collate 'utf8mb4_hungarian_ci';
+alter database schoolpedia character
+set
+    'utf8mb4' collate 'utf8mb4_hungarian_ci';
 
 CREATE TABLE
     IF NOT EXISTS specialization (id varchar(50) primary key not null);
@@ -161,13 +161,14 @@ CREATE TABLE
         FOREIGN KEY (entry_id) REFERENCES entries (id) ON DELETE CASCADE ON UPDATE CASCADE
     ) AUTO_INCREMENT = 600000001;
 
-INSERT IGNORE INTO registered_users (
-    created_on,
-    username,
-    user_password,
-    email,
-    random_avatar_bg_color
-)
+INSERT INTO
+    registered_users (
+        created_on,
+        username,
+        user_password,
+        email,
+        random_avatar_bg_color
+    )
 values
     (
         NOW (),
@@ -273,17 +274,53 @@ values
         "theworldinyourhand1",
         "sophiagarcia@gmail.es",
         ""
+    ),
+    (
+        NOW (),
+        'Michael Johnson',
+        'Password1',
+        'michaeljohnson@example.com',
+        ''
+    ),
+    (
+        NOW (),
+        'David Wilson',
+        'P@ssw0rd2',
+        'davidwilson@example.com',
+        ''
+    ),
+    (
+        NOW (),
+        'Sarah Parker',
+        'Pass1234',
+        'sarahparker@example.com',
+        ''
+    ),
+    (
+        NOW (),
+        'Adam Taylor',
+        'P@ssword5',
+        'adamtaylor@example.com',
+        ''
+    ),
+    (
+        NOW (),
+        'Rachel Brown',
+        'Pass6789',
+        'rachelbrown@example.com',
+        ''
     );
 
-INSERT IGNORE INTO entries (
-    title,
-    content,
-    kept,
-    test,
-    created_on,
-    subject_name,
-    author_id
-)
+INSERT INTO
+    entries (
+        title,
+        content,
+        kept,
+        test,
+        created_on,
+        subject_name,
+        author_id
+    )
 values
     (
         "Algebrai kifejezések",
@@ -382,7 +419,7 @@ values
         0,
         NOW (),
         'ICT',
-        100000001
+        100000016
     ),
     (
         "Felhőalapú Számítástechnika",
@@ -391,7 +428,7 @@ values
         0,
         NOW (),
         'ICT',
-        100000001
+        100000017
     ),
     (
         "Kiberbiztonság és Hálózatbiztonság",
@@ -400,7 +437,7 @@ values
         0,
         NOW (),
         'ICT',
-        100000001
+        100000018
     ),
     (
         "Adattudomány és Nagy Adat",
@@ -409,7 +446,7 @@ values
         0,
         NOW (),
         'ICT',
-        100000001
+        100000016
     ),
     (
         "Mesterséges Intelligencia és Gépi Tanulás",
@@ -418,10 +455,146 @@ values
         0,
         NOW (),
         'ICT',
-        100000001
+        100000018
+    ),
+    (
+        "Petőfi Sándor élete és művei",
+        "Petőfi Sándor a magyar irodalom kiemelkedő alakja, költői öröksége mély nyomot hagyott a magyar irodalmi kánonban.",
+        0,
+        0,
+        NOW (),
+        'HUNGARIAN',
+        100000016
+    ),
+    (
+        "A Jókai-regények világa",
+        "Jókai Mór regényeinek jelentősége és hatása a magyar irodalomra kiemelkedő.",
+        0,
+        0,
+        NOW (),
+        'HUNGARIAN',
+        100000017
+    ),
+    (
+        "Az Áprily-regények és novellák",
+        "Áprily Lajos műveinek sokszínűsége és irodalmi értéke elismerést váltott ki a kortársak körében.",
+        0,
+        0,
+        NOW (),
+        'HUNGARIAN',
+        100000017
+    ),
+    (
+        "A magyar költészet aranykora",
+        "A romantika és a szimbolizmus jelentős költői és alkotásai meghatározóak a magyar költészeti kánonban.",
+        0,
+        0,
+        NOW (),
+        'HUNGARIAN',
+        100000016
+    ),
+    (
+        "A XX. századi magyar drámaírás",
+        "Az újító drámaírók és a kortárs magyar dráma jellegzetességei sokszínűséget hoztak a magyar dráma műfajába.",
+        0,
+        0,
+        NOW (),
+        'HUNGARIAN',
+        100000018
+    ),
+    (
+        "A prímszámok világa",
+        "A prímszámok fontos szerepet játszanak a matematikában, és számos alkalmazása van a való életben is.",
+        0,
+        0,
+        NOW (),
+        'MATHS',
+        100000019
+    ),
+    (
+        "Az algebra alapjai",
+        "Az alapvető algebrai műveletek és fogalmak megértése elengedhetetlen a matematikai tudás elsajátításához.",
+        0,
+        0,
+        NOW (),
+        'MATHS',
+        100000020
+    ),
+    (
+        "A geometria varázslata",
+        "A geometriai alakzatok és tulajdonságaik megértése segít abban, hogy jobban értsük a térbeli viszonyokat.",
+        0,
+        0,
+        NOW (),
+        'MATHS',
+        100000020
+    ),
+    (
+        "A differenciálszámítás alapjai",
+        "A differenciálszámítás alapfogalmai és szabályai fontosak a matematikai analízis megértéséhez.",
+        0,
+        0,
+        NOW (),
+        'MATHS',
+        100000019
+    ),
+    (
+        "A valószínűségszámítás alapjai",
+        "A valószínűségszámítás fontossága és alkalmazása kiterjed az üzleti analitikától az alkalmazott matematikáig.",
+        0,
+        0,
+        NOW (),
+        'MATHS',
+        100000018
+    ),
+    (
+        "Exploring Quantum Mechanics",
+        "Understanding the fundamental principles of quantum mechanics opens doors to exploring the mysteries of the quantum world.",
+        0,
+        0,
+        NOW (),
+        'TECHNICAL_ENGLISH',
+        100000016
+    ),
+    (
+        "Introduction to Data",
+        "Basic concepts and techniques in data management and analysis are crucial for understanding modern technologies.",
+        0,
+        0,
+        NOW (),
+        'TECHNICAL_ENGLISH',
+        100000017
+    ),
+    (
+        "Advancements in Artificial Intelligence",
+        "Recent developments and applications of artificial intelligence are transforming various industries and aspects of our daily lives.",
+        0,
+        0,
+        NOW (),
+        'TECHNICAL_ENGLISH',
+        100000017
+    ),
+    (
+        "Fundamentals of Cryptography",
+        "Understanding encryption techniques and cryptographic protocols is essential for securing sensitive information in digital communication.",
+        0,
+        0,
+        NOW (),
+        'TECHNICAL_ENGLISH',
+        100000016
+    ),
+    (
+        "Theoretical Foundations of Computer Networks",
+        "Key concepts and models in computer networking provide the theoretical framework for understanding how data is transmitted and exchanged in modern networks.",
+        0,
+        0,
+        NOW (),
+        'TECHNICAL_ENGLISH',
+        100000018
     );
 
-INSERT IGNORE INTO school_groups (group_name, creator_id)
+INSERT INTO
+    school_groups (group_name, creator_id)
 values
     ('Szakmai Angol 2/14B', 100000001),
     ('Magyar nyelv 12D', 100000001),
@@ -431,7 +604,8 @@ values
     ('Gigachad (Backend) 2/14B', 100000001),
     ('2_14b_frontend', 100000001);
 
-INSERT IGNORE INTO group_specialization (group_id, specialization)
+INSERT INTO
+    group_specialization (group_id, specialization)
 values
     (700000001, 'IT'),
     (700000002, 'IT'),
@@ -444,7 +618,8 @@ values
     (700000006, 'IT'),
     (700000007, 'IT');
 
-INSERT IGNORE INTO grouped_user (user_id, group_id)
+INSERT INTO
+    grouped_user (user_id, group_id)
 values
     (100000001, 700000001),
     (100000001, 700000002),
@@ -476,7 +651,8 @@ values
     (100000014, 700000005),
     (100000015, 700000005);
 
-INSERT IGNORE INTO question (content, entry_id)
+INSERT INTO
+    question (content, entry_id)
 values
     ('Mennyi 6*6?', 200000001),
     ('Melyik nem matematikai kifejezés?', 200000001),
@@ -547,7 +723,8 @@ values
     ('Hogyan mondod angolul: "Mi a neved?"', 200000010),
     ('Hogyan mondod angolul: "Hol laksz?"', 200000010);
 
-INSERT IGNORE INTO answer (correct, content, question_id)
+INSERT INTO
+    answer (correct, content, question_id)
 values
     (1, '36', 400000001),
     (0, '7', 400000001),
