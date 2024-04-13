@@ -97,23 +97,23 @@ const correctCount = Object.keys(answers).reduce((count, questionIndex) => {
 }, 0);
 const percentage = (correctCount / totalQuestions) * 100;
 
-  const testsData = useMemo(
+  const staticTestData = useMemo(
     () => [
       { title: "Algebrai kifejezések", subject: "Matematika" },
       { title: "Geometriai háromszögek", subject: "Matematika" },
-      { title: "Informatikai alapok", subject: "Informatika" },
+      { title: "Informatikai alapok 1", subject: "Informatika" },
+      { title: "Informatikai alapok 2", subject: "Informatika" },
       { title: "Informatikai alapok 3", subject: "Informatika" },
       { title: "Programozási paradigma", subject: "Informatika" },
       { title: "Magyarország történelmi korszakai", subject: "Történelem" },
-      { title: "Szakmai angol szókincs 2", subject: "Szakmai Angol" },
-      { title: "Szakmai angol szókincs 3", subject: "Szakmai Angol" },
-      { title: "Szakmai angol szókincs 1", subject: "Szakmai Angol" },
-      { title: "Informatikai alapok 2", subject: "Informatika" },
+      { title: "Szakmai Angol szókincs 1", subject: "Szakmai Angol" },
+      { title: "Szakmai Angol szókincs 2", subject: "Szakmai Angol" },
+      { title: "Szakmai Angol szókincs 3", subject: "Szakmai Angol" },
     ],
     []
   );
 
-  const questionsAndAnswers = useMemo(
+  const staticQuestionsAndAnswers = useMemo(
     () => ({
       "Algebrai kifejezések": [
         {
@@ -140,7 +140,7 @@ const percentage = (correctCount / totalQuestions) * 100;
         },
       ],
 
-      "Informatikai alapok": [
+      "Informatikai alapok 1": [
         {
           question: "Melyik az alapvető adattípus a JavaScriptben?",
           answers: ["Integer", "String", "Boolean", "Array"],
@@ -151,6 +151,18 @@ const percentage = (correctCount / totalQuestions) * 100;
             "Melyik nyelvet használják leginkább az internetes fejlesztés során?",
           answers: ["Java", "Python", "HTML", "JavaScript"],
           correctAnswer: "JavaScript",
+        },
+      ],
+      "Informatikai alapok 2": [
+        {
+          question: "Melyik a legnépszerűbb programozási nyelv?",
+          answers: ["Python", "Java", "C++", "JavaScript"],
+          correctAnswer: "JavaScript",
+        },
+        {
+          question: "Milyen típusú adattároló a JavaScript-ben a tömb?",
+          answers: ["Sorozat", "Tároló", "Adattábla", "Vektor"],
+          correctAnswer: "Sorozat",
         },
       ],
       "Informatikai alapok 3": [
@@ -195,51 +207,7 @@ const percentage = (correctCount / totalQuestions) * 100;
           correctAnswer: "1526",
         },
       ],
-      "Szakmai angol szókincs 2": [
-        {
-          question: 'Hogyan mondod angolul: "Hol szerezted a tapasztalatod?"',
-          answers: [
-            "Where did you gain experience?",
-            "Where did you gained experience?",
-            "Where you did gain experience?",
-            "Where did gain you experience?",
-          ],
-          correctAnswer: "Where did you gain experience?",
-        },
-        {
-          question: 'Hogyan mondod angolul: "Milyen tapasztalatod van?"',
-          answers: [
-            "What experience do you have?",
-            "What do you experience have?",
-            "What do experience you have?",
-            "What have experience you do?",
-          ],
-          correctAnswer: "What experience do you have?",
-        },
-      ],
-      "Szakmai angol szókincs 3": [
-        {
-          question: 'Hogyan mondod angolul: "Mi a neved?"',
-          answers: [
-            "What is your name?",
-            "What is name you?",
-            "What your name is?",
-            "Your name is what?",
-          ],
-          correctAnswer: "What is your name?",
-        },
-        {
-          question: 'Hogyan mondod angolul: "Hol laksz?"',
-          answers: [
-            "Where do you live?",
-            "Where you live?",
-            "You live where?",
-            "Do you live where?",
-          ],
-          correctAnswer: "Where do you live?",
-        },
-      ],
-      "Szakmai angol szókincs 1": [
+      "Szakmai Angol szókincs 1": [
         {
           question: 'Hogyan mondod angolul: "Mi a szakmai célod?"',
           answers: [
@@ -261,27 +229,59 @@ const percentage = (correctCount / totalQuestions) * 100;
           correctAnswer: "What languages do you speak?",
         },
       ],
-      "Informatikai alapok 2": [
+      "Szakmai Angol szókincs 2": [
         {
-          question: "Melyik a legnépszerűbb programozási nyelv?",
-          answers: ["Python", "Java", "C++", "JavaScript"],
-          correctAnswer: "JavaScript",
+          question: 'Hogyan mondod angolul: "Hol szerezted a tapasztalatod?"',
+          answers: [
+            "Where did you gain experience?",
+            "Where did you gained experience?",
+            "Where you did gain experience?",
+            "Where did gain you experience?",
+          ],
+          correctAnswer: "Where did you gain experience?",
         },
         {
-          question: "Milyen típusú adattároló a JavaScript-ben a tömb?",
-          answers: ["Sorozat", "Tároló", "Adattábla", "Vektor"],
-          correctAnswer: "Sorozat",
+          question: 'Hogyan mondod angolul: "Milyen tapasztalatod van?"',
+          answers: [
+            "What experience do you have?",
+            "What do you experience have?",
+            "What do experience you have?",
+            "What have experience you do?",
+          ],
+          correctAnswer: "What experience do you have?",
+        },
+      ],
+      "Szakmai Angol szókincs 3": [
+        {
+          question: 'Hogyan mondod angolul: "Mi a neved?"',
+          answers: [
+            "What is your name?",
+            "What is name you?",
+            "What your name is?",
+            "Your name is what?",
+          ],
+          correctAnswer: "What is your name?",
+        },
+        {
+          question: 'Hogyan mondod angolul: "Hol laksz?"',
+          answers: [
+            "Where do you live?",
+            "Where you live?",
+            "You live where?",
+            "Do you live where?",
+          ],
+          correctAnswer: "Where do you live?",
         },
       ],
     }),
     []
   );
 
-  const [requestedTestData, setRequestedTestData] = useState([testsData]);
+  const [requestedTestData, setRequestedTestData] = useState(staticTestData);
   const [requestedQuestionsAndAnswers, setRequestedQuestionsAndAnswers] =
-    useState(questionsAndAnswers);
+    useState(staticQuestionsAndAnswers);
 
-  const [filteredTests, setFilteredTests] = useState(testsData);
+  const [filteredTests, setFilteredTests] = useState(staticTestData);
   const calculateGrade = (percentage) => {
     if (percentage < 25) {
       return "1-es";
@@ -312,12 +312,12 @@ const percentage = (correctCount / totalQuestions) * 100;
     }
   }, [filteredTests, selectedSubject]);
 
-  useEffect(()=>{
+  useEffect(() => {
     setTimeout(() => {
       setIsLoading(false);
     }, 300);
-  },[isLoading]);
-  
+  }, [isLoading]);
+
   useEffect(() => {
     axios
       .get("/entry/test", {
@@ -358,10 +358,10 @@ const percentage = (correctCount / totalQuestions) * 100;
           "Hiba történt adat lekérdezéskor. Beépített tesztek megjelenítése",
           error
         );
-        setRequestedTestData(testsData);
-        setRequestedQuestionsAndAnswers(questionsAndAnswers);
+        setRequestedTestData(staticTestData);
+        setRequestedQuestionsAndAnswers(staticQuestionsAndAnswers);
       });
-  }, [setIsLoading, questionsAndAnswers, testsData, jwt]);
+  }, [setIsLoading, staticQuestionsAndAnswers, staticTestData, jwt]);
 
   const reverseGetSubject = (subject) => {
     switch (subject) {
