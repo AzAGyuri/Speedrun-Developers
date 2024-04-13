@@ -88,14 +88,14 @@ export function Tests({ children, setIsLoading, isLoading, jwt }) {
     return correctAnswers[questionIndex] === selectedAnswer;
   };
   const totalQuestions = Object.keys(answers).length;
-const correctCount = Object.keys(answers).reduce((count, questionIndex) => {
-  if (isAnswerCorrect(questionIndex, answers[questionIndex])) {
-    return count + 1;
-  } else {
-    return count;
-  }
-}, 0);
-const percentage = (correctCount / totalQuestions) * 100;
+  const correctCount = Object.keys(answers).reduce((count, questionIndex) => {
+    if (isAnswerCorrect(questionIndex, answers[questionIndex])) {
+      return count + 1;
+    } else {
+      return count;
+    }
+  }, 0);
+  const percentage = (correctCount / totalQuestions) * 100;
 
   const staticTestData = useMemo(
     () => [
@@ -316,7 +316,7 @@ const percentage = (correctCount / totalQuestions) * 100;
     setTimeout(() => {
       setIsLoading(false);
     }, 300);
-  }, [isLoading]);
+  }, [isLoading, setIsLoading]);
 
   useEffect(() => {
     axios
@@ -684,31 +684,33 @@ const percentage = (correctCount / totalQuestions) * 100;
               Eredmények
             </Typography>
             <Typography
-      variant="body1"
-      gutterBottom
-      style={{ color: "#333", textAlign: "center" }}
-    >
-      {`A kitöltött teszt ${percentage.toFixed(2)}%-ban lett helyesen megválaszolva! 
-      Ha ez igazi vizsga lett volna, akkor ${calculateGrade(percentage)} jegyet kaptál volna`}
+              variant="body1"
+              gutterBottom
+              style={{ color: "#333", textAlign: "center" }}
+            >
+              {`A kitöltött teszt ${percentage.toFixed(
+                2
+              )}%-ban lett helyesen megválaszolva! 
+      Ha ez igazi vizsga lett volna, akkor ${calculateGrade(
+        percentage
+      )} jegyet kaptál volna`}
+            </Typography>
+            <LinearProgress
+              variant="determinate"
+              value={percentage}
+              sx={{
+                background: "cyan",
+                borderRadius: "10px",
+                height: "10px",
+                marginBottom: "20px",
+                "& > span": {
+                  backgroundColor: "#FF5733",
+                  borderRadius: "10px",
+                },
+                boxShadow: "0 2px 5px rgba(0, 0, 0, 0.2)",
+              }}
+            />
 
-    </Typography>
-    <LinearProgress
-  variant="determinate"
-  value={percentage}
-  sx={{
-    background: 'cyan', 
-    borderRadius: '10px', 
-    height: '10px', 
-    marginBottom: '20px', 
-    '& > span': {
-      backgroundColor: '#FF5733', 
-      borderRadius: '10px' 
-    },
-    boxShadow: '0 2px 5px rgba(0, 0, 0, 0.2)' 
-  }}
-/>
-
-    
             <List>
               {Object.keys(answers).map((questionIndex) => (
                 <ListItem key={questionIndex}>

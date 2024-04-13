@@ -78,11 +78,11 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
         }
       } catch (ExpiredJwtException ejwte) { //catch the case where the jwt token is found to be expired
         //setup an unauthorized exception response
+
         ExceptionResponse exceptionResponse = new ExceptionResponse(
           new Date(),
           UNAUTHORIZED.value(),
-          UNAUTHORIZED,
-          UNAUTHORIZED.getReasonPhrase().toUpperCase(),
+          UNAUTHORIZED.getReasonPhrase(),
           //format the message
           formatExceptionMessage(
             ejwte.getMessage(),
@@ -92,7 +92,8 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
                 .getHeader(HttpHeaders.AUTHORIZATION)
                 .substring("Bearer".length())
             )
-          )
+          ),
+          request.getServletPath()
         );
 
         response.setContentType(APPLICATION_JSON_VALUE);

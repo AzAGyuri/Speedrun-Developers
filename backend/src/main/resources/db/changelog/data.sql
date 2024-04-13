@@ -1,8 +1,9 @@
+alter database schoolpedia collate = 'utf8mb4_hungarian_ci';
+
 CREATE TABLE
     IF NOT EXISTS specialization (id varchar(50) primary key not null);
 
-INSERT IGNORE INTO
-    specialization (id)
+INSERT IGNORE INTO specialization (id)
 VALUES
     ("ECONOMY"),
     ("MANAGEMENT"),
@@ -11,8 +12,7 @@ VALUES
 CREATE TABLE
     IF NOT EXISTS roles (id varchar(50) PRIMARY KEY NOT NULL);
 
-INSERT IGNORE INTO
-    roles (id)
+INSERT IGNORE INTO roles (id)
 VALUES
     ("ROLE_ADMIN"),
     ("ROLE_TEACHER"),
@@ -21,8 +21,7 @@ VALUES
 CREATE TABLE
     IF NOT EXISTS avail_type (id varchar(50) PRIMARY KEY NOT NULL);
 
-INSERT IGNORE INTO
-    avail_type (id)
+INSERT IGNORE INTO avail_type (id)
 VALUES
     ("DISCORD"),
     ("YOUTUBE"),
@@ -36,8 +35,7 @@ VALUES
 CREATE TABLE
     IF NOT EXISTS subjects (id varchar(50) PRIMARY KEY NOT NULL);
 
-INSERT IGNORE INTO
-    subjects (id)
+INSERT IGNORE INTO subjects (id)
 VALUES
     ("HISTORY"),
     ("HUNGARIAN"),
@@ -161,14 +159,13 @@ CREATE TABLE
         FOREIGN KEY (entry_id) REFERENCES entries (id) ON DELETE CASCADE ON UPDATE CASCADE
     ) AUTO_INCREMENT = 600000001;
 
-INSERT IGNORE INTO
-    registered_users (
-        created_on,
-        username,
-        user_password,
-        email,
-        random_avatar_bg_color
-    )
+INSERT IGNORE INTO registered_users (
+    created_on,
+    username,
+    user_password,
+    email,
+    random_avatar_bg_color
+)
 values
     (
         NOW (),
@@ -276,16 +273,15 @@ values
         ""
     );
 
-INSERT IGNORE INTO
-    entries (
-        title,
-        content,
-        kept,
-        test,
-        created_on,
-        subject_name,
-        author_id
-    )
+INSERT IGNORE INTO entries (
+    title,
+    content,
+    kept,
+    test,
+    created_on,
+    subject_name,
+    author_id
+)
 values
     (
         "Algebrai kifejezések",
@@ -423,8 +419,7 @@ values
         100000001
     );
 
-INSERT IGNORE INTO
-    school_groups (group_name, creator_id)
+INSERT IGNORE INTO school_groups (group_name, creator_id)
 values
     ('Szakmai Angol 2/14B', 100000001),
     ('Magyar nyelv 12D', 100000001),
@@ -434,8 +429,7 @@ values
     ('Gigachad (Backend) 2/14B', 100000001),
     ('2_14b_frontend', 100000001);
 
-INSERT IGNORE INTO
-    group_specialization (group_id, specialization)
+INSERT IGNORE INTO group_specialization (group_id, specialization)
 values
     (700000001, 'IT'),
     (700000002, 'IT'),
@@ -448,8 +442,7 @@ values
     (700000006, 'IT'),
     (700000007, 'IT');
 
-INSERT IGNORE INTO
-    grouped_user (user_id, group_id)
+INSERT IGNORE INTO grouped_user (user_id, group_id)
 values
     (100000001, 700000001),
     (100000001, 700000002),
@@ -481,8 +474,7 @@ values
     (100000014, 700000005),
     (100000015, 700000005);
 
-INSERT IGNORE INTO
-    question (content, entry_id)
+INSERT IGNORE INTO question (content, entry_id)
 values
     ('Mennyi 6*6?', 200000001),
     ('Melyik nem matematikai kifejezés?', 200000001),
@@ -553,8 +545,7 @@ values
     ('Hogyan mondod angolul: "Mi a neved?"', 200000010),
     ('Hogyan mondod angolul: "Hol laksz?"', 200000010);
 
-INSERT IGNORE INTO
-    answer (correct, content, question_id)
+INSERT IGNORE INTO answer (correct, content, question_id)
 values
     (1, '36', 400000001),
     (0, '7', 400000001),

@@ -35,9 +35,11 @@ public class CommandLineAppStartupRunner implements CommandLineRunner {
       userRepository
         .findAll()
         .forEach(user -> {
-          if (user.getUsername() == "admin") user.setRoles(
-            Arrays.asList(Roles.values()).stream().collect(Collectors.toSet())
-          ); else {
+          if (user.getId() == 100000001) {
+            user.setRoles(
+              Arrays.asList(Roles.values()).stream().collect(Collectors.toSet())
+            );
+          } else {
             HashSet<Roles> roles = new HashSet<>();
             roles.add(Roles.ROLE_STUDENT);
             user.setRoles(roles);

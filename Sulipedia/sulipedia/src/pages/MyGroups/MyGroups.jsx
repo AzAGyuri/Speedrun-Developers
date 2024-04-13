@@ -14,6 +14,10 @@ import {
   TextField,
   Button,
   Tooltip,
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem,
 } from "@mui/material";
 import { Delete, Add } from "@mui/icons-material";
 import Stack from "@mui/material/Stack";
@@ -62,7 +66,7 @@ const styles = {
     marginBottom: "auto",
     marginLeft: "auto",
     marginRight: "auto",
-    cursor:"cell  "
+    cursor: "cell  ",
   },
   deleteButton: {
     color: "#fff",
@@ -124,6 +128,7 @@ export function MyGroups({
           { id: 2, name: "Alice Smith" },
           { id: 3, name: "Bob Johnson" },
         ],
+        ownerId: 1,
       },
       {
         id: 2,
@@ -134,6 +139,7 @@ export function MyGroups({
           { id: 5, name: "Michael Wilson" },
           { id: 15, name: "Bob Johnson" },
         ],
+        ownerId: 4,
       },
       {
         id: 3,
@@ -144,6 +150,7 @@ export function MyGroups({
           { id: 7, name: "David Lee" },
           { id: 8, name: "Grace Taylor" },
         ],
+        ownerId: 6,
       },
       {
         id: 4,
@@ -154,6 +161,7 @@ export function MyGroups({
           { id: 10, name: "Sophia Garcia" },
           { id: 11, name: "Daniel Martinez" },
         ],
+        ownerId: 9,
       },
       {
         id: 5,
@@ -164,6 +172,7 @@ export function MyGroups({
           { id: 13, name: "Olivia Wilson" },
           { id: 14, name: "Ethan Thompson" },
         ],
+        ownerId: 12,
       },
     ],
     []
@@ -180,7 +189,7 @@ export function MyGroups({
       { id: 2, name: "Alice Smith" },
       { id: 3, name: "Bob Johnson" },
     ],
-    membersLoaded: true,
+    ownerId: 1,
   });
   const [showAddMemberModal, setShowAddMemberModal] = useState(false);
   const [loaded, setLoaded] = useState(false);
@@ -199,7 +208,7 @@ export function MyGroups({
     setTimeout(() => {
       setIsLoading(false);
     }, 300);
-  }, [isLoading]);
+  }, [isLoading, setIsLoading]);
 
   useEffect(() => {
     axios
@@ -215,6 +224,7 @@ export function MyGroups({
             description: group.descriptionContent,
             members: null,
             color: group.randomAvatarBgColor,
+            ownerId: group.creatorId,
           });
         });
         setGroups(localGroups);
@@ -226,10 +236,7 @@ export function MyGroups({
         setGroups(staticGroups);
         setLoaded(false);
       });
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 300);
-  }, [staticGroups]);
+  }, [staticGroups, currentUserId, jwt]);
 
   const handleOpen = () => {
     setOpen(true);
@@ -244,11 +251,9 @@ export function MyGroups({
     let index = localGroups.findIndex(
       (innerGroup) => innerGroup.id === group.id
     );
-    let timedOut = false;
 
     if (group.members === null) {
       setIsLoading(true);
-      timedOut = true;
       let localMembers = [];
 
       axios
@@ -276,14 +281,7 @@ export function MyGroups({
     }
 
     setSelectedGroup(group);
-
-    if (!timedOut) setShowMembers(true);
-    else {
-      setTimeout(() => {
-        setIsLoading(false);
-        setShowMembers(true);
-      }, 300);
-    }
+    setShowMembers(true);
   };
 
   const handleCloseMembers = () => {
@@ -300,32 +298,103 @@ export function MyGroups({
 
   const [groupName, setGroupName] = useState("");
   const [groupDesc, setGroupDesc] = useState("");
+  const [specializations, setSpecializations] = useState([]);
   const [newMemberName, setNewMemberName] = useState("");
 
   function createNewGroup() {
-    if (!groupName.trim() || !groupDesc.trim()) {
+    if (!groupName.trim() || !groupDesc.trim() || specializations.length == 0) {
       alert(
-        "A csoport nevének és leírásának legalább 1 karakter hosszúnak kell lennie!"
+        "A csoport nevének és leírásának legalább 1 karakter hosszúnak kell lennie, valamint kell legalább egy szakma beállítva legyen!"
       );
       return;
     }
 
     const newGroup = {
-      id: groups.length + 1,
-      name: groupName.trim(),
-      description: groupDesc.trim(),
+      groupName: groupName.trim(),
+      descriptionContent: groupDesc.trim(),
+      specializations: specializations,
     };
 
-    const updatedGroups = [...groups, newGroup];
-    setGroups(updatedGroups);
+    axios
+      .post("/group", newGroup, { headers: { Authorization: jwt } })
+      .then((response) => {
+        setIsLoading(true);
+        const group = response.data;
+
+        const members = [];
+        group.users.users.forEach((member) => {
+          members.push({
+            id: member.id,
+            name: member.username,
+          });
+        });
+
+        let localGroup = {
+          id: group.id,
+          name: group.groupName,
+          description: group.descriptionContent,
+          members: members,
+          color: group.randomAvatarBgColor,
+          ownerId: group.creatorId,
+        };
+        setGroups(groups.concat(localGroup));
+      })
+      .catch((error) => {
+        console.error("Hiba történt csoport létrehozáskor", error);
+      });
+
     handleClose();
     setGroupName("");
     setGroupDesc("");
+    setSpecializations([]);
   }
 
   function deleteGroup(id) {
-    const updatedGroups = groups.filter((group) => group.id !== id);
-    setGroups(updatedGroups);
+    if (
+      groups.filter((group) => group.id === id)[0].ownerId !==
+      Number(currentUserId)
+    ) {
+      alert("Ez a csoport nem az ön készítménye; törlés megtagadva.");
+      return;
+    }
+    axios
+      .delete(`/group/${id}`, { headers: { Authorization: jwt } })
+      .then((response) => {
+        setIsLoading(true);
+        const updatedGroups = groups.filter(
+          (group) => group.id !== response.data.id
+        );
+        setGroups(updatedGroups);
+      })
+      .catch((errResponse) => {
+        const error = errResponse.response.data;
+        console.error("Hiba történt csoport törlése közben", errResponse);
+        switch (error.status) {
+          case 404:
+            alert(
+              "A törlendő felhasználót, vagy a csoport, melyből törlést kell végrehajtani nem találtuk"
+            );
+            break;
+          case 410:
+            alert(
+              "Sajnáljuk, de nem ön a csoport vezetője, így a törlés végrehajtása sikertelen!"
+            );
+            break;
+          case 400:
+            alert(
+              "A törlendő csoport nem üres! Törlés előtt rúgja ki a csapattagokat!"
+            );
+            break;
+          case 401:
+            alert(
+              "Sajnáljuk, de a bejelentkezése érvénytelen. Kérjük jelentkezzen be újból."
+            );
+            break;
+          default:
+            alert("Váratlan hiba történt! Kérjük próbálja meg később");
+            break;
+        }
+      });
   }
 
   const getRandomColor = () => {
@@ -334,38 +403,122 @@ export function MyGroups({
   };
 
   function addMemberToGroup() {
-    if (!newMemberName.trim()) {
-      alert("A tag nevének legalább 1 karakter hosszúnak kell lennie!");
-      return;
-    }
-    const newMember = {
-      id: selectedGroup.members.length + 1,
-      name: newMemberName.trim(),
-    };
-    const updatedGroup = {
-      ...selectedGroup,
-      members: [...selectedGroup.members, newMember],
-    };
-    const updatedGroups = groups.map((group) =>
-      group.id === selectedGroup.id ? updatedGroup : group
-    );
+    setIsLoading(true);
 
-    setGroups(updatedGroups);
-    handleCloseAddMember();
-    handleOpenMembers(updatedGroup);
+    const newMembersNames = [];
+    if (newMemberName.trim().split(",").length === 1) {
+      if (!newMemberName.trim()) {
+        alert("A tag nevének legalább 1 karakter hosszúnak kell lennie!");
+        return;
+      }
+    } else {
+      let newMemberNameWrong = false;
+      newMemberName
+        .trim()
+        .split(",")
+        .forEach((newMemberNameInner) =>
+          newMembersNames.push(newMemberNameInner.trim())
+        );
+      newMembersNames.forEach((newMemberNameInner) => {
+        if (!newMemberNameInner.trim()) {
+          alert("A tag nevének legalább 1 karakter hosszúnak kell lennie!");
+          newMemberNameWrong = true;
+        }
+      });
+      if (newMemberNameWrong) return;
+    }
+
+    if (newMembersNames.length === 0) {
+      newMembersNames.push(newMemberName);
+    }
+
+    const newMembers = [];
+
+    axios
+      .put(`/group/${selectedGroup.id}`, newMembersNames, {
+        headers: { Authorization: jwt },
+      })
+      .then((response) => {
+        const users = response.data.groupWithUsers.users.users;
+        users.forEach((user) => {
+          newMembers.push({
+            id: user.id,
+            name: user.username,
+          });
+        });
+
+        const updatedGroup = {
+          ...selectedGroup,
+          members: [...selectedGroup.members, ...newMembers],
+        };
+        const updatedGroups = groups.map((group) =>
+          group.id === selectedGroup.id ? updatedGroup : group
+        );
+
+        setGroups(updatedGroups);
+        handleCloseAddMember();
+        handleOpenMembers(updatedGroup);
+      })
+      .catch((error) => {
+        console.error("Hiba történt felhasználó hozzáadásakor", error);
+      });
+
     setNewMemberName("");
   }
 
   const handleDeleteMember = (memberId) => {
-    const updatedGroup = {
-      ...selectedGroup,
-      members: selectedGroup.members.filter((member) => member.id !== memberId),
-    };
-    const updatedGroups = groups.map((group) =>
-      group.id === selectedGroup.id ? updatedGroup : group
-    );
-    setGroups(updatedGroups);
-    handleOpenMembers(updatedGroup);
+    setIsLoading(true);
+    let updatedGroup = selectedGroup;
+
+    axios
+      .delete(`/group/${selectedGroup.id}/${memberId}`, {
+        headers: { Authorization: jwt },
+      })
+      .then((response) => {
+        updatedGroup = {
+          ...selectedGroup,
+          members: selectedGroup.members.filter(
+            (member) => member.id !== response.data.users.users[0].id
+          ),
+        };
+        const updatedGroups = groups.map((group) =>
+          group.id === selectedGroup.id ? updatedGroup : group
+        );
+
+        setGroups(updatedGroups);
+        handleOpenMembers(updatedGroup);
+      })
+      .catch((errResponse) => {
+        const error = errResponse.response.data;
+        console.error("Hiba történt felhasználó törlése közben", errResponse);
+        switch (error.status) {
+          case 404:
+            alert(
+              "A törlendő felhasználót, vagy a csoport, melyből törlést kell végrehajtani nem találtuk"
+            );
+            break;
+          case 410:
+            alert(
+              "Sajnáljuk, de nem ön a csoport vezetője, így a törlés végrehajtása sikertelen!"
+            );
+            break;
+          case 400:
+            if (error.message === "USER_NOT_IN_GROUP") {
+              alert("A felhasználó nem található a megadott csoportban!");
+            } else {
+              alert("Sajnáljuk, de a csoport vezető nem törölheti önmagát!");
+            }
+            break;
+          case 401:
+            alert(
+              "Sajnáljuk, de a bejelentkezése érvénytelen. Kérjük jelentkezzen be újból."
+            );
+            break;
+          default:
+            alert("Váratlan hiba történt! Kérjük próbálja meg később");
+            break;
+        }
+      });
   };
 
   if (isLoading) return <Loading />;
@@ -416,16 +569,20 @@ export function MyGroups({
                 />
                 <div style={styles.actions}>
                   <Tooltip title={`${group.name} csoport törlése`}>
-                    <IconButton
-                      color="secondary"
-                      aria-label="delete"
-                      style={styles.deleteButton}
-                      onClick={() => {
-                        deleteGroup(group.id);
-                      }}
-                    >
-                      <Delete sx={{ color: "#d32f2f" }} />
-                    </IconButton>
+                    {group.ownerId === Number(currentUserId) ? (
+                      <IconButton
+                        color="secondary"
+                        aria-label="delete"
+                        style={styles.deleteButton}
+                        onClick={() => {
+                          deleteGroup(group.id);
+                        }}
+                      >
+                        <Delete sx={{ color: "#d32f2f" }} />
+                      </IconButton>
+                    ) : (
+                      <></>
+                    )}
                   </Tooltip>
                 </div>
               </ListItem>
@@ -478,7 +635,6 @@ export function MyGroups({
                   onChange={(e) => setGroupName(e.target.value)}
                 />
               </Box>
-
               <Box
                 component="form"
                 sx={{
@@ -494,6 +650,21 @@ export function MyGroups({
                   onChange={(e) => setGroupDesc(e.target.value)}
                 />
               </Box>
+              <FormControl fullWidth sx={{ marginY: 1 }}>
+                <InputLabel id="demo-simple-select-label">Szakma</InputLabel>
+                <Select
+                  labelId="demo-simple-select-label"
+                  id="demo-simple-select"
+                  multiple
+                  value={specializations}
+                  label="Szakma"
+                  onChange={(e) => setSpecializations(e.target.value)}
+                >
+                  <MenuItem value={"IT"}>Informatika</MenuItem>
+                  <MenuItem value={"ECONOMY"}>Közgazdaság</MenuItem>
+                  <MenuItem value={"MANAGEMENT"}>Ügyvitel</MenuItem>
+                </Select>
+              </FormControl>
             </Typography>
             <Stack direction="row" spacing={2}>
               <Button variant="contained" color="error" onClick={handleClose}>
@@ -531,7 +702,6 @@ export function MyGroups({
                   onChange={(e) => setGroupName(e.target.value)}
                 />
               </Box>
-
               <Box
                 component="form"
                 sx={{
@@ -547,8 +717,26 @@ export function MyGroups({
                   onChange={(e) => setGroupDesc(e.target.value)}
                 />
               </Box>
+              <FormControl fullWidth sx={{ marginY: 1 }}>
+                <InputLabel id="demo-simple-select-label">Szakma</InputLabel>
+                <Select
+                  labelId="demo-simple-select-label"
+                  id="demo-simple-select"
+                  multiple
+                  value={specializations}
+                  label="Szakma"
+                  onChange={(e) => setSpecializations(e.target.value)}
+                >
+                  <MenuItem value={"IT"}>Informatika</MenuItem>
+                  <MenuItem value={"ECONOMY"}>Közgazdaság</MenuItem>
+                  <MenuItem value={"MANAGEMENT"}>Ügyvitel</MenuItem>
+                </Select>
+              </FormControl>
             </Typography>
-            <Stack direction="row" spacing={2}>
+            <Stack
+              direction="row"
+              sx={{ display: "flex", justifyContent: "space-between" }}
+            >
               <Button variant="contained" color="error" onClick={handleClose}>
                 Bezárás
               </Button>
@@ -596,13 +784,17 @@ export function MyGroups({
                 </ListItemAvatar>
                 <ListItemText primary={member.name} />
                 <Tooltip title={`${member.name} kidobása a csoportból`}>
-                  <IconButton
-                    edge="end"
-                    aria-label="delete"
-                    onClick={() => handleDeleteMember(member.id)}
-                  >
-                    <Delete sx={{ color: "#d32f2f" }} />
-                  </IconButton>
+                  {member.id === selectedGroup.ownerId ? (
+                    <></>
+                  ) : (
+                    <IconButton
+                      edge="end"
+                      aria-label="delete"
+                      onClick={() => handleDeleteMember(member.id)}
+                    >
+                      <Delete sx={{ color: "#d32f2f" }} />
+                    </IconButton>
+                  )}
                 </Tooltip>
               </ListItem>
             ))}

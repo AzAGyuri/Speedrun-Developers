@@ -19,7 +19,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class JwtAuthenticationEntryPoint extends Http403ForbiddenEntryPoint {
 
-  private static final String FORBIDDEN_MESSAGE =
+  private static final String UNAUTHORIZED_MESSAGE =
     "You need to log in to access this page";
 
   @Override
@@ -31,9 +31,9 @@ public class JwtAuthenticationEntryPoint extends Http403ForbiddenEntryPoint {
     ExceptionResponse exceptionResponse = new ExceptionResponse(
       new Date(),
       UNAUTHORIZED.value(),
-      UNAUTHORIZED,
-      UNAUTHORIZED.getReasonPhrase().toUpperCase(),
-      FORBIDDEN_MESSAGE
+      UNAUTHORIZED.getReasonPhrase(),
+      UNAUTHORIZED_MESSAGE,
+      request.getServletPath()
     );
 
     response.setContentType(APPLICATION_JSON_VALUE);
