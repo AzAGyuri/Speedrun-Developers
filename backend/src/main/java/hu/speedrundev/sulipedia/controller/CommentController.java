@@ -4,6 +4,7 @@ import hu.speedrundev.sulipedia.dto.comment.CommentList;
 import hu.speedrundev.sulipedia.dto.comment.GetCommentWithID;
 import hu.speedrundev.sulipedia.dto.comment.PostComment;
 import hu.speedrundev.sulipedia.service.CommentService;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -30,14 +31,21 @@ public class CommentController {
   @Autowired
   private CommentService service;
 
+  @Operation(
+    summary = "Get comments for a given entry based on ID",
+    description = "Az adatbázisban tárolt bejegyzéshez tartozó kommentek lekérése azon bejegyzés azonosítója alapján"
+  )
   @GetMapping("/comment")
-  public CommentList getCommentsByOptionalEntryAndAuthorId(
-    @RequestParam(name = "entryId", required = false) Integer entryId,
-    @RequestParam(name = "authorId", required = false) Integer authorId
+  public CommentList getCommentsByOptionalEntryId(
+    @RequestParam(name = "entryId", required = false) Integer entryId
   ) {
-    return service.getCommentsByOptionalEntryAndAuthorId(entryId, authorId);
+    return service.getCommentsByOptionalEntryId(entryId);
   }
 
+  @Operation(
+    summary = "Create a comment and save it in the database",
+    description = "Egy új komment létrehozása az adatbázisban a megadott bejegyzéshez"
+  )
   @PostMapping("/comment")
   public GetCommentWithID createComment(
     @RequestBody PostComment comment,
@@ -49,6 +57,10 @@ public class CommentController {
     );
   }
 
+  @Operation(
+    summary = "Delete a comment from DB by ID",
+    description = "Az adatbázisban tárolt adott komment törlése ID alapján"
+  )
   @DeleteMapping("/comment/{id}")
   public boolean deleteComment(@PathVariable Integer id) {
     return service.deleteComment(id);

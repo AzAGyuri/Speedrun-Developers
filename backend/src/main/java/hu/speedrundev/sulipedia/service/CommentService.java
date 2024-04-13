@@ -1,5 +1,6 @@
 package hu.speedrundev.sulipedia.service;
 
+import static hu.speedrundev.sulipedia.util.ExceptionUtils.badRequest;
 import static hu.speedrundev.sulipedia.util.ExceptionUtils.modelNotFound;
 import static hu.speedrundev.sulipedia.util.ExceptionUtils.nullPointer;
 
@@ -29,32 +30,24 @@ public class CommentService {
   @Autowired
   private JwtUtil jwtUtil;
 
-  public CommentList getCommentsByOptionalEntryAndAuthorId(
-    Integer entryId,
-    Integer authorId
-  ) {
-    if (entryId == null && authorId == null) return new CommentList(
+  public CommentList getCommentsByOptionalEntryId(Integer entryId) {
+    if (entryRepository.getReferenceById(entryId).getTest()) throw badRequest(
+      "COMMENTS_REQUESTED_FOR_ENTRY_IS_TEST"
+    );
+
+    if (entryId == null) return new CommentList(
       commentRepository
         .findAll()
         .stream()
-        .filter(comment -> comment.getAuthor().getDeleted() != true)
+        .filter(comment -> comment.getAuthor().getDeleted() == null)
         .toList()
     );
-    if (entryId == null && authorId != null) return new CommentList(
-      commentRepository
-        .findAllByAuthorId(authorId)
-        .stream()
-        .filter(comment -> comment.getAuthor().getDeleted() != true)
-        .toList()
-    );
-    if (authorId == null && entryId != null) return new CommentList(
-      commentRepository.findAllByEntryId(entryId)
-    );
+    
     return new CommentList(
       commentRepository
-        .findAllByEntryAndAuthorId(entryId, authorId)
+        .findAllByEntryId(entryId)
         .stream()
-        .filter(comment -> comment.getAuthor().getDeleted() != true)
+        .filter(comment -> comment.getAuthor().getDeleted() == null)
         .toList()
     );
   }
