@@ -130,4 +130,58 @@ public class GroupService {
       usernamesNotFound
     );
   }
+
+  public GetGroupWithUsers deleteUserFromGroup(
+    Integer groupId,
+    Integer userId,
+    String token
+  ) {
+    if (groupId == null || userId == null || token == null) throw nullPointer();
+
+    if (!groupRepository.existsById(groupId)) throw modelNotFound(
+      "GROUP_NOT_FOUND"
+    );
+
+    Optional<User> remover = userRepository.findByUsername(
+      jwtUtil.getSubject(token)
+    );
+
+    if (
+      !userRepository.existsById(userId) || remover.isEmpty()
+    ) throw modelNotFound("USER_NOT_FOUND");
+
+    Group groupToRemoveFrom = groupRepository.getReferenceById(groupId);
+
+    if (
+      groupToRemoveFrom
+        .getUsers()
+        .stream()
+        .filter(user -> user.getId() == userId.intValue())
+        .findAny()
+        .isEmpty()
+    ) throw badRequest("USER_NOT_IN_GROUP");
+
+    User realRemover = remover.get();
+    User removingUser = userRepository.getReferenceById(userId);
+    Set<User> removedUsers = new HashSet<>();
+    removedUsers.add(removingUser);
+
+    if (
+      groupToRemoveFrom.getCreator().getId() != realRemover.getId()
+    ) throw noYouDont("USER_REQUESTING_REMOVAL_IS_NOT_GROUP_CREATOR");
+
+    if (
+      groupToRemoveFrom.getCreator().getId() == removingUser.getId()
+    ) throw badRequest("USER_REQUESTING_REMOVAL_IS_GROUP_CREATOR");
+
+    removingUser.getJoinedGroups().remove(groupToRemoveFrom);
+    groupToRemoveFrom.getUsers().remove(removingUser);
+
+    groupToRemoveFrom = groupRepository.save(groupToRemoveFrom);
+    userRepository.save(removingUser);
+
+    groupToRemoveFrom.setUsers(removedUsers);
+
+    return new GetGroupWithUsers(groupToRemoveFrom);
+  }
 }
