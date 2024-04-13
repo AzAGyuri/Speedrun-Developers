@@ -2,7 +2,6 @@ package hu.speedrundev.sulipedia.service;
 
 import static hu.speedrundev.sulipedia.util.ExceptionUtils.*;
 
-import hu.speedrundev.sulipedia.dto.group.GetGroupWithID;
 import hu.speedrundev.sulipedia.dto.group.GetGroupWithUsers;
 import hu.speedrundev.sulipedia.dto.group.GroupList;
 import hu.speedrundev.sulipedia.dto.group.GroupUserPutterResponse;
@@ -44,7 +43,7 @@ public class GroupService {
     return new GetGroupWithUsers(groupRepository.getReferenceById(id));
   }
 
-  public GetGroupWithID createGroup(PostGroup group, String token) {
+  public GetGroupWithUsers createGroup(PostGroup group, String token) {
     if (group == null) throw nullPointer();
 
     Optional<User> creator = userRepository.findByUsername(
@@ -69,7 +68,7 @@ public class GroupService {
       realCreator.getJoinedGroups().add(createdGroup);
     }
 
-    return new GetGroupWithID(groupRepository.save(createdGroup));
+    return new GetGroupWithUsers(groupRepository.save(createdGroup));
   }
 
   public GroupUserPutterResponse putUserIntoGroup(

@@ -1,6 +1,5 @@
 package hu.speedrundev.sulipedia.controller;
 
-import hu.speedrundev.sulipedia.dto.group.GetGroupWithID;
 import hu.speedrundev.sulipedia.dto.group.GetGroupWithUsers;
 import hu.speedrundev.sulipedia.dto.group.GroupList;
 import hu.speedrundev.sulipedia.dto.group.GroupUserPutterResponse;
@@ -60,7 +59,7 @@ public class GroupController {
     description = "Az adatbázisban létrehozni és eltárolni egy új csoportot"
   )
   @PostMapping("/group")
-  public GetGroupWithID createGroup(
+  public GetGroupWithUsers createGroup(
     @RequestBody PostGroup group,
     @RequestHeader(name = "Authorization") String jwt
   ) {
