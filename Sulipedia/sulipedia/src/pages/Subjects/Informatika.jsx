@@ -167,7 +167,7 @@ const CommentAuthor = styled("span")({
   fontSize: "1rem",
   color: "#777",
   marginRight: (theme) => theme.spacing(1),
-  marginLeft: "5px",
+  marginLeft: "10px",
   fontWeight: "bold",
 });
 
@@ -181,55 +181,56 @@ function Entry({ title, content, date, author }) {
   return (
     <StyledContainer style={{ backgroundColor: "#4caf50" }}>
       <Title variant="h4">{title}</Title>
-      <LargeText>{content}</LargeText>
-      <div style={{ display: "flex", justifyContent: "space-between", width: "100%", borderTop: "2px solid #2f3826", marginTop: "auto", paddingRight: "16px", paddingLeft: "16px" }}>
-        <Typography variant="body2" style={{ padding: "8px 0", backgroundColor: "#ba8d63", borderRadius: "5px", color: "#fff", fontWeight: "bold" }}>{new Date(date).toLocaleDateString()}</Typography>
-        <Typography variant="body2" style={{ padding: "8px 0", backgroundColor: "#6384ba", borderRadius: "5px", color: "#fff", fontWeight: "bold" }}>{author}</Typography>
+      <LargeText style={{paddingBottom: "5px"}}>{content}</LargeText>
+      <div style={{ display: "flex", justifyContent: "space-between", width: "100%", borderTop: "2px solid #2f3826", marginTop: "auto", paddingRight: "16px", paddingLeft: "16px", paddingTop: "5px" }}>
+        <Typography variant="body2" style={{ padding: "7px 5px", backgroundColor: "#ba8d63", borderRadius: "8px", color: "#fff", fontWeight: "bold" }}>{new Date(date).toLocaleDateString()}</Typography>
+        <Typography variant="body2" style={{ padding: "7px 4px", backgroundColor: "#6384ba", borderRadius: "8px", color: "#fff", fontWeight: "bold", marginLeft: "10px" }}>{author}</Typography>
       </div>
     </StyledContainer>
   );
 }
-export function Informatika({ children }) {
+export function Informatika({ children, jwt }) {
   const [drawerOpen, setDrawerOpen] = React.useState(false);
   const [selectedAuthor, setSelectedAuthor] = React.useState(null);
-  const entries = [
+  const [entries, setEntries] = React.useState([]);
+  const dummyDataForEntrie = [
     {
       title: "Algoritmusok és Adatszerkezetek",
       content: "Az algoritmusok és adatszerkezetek kulcsfontosságú fogalmak az informatikában. Az algoritmusok hatékony megvalósítása és az optimális adatszerkezetek kiválasztása lehetővé teszi az informatikai problémák hatékony megoldását.",
-      date: "2024-04-01",
+      createdOn: "2024-04-01",
       author: "Emberke 1",
       category: "ICT",
     },
     {
       title: "Felhőalapú Számítástechnika",
       content: "A felhőalapú számítástechnika forradalmasította az informatikát. Az egyre növekvő számú vállalat és felhasználó számára biztosítja az adatok tárolását, szolgáltatásokat és alkalmazásokat a világhálón keresztül.",
-      date: "2024-04-01",
+      createdOn: "2024-04-01",
       author: "Emberke 2",
       category: "ICT",
     },
     {
       title: "Kiberbiztonság és Hálózatbiztonság",
       content: "A kiberbiztonság és hálózatbiztonság napjainkban kulcsfontosságú területe az informatikának. Az internetes fenyegetések és a számítógépes bűnözés elleni védelem elengedhetetlen a biztonságos online környezet megteremtéséhez.",
-      date: "2024-04-01",
+      createdOn: "2024-04-01",
       author: "Emberke 3",
       category: "ICT",
     },
     {
       title: "Adattudomány és Nagy Adat",
       content: "Az adattudomány és a nagy adat elemzésének képességei forradalmasítják az üzleti és tudományos területeket egyaránt. Az adatokból való értelmezés lehetővé teszi a trendek felismerését és a jövőbeli döntések meghozatalát.",
-      date: "2024-04-01",
+      createdOn: "2024-04-01",
       author: "Emberke 1",
       category: "ICT",
     },
     {
       title: "Mesterséges Intelligencia és Gépi Tanulás",
       content: "A mesterséges intelligencia és a gépi tanulás területei forradalmasítják az informatikát. Az olyan alkalmazások, mint az autonóm járművek és a nyelvi felismerés, az MI és a gépi tanulás legújabb fejlesztéseinek eredményei.",
-      date: "2024-04-01",
+      createdOn: "2024-04-01",
       author: "Emberke 3",
       category: "ICT",
     },
   ];
-
+  
   const [comments, setComments] = React.useState([]);
   const [newComment, setNewComment] = React.useState("");
   const [searchValue, setSearchValue] = React.useState("");
@@ -304,6 +305,24 @@ export function Informatika({ children }) {
     setDrawerOpen(!drawerOpen);
   };
 
+  axios.get('/entry?subject=ICT', {
+    headers: { Authorization: jwt },
+  })
+  .then(response => {
+    const receivedEntries = response.data.entries;
+    if (receivedEntries.length === 0) {
+      setEntries(dummyDataForEntrie);
+    } else {
+      setEntries(receivedEntries);
+    }
+  })
+  .catch(error => {
+    setEntries(dummyDataForEntrie);
+    console.error('Error fetching data:', error);
+  });
+  
+
+
   return (
     <>
       {children}
@@ -364,7 +383,7 @@ export function Informatika({ children }) {
               key={index}
               title={entry.title}
               content={entry.content}
-              date={entry.date}
+              date={entry.createdOn}
               author={entry.author}
             />
           ))
@@ -376,7 +395,7 @@ export function Informatika({ children }) {
                 key={index}
                 title={entry.title}
                 content={entry.content}
-                date={entry.date}
+                date={entry.createdOn}
                 author={entry.author}
               />
             ))
@@ -398,7 +417,7 @@ export function Informatika({ children }) {
             <CommentContent>{comment.content}</CommentContent>
             <div>
               <CommentAuthor>{comment.author}</CommentAuthor>
-              <CommentDate>{comment.date}</CommentDate>
+              <CommentDate>{comment.createdOn}</CommentDate>
               <IconButton
                 edge="end"
                 color="inherit"
