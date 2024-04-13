@@ -591,6 +591,51 @@ values
         NOW (),
         'TECHNICAL_ENGLISH',
         100000018
+    ),
+    (
+        "Az Árpád-ház kora",
+        "Az Árpád-ház kora a magyar történelem kezdete, amikor az Árpád-ház nemzetsége alapította meg Magyarországot és létrehozta az első magyar államalakulatot. Ez az időszak a honfoglalástól a királylánccal történt koronázásig tartott, és fontos mérföldkő volt a magyar történelemben. Az Árpád-ház kora alatt a magyar törzsek egyesítették erőiket és megalapozták az első magyar államot.",
+        0,
+        0,
+        NOW (),
+        'HISTORY',
+        100000016
+    ),
+    (
+        "A Mohácsi csata",
+        "A Mohácsi csata Magyarország történelmének egyik legmeghatározóbb eseménye volt, amelynek következtében az ország elveszítette függetlenségét és területi egységét. A csata során a Magyar Királyság súlyos vereséget szenvedett a török sereg ellen, és a magyar király, II. Lajos életét vesztette. A Mohácsi csata következményei hosszú távú hatással voltak Magyarország politikai és társadalmi helyzetére.",
+        0,
+        0,
+        NOW (),
+        'HISTORY',
+        100000017
+    ),
+    (
+        "A Rákóczi-szabadságharc",
+        "A Rákóczi-szabadságharc az összmagyar felkelés volt a Habsburg Birodalom ellen, amelyet II. Rákóczi Ferenc vezetett. A szabadságharc célja a Habsburg uralom megszüntetése és Magyarország függetlenségének visszaállítása volt. A felkelés bár nem ért el végleges sikert, jelentős mértékben hozzájárult a magyar nemzeti öntudat erősödéséhez és az abszolutizmus elleni harchoz.",
+        0,
+        0,
+        NOW (),
+        'HISTORY',
+        100000017
+    ),
+    (
+        "Az 1848-49-es forradalom és szabadságharc",
+        "Az 1848-49-es forradalom és szabadságharc az osztrák uralom elleni küzdelem volt, amely a forradalmi hullám részeként tört ki Európában. Magyarország az abszolutizmus és az osztrák befolyás elleni küzdelem jegyében szervezte meg a forradalmat, amelynek célja a függetlenség és a polgári jogok kivívása volt. Bár a forradalom végül vereséget szenvedett, jelentős változásokat indított el Magyarországon, és hosszú távú hatással volt az ország politikai és társadalmi életére.",
+        0,
+        0,
+        NOW (),
+        'HISTORY',
+        100000016
+    ),
+    (
+        "Az első világháború utáni Magyarország",
+        "Az első világháború utáni Magyarország az 1918-as trianoni békeszerződés következményeinek tükrében alakult át. A békeszerződés Magyarországot jelentős területi veszteségekkel sújtotta, amelynek következtében az ország elvesztette területeinek nagy részét és jelentős magyar lakosságot tartalmazó területeket. Az első világháború utáni időszak Magyarországon gazdasági és politikai instabilitást eredményezett, amely hosszú távú hatással volt az ország történelmére.",
+        0,
+        0,
+        NOW (),
+        'HISTORY',
+        100000018
     );
 
 INSERT INTO
