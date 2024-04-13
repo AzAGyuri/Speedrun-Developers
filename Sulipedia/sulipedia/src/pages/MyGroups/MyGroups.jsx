@@ -302,7 +302,7 @@ export function MyGroups({
   const [newMemberName, setNewMemberName] = useState("");
 
   function createNewGroup() {
-    if (!groupName.trim() || !groupDesc.trim() || specializations.length == 0) {
+    if (!groupName.trim() || !groupDesc.trim() || specializations.length === 0) {
       alert(
         "A csoport nevének és leírásának legalább 1 karakter hosszúnak kell lennie, valamint kell legalább egy szakma beállítva legyen!"
       );
@@ -357,6 +357,7 @@ export function MyGroups({
       alert("Ez a csoport nem az ön készítménye; törlés megtagadva.");
       return;
     }
+
     axios
       .delete(`/group/${id}`, { headers: { Authorization: jwt } })
       .then((response) => {

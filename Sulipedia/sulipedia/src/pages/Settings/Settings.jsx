@@ -207,7 +207,7 @@ export function Settings({ children, setIsLoading, isLoading, jwt }) {
     setTimeout(() => {
       setIsLoading(false);
     }, 300);
-  }, [currentUserId, setIsLoading, isLoading]);
+  }, [currentUserId, setIsLoading, isLoading, jwt]);
 
   if (isLoading) return <Loading />;
 
