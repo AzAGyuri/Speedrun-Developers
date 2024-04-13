@@ -1,5 +1,15 @@
 import React from "react";
-import {Container,Typography,IconButton,Drawer,List,ListItem,ListItemText,Collapse,Button,Tooltip,} from "@mui/material";
+import {
+  Container,
+  Typography,
+  IconButton,
+  Drawer,
+  List,
+  ListItem,
+  ListItemText,
+  Button,
+  Tooltip,
+} from "@mui/material";
 import { styled } from "@mui/system";
 import MenuIcon from "@mui/icons-material/Menu";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -18,6 +28,41 @@ const StyledContainer = styled(Container)({
   boxShadow: "0px 5px 15px rgba(0, 0, 0, 0.2)",
   marginBottom: "20px",
   border: "2.5px solid #2f3826",
+});
+const StyledListItem = styled(ListItem)({
+  padding: "10px",
+  marginBottom: "8px",
+  backgroundColor: "#2f3826",
+  borderRadius: "5px",
+  color: "white",
+  border: "2px solid #4caf50",
+  fontFamily: "Arial, sans-serif",
+  fontSize: "1.2rem",
+  "&:hover": {
+    backgroundColor: "#6c7530",
+  },
+  cursor: "pointer",
+  "&:hover": {
+    backgroundColor: "#e0e0e0",
+  },
+});
+
+const StyledAllAuthorsListItem = styled(ListItem)({
+  padding: "10px",
+  marginBottom: "8px",
+  backgroundColor: "#4caf50",
+  borderRadius: "5px",
+  color: "white",
+  border: "2px solid #e6760e",
+  fontFamily: "Arial, sans-serif",
+  fontSize: "1.4rem",
+  "&:hover": {
+    backgroundColor: "#6c7530",
+  },
+  cursor: "pointer",
+  "&:hover": {
+    backgroundColor: "#e0e0e0",
+  },
 });
 
 const Title = styled(Typography)({
@@ -146,40 +191,41 @@ function Entry({ title, content, date, author }) {
 }
 export function Tortenelem({ children }) {
   const [drawerOpen, setDrawerOpen] = React.useState(false);
-   const entries = [
+  const [selectedAuthor, setSelectedAuthor] = React.useState(null);
+  const entries = [
     {
       title: "Az Árpád-ház kora",
       content: "A magyar történelem kezdete",
       date: "2023.01.15",
-      author: "Történész1",
+      author: "Emberke 1",
       category: "HISTORY",
     },
     {
       title: "A Mohácsi csata",
       content: "Magyarország elvesztette függetlenségét",
       date: "2023.02.03",
-      author: "Történész2",
+      author: "Emberke 2",
       category: "HISTORY",
     },
     {
       title: "A Rákóczi-szabadságharc",
       content: "Az összmagyar felkelés a Habsburgok ellen",
       date: "2023.03.15",
-      author: "Történész3",
+      author: "Emberke 2",
       category: "HISTORY",
     },
     {
       title: "Az 1848-49-es forradalom és szabadságharc",
       content: "Az osztrák uralom elleni küzdelem",
       date: "2023.04.04",
-      author: "Történész4",
+      author: "Emberke 1",
       category: "HISTORY",
     },
     {
       title: "Az első világháború utáni Magyarország",
       content: "A trianoni békeszerződés következményei",
       date: "2023.05.20",
-      author: "Történész5",
+      author: "Emberke 3",
       category: "HISTORY",
     },
   ];
@@ -202,28 +248,28 @@ export function Tortenelem({ children }) {
       })
       .catch(error => {
         console.error('Error fetching comments:', error);
-        alert('Hiba a kommentek lekérdezésekor',error);
+        alert('Hiba a kommentek lekérdezésekor', error);
       });
   };
   const deleteComment = (commentId) => {
     const backendUrl = `/comment/${commentId}`;
-  
+
     axios.delete(backendUrl)
       .then(response => {
         console.log('Komment törölve', response.data);
       })
       .catch(error => {
         console.error('Error deleting comment:', error);
-        alert('Hiba a komment törlésekor',error);
+        alert('Hiba a komment törlésekor', error);
       });
   };
-  const handleCommentSubmit = () => {  
+  const handleCommentSubmit = () => {
     const backendUrl = '/comment';
     const requestBody = {
       content: newComment,
-      entryId: 0 
+      entryId: 0
     };
-    axios.post(backendUrl, requestBody, {headers:{Authorization:localStorage.getItem("jwt")}})
+    axios.post(backendUrl, requestBody, { headers: { Authorization: localStorage.getItem("jwt") } })
       .then(response => {
         const newComments = [
           ...comments,
@@ -238,7 +284,7 @@ export function Tortenelem({ children }) {
       })
       .catch(error => {
         console.error('Error submitting comment:', error);
-        alert('Hiba a komment elküldésekor',error);
+        alert('Hiba a komment elküldésekor', error);
       });
   };
 
@@ -247,13 +293,18 @@ export function Tortenelem({ children }) {
     updatedComments.splice(index, 1);
     setComments(updatedComments);
   };
+  const handleAllAuthorsSelect = () => {
+    setSelectedAuthor(null);
+    setDrawerOpen(false);
+  };
+  const handleAuthorSelect = (author) => {
+    setSelectedAuthor(author);
+    setDrawerOpen(false);
+  };
 
   const toggleDrawer = () => {
     setDrawerOpen(!drawerOpen);
   };
-
- 
-  
 
   return (
     <>
@@ -263,34 +314,59 @@ export function Tortenelem({ children }) {
           <MenuIcon />
         </StyledDrawerButton>
       </Tooltip>
+
       <StyledDrawer
         anchor="left"
         open={drawerOpen}
         onClose={() => setDrawerOpen(false)}
       >
         <StyledList>
-         
-         
+          <StyledAllAuthorsListItem onClick={() => setSelectedAuthor(null)}>
+            <ListItemText primary="Minden közzétevő" />
+          </StyledAllAuthorsListItem>
+          {entries
+            .reduce((authors, entry) => {
+              if (!authors.includes(entry.author)) {
+                authors.push(entry.author);
+              }
+              return authors;
+            }, [])
+            .map((author, index) => (
+              <StyledListItem key={index} onClick={() => setSelectedAuthor(author)}>
+                <ListItemText primary={author} />
+              </StyledListItem>
+            ))}
         </StyledList>
       </StyledDrawer>
 
-      <StyledContainer style={{ backgroundColor: "#ccc" }}> 
+
+      <StyledContainer style={{ backgroundColor: "#ccc" }}>
         <Title variant="h3">Történelmi bejegyzések</Title>
-        {entries.map((entry, index) => (
-          <Entry
-            key={index}
-            title={entry.title}
-            content={entry.content}
-            date={entry.date}
-            author={entry.author}
-          />
-        ))}
+        {selectedAuthor === null ? (
+          entries.map((entry, index) => (
+            <Entry
+              key={index}
+              title={entry.title}
+              content={entry.content}
+              date={entry.date}
+              author={entry.author}
+            />
+          ))
+        ) : (
+          entries
+            .filter((entry) => entry.author === selectedAuthor)
+            .map((entry, index) => (
+              <Entry
+                key={index}
+                title={entry.title}
+                content={entry.content}
+                date={entry.date}
+                author={entry.author}
+              />
+            ))
+        )}
       </StyledContainer>
 
-
-
-
-      
       <CommentSection>
         <CommentHeader>Vélemények és hozzászólások</CommentHeader>
         <CommentInput
