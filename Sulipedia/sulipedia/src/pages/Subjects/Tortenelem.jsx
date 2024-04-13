@@ -230,9 +230,6 @@ export function Tortenelem({ children }) {
     },
   ];
 
-  const [mainMenuText, setMainMenuText] = React.useState(
-    "Az egyes történelmi események és korszakok felfedezése létfontosságú a szilárd történelmi megértéshez. Merüljünk el néhány alapvető magyar történelmi témában."
-  );
   const [comments, setComments] = React.useState([]);
   const [newComment, setNewComment] = React.useState("");
   const [searchValue, setSearchValue] = React.useState("");
