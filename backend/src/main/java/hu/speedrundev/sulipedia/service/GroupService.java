@@ -24,7 +24,7 @@ import org.springframework.stereotype.Service;
 public class GroupService {
 
   @Autowired
-  private GroupRepository repository;
+  private GroupRepository groupRepository;
 
   @Autowired
   private UserRepository userRepository;
@@ -33,15 +33,15 @@ public class GroupService {
   private JwtUtil jwtUtil;
 
   public GroupList listGroupsByOptionalUserId(Integer userId) {
-    if (userId == null) return new GroupList(repository.findAll());
-    return new GroupList(repository.findAllByUserId(userId));
+    if (userId == null) return new GroupList(groupRepository.findAll());
+    return new GroupList(groupRepository.findAllByUserId(userId));
   }
 
   public GetGroupWithUsers getGroup(Integer id) {
     if (id == null) throw nullPointer();
-    if (!repository.existsById(id)) throw modelNotFound("GROUP_NOT_FOUND");
+    if (!groupRepository.existsById(id)) throw modelNotFound("GROUP_NOT_FOUND");
 
-    return new GetGroupWithUsers(repository.getReferenceById(id));
+    return new GetGroupWithUsers(groupRepository.getReferenceById(id));
   }
 
   public GetGroupWithID createGroup(PostGroup group, String token) {
@@ -52,6 +52,10 @@ public class GroupService {
     );
 
     if (creator.isEmpty()) throw modelNotFound("USER_NOT_FOUND");
+
+    if (
+      group.getSpecializations() == null || group.getSpecializations().isEmpty()
+    ) throw badRequest("NO_SPECIALIZATIONS_SUPPLIED");
 
     User realCreator = creator.get();
 
@@ -65,7 +69,7 @@ public class GroupService {
       realCreator.getJoinedGroups().add(createdGroup);
     }
 
-    return new GetGroupWithID(repository.save(createdGroup));
+    return new GetGroupWithID(groupRepository.save(createdGroup));
   }
 
   public GroupUserPutterResponse putUserIntoGroup(
@@ -73,13 +77,10 @@ public class GroupService {
     String token,
     List<String> usernames
   ) {
-    System.out.println(token);
-    if (id == null || token == null || usernames == null) throw badRequest(
-      "SOME_INPUTS_ARE_NULL"
-    );
+    if (id == null || token == null || usernames == null) throw nullPointer();
 
-    if (!repository.existsById(id)) throw modelNotFound("GROUP_NOT_FOUND");
-    
+    if (!groupRepository.existsById(id)) throw modelNotFound("GROUP_NOT_FOUND");
+
     if (usernames.isEmpty()) throw badRequest("USERNAME_LIST_IS_EMPTY");
 
     Optional<User> adder = userRepository.findByUsername(
@@ -89,9 +90,9 @@ public class GroupService {
     if (adder.isEmpty()) throw modelNotFound("USERNAME_NOT_FOUND");
 
     User realAdder = adder.get();
-    Group group = repository.getReferenceById(id);
+    Group group = groupRepository.getReferenceById(id);
 
-    if (!group.isUserCreator(realAdder)) throw noYouDont(
+    if (group.getCreator().getId() != realAdder.getId()) throw noYouDont(
       "USER_REQUESTING_ADD_IS_NOT_GROUP_CREATOR"
     );
 
@@ -120,7 +121,7 @@ public class GroupService {
     potentialAddedUsers.addAll(alreadyAddedUsers);
     group.setUsers(potentialAddedUsers);
 
-    group = repository.save(group);
+    group = groupRepository.save(group);
 
     group.getUsers().removeAll(alreadyAddedUsers);
 

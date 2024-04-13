@@ -78,8 +78,4 @@ public class Group {
 
   @ManyToMany(mappedBy = "joinedGroups", fetch = FetchType.EAGER)
   private Set<User> users;
-
-  public boolean isUserCreator(User realAdder) {
-    return this.creator.getEmail().equals(realAdder.getEmail());
-  }
 }
