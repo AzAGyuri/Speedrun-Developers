@@ -282,6 +282,19 @@ const percentage = (correctCount / totalQuestions) * 100;
     useState(questionsAndAnswers);
 
   const [filteredTests, setFilteredTests] = useState(testsData);
+  const calculateGrade = (percentage) => {
+    if (percentage < 25) {
+      return "1-es";
+    } else if (percentage >= 25 && percentage < 40) {
+      return "2-es";
+    } else if (percentage >= 40 && percentage < 60) {
+      return "3-as";
+    } else if (percentage >= 60 && percentage < 80) {
+      return "4-es";
+    } else {
+      return "5-ös";
+    }
+  };
 
   useEffect(() => {
     if (filteredTests.length > 0) {
@@ -675,7 +688,9 @@ const percentage = (correctCount / totalQuestions) * 100;
       gutterBottom
       style={{ color: "#333", textAlign: "center" }}
     >
-      {`A kitöltött teszt ${percentage.toFixed(2)}%-ban lett helyesen megválaszolva`}
+      {`A kitöltött teszt ${percentage.toFixed(2)}%-ban lett helyesen megválaszolva! 
+      Ha ez igazi vizsga lett volna, akkor ${calculateGrade(percentage)} jegyet kaptál volna`}
+
     </Typography>
     <LinearProgress
   variant="determinate"
