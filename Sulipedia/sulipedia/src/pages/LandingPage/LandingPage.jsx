@@ -90,7 +90,7 @@ export function LandingPage({ children, setIsLoading, isLoading, jwt }) {
       {
         id: 1,
         title: "Algoritmusok és Adatszerkezetek",
-        content:
+        content:  
           "Az algoritmusok és adatszerkezetek kulcsfontosságú fogalmak az informatikában. Az algoritmusok hatékony megvalósítása és az optimális adatszerkezetek kiválasztása lehetővé teszi az informatikai problémák hatékony megoldását.",
         createdOn: "2024-04-01 12:00:00",
         subject: "ICT",
@@ -151,12 +151,6 @@ export function LandingPage({ children, setIsLoading, isLoading, jwt }) {
   const handleClose = () => {
     setOpen(false);
   };
-
-  /*const handleClosePost = () => {
-        const currentDate = new Date();
-        const formattedDate = `${currentDate.getFullYear()}-${currentDate.getMonth() + 1}-${currentDate.getDate()} ${currentDate.getHours()}:${currentDate.getMinutes()}`;
-        setPosts([{ title: newPostTitle, content: newPostContent, date: formattedDate }, ...posts]);
-      };*/
 
   const handleNewEntryModalOpen = () => {
     setNewEntryModalOpen(true);
@@ -228,6 +222,12 @@ export function LandingPage({ children, setIsLoading, isLoading, jwt }) {
       setIsLoading(false);
     }, 300);
   }, [entries, subject, setIsLoading]);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 300);
+  }, [isLoading]);
 
   if (isLoading) return <Loading />;
 
@@ -332,7 +332,7 @@ export function LandingPage({ children, setIsLoading, isLoading, jwt }) {
           <div className="flex-item">
             <div className="drawer">
               <Container
-                style={{ textDecoration: "none", color: "white", padding: 0 }}
+                style={{ textDecoration: "none", color: "white", padding: 0, marginLeft:"43%" }}
                 underline="none"
                 rel="noreferrer"
                 color="inherit"
@@ -348,7 +348,7 @@ export function LandingPage({ children, setIsLoading, isLoading, jwt }) {
                 </div>
               </Container>
               <Container
-                style={{ textDecoration: "none", color: "white", padding: 0 }}
+                style={{ textDecoration: "none", color: "white", padding: 0, marginLeft:"43%" }}
                 underline="none"
                 rel="noreferrer"
                 color="inherit"
@@ -365,7 +365,7 @@ export function LandingPage({ children, setIsLoading, isLoading, jwt }) {
                 </div>
               </Container>
               <Container
-                style={{ textDecoration: "none", color: "white", padding: 0 }}
+                style={{ textDecoration: "none", color: "white", padding: 0, marginLeft:"43%" }}
                 underline="none"
                 rel="noreferrer"
                 color="inherit"
@@ -382,7 +382,7 @@ export function LandingPage({ children, setIsLoading, isLoading, jwt }) {
                 </div>
               </Container>
               <Container
-                style={{ textDecoration: "none", color: "white", padding: 0 }}
+                style={{ textDecoration: "none", color: "white", padding: 0, marginLeft:"43%" }}
                 underline="none"
                 rel="noreferrer"
                 color="inherit"
@@ -395,7 +395,7 @@ export function LandingPage({ children, setIsLoading, isLoading, jwt }) {
                 </div>
               </Container>
               <Container
-                style={{ textDecoration: "none", color: "white", padding: 0 }}
+                style={{ textDecoration: "none", color: "white", padding: 0, marginLeft:"43%" }}
                 underline="none"
                 rel="noreferrer"
                 color="inherit"
@@ -408,7 +408,7 @@ export function LandingPage({ children, setIsLoading, isLoading, jwt }) {
                 </div>
               </Container>
               <Container
-                style={{ textDecoration: "none", color: "white", padding: 0 }}
+                style={{ textDecoration: "none", color: "white", padding: 0, marginLeft:"43%" }}
                 underline="none"
                 rel="noreferrer"
                 color="inherit"

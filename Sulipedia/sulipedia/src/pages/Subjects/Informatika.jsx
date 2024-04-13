@@ -1,5 +1,15 @@
 import React from "react";
-import {Container,Typography,IconButton,Drawer,List,ListItem,ListItemText,Collapse,Button,Tooltip,} from "@mui/material";
+import {
+  Container,
+  Typography,
+  IconButton,
+  Drawer,
+  List,
+  ListItem,
+  ListItemText,
+  Button,
+  Tooltip,
+} from "@mui/material";
 import { styled } from "@mui/system";
 import MenuIcon from "@mui/icons-material/Menu";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -18,6 +28,41 @@ const StyledContainer = styled(Container)({
   boxShadow: "0px 5px 15px rgba(0, 0, 0, 0.2)",
   marginBottom: "20px",
   border: "2.5px solid #2f3826",
+});
+const StyledListItem = styled(ListItem)({
+  padding: "10px",
+  marginBottom: "8px",
+  backgroundColor: "#2f3826",
+  borderRadius: "5px",
+  color: "white",
+  border: "2px solid #4caf50",
+  fontFamily: "Arial, sans-serif",
+  fontSize: "1.2rem",
+  "&:hover": {
+    backgroundColor: "#6c7530",
+  },
+  cursor: "pointer",
+  "&:hover": {
+    backgroundColor: "#e0e0e0",
+  },
+});
+
+const StyledAllAuthorsListItem = styled(ListItem)({
+  padding: "10px",
+  marginBottom: "8px",
+  backgroundColor: "#4caf50",
+  borderRadius: "5px",
+  color: "white",
+  border: "2px solid #e6760e",
+  fontFamily: "Arial, sans-serif",
+  fontSize: "1.4rem",
+  "&:hover": {
+    backgroundColor: "#6c7530",
+  },
+  cursor: "pointer",
+  "&:hover": {
+    backgroundColor: "#e0e0e0",
+  },
 });
 
 const Title = styled(Typography)({
@@ -58,14 +103,6 @@ const StyledDrawer = styled(Drawer)({
 
 const StyledList = styled(List)({
   width: "100%",
-});
-
-const StyledListItem = styled(ListItem)({
-  borderBottom: "1px solid #7ffc03",
-});
-
-const StyledListItemText = styled(ListItemText)({
-  color: "white",
 });
 
 const CommentSection = styled("div")({
@@ -140,28 +177,62 @@ const CommentDate = styled("span")({
   marginLeft: "6px",
 });
 
+function Entry({ title, content, date, author }) {
+  return (
+    <StyledContainer style={{ backgroundColor: "#4caf50" }}>
+      <Title variant="h4">{title}</Title>
+      <LargeText>{content}</LargeText>
+      <div style={{ display: "flex", justifyContent: "space-between", width: "100%", borderTop: "2px solid #2f3826", marginTop: "auto", paddingRight: "16px", paddingLeft: "16px" }}>
+        <Typography variant="body2" style={{ padding: "8px 0", backgroundColor: "#ba8d63", borderRadius: "5px", color: "#fff", fontWeight: "bold" }}>{new Date(date).toLocaleDateString()}</Typography>
+        <Typography variant="body2" style={{ padding: "8px 0", backgroundColor: "#6384ba", borderRadius: "5px", color: "#fff", fontWeight: "bold" }}>{author}</Typography>
+      </div>
+    </StyledContainer>
+  );
+}
 export function Informatika({ children }) {
   const [drawerOpen, setDrawerOpen] = React.useState(false);
-  const [showSubMenu1, setShowSubMenu1] = React.useState(false);
-  const [showSubMenu2, setShowSubMenu2] = React.useState(false);
-  const [showSubMenu3, setShowSubMenu3] = React.useState(false);
-  const [showSubMenu4, setShowSubMenu4] = React.useState(false);
-
-  const [showSubSubMenu1, setShowSubSubMenu1] = React.useState(false);
-  const [showSubSubMenu2, setShowSubSubMenu2] = React.useState(false);
-  const [showSubSubMenu3, setShowSubSubMenu3] = React.useState(false);
-  const [showSubSubMenu4, setShowSubSubMenu4] = React.useState(false);
-
-  const [mainMenuText, setMainMenuText] = React.useState(
-    "Az informatika egy izgalmas és dinamikus terület, amely folyamatos fejlődésen megy keresztül. Ismerje meg néhány alapvető informatikai témát."
-  );
-
-  const [subMenuText, setSubMenuText] = React.useState("");
-
-  const [subSubMenuItemText, setSubSubMenuItemText] = React.useState("");
+  const [selectedAuthor, setSelectedAuthor] = React.useState(null);
+  const entries = [
+    {
+      title: "Algoritmusok és Adatszerkezetek",
+      content: "Az algoritmusok és adatszerkezetek kulcsfontosságú fogalmak az informatikában. Az algoritmusok hatékony megvalósítása és az optimális adatszerkezetek kiválasztása lehetővé teszi az informatikai problémák hatékony megoldását.",
+      date: "2024-04-01",
+      author: "Emberke 1",
+      category: "ICT",
+    },
+    {
+      title: "Felhőalapú Számítástechnika",
+      content: "A felhőalapú számítástechnika forradalmasította az informatikát. Az egyre növekvő számú vállalat és felhasználó számára biztosítja az adatok tárolását, szolgáltatásokat és alkalmazásokat a világhálón keresztül.",
+      date: "2024-04-01",
+      author: "Emberke 2",
+      category: "ICT",
+    },
+    {
+      title: "Kiberbiztonság és Hálózatbiztonság",
+      content: "A kiberbiztonság és hálózatbiztonság napjainkban kulcsfontosságú területe az informatikának. Az internetes fenyegetések és a számítógépes bűnözés elleni védelem elengedhetetlen a biztonságos online környezet megteremtéséhez.",
+      date: "2024-04-01",
+      author: "Emberke 3",
+      category: "ICT",
+    },
+    {
+      title: "Adattudomány és Nagy Adat",
+      content: "Az adattudomány és a nagy adat elemzésének képességei forradalmasítják az üzleti és tudományos területeket egyaránt. Az adatokból való értelmezés lehetővé teszi a trendek felismerését és a jövőbeli döntések meghozatalát.",
+      date: "2024-04-01",
+      author: "Emberke 1",
+      category: "ICT",
+    },
+    {
+      title: "Mesterséges Intelligencia és Gépi Tanulás",
+      content: "A mesterséges intelligencia és a gépi tanulás területei forradalmasítják az informatikát. Az olyan alkalmazások, mint az autonóm járművek és a nyelvi felismerés, az MI és a gépi tanulás legújabb fejlesztéseinek eredményei.",
+      date: "2024-04-01",
+      author: "Emberke 3",
+      category: "ICT",
+    },
+  ];
 
   const [comments, setComments] = React.useState([]);
   const [newComment, setNewComment] = React.useState("");
+  const [searchValue, setSearchValue] = React.useState("");
 
   const handleCommentChange = (event) => {
     setNewComment(event.target.value);
@@ -175,29 +246,28 @@ export function Informatika({ children }) {
       })
       .catch(error => {
         console.error('Error fetching comments:', error);
-        alert('Hiba történt a kommentek lekérdezésekor',error);
+        alert('Hiba a kommentek lekérdezésekor', error);
       });
   };
   const deleteComment = (commentId) => {
     const backendUrl = `/comment/${commentId}`;
-  
+
     axios.delete(backendUrl)
       .then(response => {
         console.log('Komment törölve', response.data);
       })
       .catch(error => {
         console.error('Error deleting comment:', error);
-        alert('Hiba a komment törlésekor',error);
+        alert('Hiba a komment törlésekor', error);
       });
   };
-
-  const handleCommentSubmit = () => {  
+  const handleCommentSubmit = () => {
     const backendUrl = '/comment';
     const requestBody = {
       content: newComment,
-      entryId: 0 
+      entryId: 0
     };
-    axios.post(backendUrl, requestBody, {headers:{Authorization:localStorage.getItem("jwt")}})
+    axios.post(backendUrl, requestBody, { headers: { Authorization: localStorage.getItem("jwt") } })
       .then(response => {
         const newComments = [
           ...comments,
@@ -212,258 +282,106 @@ export function Informatika({ children }) {
       })
       .catch(error => {
         console.error('Error submitting comment:', error);
-        alert('Hiba a komment elküldésekor',error);
+        alert('Hiba a komment elküldésekor', error);
       });
   };
+
   const handleCommentDelete = (index) => {
     const updatedComments = [...comments];
     updatedComments.splice(index, 1);
     setComments(updatedComments);
+  };
+  const handleAllAuthorsSelect = () => {
+    setSelectedAuthor(null);
+    setDrawerOpen(false);
+  };
+  const handleAuthorSelect = (author) => {
+    setSelectedAuthor(author);
+    setDrawerOpen(false);
   };
 
   const toggleDrawer = () => {
     setDrawerOpen(!drawerOpen);
   };
 
-  const handleMenuItemClick = (menuItem) => {
-    setShowSubMenu1(false);
-    setShowSubMenu2(false);
-    setShowSubMenu3(false);
-    setShowSubMenu4(false);
-    setShowSubSubMenu1(false);
-    setShowSubSubMenu2(false);
-    setShowSubSubMenu3(false);
-    setShowSubSubMenu4(false);
-
-    switch (menuItem) {
-      case 1:
-        setShowSubMenu1(!showSubMenu1);
-        setSubMenuText(
-          "Az informatika alapjai és az informatikai rendszerek felépítése. Ismerje meg a szoftvertervezés és a programozás alapjait."
-        );
-        setMainMenuText(
-          "Az informatika világa rengeteg izgalmas és fejlődő területet foglal magában."
-        );
-        break;
-      case 2:
-        setShowSubMenu2(!showSubMenu2);
-        setSubMenuText(
-          "Az adatbázisok és adattárolás fontossága az informatikában. Ismerje meg a relációs adatbázisok tervezésének alapjait."
-        );
-        setMainMenuText(
-          "Az adatok hatékony tárolása és kezelése kulcsfontosságú az informatikai rendszerekben."
-        );
-        break;
-      case 3:
-        setShowSubMenu3(!showSubMenu3);
-        setSubMenuText(
-          "Az informatikai hálózatok és az internet működése. Ismerje meg a hálózatbiztonság alapelveit és a kiberbiztonság fontosságát."
-        );
-        setMainMenuText(
-          "Az informatikai hálózatok és az internet elengedhetetlenek az információátvitel és az adatmegosztás terén."
-        );
-        break;
-      case 4:
-        setShowSubMenu4(!showSubMenu4);
-        setSubMenuText(
-          "Az mesterséges intelligencia és gépi tanulás alapjai. Ismerje meg a modern informatikai trendeket és fejlesztéseket."
-        );
-        setMainMenuText(
-          "Az informatika területén folyamatosan új technológiák és fejlesztések történnek, kövesse figyelemmel a legújabb trendeket."
-        );
-        break;
-      default:
-        break;
-    }
-  };
-
-  const handleSubMenuItemClick = (subMenuItem) => {
-    switch (subMenuItem) {
-      case 1:
-        setShowSubSubMenu1(!showSubSubMenu1);
-        setSubSubMenuItemText(
-          "A szoftvertervezés és programozás alapelvei. Ismerje meg a különböző programozási nyelveket és fejlesztési módszertanokat."
-        );
-        setSubMenuText(
-          "Az informatikai fejlődés alapja a szoftvertervezés és programozás megértése, amelyek az informatikai rendszerek hátterében állnak."
-        );
-        break;
-      case 2:
-        setShowSubSubMenu2(!showSubSubMenu2);
-        setSubSubMenuItemText(
-          "A relációs adatbázisok tervezése és kezelése. Ismerje meg az adatbázisok optimalizálásának és lekérdezéseinek módjait."
-        );
-        setSubMenuText(
-          "Az adatok hatékony tárolása és kezelése kulcsfontosságú az informatikai rendszerekben, különösen az adatbázisok területén."
-        );
-        break;
-      case 3:
-        setShowSubSubMenu3(!showSubSubMenu3);
-        setSubSubMenuItemText(
-          "A hálózatbiztonság alapelvei és a kiberbiztonság fontossága. Ismerje meg a leggyakoribb kiberfenyegetéseket és védelmi módszereket."
-        );
-        setSubMenuText(
-          "Az informatikai hálózatok és az internet biztonsága létfontosságú az adatok védelmében és a kiberbiztonság fenyegetéseinek elhárításában."
-        );
-        break;
-      case 4:
-        setShowSubSubMenu4(!showSubSubMenu4);
-        setSubSubMenuItemText(
-          "Az mesterséges intelligencia és gépi tanulás alkalmazási területei. Ismerje meg a gépi tanulás alapelveit és a mesterséges intelligencia fejlesztéseket."
-        );
-        setSubMenuText(
-          "Az informatikai fejlődés egyik kiemelkedő területe a mesterséges intelligencia és gépi tanulás, amelyek számos alkalmazási területen hasznosak."
-        );
-        break;
-      default:
-        break;
-    }
-  };
-
   return (
     <>
       {children}
-      <Tooltip title="Több tananyag ebben a témában">
+      <Tooltip title="Szűrés készítő szerint">
         <StyledDrawerButton onClick={toggleDrawer}>
           <MenuIcon />
         </StyledDrawerButton>
       </Tooltip>
       <StyledDrawer
-        anchor="left"
-        open={drawerOpen}
-        onClose={() => setDrawerOpen(false)}
-      >
-        <StyledList>
-          <StyledListItem button onClick={() => handleMenuItemClick(1)}>
-            <StyledListItemText primary="Informatikai Alapok" />
-          </StyledListItem>
-          <Collapse in={showSubMenu1} timeout="auto" unmountOnExit>
-            <StyledList
-              component="div"
-              disablePadding
-              style={{ paddingLeft: "20px" }}
-            >
-              <StyledListItem button onClick={() => handleSubMenuItemClick(1)}>
-                <StyledListItemText primary="Szoftvertervezés és Programozás" />
-              </StyledListItem>
-              <Collapse in={showSubSubMenu1} timeout="auto" unmountOnExit>
-                <StyledList
-                  component="div"
-                  disablePadding
-                  style={{ paddingLeft: "20px" }}
-                >
-                  <StyledListItem button>
-                    <StyledListItemText primary="Programozási Nyelvek" />
-                  </StyledListItem>
-                  <StyledListItem button>
-                    <StyledListItemText primary="Fejlesztési Módszertanok" />
-                  </StyledListItem>
-                </StyledList>
-              </Collapse>
-            </StyledList>
-          </Collapse>
-          <StyledListItem button onClick={() => handleMenuItemClick(2)}>
-            <StyledListItemText primary="Adatbázisok és Adattárolás" />
-          </StyledListItem>
-          <Collapse in={showSubMenu2} timeout="auto" unmountOnExit>
-            <StyledList
-              component="div"
-              disablePadding
-              style={{ paddingLeft: "20px" }}
-            >
-              <StyledListItem button onClick={() => handleSubMenuItemClick(2)}>
-                <StyledListItemText primary="Relációs Adatbázisok Tervezése" />
-              </StyledListItem>
-              <Collapse in={showSubSubMenu2} timeout="auto" unmountOnExit>
-                <StyledList
-                  component="div"
-                  disablePadding
-                  style={{ paddingLeft: "20px" }}
-                >
-                  <StyledListItem button>
-                    <StyledListItemText primary="Adatbázisok Optimalizálása" />
-                  </StyledListItem>
-                  <StyledListItem button>
-                    <StyledListItemText primary="Lekérdezések" />
-                  </StyledListItem>
-                </StyledList>
-              </Collapse>
-            </StyledList>
-          </Collapse>
-          <StyledListItem button onClick={() => handleMenuItemClick(3)}>
-            <StyledListItemText primary="Informatikai Hálózatok és Internet" />
-          </StyledListItem>
-          <Collapse in={showSubMenu3} timeout="auto" unmountOnExit>
-            <StyledList
-              component="div"
-              disablePadding
-              style={{ paddingLeft: "20px" }}
-            >
-              <StyledListItem button onClick={() => handleSubMenuItemClick(3)}>
-                <StyledListItemText primary="Hálózatbiztonság" />
-              </StyledListItem>
-              <Collapse in={showSubSubMenu3} timeout="auto" unmountOnExit>
-                <StyledList
-                  component="div"
-                  disablePadding
-                  style={{ paddingLeft: "20px" }}
-                >
-                  <StyledListItem button>
-                    <StyledListItemText primary="Kiberbiztonság" />
-                  </StyledListItem>
-                </StyledList>
-              </Collapse>
-            </StyledList>
-          </Collapse>
-          <StyledListItem button onClick={() => handleMenuItemClick(4)}>
-            <StyledListItemText primary="Mesterséges Intelligencia és Gépi Tanulás" />
-          </StyledListItem>
-          <Collapse in={showSubMenu4} timeout="auto" unmountOnExit>
-            <StyledList
-              component="div"
-              disablePadding
-              style={{ paddingLeft: "20px" }}
-            >
-              <StyledListItem button onClick={() => handleSubMenuItemClick(4)}>
-                <StyledListItemText primary="MI és Gépi Tanulás Alapjai" />
-              </StyledListItem>
-              <Collapse in={showSubSubMenu4} timeout="auto" unmountOnExit>
-                <StyledList
-                  component="div"
-                  disablePadding
-                  style={{ paddingLeft: "20px" }}
-                >
-                  <StyledListItem button>
-                    <StyledListItemText primary="Fejlesztési Trendek" />
-                  </StyledListItem>
-                </StyledList>
-              </Collapse>
-            </StyledList>
-          </Collapse>
-        </StyledList>
-      </StyledDrawer>
+  anchor="left"
+  open={drawerOpen}
+  onClose={() => setDrawerOpen(false)}
+>
+  <div style={{ padding: "16px", backgroundColor: "#333", borderBottom: "1px solid #555" }}>
+    <input
+      type="text"
+      value={searchValue}
+      onChange={(e) => setSearchValue(e.target.value)}
+      placeholder="Közzétevő keresése..."
+      style={{ 
+        padding: "8px 16px",
+        borderRadius: "20px",
+        border: "2px solid #4caf50",
+        width: "calc(100% - 32px)",
+        color: "#333",
+        backgroundColor: "#fff",
+        fontSize: "1.2rem",
+        outline: "none",
+      }}
+    />
+  </div>
+  <StyledList>
+    <StyledAllAuthorsListItem onClick={() => handleAllAuthorsSelect()}>
+      <ListItemText primary="Minden közzétevő" />
+    </StyledAllAuthorsListItem>
+    {entries
+      .reduce((authors, entry) => {
+        if (!authors.includes(entry.author)) {
+          authors.push(entry.author);
+        }
+        return authors;
+      }, [])
+      .filter(author => author.toLowerCase().includes(searchValue.toLowerCase()))
+      .map((author, index) => (
+        <StyledListItem key={index} onClick={() => handleAuthorSelect(author)}>
+          <ListItemText primary={author} />
+        </StyledListItem>
+      ))}
+  </StyledList>
+</StyledDrawer>
 
-      <StyledContainer>
-        <Title variant="h3">Az Informatikáról</Title>
+
+      <StyledContainer style={{ backgroundColor: "#ccc" }}>
+        <Title variant="h3">Informatikai bejegyzések</Title>
+        {selectedAuthor === null ? (
+          entries.map((entry, index) => (
+            <Entry
+              key={index}
+              title={entry.title}
+              content={entry.content}
+              date={entry.date}
+              author={entry.author}
+            />
+          ))
+        ) : (
+          entries
+            .filter((entry) => entry.author === selectedAuthor)
+            .map((entry, index) => (
+              <Entry
+                key={index}
+                title={entry.title}
+                content={entry.content}
+                date={entry.date}
+                author={entry.author}
+              />
+            ))
+        )}
       </StyledContainer>
-
-      {mainMenuText && (
-        <StyledContainer>
-          <LargeText variant="body1">{mainMenuText}</LargeText>
-        </StyledContainer>
-      )}
-
-      {subMenuText && (
-        <StyledContainer>
-          <LargeText variant="body1">{subMenuText}</LargeText>
-        </StyledContainer>
-      )}
-
-      {subSubMenuItemText && (
-        <StyledContainer>
-          <LargeText variant="body1">{subSubMenuItemText}</LargeText>
-        </StyledContainer>
-      )}
 
       <CommentSection>
         <CommentHeader>Vélemények és hozzászólások</CommentHeader>
