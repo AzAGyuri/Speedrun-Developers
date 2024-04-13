@@ -94,6 +94,7 @@ export default function SignUp({ children, setIsLoading }) {
         .catch((error) => {
           let errorCode = error.config.data.status;
           console.error("Profil létrehozása sikertelen:", error);
+          alert("Profil létrehozása sikertelen:", error);
           switch (errorCode) {
             case 409:
               alert(

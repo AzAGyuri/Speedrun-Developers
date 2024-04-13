@@ -16,6 +16,7 @@ import {
   RadioGroup,
   FormControlLabel,
   IconButton,
+  LinearProgress,
 } from "@mui/material";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import useMediaQuery from "@mui/material/useMediaQuery";
@@ -26,6 +27,7 @@ import Drawer from "@mui/material/Drawer";
 import MenuItem from "@mui/material/MenuItem";
 import { Loading } from "../../components/Loading/Loading";
 import axios from "axios";
+import './Tests.css';
 
 const StyledButton = styled(Button)({
   backgroundColor: "#ff9800",
@@ -83,6 +85,18 @@ export function Tests({ children, setIsLoading, isLoading, jwt }) {
   const [showCorrectAnswer, setShowCorrectAnswer] = useState({});
   const [drawerOpen, setDrawerOpen] = React.useState(false);
   const isSmallScreen = useMediaQuery("(max-width:950px)");
+  const isAnswerCorrect = (questionIndex, selectedAnswer) => {
+    return correctAnswers[questionIndex] === selectedAnswer;
+  };
+  const totalQuestions = Object.keys(answers).length;
+const correctCount = Object.keys(answers).reduce((count, questionIndex) => {
+  if (isAnswerCorrect(questionIndex, answers[questionIndex])) {
+    return count + 1;
+  } else {
+    return count;
+  }
+}, 0);
+const percentage = (correctCount / totalQuestions) * 100;
 
   const testsData = useMemo(
     () => [
@@ -264,9 +278,9 @@ export function Tests({ children, setIsLoading, isLoading, jwt }) {
     []
   );
 
-  const [requestedTestData, setRequestedTestData] = useState([]);
+  const [requestedTestData, setRequestedTestData] = useState([testsData]);
   const [requestedQuestionsAndAnswers, setRequestedQuestionsAndAnswers] =
-    useState({});
+    useState(questionsAndAnswers);
 
   const [filteredTests, setFilteredTests] = useState(testsData);
 
@@ -407,10 +421,6 @@ export function Tests({ children, setIsLoading, isLoading, jwt }) {
     );
     setCorrectAnswers(correctAnswersData);
     setShowResults(true);
-  };
-
-  const isAnswerCorrect = (questionIndex, selectedAnswer) => {
-    return correctAnswers[questionIndex] === selectedAnswer;
   };
   const toggleDrawer = () => {
     setDrawerOpen(!drawerOpen);
@@ -661,6 +671,19 @@ export function Tests({ children, setIsLoading, isLoading, jwt }) {
             >
               Eredmények
             </Typography>
+            <Typography
+      variant="body1"
+      gutterBottom
+      style={{ color: "#333", textAlign: "center" }}
+    >
+      {`A kitöltött teszt ${percentage.toFixed(2)}%-ban lett helyesen megválaszolva`}
+    </Typography>
+    <div className="progressBar">
+    <LinearProgress
+      variant="determinate"
+      value={100-percentage}
+    />
+    </div>
             <List>
               {Object.keys(answers).map((questionIndex) => (
                 <ListItem key={questionIndex}>
