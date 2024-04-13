@@ -223,6 +223,12 @@ export function LandingPage({ children, setIsLoading, isLoading, jwt }) {
     }, 300);
   }, [entries, subject, setIsLoading]);
 
+  useEffect(() => {
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 300);
+  }, [isLoading]);
+
   if (isLoading) return <Loading />;
 
   return (
@@ -326,7 +332,7 @@ export function LandingPage({ children, setIsLoading, isLoading, jwt }) {
           <div className="flex-item">
             <div className="drawer">
               <Container
-                style={{ textDecoration: "none", color: "white", padding: 0 }}
+                style={{ textDecoration: "none", color: "white", padding: 0, marginLeft:"43%" }}
                 underline="none"
                 rel="noreferrer"
                 color="inherit"
@@ -342,7 +348,7 @@ export function LandingPage({ children, setIsLoading, isLoading, jwt }) {
                 </div>
               </Container>
               <Container
-                style={{ textDecoration: "none", color: "white", padding: 0 }}
+                style={{ textDecoration: "none", color: "white", padding: 0, marginLeft:"43%" }}
                 underline="none"
                 rel="noreferrer"
                 color="inherit"
@@ -359,7 +365,7 @@ export function LandingPage({ children, setIsLoading, isLoading, jwt }) {
                 </div>
               </Container>
               <Container
-                style={{ textDecoration: "none", color: "white", padding: 0 }}
+                style={{ textDecoration: "none", color: "white", padding: 0, marginLeft:"43%" }}
                 underline="none"
                 rel="noreferrer"
                 color="inherit"
@@ -376,7 +382,7 @@ export function LandingPage({ children, setIsLoading, isLoading, jwt }) {
                 </div>
               </Container>
               <Container
-                style={{ textDecoration: "none", color: "white", padding: 0 }}
+                style={{ textDecoration: "none", color: "white", padding: 0, marginLeft:"43%" }}
                 underline="none"
                 rel="noreferrer"
                 color="inherit"
@@ -389,7 +395,7 @@ export function LandingPage({ children, setIsLoading, isLoading, jwt }) {
                 </div>
               </Container>
               <Container
-                style={{ textDecoration: "none", color: "white", padding: 0 }}
+                style={{ textDecoration: "none", color: "white", padding: 0, marginLeft:"43%" }}
                 underline="none"
                 rel="noreferrer"
                 color="inherit"
@@ -402,7 +408,7 @@ export function LandingPage({ children, setIsLoading, isLoading, jwt }) {
                 </div>
               </Container>
               <Container
-                style={{ textDecoration: "none", color: "white", padding: 0 }}
+                style={{ textDecoration: "none", color: "white", padding: 0, marginLeft:"43%" }}
                 underline="none"
                 rel="noreferrer"
                 color="inherit"

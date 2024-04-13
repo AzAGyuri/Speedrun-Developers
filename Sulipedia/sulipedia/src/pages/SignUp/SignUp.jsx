@@ -191,7 +191,7 @@ export default function SignUp({ children, setIsLoading }) {
       setEmailError(true);
     }
   
-    const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
+    const passwordRegex = /^(?=.*[A-Za-zÁÉÍÓÖŐÚÜŰáéíóöőúüű])(?=.*\d)[A-Za-zÁÉÍÓÖŐÚÜŰáéíóöőúüű\d]{8,}$/;
     const isPasswordValid = passwordRegex.test(formData.password);
     const isConfirmPasswordValid = formData.password === formData.confirmPassword;
   
@@ -221,7 +221,7 @@ export default function SignUp({ children, setIsLoading }) {
     }
   };
   const validatePassword = (password) => {
-    const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
+    const passwordRegex = /^(?=.*[A-Za-zÁÉÍÓÖŐÚÜŰáéíóöőúüű])(?=.*\d)[A-Za-zÁÉÍÓÖŐÚÜŰáéíóöőúüű\d]{8,}$/;
     return passwordRegex.test(password);
   };  
 
