@@ -118,7 +118,6 @@ export function ResAppBar({ setIsLoading }) {
                     <Link
                       to="/Tests"
                       style={{ textDecoration: "none", color: "black" }}
-                      onClick={beforeNavigate}
                     >
                       <MenuItem
                         sx={{
