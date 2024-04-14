@@ -2,6 +2,7 @@ package hu.speedrundev.sulipedia.dto.entry;
 
 import hu.speedrundev.sulipedia.dto.attachment.AttachmentList;
 import hu.speedrundev.sulipedia.dto.question.QuestionList;
+import hu.speedrundev.sulipedia.dto.user.GetUserWithID;
 import hu.speedrundev.sulipedia.model.Entry;
 import java.time.LocalDateTime;
 import lombok.NoArgsConstructor;
@@ -18,7 +19,7 @@ public class EntryListItem extends GetEntryWithID {
     Boolean deleted,
     LocalDateTime deletedOn,
     LocalDateTime createdOn,
-    String author,
+    GetUserWithID author,
     AttachmentList attachments,
     QuestionList questions,
     Integer id
@@ -49,7 +50,7 @@ public class EntryListItem extends GetEntryWithID {
       entry.getDeleted(),
       entry.getDeletedOn(),
       entry.getCreatedOn(),
-      (entry.getAuthor().getUsername()),
+      new GetUserWithID(entry.getAuthor()),
       new AttachmentList(entry.getAttachments()),
       new QuestionList(entry.getQuestions()),
       entry.getId()
