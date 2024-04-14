@@ -1,24 +1,15 @@
 # SignUp Komponens Dokumentáció
 
----
-
-A `SignUp` komponens felelős egy új felhasználói fiók létrehozásáért az alkalmazásban. A felhasználók itt adják meg az alapvető regisztrációs információkat, mint például a név, e-mail cím és jelszó.
-
 ## Áttekintés
 
-A `SignUp` komponens az alábbi funkciókat és feladatokat végzi el:
-
-- Felhasználói regisztráció űrlapjának megjelenítése.
-- Felhasználói adatok ellenőrzése a regisztrációs űrlap beküldése előtt.
-- Felhasználói adatok küldése a szervernek a regisztráció véglegesítése céljából.
-- Felhasználói navigáció a bejelentkezési oldalra (`SignIn`), ha már van fiókja.
+A SignUp komponens felelős egy új felhasználói fiók létrehozásáért az alkalmazásban. A felhasználók itt adják meg az alapvető regisztrációs információkat, mint például a név, e-mail cím és jelszó.
 
 ## Általános felépítés
 
 - **Komponens típusa:** Funkcionális komponens.
 - **Technológiák:** React, Material-UI, axios, React Router DOM.
 - **Stílusozás:** A komponens stílusát a Material-UI és saját CSS osztályok segítségével állítják be.
-- **Követelmények:** A felhasználónak meg kell adnia a vezetéknevet, keresztnevet, e-mail címet, jelszót és opcionálisan a telefonszámot.
+- **Követelmények:** A felhasználónak meg kell adnia a vezetéknevet, keresztnévet, e-mail címet, jelszót és opcionálisan a telefonszámot.
 
 ## Funkciók és működés
 

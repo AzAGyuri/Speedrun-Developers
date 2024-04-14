@@ -3,7 +3,7 @@ package hu.speedrundev.sulipedia.service;
 import static hu.speedrundev.sulipedia.util.ExceptionUtils.*;
 
 import hu.speedrundev.sulipedia.dto.user.GetUser;
-import hu.speedrundev.sulipedia.dto.user.GetUserWithEntries;
+import hu.speedrundev.sulipedia.dto.user.GetUserWithAvailabilities;
 import hu.speedrundev.sulipedia.dto.user.GetUserWithID;
 import hu.speedrundev.sulipedia.dto.user.NulledUser;
 import hu.speedrundev.sulipedia.dto.user.PostUser;
@@ -52,11 +52,11 @@ public class UserService {
     return new UserList(repository.getUsersCreatedSinceDate(date));
   }
 
-  public GetUserWithEntries getUser(Integer id) {
+  public GetUserWithAvailabilities getUser(Integer id) {
     if (id == null) throw nullPointer();
     if (isNotUserById(id)) throw modelNotFound("USER_NOT_FOUND");
 
-    return new GetUserWithEntries(repository.getReferenceById(id));
+    return new GetUserWithAvailabilities(repository.getReferenceById(id));
   }
 
   private boolean isNotUserById(Integer id) {

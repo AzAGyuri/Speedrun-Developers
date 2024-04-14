@@ -18,7 +18,7 @@ public class GetUser extends BaseUser {
     String email,
     String nickname,
     String phoneNumber,
-    String randomPfPBgColor,
+    String randomAvatarBgColor,
     String profilePictureBase64,
     LocalDateTime birthDate,
     LocalDateTime createdOn,
@@ -27,7 +27,7 @@ public class GetUser extends BaseUser {
     Set<RoleDto> roles
   ) {
     super(username, email, nickname, phoneNumber);
-    this.randomAvatarBgColor = randomPfPBgColor;
+    this.randomAvatarBgColor = randomAvatarBgColor;
     this.profilePictureBase64 = profilePictureBase64;
     this.birthDate = birthDate;
     this.createdOn = createdOn;

@@ -18,6 +18,9 @@ import {
   InputLabel,
   Select,
   MenuItem,
+  TableCell,
+  TableRow,
+  Table,
 } from "@mui/material";
 import { Delete, Add } from "@mui/icons-material";
 import Stack from "@mui/material/Stack";
@@ -186,9 +189,9 @@ export function MyGroups({
     name: "Szakmai angol",
     description: "Szakmai angol csoport",
     members: [
-      { id: 1, name: "John Doe" },
-      { id: 2, name: "Alice Smith" },
-      { id: 3, name: "Bob Johnson" },
+      { id: 1, name: "John Doe", email: "semmi@valami.com", memberSince: "2024-04-14 14:28:43" },
+      { id: 2, name: "Alice Smith", email: "semmi@valami.com", memberSince: "2024-04-14 14:28:43" },
+      { id: 3, name: "Bob Johnson", email: "semmi@valami.com", memberSince: "2024-04-14 14:28:43" },
     ],
     ownerId: 1,
   });
@@ -238,7 +241,7 @@ export function MyGroups({
       })
       .catch((error) => {
         console.error("Hiba történt adatok lekérdezése során", error);
-        alert("Hiba történt adatok lekérdezése során", error);
+        alert("Hiba történt adatok lekérdezése során!");
         setGroups(staticGroups);
         setLoaded(false);
       });
@@ -272,6 +275,8 @@ export function MyGroups({
             localMembers.push({
               id: user.id,
               name: user.username,
+              email: user.email,
+              memberSince: user.createdOn
             });
           });
 
@@ -284,7 +289,7 @@ export function MyGroups({
 
         .catch((error) => {
           console.error("Hiba történt adat lekérdezése során", error);
-          alert("Hiba történt adat lekérdezése során");
+          alert("Hiba történt adat lekérdezése során!");
         });
     } else {
       setSelectedGroup(group);
@@ -385,7 +390,7 @@ export function MyGroups({
         switch (error.status) {
           case 404:
             alert(
-              "A törlendő felhasználót, vagy a csoport, melyből törlést kell végrehajtani nem találtuk"
+              "A törlendő felhasználót, vagy a csoport, melyből törlést kell végrehajtani nem találtuk!"
             );
             break;
           case 410:
@@ -788,7 +793,24 @@ export function MyGroups({
                 key={member.id}
               >
                 <ListItemAvatar>
-                  <Tooltip title={member.name}>
+                  <Tooltip title={
+                    <div style={{}}>
+                      
+                      <Table>
+                        <TableCell>
+                          <TableRow>
+                            <div style={{ padding: "5px", fontSize: "20px", color: "#eb365a", border: "1px solid black", backgroundColor: "#84adf0" }}>{member.name}</div>
+                            <div style={{ padding: "5px", fontSize: "20px", color: "#eb365a", border: "1px solid black", backgroundColor: "#84adf0" }}>{member.id}</div>
+                            <div style={{ padding: "5px", fontSize: "20px", color: "#eb365a", border: "1px solid black", backgroundColor: "#84adf0" }}>{member.email}</div>
+                            <div style={{ padding: "5px", fontSize: "20px", color: "#eb365a", border: "1px solid black", backgroundColor: "#84adf0" }}>Regisztáció napja: {member.memberSince}</div>
+                          </TableRow>
+                          <TableRow style={{display: "flex", justifyContent: "center",marginTop:"10px"}}>
+                            <div style={{ padding: "5px", fontSize: "50px", color: "#eb365a", border: "1px solid black", backgroundColor: "#54538c" }}><Avatar style={{backgroundColor:"red", alignSelf:"center"}}>{member.name[0]}</Avatar></div>
+                          </TableRow>
+                        </TableCell>
+                      </Table>
+                    </div>
+                  } >
                     <Avatar>{member.name[0]}</Avatar>
                   </Tooltip>
                 </ListItemAvatar>

@@ -1,6 +1,6 @@
 package hu.speedrundev.sulipedia.dto.user;
 
-import hu.speedrundev.sulipedia.dto.entry.EntryList;
+import hu.speedrundev.sulipedia.dto.availability.AvailabilityList;
 import hu.speedrundev.sulipedia.model.User;
 import java.time.LocalDateTime;
 import java.util.Base64;
@@ -12,28 +12,28 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class GetUserWithEntries extends GetUser {
+public class GetUserWithAvailabilities extends GetUser {
 
-  public GetUserWithEntries(
+  public GetUserWithAvailabilities(
     String username,
     String email,
     String nickname,
     String phoneNumber,
-    String randomPfPBgColor,
+    String randomAvatarBgColor,
     String profilePictureBase64,
     LocalDateTime birthDate,
     LocalDateTime createdOn,
     LocalDateTime lastLogin,
     LocalDateTime lastLogoff,
     Set<RoleDto> roles,
-    EntryList entries
+    AvailabilityList availabilities
   ) {
     super(
       username,
       email,
       nickname,
       phoneNumber,
-      randomPfPBgColor,
+      randomAvatarBgColor,
       profilePictureBase64,
       birthDate,
       createdOn,
@@ -41,10 +41,10 @@ public class GetUserWithEntries extends GetUser {
       lastLogoff,
       roles
     );
-    this.entries = entries;
+    this.availabilities = availabilities;
   }
 
-  public GetUserWithEntries(User user) {
+  public GetUserWithAvailabilities(User user) {
     this(
       user.getUsername(),
       user.getEmail(),
@@ -59,9 +59,9 @@ public class GetUserWithEntries extends GetUser {
       user.getLastLogin(),
       user.getLastLogoff(),
       RoleDto.dtoFrom(user.getRoles()),
-      new EntryList(user.getEntries())
+      new AvailabilityList(user.getAvailabilities())
     );
   }
 
-  private EntryList entries;
+  private AvailabilityList availabilities;
 }

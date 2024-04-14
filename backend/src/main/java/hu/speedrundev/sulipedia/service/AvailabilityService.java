@@ -13,7 +13,9 @@ import hu.speedrundev.sulipedia.model.Availability;
 import hu.speedrundev.sulipedia.model.User;
 import hu.speedrundev.sulipedia.repository.AvailabilityRepository;
 import hu.speedrundev.sulipedia.repository.UserRepository;
+import hu.speedrundev.sulipedia.util.JwtUtil;
 import jakarta.validation.Valid;
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,6 +27,9 @@ public class AvailabilityService {
 
   @Autowired
   private UserRepository userRepository;
+
+  @Autowired
+  private JwtUtil jwtUtil;
 
   public AvailabilityList listAllAvailabilities() {
     return new AvailabilityList(
@@ -38,48 +43,29 @@ public class AvailabilityService {
     );
   }
 
-  public AvailabilityList getUserAvailabilities(Integer userId) {
-    if (userId == null) throw nullPointer();
-
-    if (!userRepository.existsById(userId)) throw modelNotFound(
-      "LINKED_USER_NOT_FOUND"
-    );
-
-    User referencedUser = userRepository.getReferenceById(userId);
-
-    if (referencedUser.getDeleted() != null) if (
-      referencedUser.getDeleted()
-    ) throw itsGoneBud("REFERENCED_USER_HAS_BEEN_DELETED");
-
-    return new AvailabilityList(referencedUser.getAvailabilities());
-  }
-
   public GetAvailabilityWithID createAvailability(
-    PostAvailability availability
+    PostAvailability availability,
+    String token
   ) {
     if (availability == null) throw nullPointer();
 
-    Integer linkedUserId = availability.getLinkedUserId();
-
-    if (linkedUserId == null) throw nullPointer();
-
-    if (!userRepository.existsById(linkedUserId)) throw modelNotFound(
-      "LINKED_USER_NOT_FOUND"
+    Optional<User> postingUser = userRepository.findByUsername(
+      jwtUtil.getSubject(token)
     );
+
+    if (postingUser.isEmpty()) throw modelNotFound("LINKED_USER_NOT_FOUND");
 
     return new GetAvailabilityWithID(
       availabilityRepository.save(
-        new Availability(
-          availability,
-          userRepository.getReferenceById(linkedUserId)
-        )
+        new Availability(availability, postingUser.get())
       )
     );
   }
 
   public GetAvailability updateAvailability(
     @Valid UpdateAvailability update,
-    Integer id
+    Integer id,
+    String token
   ) {
     if (update == null || id == null) throw nullPointer();
 
@@ -87,9 +73,20 @@ public class AvailabilityService {
       "AVAILABILITY_NOT_FOUND"
     );
 
+    Optional<User> updater = userRepository.findByUsername(
+      jwtUtil.getSubject(token)
+    );
+
+    if (updater.isEmpty()) throw modelNotFound("USER_NOT_FOUND");
+
     if (
       availabilityRepository.getReferenceById(id).getLinkedUser().getDeleted()
     ) throw itsGoneBud("THE_LINKED_USER_OF_THE_AVAILABILITY_IS_DELETED");
+
+    if (
+      updater.get().getId() ==
+      availabilityRepository.getReferenceById(id).getLinkedUser().getId()
+    ) throw noYouDont("USER_REQUESTING_AVAILABILITY_UPDATE_IS_NOT_LINKED_USER");
 
     if (update.isAllNull()) throw badRequest("ALL_UPDATE_DATA_IS_NULL");
 
@@ -127,14 +124,27 @@ public class AvailabilityService {
     );
   }
 
-  public DeletedAvailability deleteAvailability(Integer id) {
+  public DeletedAvailability deleteAvailability(Integer id, String token) {
     if (id == null) throw nullPointer();
 
     if (!availabilityRepository.existsById(id)) throw modelNotFound(
       "AVAILABILITY_NOT_FOUND"
     );
 
+    Optional<User> deleter = userRepository.findByUsername(
+      jwtUtil.getSubject(token)
+    );
+
+    if (deleter.isEmpty()) throw modelNotFound("USER_NOT_FOUND");
+
     Availability deleted = availabilityRepository.getReferenceById(id);
+
+    if (
+      deleter.get().getId() != deleted.getLinkedUser().getId()
+    ) throw noYouDont(
+      "USER_REQUESTING_AVAILABILITY_DELETION_IS_NOT_LINKED_USER"
+    );
+
     availabilityRepository.deleteById(id);
 
     return new DeletedAvailability(deleted);
