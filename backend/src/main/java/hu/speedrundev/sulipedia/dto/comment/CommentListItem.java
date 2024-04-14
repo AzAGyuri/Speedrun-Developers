@@ -3,7 +3,7 @@ package hu.speedrundev.sulipedia.dto.comment;
 import hu.speedrundev.sulipedia.dto.entry.GetEntryWithID;
 import hu.speedrundev.sulipedia.dto.user.GetUserWithID;
 import hu.speedrundev.sulipedia.model.Comment;
-import java.util.Date;
+import java.time.LocalDateTime;
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
@@ -11,7 +11,7 @@ public class CommentListItem extends GetCommentWithID {
 
   public CommentListItem(
     String content,
-    Date createdOn,
+    LocalDateTime createdOn,
     GetUserWithID author,
     GetEntryWithID entry,
     Integer id

@@ -6,7 +6,8 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import java.util.Date;
+
+import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -23,14 +24,14 @@ public class Comment {
     this.content = content;
     this.entry = entry;
     this.author = author;
-    createdOn = new Date();
+    createdOn = LocalDateTime.now();
   }
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Integer id;
 
-  private Date createdOn;
+  private LocalDateTime createdOn;
 
   private String content;
 
