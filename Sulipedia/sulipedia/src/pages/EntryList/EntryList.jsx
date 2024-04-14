@@ -189,6 +189,26 @@ const style = {
 };
 
 export function EntryList({ children, jwt, setIsLoading, isLoading, subject }) {
+  let title = "";
+  switch (subject) {
+    case "TECHNICAL_ENGLISH":
+      title = "Szakmai Angol bejegyzések";
+      break;
+    case "MATHS":
+      title = "Matematika bejegyzések";
+      break;
+    case "HUNGARIAN":
+      title = "Magyar bejegyzések";
+      break;
+    case "HISTORY":
+      title = "Történelem bejegyzések";
+      break;
+    case "ICT":
+      title = "Informatika bejegyzések";
+      break;
+    default:
+      title = "Bejegyzések";
+  }
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [selectedAuthor, setSelectedAuthor] = useState(null);
   const dummyDataForEntries = useMemo(
@@ -418,6 +438,16 @@ export function EntryList({ children, jwt, setIsLoading, isLoading, subject }) {
     setNewComment("");
   };
 
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const handlePopoverOpen = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handlePopoverClose = () => {
+    setAnchorEl(null);
+  };
+
+  const openPopover = Boolean(anchorEl);
+
   const handleClose = () => setOpen(false);
   const [selectedEntry, setSelectedEntry] = React.useState(null);
   const handleEntryClick = (entry) => {
@@ -592,7 +622,7 @@ export function EntryList({ children, jwt, setIsLoading, isLoading, subject }) {
       </StyledDrawer>
 
       <StyledContainer style={{ backgroundColor: "#ccc" }}>
-        <Title variant="h3">Matematikai bejegyzések</Title>
+      <Title variant="h3">{title}</Title>
         {selectedAuthor === null
           ? entries.map((entry, index) => (
               <Entry
@@ -603,6 +633,10 @@ export function EntryList({ children, jwt, setIsLoading, isLoading, subject }) {
                 createdOn={entry.createdOn}
                 author={entry.author}
                 handleEntryClick={handleEntryClick}
+                open={openPopover}
+                handlePopoverOpen={handlePopoverOpen}
+                handlePopoverClose={handlePopoverClose}
+                anchorEl={anchorEl}
               />
             ))
           : entries
@@ -616,6 +650,10 @@ export function EntryList({ children, jwt, setIsLoading, isLoading, subject }) {
                   createdOn={entry.createdOn}
                   author={entry.author}
                   handleEntryClick={handleEntryClick}
+                  open={openPopover}
+                  handlePopoverOpen={handlePopoverOpen}
+                  handlePopoverClose={handlePopoverClose}
+                  anchorEl={anchorEl}
                 />
               ))}
       </StyledContainer>
@@ -657,6 +695,10 @@ export function EntryList({ children, jwt, setIsLoading, isLoading, subject }) {
                 content={selectedEntry.content}
                 createdOn={selectedEntry.createdOn}
                 author={selectedEntry.author}
+                open={openPopover}
+                handlePopoverOpen={handlePopoverOpen}
+                handlePopoverClose={handlePopoverClose}
+                anchorEl={anchorEl}
               />
 
               <CommentSection>

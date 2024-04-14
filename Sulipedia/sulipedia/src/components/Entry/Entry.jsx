@@ -1,4 +1,4 @@
-import { Typography } from "@mui/material";
+import { Typography, Popover, } from "@mui/material";
 import { Container, styled } from "@mui/system";
 
 const StyledContainer = styled(Container)({
@@ -37,6 +37,10 @@ export function Entry({
   createdOn,
   author,
   handleEntryClick,
+  open,
+  handlePopoverOpen,
+  handlePopoverClose,
+  anchorEl,
 }) {
   return (
     <StyledContainer
@@ -85,9 +89,34 @@ export function Entry({
             fontWeight: "bold",
             marginLeft: "10px",
           }}
+          aria-owns={open ? 'mouse-over-popover' : undefined}
+          aria-haspopup="true"
+          onMouseEnter={handlePopoverOpen}
+          onMouseLeave={handlePopoverClose}
         >
           {author}
         </Typography>
+        <Popover
+          id="mouse-over-popover"
+          sx={{
+            pointerEvents: 'none',
+          }}
+          open={open}
+          anchorEl={anchorEl}
+          anchorOrigin={{
+            vertical: 'top',
+            horizontal: 'center',
+          }}
+          transformOrigin={{
+            vertical: 'bottom',
+            horizontal: 'center',
+          }}
+          onClose={handlePopoverClose}
+          disableRestoreFocus
+        >
+          <Typography sx={{ p: 1 }}>I use Popover.</Typography>
+        </Popover>
+
       </div>
     </StyledContainer>
   );
