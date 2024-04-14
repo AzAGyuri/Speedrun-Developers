@@ -34,4 +34,3 @@ A felhasználó bejelentkezését a komponens az alábbi módon ellenőrzi:
 
 - Az útvonalak és azokhoz tartozó komponensek a `Routes` komponens alatt vannak definiálva.
 - Az alkalmazás fő navigációs sávját a `ResAppBar` komponens kezeli, amely minden oldalon megjelenik.
-- A felhasználó bejelentkezett állapotát helyben tárolják, és az útvonalak alapján ellenőrzik a bejelentkezett állapotot.
