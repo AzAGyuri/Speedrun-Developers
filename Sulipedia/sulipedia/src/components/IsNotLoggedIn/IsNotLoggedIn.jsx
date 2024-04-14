@@ -2,21 +2,16 @@ import axios from "axios";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
-export function IsNotLoggedIn() {
+export function IsNotLoggedIn({ jwt, currentUserId }) {
   const navigate = useNavigate();
   useEffect(() => {
-    if (
-      localStorage.getItem("jwt") === null &&
-      localStorage.getItem("currentUserId") !== "0"
-    ) {
+    if (jwt === null && currentUserId !== "0") {
       navigate("/signIn");
     }
 
-    if (localStorage.getItem("jwt") !== null) {
+    if (jwt !== null) {
       axios
-        .get("/validatetoken", {
-          headers: { Authorization: localStorage.getItem("jwt") },
-        })
+        .get("/validatetoken", { headers: { Authorization: jwt } })
         .then((response) => {
           if (!response) navigate("/signIn");
         })
