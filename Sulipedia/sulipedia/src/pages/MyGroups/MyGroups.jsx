@@ -18,6 +18,9 @@ import {
   InputLabel,
   Select,
   MenuItem,
+  TableCell,
+  TableRow,
+  Table,
 } from "@mui/material";
 import { Delete, Add } from "@mui/icons-material";
 import Stack from "@mui/material/Stack";
@@ -791,11 +794,21 @@ export function MyGroups({
               >
                 <ListItemAvatar>
                   <Tooltip title={
-                    <div style={{ width: "auto", height: "auto", }}>
-                      <div style={{ padding: "5px", fontSize: "20px", color: "#eb365a", border: "1px solid black", backgroundColor: "#84adf0" }}>{member.name}</div>
-                      <div style={{ padding: "5px", fontSize: "20px", color: "#eb365a", border: "1px solid black", backgroundColor: "#84adf0" }}>{member.id}</div>
-                      <div style={{ padding: "5px", fontSize: "20px", color: "#eb365a", border: "1px solid black", backgroundColor: "#84adf0" }}>{member.email}</div>
-                      <div style={{ padding: "5px", fontSize: "20px", color: "#eb365a", border: "1px solid black", backgroundColor: "#84adf0" }}>Regisztáció napja: {member.memberSince}</div>
+                    <div style={{}}>
+                      
+                      <Table>
+                        <TableCell>
+                          <TableRow>
+                            <div style={{ padding: "5px", fontSize: "20px", color: "#eb365a", border: "1px solid black", backgroundColor: "#84adf0" }}>{member.name}</div>
+                            <div style={{ padding: "5px", fontSize: "20px", color: "#eb365a", border: "1px solid black", backgroundColor: "#84adf0" }}>{member.id}</div>
+                            <div style={{ padding: "5px", fontSize: "20px", color: "#eb365a", border: "1px solid black", backgroundColor: "#84adf0" }}>{member.email}</div>
+                            <div style={{ padding: "5px", fontSize: "20px", color: "#eb365a", border: "1px solid black", backgroundColor: "#84adf0" }}>Regisztáció napja: {member.memberSince}</div>
+                          </TableRow>
+                          <TableRow style={{display: "flex", justifyContent: "center",marginTop:"10px"}}>
+                            <div style={{ padding: "5px", fontSize: "50px", color: "#eb365a", border: "1px solid black", backgroundColor: "#54538c" }}><Avatar style={{backgroundColor:"red", alignSelf:"center"}}>{member.name[0]}</Avatar></div>
+                          </TableRow>
+                        </TableCell>
+                      </Table>
                     </div>
                   } >
                     <Avatar>{member.name[0]}</Avatar>
