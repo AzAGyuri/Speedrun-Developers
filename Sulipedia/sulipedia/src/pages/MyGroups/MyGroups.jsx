@@ -186,9 +186,9 @@ export function MyGroups({
     name: "Szakmai angol",
     description: "Szakmai angol csoport",
     members: [
-      { id: 1, name: "John Doe", email:"semmi@valami.com", memberSince:"2024-04-14 14:28:43" },
-      { id: 2, name: "Alice Smith", email:"semmi@valami.com", memberSince:"2024-04-14 14:28:43" },
-      { id: 3, name: "Bob Johnson", email:"semmi@valami.com", memberSince:"2024-04-14 14:28:43" },
+      { id: 1, name: "John Doe", email: "semmi@valami.com", memberSince: "2024-04-14 14:28:43" },
+      { id: 2, name: "Alice Smith", email: "semmi@valami.com", memberSince: "2024-04-14 14:28:43" },
+      { id: 3, name: "Bob Johnson", email: "semmi@valami.com", memberSince: "2024-04-14 14:28:43" },
     ],
     ownerId: 1,
   });
@@ -798,8 +798,6 @@ export function MyGroups({
                       <div style={{ padding: "5px", fontSize: "20px", color: "#eb365a", border: "1px solid black", backgroundColor: "#84adf0" }}>Regisztáció napja: {member.memberSince}</div>
                     </div>
                   } >
-                    <Avatar>{member.name[0]}</Avatar>
-                  <Tooltip title={member.name}>
                     <Avatar>{member.name[0]}</Avatar>
                   </Tooltip>
                 </ListItemAvatar>
