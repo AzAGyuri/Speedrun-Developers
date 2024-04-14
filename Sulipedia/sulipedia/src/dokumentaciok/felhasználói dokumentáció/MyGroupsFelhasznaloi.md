@@ -1,4 +1,4 @@
-## MyGroups Komponens Felhasználói Dokumentáció
+## Csoportjaim Komponens Felhasználói Dokumentáció
 
 ### Áttekintés
 
