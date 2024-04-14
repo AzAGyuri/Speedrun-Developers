@@ -25,6 +25,7 @@ import Box from "@mui/material/Box";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { Loading } from "../../components/Loading/Loading";
 import axios from "axios";
+import { Popover, } from "@mui/material";
 
 const styles = {
   container: {
@@ -781,7 +782,9 @@ export function MyGroups({
                 key={member.id}
               >
                 <ListItemAvatar>
+                  <Tooltip title={member.name} >
                   <Avatar>{member.name[0]}</Avatar>
+                  </Tooltip>
                 </ListItemAvatar>
                 <ListItemText primary={member.name} />
                 <Tooltip title={`${member.name} kidobása a csoportból`}>

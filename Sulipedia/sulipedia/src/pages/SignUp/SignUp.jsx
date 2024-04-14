@@ -66,13 +66,6 @@ export default function SignUp({ children, setIsLoading, jwt }) {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    const isPasswordValid = validatePassword(formData.password);
-    const isConfirmPasswordValid = formData.password === formData.confirmPassword;
-  
-    if (!isPasswordValid || !isConfirmPasswordValid) {
-      setPasswordError(true);
-      return;
-    }
     validateForm();
     if (isFormValid()) {
       const finalFormData = {
@@ -191,11 +184,14 @@ export default function SignUp({ children, setIsLoading, jwt }) {
       setEmailError(true);
     }
   
-    const passwordRegex = /^(?=.*[A-Za-zÁÉÍÓÖŐÚÜŰáéíóöőúüű])(?=.*\d)[A-Za-zÁÉÍÓÖŐÚÜŰáéíóöőúüű\d]{8,}$/;
-    const isPasswordValid = passwordRegex.test(formData.password);
-    const isConfirmPasswordValid = formData.password === formData.confirmPassword;
+    const passwordRegex = /^(?=.*[A-Za-zÁÉÍÓÖŐÚÜŰáéíóöőúüű])(?=.*\d).{8,}$/;;
+    if(!passwordRegex.test(formData.password)){
+      setPasswordError(true);
+    }
+    if(!formData.password === formData.confirmPassword){
+      setPasswordError(true);
+    }
   
-    setPasswordError(!isPasswordValid || !isConfirmPasswordValid);
     
     if (formData.surName.length < 2) {
       setLastNameError(true);
@@ -216,16 +212,7 @@ export default function SignUp({ children, setIsLoading, jwt }) {
       setPhoneError(true);
     }
   
-    if (!isConfirmPasswordValid) {
-      setPasswordError(true);
-    }
   };
- const validatePassword = (password) => {
-  const letterRegex = /[A-Za-zÁÉÍÓÖŐÚÜŰáéíóöőúüű]/;
-  const numberRegex = /\d/;
-  return password.length >= 8 && letterRegex.test(password) && numberRegex.test(password);
-};
-
 
   const isFormValid = () => {
     return (
