@@ -220,10 +220,12 @@ export default function SignUp({ children, setIsLoading, jwt }) {
       setPasswordError(true);
     }
   };
-  const validatePassword = (password) => {
-    const passwordRegex = /^(?=.*[A-Za-zÁÉÍÓÖŐÚÜŰáéíóöőúüű])(?=.*\d)[A-Za-zÁÉÍÓÖŐÚÜŰáéíóöőúüű\d]{8,}$/;
-    return passwordRegex.test(password);
-  };  
+ const validatePassword = (password) => {
+  const letterRegex = /[A-Za-zÁÉÍÓÖŐÚÜŰáéíóöőúüű]/;
+  const numberRegex = /\d/;
+  return password.length >= 8 && letterRegex.test(password) && numberRegex.test(password);
+};
+
 
   const isFormValid = () => {
     return (
