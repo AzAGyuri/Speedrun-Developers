@@ -25,7 +25,7 @@ import Box from "@mui/material/Box";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { Loading } from "../../components/Loading/Loading";
 import axios from "axios";
-import { Popover, } from "@mui/material";
+import { Popover } from "@mui/material";
 
 const styles = {
   container: {
@@ -194,9 +194,14 @@ export function MyGroups({
   });
   const [showAddMemberModal, setShowAddMemberModal] = useState(false);
   const [loaded, setLoaded] = useState(false);
+  const [avatarColors, setAvatarColors] = useState({});
   const isSmallScreen = useMediaQuery("(max-width:950px)");
 
-  const [avatarColors, setAvatarColors] = useState({});
+  const getRandomColor = () => {
+    const colors = ["#f00", "#ff0", "#0f0", "#0ff", "#00f", "#f60"];
+    return colors[Math.floor(Math.random() * colors.length)];
+  };
+
   useEffect(() => {
     const colors = {};
     groups.forEach((group) => {
@@ -271,20 +276,22 @@ export function MyGroups({
               memberSince: user.createdOn
             });
           });
+
+          group.members = localMembers;
+          localGroups[index] = group;
+          setGroups(localGroups);
+          setSelectedGroup(group);
+          setShowMembers(true);
         })
 
         .catch((error) => {
           console.error("Hiba történt adat lekérdezése során", error);
-          alert("Hiba történt adat lekérdezése során", error);
+          alert("Hiba történt adat lekérdezése során");
         });
-
-      group.members = localMembers;
-      localGroups[index] = group;
-      setGroups(localGroups);
+    } else {
+      setSelectedGroup(group);
+      setShowMembers(true);
     }
-
-    setSelectedGroup(group);
-    setShowMembers(true);
   };
 
   const handleCloseMembers = () => {
@@ -305,7 +312,11 @@ export function MyGroups({
   const [newMemberName, setNewMemberName] = useState("");
 
   function createNewGroup() {
-    if (!groupName.trim() || !groupDesc.trim() || specializations.length === 0) {
+    if (
+      !groupName.trim() ||
+      !groupDesc.trim() ||
+      specializations.length === 0
+    ) {
       alert(
         "A csoport nevének és leírásának legalább 1 karakter hosszúnak kell lennie, valamint kell legalább egy szakma beállítva legyen!"
       );
@@ -400,11 +411,6 @@ export function MyGroups({
         }
       });
   }
-
-  const getRandomColor = () => {
-    const colors = ["#f00", "#ff0", "#0f0", "#0ff", "#00f", "#f60"];
-    return colors[Math.floor(Math.random() * colors.length)];
-  };
 
   function addMemberToGroup() {
     setIsLoading(true);
@@ -792,6 +798,8 @@ export function MyGroups({
                       <div style={{ padding: "5px", fontSize: "20px", color: "#eb365a", border: "1px solid black", backgroundColor: "#84adf0" }}>Regisztáció napja: {member.memberSince}</div>
                     </div>
                   } >
+                    <Avatar>{member.name[0]}</Avatar>
+                  <Tooltip title={member.name}>
                     <Avatar>{member.name[0]}</Avatar>
                   </Tooltip>
                 </ListItemAvatar>

@@ -218,7 +218,9 @@ export function EntryList({ children, jwt, setIsLoading, isLoading, subject }) {
         title: "A prímszámok világa",
         content: "A prímszámok fontos szerepet játszanak a matematikában",
         createdOn: "2023.01.15",
-        author: "Emberke 1",
+        author: {
+          username: "Emberke 1",
+        },
         subject: "MATHS",
       },
       {
@@ -226,7 +228,9 @@ export function EntryList({ children, jwt, setIsLoading, isLoading, subject }) {
         title: "Az algebra alapjai",
         content: "Az alapvető algebrai műveletek és fogalmak",
         createdOn: "2023.02.03",
-        author: "Emberke 2",
+        author: {
+          username: "Emberke 2",
+        },
         subject: "MATHS",
       },
       {
@@ -234,7 +238,9 @@ export function EntryList({ children, jwt, setIsLoading, isLoading, subject }) {
         title: "A geometria varázslata",
         content: "A geometriai alakzatok és tulajdonságaik megértése",
         createdOn: "2023.03.15",
-        author: "Emberke 2",
+        author: {
+          username: "Emberke 2",
+        },
         subject: "MATHS",
       },
       {
@@ -242,7 +248,9 @@ export function EntryList({ children, jwt, setIsLoading, isLoading, subject }) {
         title: "A differenciálszámítás alapjai",
         content: "Az alapfogalmak és az elsődleges szabályok",
         createdOn: "2023.04.04",
-        author: "Emberke 1",
+        author: {
+          username: "Emberke 1",
+        },
         subject: "MATHS",
       },
       {
@@ -250,7 +258,9 @@ export function EntryList({ children, jwt, setIsLoading, isLoading, subject }) {
         title: "A valószínűségszámítás alapjai",
         content: "A valószínűségszámítás fontossága és alkalmazása",
         createdOn: "2023.05.20",
-        author: "Emberke 3",
+        author: {
+          username: "Emberke 3",
+        },
         subject: "MATHS",
       },
       {
@@ -258,7 +268,9 @@ export function EntryList({ children, jwt, setIsLoading, isLoading, subject }) {
         title: "Petőfi Sándor élete és művei",
         content: "A magyar irodalom kiemelkedő alakja és költői öröksége",
         createdOn: "2023.01.15",
-        author: "Emberke 1",
+        author: {
+          username: "Emberke 1"
+        },
         category: "HUNGARIAN",
       },
       {
@@ -266,7 +278,9 @@ export function EntryList({ children, jwt, setIsLoading, isLoading, subject }) {
         title: "A Jókai-regények világa",
         content: "Jókai Mór regényeinek jelentősége és hatása",
         createdOn: "2023.02.03",
-        author: "Emberke 2",
+        author: {
+          username: "Emberke 2"
+        },
         category: "HUNGARIAN",
       },
       {
@@ -274,7 +288,9 @@ export function EntryList({ children, jwt, setIsLoading, isLoading, subject }) {
         title: "Az Áprily-regények és novellák",
         content: "Áprily Lajos műveinek sokszínűsége és irodalmi értéke",
         createdOn: "2023.03.15",
-        author: "Emberke 2",
+        author: {
+          username: "Emberke 2"
+        },
         category: "HUNGARIAN",
       },
       {
@@ -282,7 +298,9 @@ export function EntryList({ children, jwt, setIsLoading, isLoading, subject }) {
         title: "A magyar költészet aranykora",
         content: "A romantika és a szimbolizmus jelentős költői és alkotásai",
         createdOn: "2023.04.04",
-        author: "Emberke 1",
+        author: {
+          username: "Emberke 1"
+        },
         category: "HUNGARIAN",
       },
       {
@@ -291,7 +309,9 @@ export function EntryList({ children, jwt, setIsLoading, isLoading, subject }) {
         content:
           "Az újító drámaírók és a kortárs magyar dráma jellegzetességei",
         createdOn: "2023.05.20",
-        author: "Emberke 3",
+        author: {
+          username: "Emberke 1"
+        },
         category: "HUNGARIAN",
       },
       {
@@ -300,7 +320,9 @@ export function EntryList({ children, jwt, setIsLoading, isLoading, subject }) {
         content:
           "Az algoritmusok és adatszerkezetek kulcsfontosságú fogalmak az informatikában. Az algoritmusok hatékony megvalósítása és az optimális adatszerkezetek kiválasztása lehetővé teszi az informatikai problémák hatékony megoldását.",
         createdOn: "2024-04-01",
-        author: "Emberke 1",
+        author: {
+          username: "Emberke 1"
+        },
         category: "ICT",
       },
       {
@@ -309,7 +331,9 @@ export function EntryList({ children, jwt, setIsLoading, isLoading, subject }) {
         content:
           "A felhőalapú számítástechnika forradalmasította az informatikát. Az egyre növekvő számú vállalat és felhasználó számára biztosítja az adatok tárolását, szolgáltatásokat és alkalmazásokat a világhálón keresztül.",
         createdOn: "2024-04-01",
-        author: "Emberke 2",
+        author: {
+          username: "Emberke 1"
+        },
         category: "ICT",
       },
       {
@@ -318,7 +342,9 @@ export function EntryList({ children, jwt, setIsLoading, isLoading, subject }) {
         content:
           "A kiberbiztonság és hálózatbiztonság napjainkban kulcsfontosságú területe az informatikának. Az internetes fenyegetések és a számítógépes bűnözés elleni védelem elengedhetetlen a biztonságos online környezet megteremtéséhez.",
         createdOn: "2024-04-01",
-        author: "Emberke 3",
+        author: {
+          username: "Emberke 1"
+        },
         category: "ICT",
       },
       {
@@ -327,7 +353,9 @@ export function EntryList({ children, jwt, setIsLoading, isLoading, subject }) {
         content:
           "Az adattudomány és a nagy adat elemzésének képességei forradalmasítják az üzleti és tudományos területeket egyaránt. Az adatokból való értelmezés lehetővé teszi a trendek felismerését és a jövőbeli döntések meghozatalát.",
         createdOn: "2024-04-01",
-        author: "Emberke 1",
+        author: {
+          username: "Emberke 1"
+        },
         category: "ICT",
       },
       {
@@ -336,7 +364,9 @@ export function EntryList({ children, jwt, setIsLoading, isLoading, subject }) {
         content:
           "A mesterséges intelligencia és a gépi tanulás területei forradalmasítják az informatikát. Az olyan alkalmazások, mint az autonóm járművek és a nyelvi felismerés, az MI és a gépi tanulás legújabb fejlesztéseinek eredményei.",
         createdOn: "2024-04-01",
-        author: "Emberke 3",
+        author: {
+          username: "Emberke 1"
+        },
         category: "ICT",
       },
       {
@@ -345,7 +375,9 @@ export function EntryList({ children, jwt, setIsLoading, isLoading, subject }) {
         content:
           "Understanding the fundamental principles of quantum mechanics",
         createdOn: "2023.01.15",
-        author: "Emberke 1",
+        author: {
+          username: "Emberke 1"
+        },
         category: "TECHNICAL_ENGLISH",
       },
       {
@@ -353,7 +385,9 @@ export function EntryList({ children, jwt, setIsLoading, isLoading, subject }) {
         title: "Introduction to Data TECHNICAL_ENGLISH",
         content: "Basic concepts and techniques in data TECHNICAL_ENGLISH",
         createdOn: "2023.02.03",
-        author: "Emberke 2",
+        author: {
+          username: "Emberke 1"
+        },
         category: "TECHNICAL_ENGLISH",
       },
       {
@@ -362,7 +396,9 @@ export function EntryList({ children, jwt, setIsLoading, isLoading, subject }) {
         content:
           "Recent developments and applications of artificial intelligence",
         createdOn: "2023.03.15",
-        author: "Emberke 2",
+        author: {
+          username: "Emberke 1"
+        },
         category: "TECHNICAL_ENGLISH",
       },
       {
@@ -371,7 +407,9 @@ export function EntryList({ children, jwt, setIsLoading, isLoading, subject }) {
         content:
           "Understanding encryption techniques and cryptographic protocols",
         createdOn: "2023.04.04",
-        author: "Emberke 1",
+        author: {
+          username: "Emberke 1"
+        },
         category: "TECHNICAL_ENGLISH",
       },
       {
@@ -379,7 +417,9 @@ export function EntryList({ children, jwt, setIsLoading, isLoading, subject }) {
         title: "Theoretical Foundations of Computer Networks",
         content: "Key concepts and models in computer networking",
         createdOn: "2023.05.20",
-        author: "Emberke 3",
+        author: {
+          username: "Emberke 1"
+        },
         category: "TECHNICAL_ENGLISH",
       },
       {
@@ -387,7 +427,9 @@ export function EntryList({ children, jwt, setIsLoading, isLoading, subject }) {
         title: "Az Árpád-ház kora",
         content: "A magyar történelem kezdete",
         createdOn: "2023.01.15",
-        author: "Emberke 1",
+        author: {
+          username: "Emberke 1"
+        },
         category: "HISTORY",
       },
       {
@@ -395,7 +437,9 @@ export function EntryList({ children, jwt, setIsLoading, isLoading, subject }) {
         title: "A Mohácsi csata",
         content: "Magyarország elvesztette függetlenségét",
         createdOn: "2023.02.03",
-        author: "Emberke 2",
+        author: {
+          username: "Emberke 1"
+        },
         category: "HISTORY",
       },
       {
@@ -403,7 +447,9 @@ export function EntryList({ children, jwt, setIsLoading, isLoading, subject }) {
         title: "A Rákóczi-szabadságharc",
         content: "Az összmagyar felkelés a Habsburgok ellen",
         createdOn: "2023.03.15",
-        author: "Emberke 2",
+        author: {
+          username: "Emberke 1"
+        },
         category: "HISTORY",
       },
       {
@@ -411,7 +457,9 @@ export function EntryList({ children, jwt, setIsLoading, isLoading, subject }) {
         title: "Az 1848-49-es forradalom és szabadságharc",
         content: "Az osztrák uralom elleni küzdelem",
         createdOn: "2023.04.04",
-        author: "Emberke 1",
+        author: {
+          username: "Emberke 1"
+        },
         category: "HISTORY",
       },
       {
@@ -419,7 +467,9 @@ export function EntryList({ children, jwt, setIsLoading, isLoading, subject }) {
         title: "Az első világháború utáni Magyarország",
         content: "A trianoni békeszerződés következményei",
         createdOn: "2023.05.20",
-        author: "Emberke 3",
+        author: {
+          username: "Emberke 1"
+        },
         category: "HISTORY",
       },
     ],
@@ -602,8 +652,8 @@ export function EntryList({ children, jwt, setIsLoading, isLoading, subject }) {
           </StyledAllAuthorsListItem>
           {entries
             .reduce((authors, entry) => {
-              if (!authors.includes(entry.author)) {
-                authors.push(entry.author);
+              if (!authors.includes(entry.author.username)) {
+                authors.push(entry.author.username);
               }
               return authors;
             }, [])
@@ -622,7 +672,7 @@ export function EntryList({ children, jwt, setIsLoading, isLoading, subject }) {
       </StyledDrawer>
 
       <StyledContainer style={{ backgroundColor: "#ccc" }}>
-      <Title variant="h3">{title}</Title>
+        <Title variant="h3">{title}</Title>
         {selectedAuthor === null
           ? entries.map((entry, index) => (
               <Entry
@@ -631,7 +681,7 @@ export function EntryList({ children, jwt, setIsLoading, isLoading, subject }) {
                 title={entry.title}
                 content={entry.content}
                 createdOn={entry.createdOn}
-                author={entry.author}
+                author={entry.author.username}
                 handleEntryClick={handleEntryClick}
                 open={openPopover}
                 handlePopoverOpen={handlePopoverOpen}
@@ -640,7 +690,7 @@ export function EntryList({ children, jwt, setIsLoading, isLoading, subject }) {
               />
             ))
           : entries
-              .filter((entry) => entry.author === selectedAuthor)
+              .filter((entry) => entry.author.username === selectedAuthor)
               .map((entry, index) => (
                 <Entry
                   key={index}
@@ -648,7 +698,7 @@ export function EntryList({ children, jwt, setIsLoading, isLoading, subject }) {
                   title={entry.title}
                   content={entry.content}
                   createdOn={entry.createdOn}
-                  author={entry.author}
+                  author={entry.author.username}
                   handleEntryClick={handleEntryClick}
                   open={openPopover}
                   handlePopoverOpen={handlePopoverOpen}
