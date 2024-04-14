@@ -459,7 +459,7 @@ values
     ),
     (
         "Petőfi Sándor élete és művei",
-        "Petőfi Sándor a magyar irodalom kiemelkedő alakja, költői öröksége mély nyomot hagyott a magyar irodalmi kánonban.",
+        "Petőfi Sándor a magyar irodalom kiemelkedő alakja, költői öröksége mély nyomot hagyott a magyar irodalmi kánonban. Az ő versei azóta is népszerűek, és számos generáció számára jelentettek és jelentenek inspirációt. Élete és művei a magyar kultúra fontos részét képezik.",
         0,
         0,
         NOW (),
@@ -468,7 +468,7 @@ values
     ),
     (
         "A Jókai-regények világa",
-        "Jókai Mór regényeinek jelentősége és hatása a magyar irodalomra kiemelkedő.",
+        "Jókai Mór regényeinek jelentősége és hatása a magyar irodalomra kiemelkedő. Ő az egyik legjelentősebb és legtermékenyebb magyar író, akinek művei nemcsak a kortársakat, de a későbbi nemzedékeket is lenyűgözték. Munkássága kiterjedt és sokrétű, és ma is aktuálisak az írásai.",
         0,
         0,
         NOW (),
@@ -477,7 +477,7 @@ values
     ),
     (
         "Az Áprily-regények és novellák",
-        "Áprily Lajos műveinek sokszínűsége és irodalmi értéke elismerést váltott ki a kortársak körében.",
+        "Áprily Lajos műveinek sokszínűsége és irodalmi értéke elismerést váltott ki a kortársak körében. Ő egyik legkiemelkedőbb magyar íróként tartják számon, aki életművével hozzájárult a magyar irodalom fejlődéséhez és gazdagításához. Művei mai napig fontosak és értékesek.",
         0,
         0,
         NOW (),
@@ -486,7 +486,7 @@ values
     ),
     (
         "A magyar költészet aranykora",
-        "A romantika és a szimbolizmus jelentős költői és alkotásai meghatározóak a magyar költészeti kánonban.",
+        "A romantika és a szimbolizmus jelentős költői és alkotásai meghatározóak a magyar költészeti kánonban. Ebben az időszakban születtek meg a legjelentősebb magyar költői művek, amelyek a mai napig inspirálják az olvasókat és hatnak a kortárs irodalomra. Az aranykor költői között olyan kimagasló alakok találhatók, mint Petőfi Sándor és Arany János.",
         0,
         0,
         NOW (),
@@ -495,7 +495,7 @@ values
     ),
     (
         "A XX. századi magyar drámaírás",
-        "Az újító drámaírók és a kortárs magyar dráma jellegzetességei sokszínűséget hoztak a magyar dráma műfajába.",
+        "Az újító drámaírók és a kortárs magyar dráma jellegzetességei sokszínűséget hoztak a magyar dráma műfajába. A XX. század folyamán számos jelentős és megkerülhetetlen drámaíró alkotta meg emlékezetes műveit, amelyek jelentősen befolyásolták a magyar irodalmat és kultúrát. Ezen alkotók munkássága mai napig inspirálja és provokálja az olvasókat.",
         0,
         0,
         NOW (),
@@ -504,7 +504,7 @@ values
     ),
     (
         "A prímszámok világa",
-        "A prímszámok fontos szerepet játszanak a matematikában, és számos alkalmazása van a való életben is.",
+        "A prímszámok fontos szerepet játszanak a matematikában, és számos alkalmazása van a való életben is. Ezek a természetes számok, amelyek csak egyetlen osztóval oszthatók oszthatók, alapvető fontosságúak a kriptográfiai rendszerek és más matematikai problémák megoldásában. A prímszámok elmélete hosszú történelmi hátteret és jelentőségét mutatja.",
         0,
         0,
         NOW (),
@@ -513,7 +513,7 @@ values
     ),
     (
         "Az algebra alapjai",
-        "Az alapvető algebrai műveletek és fogalmak megértése elengedhetetlen a matematikai tudás elsajátításához.",
+        "Az alapvető algebrai műveletek és fogalmak megértése elengedhetetlen a matematikai tudás elsajátításához. Az algebra az absztrakt matematika egyik alapvető ága, amely számos alkalmazást talál a tudományokban és a mindennapi életben egyaránt. Az algebrai gondolkodás kulcsfontosságú a problémamegoldásban és a matematikai modellezésben.",
         0,
         0,
         NOW (),
@@ -522,7 +522,7 @@ values
     ),
     (
         "A geometria varázslata",
-        "A geometriai alakzatok és tulajdonságaik megértése segít abban, hogy jobban értsük a térbeli viszonyokat.",
+        "A geometriai alakzatok és tulajdonságaik megértése segít abban, hogy jobban értsük a térbeli viszonyokat. A geometria az elemi matematikai ág, amely a síkbeli és térbeli alakzatokat tanulmányozza, és számos területen talál alkalmazást, beleértve a mérnöki, építészeti és grafikai tervezést. A geometriai fogalmak számos területen alapvető fontosságúak.",
         0,
         0,
         NOW (),
@@ -531,7 +531,7 @@ values
     ),
     (
         "A differenciálszámítás alapjai",
-        "A differenciálszámítás alapfogalmai és szabályai fontosak a matematikai analízis megértéséhez.",
+        "A differenciálszámítás alapfogalmai és szabályai fontosak a matematikai analízis megértéséhez. Ez az analízis egyik alapvető ága, amely a függvények változásának és alakulásának tanulmányozására összpontosít. A differenciálszámítás számos területen, például a fizikában és a mérnöki gyakorlatban is alkalmazható.",
         0,
         0,
         NOW (),
@@ -540,7 +540,7 @@ values
     ),
     (
         "A valószínűségszámítás alapjai",
-        "A valószínűségszámítás fontossága és alkalmazása kiterjed az üzleti analitikától az alkalmazott matematikáig.",
+        "A valószínűségszámítás fontossága és alkalmazása kiterjed az üzleti analitikától az alkalmazott matematikáig. Ez a matematika ága a véletlenségi események és azok valószínűségeinek tanulmányozására összpontosít, és számos területen fontos, például a statisztikában, a pénzügyekben és a gépi tanulásban.",
         0,
         0,
         NOW (),
@@ -549,7 +549,7 @@ values
     ),
     (
         "Exploring Quantum Mechanics",
-        "Understanding the fundamental principles of quantum mechanics opens doors to exploring the mysteries of the quantum world.",
+        "Understanding the fundamental principles of quantum mechanics opens doors to exploring the mysteries of the quantum world. Quantum mechanics is a branch of physics that describes the behavior of matter and energy at very small scales, such as atoms and subatomic particles. It has led to the development of technologies such as quantum computing and quantum cryptography.",
         0,
         0,
         NOW (),
@@ -558,7 +558,7 @@ values
     ),
     (
         "Introduction to Data",
-        "Basic concepts and techniques in data management and analysis are crucial for understanding modern technologies.",
+        "Basic concepts and techniques in data management and analysis are crucial for understanding modern technologies. Data is the foundation of many technological advancements, and knowing how to collect, store, and analyze data is essential for professionals in various fields, from business to science and engineering.",
         0,
         0,
         NOW (),
@@ -567,7 +567,7 @@ values
     ),
     (
         "Advancements in Artificial Intelligence",
-        "Recent developments and applications of artificial intelligence are transforming various industries and aspects of our daily lives.",
+        "Recent developments and applications of artificial intelligence are transforming various industries and aspects of our daily lives. Artificial intelligence (AI) technologies, such as machine learning and natural language processing, are being used to automate tasks, make predictions, and improve decision-making processes across different sectors, from healthcare to finance.",
         0,
         0,
         NOW (),
@@ -576,7 +576,7 @@ values
     ),
     (
         "Fundamentals of Cryptography",
-        "Understanding encryption techniques and cryptographic protocols is essential for securing sensitive information in digital communication.",
+        "Understanding encryption techniques and cryptographic protocols is essential for securing sensitive information in digital communication. Cryptography plays a crucial role in safeguarding data privacy and integrity, ensuring that only authorized parties can access and understand transmitted information.",
         0,
         0,
         NOW (),
@@ -585,7 +585,7 @@ values
     ),
     (
         "Theoretical Foundations of Computer Networks",
-        "Key concepts and models in computer networking provide the theoretical framework for understanding how data is transmitted and exchanged in modern networks.",
+        "Key concepts and models in computer networking provide the theoretical framework for understanding how data is transmitted and exchanged in modern networks. Computer networks are essential for communication and data sharing in today's interconnected world, and understanding their theoretical foundations is crucial for network engineers and cybersecurity professionals.",
         0,
         0,
         NOW (),
