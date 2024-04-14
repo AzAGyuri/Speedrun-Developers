@@ -145,7 +145,6 @@ export function Settings({ children, setIsLoading, isLoading, jwt }) {
       passwordRaw: formData.password,
       phoneNumber: formData.phoneNumber,
     };
-    console.log(localStorage.getItem("jwt"));
     if (!passwordError) {
       axios
         .put(`/user`, requestData, {
