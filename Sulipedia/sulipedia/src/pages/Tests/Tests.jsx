@@ -699,15 +699,15 @@ export function Tests({ children, setIsLoading, isLoading, jwt }) {
               variant="determinate"
               value={percentage}
               sx={{
-                background: "cyan",
+                background: "#e39191",
                 borderRadius: "10px",
                 height: "10px",
                 marginBottom: "20px",
                 "& > span": {
                   backgroundColor: "#FF5733",
-                  borderRadius: "10px",
+                  borderRadius: "5px",
                 },
-                boxShadow: "0 2px 5px rgba(0, 0, 0, 0.2)",
+                boxShadow: "0 2px 5px rgba(0, 0, 0, 0.5)",
               }}
             />
 
