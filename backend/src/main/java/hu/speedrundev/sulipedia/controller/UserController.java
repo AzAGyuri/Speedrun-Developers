@@ -1,7 +1,7 @@
 package hu.speedrundev.sulipedia.controller;
 
 import hu.speedrundev.sulipedia.dto.user.GetUser;
-import hu.speedrundev.sulipedia.dto.user.GetUserWithEntries;
+import hu.speedrundev.sulipedia.dto.user.GetUserWithAvailabilities;
 import hu.speedrundev.sulipedia.dto.user.GetUserWithID;
 import hu.speedrundev.sulipedia.dto.user.NulledUser;
 import hu.speedrundev.sulipedia.dto.user.PostUser;
@@ -166,7 +166,7 @@ public class UserController {
     description = "Az adatbázisban tárolt egy felhasználó lekérdezése ID alapján az útvonalban, saját bejegyzéseivel együtt"
   )
   @GetMapping("/user/{id}")
-  public GetUserWithEntries getUser(@PathVariable Integer id) {
+  public GetUserWithAvailabilities getUser(@PathVariable Integer id) {
     return service.getUser(id);
   }
 
