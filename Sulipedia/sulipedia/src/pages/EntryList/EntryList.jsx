@@ -700,7 +700,7 @@ export function EntryList({ children, jwt, setIsLoading, isLoading, subject }) {
         console.error("Error fetching data:", error);
         alert("Kommentek lekérdezése sikertelen");
       });
-  }, [setIsLoading, dummyDataForEntries, jwt]);
+  }, [setIsLoading, dummyDataForEntries, jwt, subject]);
 
   useEffect(() => {
     setTimeout(() => {

@@ -29,7 +29,6 @@ import Stack from "@mui/material/Stack";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { Loading } from "../../components/Loading/Loading";
 import axios from "axios";
-import { Popover } from "@mui/material";
 import { styled } from "@mui/system";
 
 const styles = {
@@ -115,15 +114,6 @@ const styleSmall = {
   borderStyle: "double",
   borderColor: "#db140d",
 };
-
-const StyledLink = styled(Link)({
-  fontWeight: "bold",
-  textDecoration: "none",
-  color: "#1976d2",
-  "&:hover": {
-    textDecoration: "underline",
-  },
-});
 
 export function MyGroups({
   children,
@@ -502,7 +492,9 @@ export function MyGroups({
         }
 
         if (usernamesNotFound.length !== 0) {
-          alert(`A következő felhasználó nevűeket nem sikerült hozzáadni a csoporthoz, mert nem találhatóak meg: ${usernamesNotFound}`)
+          alert(
+            `A következő felhasználó nevűeket nem sikerült hozzáadni a csoporthoz, mert nem találhatóak meg: ${usernamesNotFound}`
+          );
         }
       })
       .catch((error) => {

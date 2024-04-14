@@ -143,7 +143,7 @@ export function MyProfile({ children, setIsLoading, isLoading, jwt, currentUserI
     setTimeout(() => {
       setIsLoading(false);
     }, 300);
-  }, [currentUserId, setIsLoading, isLoading]);
+  }, [currentUserId, setIsLoading, isLoading, jwt]);
 
   if (isLoading) return <Loading />;
 
