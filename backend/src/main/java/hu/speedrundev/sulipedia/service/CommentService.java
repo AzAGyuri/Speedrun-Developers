@@ -2,16 +2,19 @@ package hu.speedrundev.sulipedia.service;
 
 import static hu.speedrundev.sulipedia.util.ExceptionUtils.badRequest;
 import static hu.speedrundev.sulipedia.util.ExceptionUtils.modelNotFound;
+import static hu.speedrundev.sulipedia.util.ExceptionUtils.noYouDont;
 import static hu.speedrundev.sulipedia.util.ExceptionUtils.nullPointer;
 
 import hu.speedrundev.sulipedia.dto.comment.CommentList;
 import hu.speedrundev.sulipedia.dto.comment.GetCommentWithID;
 import hu.speedrundev.sulipedia.dto.comment.PostComment;
 import hu.speedrundev.sulipedia.model.Comment;
+import hu.speedrundev.sulipedia.model.User;
 import hu.speedrundev.sulipedia.repository.CommentRepository;
 import hu.speedrundev.sulipedia.repository.EntryRepository;
 import hu.speedrundev.sulipedia.repository.UserRepository;
 import hu.speedrundev.sulipedia.util.JwtUtil;
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -42,7 +45,7 @@ public class CommentService {
         .filter(comment -> comment.getAuthor().getDeleted() == null)
         .toList()
     );
-    
+
     return new CommentList(
       commentRepository
         .findAllByEntryId(entryId)
@@ -79,11 +82,22 @@ public class CommentService {
     );
   }
 
-  public boolean deleteComment(Integer id) {
+  public boolean deleteComment(Integer id, String token) {
     if (id == null) throw nullPointer();
     if (!commentRepository.existsById(id)) throw modelNotFound(
       "COMMENT_NOT_FOUND"
     );
+
+    Optional<User> deleter = userRepository.findByUsername(
+      jwtUtil.getSubject(token)
+    );
+
+    if (deleter.isEmpty()) throw modelNotFound("USER_NOT_FOUND");
+
+    if (
+      commentRepository.getReferenceById(id).getAuthor().getId() !=
+      deleter.get().getId()
+    ) throw noYouDont("USER_REQUESTING_COMMENT_DELETION_IS_NOT_AUTHOR");
 
     commentRepository.deleteById(id);
 

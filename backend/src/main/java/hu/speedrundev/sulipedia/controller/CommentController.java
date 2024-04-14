@@ -62,7 +62,10 @@ public class CommentController {
     description = "Az adatbázisban tárolt adott komment törlése ID alapján"
   )
   @DeleteMapping("/comment/{id}")
-  public boolean deleteComment(@PathVariable Integer id) {
-    return service.deleteComment(id);
+  public boolean deleteComment(
+    @PathVariable Integer id,
+    @RequestHeader(name = "Authorization") String jwt
+  ) {
+    return service.deleteComment(id, jwt.substring("Bearer".length()).trim());
   }
 }
