@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useMemo } from "react";
 import {
   Container,
   Typography,
@@ -16,6 +16,7 @@ import { color, height, styled } from "@mui/system";
 import MenuIcon from "@mui/icons-material/Menu";
 import DeleteIcon from "@mui/icons-material/Delete";
 import axios from "axios";
+import { Loading } from "../../components/Loading/Loading";
 
 const StyledContainer = styled(Container)({
   display: "flex",
@@ -193,11 +194,13 @@ const style = {
   overflow: "auto",
 };
 
-function Entry({ id, title, content, date, author, handleEntryClick }) {
+function Entry({ id, title, content, createdOn, author, handleEntryClick }) {
   return (
     <StyledContainer
       style={{ backgroundColor: "#4caf50" }}
-      onClick={() => handleEntryClick({ title, content, date, author, id })}
+      onClick={() =>
+        handleEntryClick({ title, content, createdOn, author, id })
+      }
     >
       <Title variant="h4">{title}</Title>
       <LargeText style={{ paddingBottom: "5px" }}>{content}</LargeText>
@@ -223,7 +226,7 @@ function Entry({ id, title, content, date, author, handleEntryClick }) {
             fontWeight: "bold",
           }}
         >
-          {date}
+          {createdOn}
         </Typography>
         <Typography
           variant="body2"
@@ -243,57 +246,60 @@ function Entry({ id, title, content, date, author, handleEntryClick }) {
   );
 }
 
-export function Informatika({ children, jwt }) {
+export function Informatika({ children, jwt, setIsLoading, isLoading }) {
   const [drawerOpen, setDrawerOpen] = React.useState(false);
   const [selectedAuthor, setSelectedAuthor] = React.useState(null);
   const [entries, setEntries] = React.useState([]);
-  const dummyDataForEntries = [
-    {
-      id: 1,
-      title: "Algoritmusok és Adatszerkezetek",
-      content:
-        "Az algoritmusok és adatszerkezetek kulcsfontosságú fogalmak az informatikában. Az algoritmusok hatékony megvalósítása és az optimális adatszerkezetek kiválasztása lehetővé teszi az informatikai problémák hatékony megoldását.",
-      createdOn: "2024-04-01",
-      author: "Emberke 1",
-      category: "ICT",
-    },
-    {
-      id: 2,
-      title: "Felhőalapú Számítástechnika",
-      content:
-        "A felhőalapú számítástechnika forradalmasította az informatikát. Az egyre növekvő számú vállalat és felhasználó számára biztosítja az adatok tárolását, szolgáltatásokat és alkalmazásokat a világhálón keresztül.",
-      createdOn: "2024-04-01",
-      author: "Emberke 2",
-      category: "ICT",
-    },
-    {
-      id: 3,
-      title: "Kiberbiztonság és Hálózatbiztonság",
-      content:
-        "A kiberbiztonság és hálózatbiztonság napjainkban kulcsfontosságú területe az informatikának. Az internetes fenyegetések és a számítógépes bűnözés elleni védelem elengedhetetlen a biztonságos online környezet megteremtéséhez.",
-      createdOn: "2024-04-01",
-      author: "Emberke 3",
-      category: "ICT",
-    },
-    {
-      id: 4,
-      title: "Adattudomány és Nagy Adat",
-      content:
-        "Az adattudomány és a nagy adat elemzésének képességei forradalmasítják az üzleti és tudományos területeket egyaránt. Az adatokból való értelmezés lehetővé teszi a trendek felismerését és a jövőbeli döntések meghozatalát.",
-      createdOn: "2024-04-01",
-      author: "Emberke 1",
-      category: "ICT",
-    },
-    {
-      id: 5,
-      title: "Mesterséges Intelligencia és Gépi Tanulás",
-      content:
-        "A mesterséges intelligencia és a gépi tanulás területei forradalmasítják az informatikát. Az olyan alkalmazások, mint az autonóm járművek és a nyelvi felismerés, az MI és a gépi tanulás legújabb fejlesztéseinek eredményei.",
-      createdOn: "2024-04-01",
-      author: "Emberke 3",
-      category: "ICT",
-    },
-  ];
+  const dummyDataForEntries = useMemo(
+    () => [
+      {
+        id: 1,
+        title: "Algoritmusok és Adatszerkezetek",
+        content:
+          "Az algoritmusok és adatszerkezetek kulcsfontosságú fogalmak az informatikában. Az algoritmusok hatékony megvalósítása és az optimális adatszerkezetek kiválasztása lehetővé teszi az informatikai problémák hatékony megoldását.",
+        createdOn: "2024-04-01",
+        author: "Emberke 1",
+        category: "ICT",
+      },
+      {
+        id: 2,
+        title: "Felhőalapú Számítástechnika",
+        content:
+          "A felhőalapú számítástechnika forradalmasította az informatikát. Az egyre növekvő számú vállalat és felhasználó számára biztosítja az adatok tárolását, szolgáltatásokat és alkalmazásokat a világhálón keresztül.",
+        createdOn: "2024-04-01",
+        author: "Emberke 2",
+        category: "ICT",
+      },
+      {
+        id: 3,
+        title: "Kiberbiztonság és Hálózatbiztonság",
+        content:
+          "A kiberbiztonság és hálózatbiztonság napjainkban kulcsfontosságú területe az informatikának. Az internetes fenyegetések és a számítógépes bűnözés elleni védelem elengedhetetlen a biztonságos online környezet megteremtéséhez.",
+        createdOn: "2024-04-01",
+        author: "Emberke 3",
+        category: "ICT",
+      },
+      {
+        id: 4,
+        title: "Adattudomány és Nagy Adat",
+        content:
+          "Az adattudomány és a nagy adat elemzésének képességei forradalmasítják az üzleti és tudományos területeket egyaránt. Az adatokból való értelmezés lehetővé teszi a trendek felismerését és a jövőbeli döntések meghozatalát.",
+        createdOn: "2024-04-01",
+        author: "Emberke 1",
+        category: "ICT",
+      },
+      {
+        id: 5,
+        title: "Mesterséges Intelligencia és Gépi Tanulás",
+        content:
+          "A mesterséges intelligencia és a gépi tanulás területei forradalmasítják az informatikát. Az olyan alkalmazások, mint az autonóm járművek és a nyelvi felismerés, az MI és a gépi tanulás legújabb fejlesztéseinek eredményei.",
+        createdOn: "2024-04-01",
+        author: "Emberke 3",
+        category: "ICT",
+      },
+    ],
+    []
+  );
 
   const [comments, setComments] = React.useState([]);
   const [newComment, setNewComment] = React.useState("");
@@ -304,7 +310,7 @@ export function Informatika({ children, jwt }) {
     setOpen(true);
     setNewComment("");
   };
-  
+
   const handleClose = () => setOpen(false);
   const [selectedEntry, setSelectedEntry] = React.useState(null);
   const handleEntryClick = (entry) => {
@@ -315,7 +321,34 @@ export function Informatika({ children, jwt }) {
   const handleCommentChange = (event) => {
     setNewComment(event.target.value);
   };
-  
+  const fetchComments = () => {
+    const backendUrl = "/comment";
+    axios
+      .get(backendUrl)
+      .then((response) => {
+        const fetchedComments = response.data.comments;
+        console.log("Komment", fetchedComments);
+      })
+      .catch((error) => {
+        console.error("Error fetching comments:", error);
+        alert("Hiba a kommentek lekérdezésekor", error);
+      });
+  };
+
+  const deleteComment = (commentId) => {
+    const backendUrl = `/comment/${commentId}`;
+
+    axios
+      .delete(backendUrl)
+      .then((response) => {
+        console.log("Komment törölve", response.data);
+      })
+      .catch((error) => {
+        console.error("Error deleting comment:", error);
+        alert("Hiba a komment törlésekor", error);
+      });
+  };
+
   const handleCommentSubmit = () => {
     axios
       .post(
@@ -324,27 +357,27 @@ export function Informatika({ children, jwt }) {
           content: newComment,
           entryId: selectedEntry.id,
         },
-        { headers: { Authorization: localStorage.getItem("jwt") } }
+        { headers: { Authorization: jwt } }
       )
       .then(function (response) {
         console.log("Response:", response.data);
         axios
-        .get(`/comment?entryId=${selectedEntry.id}`, {
-          headers: { Authorization: jwt },
-        })
-        .then((response) => {
-          const receivedComments = response.data.comments;
-          setComments(receivedComments);
-        })
-        .catch((error) => {
-          console.error("Error fetching comments:", error);
-        });
+          .get(`/comment?entryId=${selectedEntry.id}`, {
+            headers: { Authorization: jwt },
+          })
+          .then((response) => {
+            const receivedComments = response.data.comments;
+            setComments(receivedComments);
+          })
+          .catch((error) => {
+            console.error("Error fetching comments:", error);
+          });
       })
       .catch(function (error) {
         console.error("Error submitting comment:", error);
         alert("Hiba a komment elküldésekor", error);
       });
-      setNewComment("");
+    setNewComment("");
   };
 
   useEffect(() => {
@@ -362,37 +395,36 @@ export function Informatika({ children, jwt }) {
         });
     }
   }, [selectedEntry, open, jwt]);
-  
-  
-  
 
   const handleCommentDelete = (index) => {
-    axios.delete(`/comment/${index}`, {
-      headers: { Authorization: jwt },
-    })
-  .then((response) => {
     axios
-        .get(`/comment?entryId=${selectedEntry.id}`, {
-          headers: { Authorization: jwt },
-        })
-        .then((response) => {
-          const receivedComments = response.data.comments;
-          setComments(receivedComments);
-        })
-        .catch((error) => {
-          console.error("Error fetching comments:", error);
-        });
-  })
-  .catch((error) => {
-    console.error('Error deleting resource:', error);
-    alert("Sikertelen törlés!")
-  });
+      .delete(`/comment/${index}`, {
+        headers: { Authorization: jwt },
+      })
+      .then((response) => {
+        axios
+          .get(`/comment?entryId=${selectedEntry.id}`, {
+            headers: { Authorization: jwt },
+          })
+          .then((response) => {
+            const receivedComments = response.data.comments;
+            setComments(receivedComments);
+          })
+          .catch((error) => {
+            console.error("Error fetching comments:", error);
+          });
+      })
+      .catch((error) => {
+        console.error("Error deleting resource:", error);
+        alert("Sikertelen törlés!");
+      });
   };
 
   const handleAllAuthorsSelect = () => {
     setSelectedAuthor(null);
     setDrawerOpen(false);
   };
+
   const handleAuthorSelect = (author) => {
     setSelectedAuthor(author);
     setDrawerOpen(false);
@@ -419,7 +451,15 @@ export function Informatika({ children, jwt }) {
         setEntries(dummyDataForEntries);
         console.error("Error fetching data:", error);
       });
-  }, []);
+  }, [setIsLoading, dummyDataForEntries, jwt]);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 300);
+  }, [setIsLoading, isLoading]);
+
+  if (isLoading) return <Loading />;
 
   return (
     <>
@@ -492,7 +532,7 @@ export function Informatika({ children, jwt }) {
                 id={entry.id}
                 title={entry.title}
                 content={entry.content}
-                date={entry.createdOn}
+                createdOn={entry.createdOn}
                 author={entry.author}
                 handleEntryClick={handleEntryClick}
               />
@@ -505,7 +545,7 @@ export function Informatika({ children, jwt }) {
                   id={entry.id}
                   title={entry.title}
                   content={entry.content}
-                  date={entry.createdOn}
+                  createdOn={entry.createdOn}
                   author={entry.author}
                   handleEntryClick={handleEntryClick}
                 />
@@ -570,7 +610,16 @@ export function Informatika({ children, jwt }) {
                       fontWeight: "bold",
                     }}
                   >
-                    <CommentDate sx={{color: "white", fontSize: "14px", marginLeft: "5px", marginRight: "5px"}}>{selectedEntry.date}</CommentDate>
+                    <CommentDate
+                      sx={{
+                        color: "white",
+                        fontSize: "14px",
+                        marginLeft: "5px",
+                        marginRight: "5px",
+                      }}
+                    >
+                      {selectedEntry.createdOn}
+                    </CommentDate>
                   </Typography>
                   <Typography
                     variant="body2"

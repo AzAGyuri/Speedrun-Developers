@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useMemo } from "react";
 import {
   Container,
   Typography,
@@ -16,6 +16,7 @@ import { styled } from "@mui/system";
 import MenuIcon from "@mui/icons-material/Menu";
 import DeleteIcon from "@mui/icons-material/Delete";
 import axios from "axios";
+import { Loading } from "../../components/Loading/Loading";
 
 const StyledContainer = styled(Container)({
   display: "flex",
@@ -177,6 +178,7 @@ const CommentDate = styled("span")({
   color: "#777",
   marginLeft: "6px",
 });
+
 const style = {
   position: "absolute",
   top: "50%",
@@ -191,11 +193,13 @@ const style = {
   overflow: "auto",
 };
 
-function Entry({ id, title, content, date, author, handleEntryClick }) {
+function Entry({ id, title, content, createdOn, author, handleEntryClick }) {
   return (
     <StyledContainer
       style={{ backgroundColor: "#4caf50" }}
-      onClick={() => handleEntryClick({ title, content, date, author, id })}
+      onClick={() =>
+        handleEntryClick({ title, content, createdOn, author, id })
+      }
     >
       <Title variant="h4">{title}</Title>
       <LargeText style={{ paddingBottom: "5px" }}>{content}</LargeText>
@@ -221,7 +225,7 @@ function Entry({ id, title, content, date, author, handleEntryClick }) {
             fontWeight: "bold",
           }}
         >
-          {date}
+          {createdOn}
         </Typography>
         <Typography
           variant="body2"
@@ -241,49 +245,54 @@ function Entry({ id, title, content, date, author, handleEntryClick }) {
   );
 }
 
-export function SzakAngol({ children, jwt }) {
+export function SzakAngol({ children, jwt, setIsLoading, isLoading }) {
   const [drawerOpen, setDrawerOpen] = React.useState(false);
   const [selectedAuthor, setSelectedAuthor] = React.useState(null);
   const [entries, setEntries] = React.useState([]);
-  const dummyDataForEntries = [
-    {
-      title: "Exploring Quantum Mechanics",
-      content: "Understanding the fundamental principles of quantum mechanics",
-      createdOn: "2023.01.15",
-      author: "Emberke 1",
-      category: "TECHNICAL_ENGLISH",
-    },
-    {
-      title: "Introduction to Data TECHNICAL_ENGLISH",
-      content: "Basic concepts and techniques in data TECHNICAL_ENGLISH",
-      createdOn: "2023.02.03",
-      author: "Emberke 2",
-      category: "TECHNICAL_ENGLISH",
-    },
-    {
-      title: "Advancements in Artificial Intelligence",
-      content:
-        "Recent developments and applications of artificial intelligence",
-      createdOn: "2023.03.15",
-      author: "Emberke 2",
-      category: "TECHNICAL_ENGLISH",
-    },
-    {
-      title: "Fundamentals of Cryptography",
-      content:
-        "Understanding encryption techniques and cryptographic protocols",
-      createdOn: "2023.04.04",
-      author: "Emberke 1",
-      category: "TECHNICAL_ENGLISH",
-    },
-    {
-      title: "Theoretical Foundations of Computer Networks",
-      content: "Key concepts and models in computer networking",
-      createdOn: "2023.05.20",
-      author: "Emberke 3",
-      category: "TECHNICAL_ENGLISH",
-    },
-  ];
+  const dummyDataForEntries = useMemo(
+    () => [
+      {
+        title: "Exploring Quantum Mechanics",
+        content:
+          "Understanding the fundamental principles of quantum mechanics",
+        createdOn: "2023.01.15",
+        author: "Emberke 1",
+        category: "TECHNICAL_ENGLISH",
+      },
+      {
+        title: "Introduction to Data TECHNICAL_ENGLISH",
+        content: "Basic concepts and techniques in data TECHNICAL_ENGLISH",
+        createdOn: "2023.02.03",
+        author: "Emberke 2",
+        category: "TECHNICAL_ENGLISH",
+      },
+      {
+        title: "Advancements in Artificial Intelligence",
+        content:
+          "Recent developments and applications of artificial intelligence",
+        createdOn: "2023.03.15",
+        author: "Emberke 2",
+        category: "TECHNICAL_ENGLISH",
+      },
+      {
+        title: "Fundamentals of Cryptography",
+        content:
+          "Understanding encryption techniques and cryptographic protocols",
+        createdOn: "2023.04.04",
+        author: "Emberke 1",
+        category: "TECHNICAL_ENGLISH",
+      },
+      {
+        title: "Theoretical Foundations of Computer Networks",
+        content: "Key concepts and models in computer networking",
+        createdOn: "2023.05.20",
+        author: "Emberke 3",
+        category: "TECHNICAL_ENGLISH",
+      },
+    ],
+    []
+  );
+
   const [comments, setComments] = React.useState([]);
   const [newComment, setNewComment] = React.useState("");
   const [searchValue, setSearchValue] = React.useState("");
@@ -293,7 +302,7 @@ export function SzakAngol({ children, jwt }) {
     setOpen(true);
     setNewComment("");
   };
-  
+
   const handleClose = () => setOpen(false);
   const [selectedEntry, setSelectedEntry] = React.useState(null);
   const handleEntryClick = (entry) => {
@@ -305,7 +314,7 @@ export function SzakAngol({ children, jwt }) {
     setNewComment(event.target.value);
   };
 
-   const handleCommentSubmit = () => {
+  const handleCommentSubmit = () => {
     axios
       .post(
         "/comment",
@@ -318,22 +327,22 @@ export function SzakAngol({ children, jwt }) {
       .then(function (response) {
         console.log("Response:", response.data);
         axios
-        .get(`/comment?entryId=${selectedEntry.id}`, {
-          headers: { Authorization: jwt },
-        })
-        .then((response) => {
-          const receivedComments = response.data.comments;
-          setComments(receivedComments);
-        })
-        .catch((error) => {
-          console.error("Error fetching comments:", error);
-        });
+          .get(`/comment?entryId=${selectedEntry.id}`, {
+            headers: { Authorization: jwt },
+          })
+          .then((response) => {
+            const receivedComments = response.data.comments;
+            setComments(receivedComments);
+          })
+          .catch((error) => {
+            console.error("Error fetching comments:", error);
+          });
       })
       .catch(function (error) {
         console.error("Error submitting comment:", error);
         alert("Hiba a komment elküldésekor", error);
       });
-      setNewComment("");
+    setNewComment("");
   };
 
   useEffect(() => {
@@ -351,37 +360,36 @@ export function SzakAngol({ children, jwt }) {
         });
     }
   }, [selectedEntry, open, jwt]);
-  
-  
-  
 
   const handleCommentDelete = (index) => {
-    axios.delete(`/comment/${index}`, {
-      headers: { Authorization: jwt },
-    })
-  .then((response) => {
     axios
-        .get(`/comment?entryId=${selectedEntry.id}`, {
-          headers: { Authorization: jwt },
-        })
-        .then((response) => {
-          const receivedComments = response.data.comments;
-          setComments(receivedComments);
-        })
-        .catch((error) => {
-          console.error("Error fetching comments:", error);
-        });
-  })
-  .catch((error) => {
-    console.error('Error deleting resource:', error);
-    alert("Sikertelen törlés!")
-  });
+      .delete(`/comment/${index}`, {
+        headers: { Authorization: jwt },
+      })
+      .then((response) => {
+        axios
+          .get(`/comment?entryId=${selectedEntry.id}`, {
+            headers: { Authorization: jwt },
+          })
+          .then((response) => {
+            const receivedComments = response.data.comments;
+            setComments(receivedComments);
+          })
+          .catch((error) => {
+            console.error("Error fetching comments:", error);
+          });
+      })
+      .catch((error) => {
+        console.error("Error deleting resource:", error);
+        alert("Sikertelen törlés!");
+      });
   };
 
   const handleAllAuthorsSelect = () => {
     setSelectedAuthor(null);
     setDrawerOpen(false);
   };
+
   const handleAuthorSelect = (author) => {
     setSelectedAuthor(author);
     setDrawerOpen(false);
@@ -408,7 +416,15 @@ export function SzakAngol({ children, jwt }) {
         setEntries(dummyDataForEntries);
         console.error("Error fetching data:", error);
       });
-  }, []);
+  }, [setIsLoading, dummyDataForEntries, jwt]);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 300);
+  }, [setIsLoading, isLoading]);
+
+  if (isLoading) return <Loading />;
 
   return (
     <>
@@ -480,7 +496,7 @@ export function SzakAngol({ children, jwt }) {
                 key={index}
                 title={entry.title}
                 content={entry.content}
-                date={entry.createdOn}
+                createdOn={entry.createdOn}
                 author={entry.author}
                 handleEntryClick={handleEntryClick}
               />
@@ -492,7 +508,7 @@ export function SzakAngol({ children, jwt }) {
                   key={index}
                   title={entry.title}
                   content={entry.content}
-                  date={entry.createdOn}
+                  createdOn={entry.createdOn}
                   author={entry.author}
                   handleEntryClick={handleEntryClick}
                 />
@@ -557,7 +573,16 @@ export function SzakAngol({ children, jwt }) {
                       fontWeight: "bold",
                     }}
                   >
-                    <CommentDate sx={{color: "white", fontSize: "14px", marginLeft: "5px", marginRight: "5px"}}>{selectedEntry.date}</CommentDate>
+                    <CommentDate
+                      sx={{
+                        color: "white",
+                        fontSize: "14px",
+                        marginLeft: "5px",
+                        marginRight: "5px",
+                      }}
+                    >
+                      {selectedEntry.createdOn}
+                    </CommentDate>
                   </Typography>
                   <Typography
                     variant="body2"

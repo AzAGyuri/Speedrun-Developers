@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useMemo } from "react";
 import {
   Container,
   Typography,
@@ -16,6 +16,7 @@ import { styled } from "@mui/system";
 import MenuIcon from "@mui/icons-material/Menu";
 import DeleteIcon from "@mui/icons-material/Delete";
 import axios from "axios";
+import { Loading } from "../../components/Loading/Loading";
 
 const StyledContainer = styled(Container)({
   display: "flex",
@@ -192,11 +193,13 @@ const style = {
   overflow: "auto",
 };
 
-function Entry({ id, title, content, date, author, handleEntryClick }) {
+function Entry({ id, title, content, createdOn, author, handleEntryClick }) {
   return (
     <StyledContainer
       style={{ backgroundColor: "#4caf50" }}
-      onClick={() => handleEntryClick({ title, content, date, author, id })}
+      onClick={() =>
+        handleEntryClick({ title, content, createdOn, author, id })
+      }
     >
       <Title variant="h4">{title}</Title>
       <LargeText style={{ paddingBottom: "5px" }}>{content}</LargeText>
@@ -222,7 +225,7 @@ function Entry({ id, title, content, date, author, handleEntryClick }) {
             fontWeight: "bold",
           }}
         >
-          {date}
+          {createdOn}
         </Typography>
         <Typography
           variant="body2"
@@ -242,47 +245,50 @@ function Entry({ id, title, content, date, author, handleEntryClick }) {
   );
 }
 
-export function Matek({ children, jwt }) {
+export function Matek({ children, jwt, setIsLoading, isLoading }) {
   const [drawerOpen, setDrawerOpen] = React.useState(false);
   const [selectedAuthor, setSelectedAuthor] = React.useState(null);
   const [entries, setEntries] = React.useState([]);
-  const dummyDataForEntries = [
-    {
-      title: "A prímszámok világa",
-      content: "A prímszámok fontos szerepet játszanak a matematikában",
-      createdOn: "2023.01.15",
-      author: "Emberke 1",
-      category: "MATHS",
-    },
-    {
-      title: "Az algebra alapjai",
-      content: "Az alapvető algebrai műveletek és fogalmak",
-      createdOn: "2023.02.03",
-      author: "Emberke 2",
-      category: "MATHS",
-    },
-    {
-      title: "A geometria varázslata",
-      content: "A geometriai alakzatok és tulajdonságaik megértése",
-      createdOn: "2023.03.15",
-      author: "Emberke 2",
-      category: "MATHS",
-    },
-    {
-      title: "A differenciálszámítás alapjai",
-      content: "Az alapfogalmak és az elsődleges szabályok",
-      createdOn: "2023.04.04",
-      author: "Emberke 1",
-      category: "MATHS",
-    },
-    {
-      title: "A valószínűségszámítás alapjai",
-      content: "A valószínűségszámítás fontossága és alkalmazása",
-      createdOn: "2023.05.20",
-      author: "Emberke 3",
-      category: "MATHS",
-    },
-  ];
+  const dummyDataForEntries = useMemo(
+    () => [
+      {
+        title: "A prímszámok világa",
+        content: "A prímszámok fontos szerepet játszanak a matematikában",
+        createdOn: "2023.01.15",
+        author: "Emberke 1",
+        category: "MATHS",
+      },
+      {
+        title: "Az algebra alapjai",
+        content: "Az alapvető algebrai műveletek és fogalmak",
+        createdOn: "2023.02.03",
+        author: "Emberke 2",
+        category: "MATHS",
+      },
+      {
+        title: "A geometria varázslata",
+        content: "A geometriai alakzatok és tulajdonságaik megértése",
+        createdOn: "2023.03.15",
+        author: "Emberke 2",
+        category: "MATHS",
+      },
+      {
+        title: "A differenciálszámítás alapjai",
+        content: "Az alapfogalmak és az elsődleges szabályok",
+        createdOn: "2023.04.04",
+        author: "Emberke 1",
+        category: "MATHS",
+      },
+      {
+        title: "A valószínűségszámítás alapjai",
+        content: "A valószínűségszámítás fontossága és alkalmazása",
+        createdOn: "2023.05.20",
+        author: "Emberke 3",
+        category: "MATHS",
+      },
+    ],
+    []
+  );
 
   const [comments, setComments] = React.useState([]);
   const [newComment, setNewComment] = React.useState("");
@@ -293,7 +299,7 @@ export function Matek({ children, jwt }) {
     setOpen(true);
     setNewComment("");
   };
-  
+
   const handleClose = () => setOpen(false);
   const [selectedEntry, setSelectedEntry] = React.useState(null);
   const handleEntryClick = (entry) => {
@@ -305,7 +311,7 @@ export function Matek({ children, jwt }) {
     setNewComment(event.target.value);
   };
 
-    const handleCommentSubmit = () => {
+  const handleCommentSubmit = () => {
     axios
       .post(
         "/comment",
@@ -318,22 +324,22 @@ export function Matek({ children, jwt }) {
       .then(function (response) {
         console.log("Response:", response.data);
         axios
-        .get(`/comment?entryId=${selectedEntry.id}`, {
-          headers: { Authorization: jwt },
-        })
-        .then((response) => {
-          const receivedComments = response.data.comments;
-          setComments(receivedComments);
-        })
-        .catch((error) => {
-          console.error("Error fetching comments:", error);
-        });
+          .get(`/comment?entryId=${selectedEntry.id}`, {
+            headers: { Authorization: jwt },
+          })
+          .then((response) => {
+            const receivedComments = response.data.comments;
+            setComments(receivedComments);
+          })
+          .catch((error) => {
+            console.error("Error fetching comments:", error);
+          });
       })
       .catch(function (error) {
         console.error("Error submitting comment:", error);
         alert("Hiba a komment elküldésekor", error);
       });
-      setNewComment("");
+    setNewComment("");
   };
 
   useEffect(() => {
@@ -351,37 +357,36 @@ export function Matek({ children, jwt }) {
         });
     }
   }, [selectedEntry, open, jwt]);
-  
-  
-  
 
   const handleCommentDelete = (index) => {
-    axios.delete(`/comment/${index}`, {
-      headers: { Authorization: jwt },
-    })
-  .then((response) => {
     axios
-        .get(`/comment?entryId=${selectedEntry.id}`, {
-          headers: { Authorization: jwt },
-        })
-        .then((response) => {
-          const receivedComments = response.data.comments;
-          setComments(receivedComments);
-        })
-        .catch((error) => {
-          console.error("Error fetching comments:", error);
-        });
-  })
-  .catch((error) => {
-    console.error('Error deleting resource:', error);
-    alert("Sikertelen törlés!")
-  });
+      .delete(`/comment/${index}`, {
+        headers: { Authorization: jwt },
+      })
+      .then((response) => {
+        axios
+          .get(`/comment?entryId=${selectedEntry.id}`, {
+            headers: { Authorization: jwt },
+          })
+          .then((response) => {
+            const receivedComments = response.data.comments;
+            setComments(receivedComments);
+          })
+          .catch((error) => {
+            console.error("Error fetching comments:", error);
+          });
+      })
+      .catch((error) => {
+        console.error("Error deleting resource:", error);
+        alert("Sikertelen törlés!");
+      });
   };
 
   const handleAllAuthorsSelect = () => {
     setSelectedAuthor(null);
     setDrawerOpen(false);
   };
+
   const handleAuthorSelect = (author) => {
     setSelectedAuthor(author);
     setDrawerOpen(false);
@@ -408,7 +413,15 @@ export function Matek({ children, jwt }) {
         setEntries(dummyDataForEntries);
         console.error("Error fetching data:", error);
       });
-  }, []);
+  }, [setIsLoading, dummyDataForEntries, jwt]);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 300);
+  }, [setIsLoading, isLoading]);
+
+  if (isLoading) return <Loading />;
 
   return (
     <>
@@ -480,7 +493,7 @@ export function Matek({ children, jwt }) {
                 key={index}
                 title={entry.title}
                 content={entry.content}
-                date={entry.createdOn}
+                createdOn={entry.createdOn}
                 author={entry.author}
                 handleEntryClick={handleEntryClick}
               />
@@ -492,7 +505,7 @@ export function Matek({ children, jwt }) {
                   key={index}
                   title={entry.title}
                   content={entry.content}
-                  date={entry.createdOn}
+                  createdOn={entry.createdOn}
                   author={entry.author}
                   handleEntryClick={handleEntryClick}
                 />
@@ -557,7 +570,16 @@ export function Matek({ children, jwt }) {
                       fontWeight: "bold",
                     }}
                   >
-                    <CommentDate sx={{color: "white", fontSize: "14px", marginLeft: "5px", marginRight: "5px"}}>{selectedEntry.date}</CommentDate>
+                    <CommentDate
+                      sx={{
+                        color: "white",
+                        fontSize: "14px",
+                        marginLeft: "5px",
+                        marginRight: "5px",
+                      }}
+                    >
+                      {selectedEntry.createdOn}
+                    </CommentDate>
                   </Typography>
                   <Typography
                     variant="body2"
