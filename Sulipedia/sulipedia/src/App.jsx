@@ -34,22 +34,22 @@ function App() {
       <Router>
         <ResAppBar setIsLoading={setIsLoading} />
           <Routes>
-            <Route path="/curriculums" element={<Curriculums setIsLoading={setIsLoading}><IsNotLoggedIn /></Curriculums>} />
-            <Route path="/tests" element={<Tests setIsLoading={setIsLoading} isLoading={isLoading} jwt={jwt}><IsNotLoggedIn /></Tests>} />
-            <Route path="/mygroups" element={<MyGroups setIsLoading={setIsLoading} isLoading={isLoading} jwt={jwt} currentUserId={currentUserId}><IsNotLoggedIn /></MyGroups>} />
-            <Route path="/myProfile" element={<MyProfile setIsLoading={setIsLoading} isLoading={isLoading} jwt={jwt} currentUserId={currentUserId}><IsNotLoggedIn /></MyProfile>} />
-            <Route path="/settings" element={<Settings setIsLoading={setIsLoading} isLoading={isLoading} jwt={jwt} currentUserId={currentUserId}><IsNotLoggedIn /></Settings>} />
-            <Route path="/signIn" element={<SignIn setIsLoading={setIsLoading} />} />
-            <Route path="/signUp" element={<SignUp setIsLoading={setIsLoading} />} />
-            <Route path="/kezdo" element={<LandingPage setIsLoading={setIsLoading} isLoading={isLoading} jwt={jwt}><IsNotLoggedIn /></LandingPage>} />
-            <Route path="/" element={<LandingPage  setIsLoading={setIsLoading} isLoading={isLoading} jwt={jwt}><IsNotLoggedIn /></LandingPage>} />
-            <Route path="/aboutUs" element={<AboutUs  setIsLoading={setIsLoading}><IsNotLoggedIn /></AboutUs>} />
-            <Route path="/learnMore" element={<LearnMore  setIsLoading={setIsLoading}><IsNotLoggedIn /></LearnMore>} />
-            <Route path="/szakmai-angol" element={<SzakAngol  setIsLoading={setIsLoading} jwt={jwt}><IsNotLoggedIn /></SzakAngol>} />
-            <Route path="/matek" element={<Matek  setIsLoading={setIsLoading} jwt={jwt}><IsNotLoggedIn /></Matek>} />
-            <Route path="/magyar" element={<Magyar  setIsLoading={setIsLoading} jwt={jwt}><IsNotLoggedIn /></Magyar>} />
-            <Route path="/tortenelem" element={<Tortenelem  setIsLoading={setIsLoading} jwt={jwt}><IsNotLoggedIn /></Tortenelem>} />
-            <Route path="/informatika" element={<Informatika  setIsLoading={setIsLoading} jwt={jwt}><IsNotLoggedIn /></Informatika>} />
+            <Route path="/curriculums" element={<Curriculums setIsLoading={setIsLoading}><IsNotLoggedIn jwt={jwt} curretUserId={currentUserId} /></Curriculums>} />
+            <Route path="/tests" element={<Tests setIsLoading={setIsLoading} isLoading={isLoading} jwt={jwt}><IsNotLoggedIn jwt={jwt} curretUserId={currentUserId} /></Tests>} />
+            <Route path="/mygroups" element={<MyGroups setIsLoading={setIsLoading} isLoading={isLoading} jwt={jwt} currentUserId={currentUserId}><IsNotLoggedIn jwt={jwt} curretUserId={currentUserId} /></MyGroups>} />
+            <Route path="/myProfile" element={<MyProfile setIsLoading={setIsLoading} isLoading={isLoading} jwt={jwt} currentUserId={currentUserId}><IsNotLoggedIn jwt={jwt} curretUserId={currentUserId} /></MyProfile>} />
+            <Route path="/settings" element={<Settings setIsLoading={setIsLoading} isLoading={isLoading} jwt={jwt} currentUserId={currentUserId}><IsNotLoggedIn jwt={jwt} curretUserId={currentUserId} /></Settings>} />
+            <Route path="/signIn" element={<SignIn setIsLoading={setIsLoading} jwt={jwt} />} />
+            <Route path="/signUp" element={<SignUp setIsLoading={setIsLoading} jwt={jwt} />} />
+            <Route path="/kezdo" element={<LandingPage setIsLoading={setIsLoading} isLoading={isLoading} jwt={jwt}><IsNotLoggedIn jwt={jwt} curretUserId={currentUserId} /></LandingPage>} />
+            <Route path="/" element={<LandingPage  setIsLoading={setIsLoading} isLoading={isLoading} jwt={jwt}><IsNotLoggedIn jwt={jwt} curretUserId={currentUserId} /></LandingPage>} />
+            <Route path="/aboutUs" element={<AboutUs  setIsLoading={setIsLoading}><IsNotLoggedIn jwt={jwt} curretUserId={currentUserId} /></AboutUs>} />
+            <Route path="/learnMore" element={<LearnMore  setIsLoading={setIsLoading}><IsNotLoggedIn jwt={jwt} curretUserId={currentUserId} /></LearnMore>} />
+            <Route path="/szakmai-angol" element={<SzakAngol  setIsLoading={setIsLoading} isLoading={isLoading} jwt={jwt}><IsNotLoggedIn jwt={jwt} curretUserId={currentUserId} /></SzakAngol>} />
+            <Route path="/matek" element={<Matek  setIsLoading={setIsLoading} isLoading={isLoading} jwt={jwt}><IsNotLoggedIn jwt={jwt} curretUserId={currentUserId} /></Matek>} />
+            <Route path="/magyar" element={<Magyar  setIsLoading={setIsLoading} isLoading={isLoading} jwt={jwt}><IsNotLoggedIn jwt={jwt} curretUserId={currentUserId} /></Magyar>} />
+            <Route path="/tortenelem" element={<Tortenelem  setIsLoading={setIsLoading} isLoading={isLoading} jwt={jwt}><IsNotLoggedIn jwt={jwt} curretUserId={currentUserId} /></Tortenelem>} />
+            <Route path="/informatika" element={<Informatika  setIsLoading={setIsLoading} isLoading={isLoading} jwt={jwt}><IsNotLoggedIn jwt={jwt} curretUserId={currentUserId} /></Informatika>} />
           </Routes>
         <Copyright />
       </Router>
