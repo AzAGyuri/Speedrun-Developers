@@ -21,7 +21,7 @@ import { Tooltip } from "@mui/material";
 
 const defaultTheme = createTheme();
 
-export default function SignIn({ setIsLoading }) {
+export default function SignIn({ setIsLoading, jwt }) {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     usernameOrEmail: "",
@@ -29,11 +29,9 @@ export default function SignIn({ setIsLoading }) {
   });
 
   useEffect(() => {
-    if (localStorage.getItem("jwt") !== null) {
+    if (jwt !== null) {
       axios
-        .get("/validatetoken", {
-          headers: { Authorization: localStorage.getItem("jwt") },
-        })
+        .get("/validatetoken", { headers: { Authorization: jwt } })
         .then(() => {
           navigate("/kezdo");
           setIsLoading(true);
@@ -131,10 +129,13 @@ export default function SignIn({ setIsLoading }) {
               alignItems: "center",
             }}
           >
-            <Tooltip placement="top" title="Ez egy biztonságos bejelentkezési felület">
-            <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
-              <LockOutlinedIcon />
-            </Avatar>
+            <Tooltip
+              placement="top"
+              title="Ez egy biztonságos bejelentkezési felület"
+            >
+              <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
+                <LockOutlinedIcon />
+              </Avatar>
             </Tooltip>
             <Typography component="h1" variant="h5">
               Bejelentkezés
@@ -158,9 +159,7 @@ export default function SignIn({ setIsLoading }) {
                 InputProps={{
                   startAdornment: (
                     <InputAdornment position="start">
-                      <EmailSharpIcon></EmailSharpIcon>
-                      /
-                      <BadgeIcon></BadgeIcon>
+                      <EmailSharpIcon></EmailSharpIcon>/<BadgeIcon></BadgeIcon>
                     </InputAdornment>
                   ),
                 }}

@@ -26,7 +26,7 @@ import BadgeIcon from "@mui/icons-material/Badge";
 
 const defaultTheme = createTheme();
 
-export default function SignUp({ children, setIsLoading }) {
+export default function SignUp({ children, setIsLoading, jwt }) {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     surName: "",
@@ -47,10 +47,10 @@ export default function SignUp({ children, setIsLoading }) {
   const [phoneLengthError, setPhoneLengthError] = useState(false);
 
   useEffect(() => {
-    if (localStorage.getItem("jwt") !== null) {
+    if (jwt !== null) {
       axios
         .get("/validatetoken", {
-          headers: { Authorization: localStorage.getItem("jwt") },
+          headers: { Authorization: jwt },
         })
         .then(() => {
           navigate("/kezdo");
