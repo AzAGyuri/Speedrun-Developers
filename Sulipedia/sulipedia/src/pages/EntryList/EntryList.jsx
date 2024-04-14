@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import {
   Container,
   Typography,
@@ -12,11 +12,12 @@ import {
   Box,
   Modal,
 } from "@mui/material";
-import { color, height, styled } from "@mui/system";
+import { styled } from "@mui/system";
 import MenuIcon from "@mui/icons-material/Menu";
 import DeleteIcon from "@mui/icons-material/Delete";
 import axios from "axios";
 import { Loading } from "../../components/Loading/Loading";
+import { Entry } from "../../components/Entry/Entry";
 
 const StyledContainer = styled(Container)({
   display: "flex",
@@ -31,6 +32,13 @@ const StyledContainer = styled(Container)({
   boxShadow: "0px 5px 15px rgba(0, 0, 0, 0.2)",
   marginBottom: "20px",
   border: "2.5px solid #2f3826",
+});
+
+const Title = styled(Typography)({
+  marginBottom: (theme) => theme.spacing(2),
+  fontSize: "2rem",
+  marginTop: (theme) => theme.spacing(1),
+  fontWeight: "bold",
 });
 
 const StyledListItem = styled(ListItem)({
@@ -67,20 +75,6 @@ const StyledAllAuthorsListItem = styled(ListItem)({
   "&:hover": {
     backgroundColor: "#e0e0e0",
   },
-});
-
-const Title = styled(Typography)({
-  marginBottom: (theme) => theme.spacing(2),
-  fontSize: "2rem",
-  marginTop: (theme) => theme.spacing(1),
-  fontWeight: "bold",
-});
-
-const LargeText = styled(Typography)({
-  marginBottom: (theme) => theme.spacing(1),
-  fontSize: "1.5rem",
-  textAlign: "justify",
-  lineHeight: "1.6",
 });
 
 const StyledDrawerButton = styled(IconButton)({
@@ -170,7 +164,7 @@ const CommentAuthor = styled("span")({
   fontSize: "1rem",
   color: "#777",
   marginRight: (theme) => theme.spacing(1),
-  marginLeft: "10px",
+  marginLeft: "5px",
   fontWeight: "bold",
 });
 
@@ -194,66 +188,94 @@ const style = {
   overflow: "auto",
 };
 
-function Entry({ id, title, content, createdOn, author, handleEntryClick }) {
-  return (
-    <StyledContainer
-      style={{ backgroundColor: "#4caf50" }}
-      onClick={() =>
-        handleEntryClick({ title, content, createdOn, author, id })
-      }
-    >
-      <Title variant="h4">{title}</Title>
-      <LargeText style={{ paddingBottom: "5px" }}>{content}</LargeText>
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          width: "100%",
-          borderTop: "2px solid #2f3826",
-          marginTop: "auto",
-          paddingRight: "16px",
-          paddingLeft: "16px",
-          paddingTop: "5px",
-        }}
-      >
-        <Typography
-          variant="body2"
-          style={{
-            padding: "7px 5px",
-            backgroundColor: "#ba8d63",
-            borderRadius: "8px",
-            color: "#fff",
-            fontWeight: "bold",
-          }}
-        >
-          {createdOn}
-        </Typography>
-        <Typography
-          variant="body2"
-          style={{
-            padding: "7px 4px",
-            backgroundColor: "#6384ba",
-            borderRadius: "8px",
-            color: "#fff",
-            fontWeight: "bold",
-            marginLeft: "10px",
-          }}
-        >
-          {author}
-        </Typography>
-      </div>
-    </StyledContainer>
-  );
-}
-
-export function Informatika({ children, jwt, setIsLoading, isLoading }) {
-  const [drawerOpen, setDrawerOpen] = React.useState(false);
-  const [selectedAuthor, setSelectedAuthor] = React.useState(null);
-  const [entries, setEntries] = React.useState([]);
+export function EntryList({ children, jwt, setIsLoading, isLoading, subject }) {
+  const [drawerOpen, setDrawerOpen] = useState(false);
+  const [selectedAuthor, setSelectedAuthor] = useState(null);
   const dummyDataForEntries = useMemo(
     () => [
       {
         id: 1,
+        title: "A prímszámok világa",
+        content: "A prímszámok fontos szerepet játszanak a matematikában",
+        createdOn: "2023.01.15",
+        author: "Emberke 1",
+        subject: "MATHS",
+      },
+      {
+        id: 2,
+        title: "Az algebra alapjai",
+        content: "Az alapvető algebrai műveletek és fogalmak",
+        createdOn: "2023.02.03",
+        author: "Emberke 2",
+        subject: "MATHS",
+      },
+      {
+        id: 3,
+        title: "A geometria varázslata",
+        content: "A geometriai alakzatok és tulajdonságaik megértése",
+        createdOn: "2023.03.15",
+        author: "Emberke 2",
+        subject: "MATHS",
+      },
+      {
+        id: 4,
+        title: "A differenciálszámítás alapjai",
+        content: "Az alapfogalmak és az elsődleges szabályok",
+        createdOn: "2023.04.04",
+        author: "Emberke 1",
+        subject: "MATHS",
+      },
+      {
+        id: 5,
+        title: "A valószínűségszámítás alapjai",
+        content: "A valószínűségszámítás fontossága és alkalmazása",
+        createdOn: "2023.05.20",
+        author: "Emberke 3",
+        subject: "MATHS",
+      },
+      {
+        id: 6,
+        title: "Petőfi Sándor élete és művei",
+        content: "A magyar irodalom kiemelkedő alakja és költői öröksége",
+        createdOn: "2023.01.15",
+        author: "Emberke 1",
+        category: "HUNGARIAN",
+      },
+      {
+        id: 7,
+        title: "A Jókai-regények világa",
+        content: "Jókai Mór regényeinek jelentősége és hatása",
+        createdOn: "2023.02.03",
+        author: "Emberke 2",
+        category: "HUNGARIAN",
+      },
+      {
+        id: 8,
+        title: "Az Áprily-regények és novellák",
+        content: "Áprily Lajos műveinek sokszínűsége és irodalmi értéke",
+        createdOn: "2023.03.15",
+        author: "Emberke 2",
+        category: "HUNGARIAN",
+      },
+      {
+        id: 9,
+        title: "A magyar költészet aranykora",
+        content: "A romantika és a szimbolizmus jelentős költői és alkotásai",
+        createdOn: "2023.04.04",
+        author: "Emberke 1",
+        category: "HUNGARIAN",
+      },
+      {
+        id: 10,
+        title: "A XX. századi magyar drámaírás",
+        content:
+          "Az újító drámaírók és a kortárs magyar dráma jellegzetességei",
+        createdOn: "2023.05.20",
+        author: "Emberke 3",
+        category: "HUNGARIAN",
+      },
+      {
+        id: 11,
         title: "Algoritmusok és Adatszerkezetek",
         content:
           "Az algoritmusok és adatszerkezetek kulcsfontosságú fogalmak az informatikában. Az algoritmusok hatékony megvalósítása és az optimális adatszerkezetek kiválasztása lehetővé teszi az informatikai problémák hatékony megoldását.",
@@ -262,7 +284,7 @@ export function Informatika({ children, jwt, setIsLoading, isLoading }) {
         category: "ICT",
       },
       {
-        id: 2,
+        id: 12,
         title: "Felhőalapú Számítástechnika",
         content:
           "A felhőalapú számítástechnika forradalmasította az informatikát. Az egyre növekvő számú vállalat és felhasználó számára biztosítja az adatok tárolását, szolgáltatásokat és alkalmazásokat a világhálón keresztül.",
@@ -271,7 +293,7 @@ export function Informatika({ children, jwt, setIsLoading, isLoading }) {
         category: "ICT",
       },
       {
-        id: 3,
+        id: 13,
         title: "Kiberbiztonság és Hálózatbiztonság",
         content:
           "A kiberbiztonság és hálózatbiztonság napjainkban kulcsfontosságú területe az informatikának. Az internetes fenyegetések és a számítógépes bűnözés elleni védelem elengedhetetlen a biztonságos online környezet megteremtéséhez.",
@@ -280,7 +302,7 @@ export function Informatika({ children, jwt, setIsLoading, isLoading }) {
         category: "ICT",
       },
       {
-        id: 4,
+        id: 14,
         title: "Adattudomány és Nagy Adat",
         content:
           "Az adattudomány és a nagy adat elemzésének képességei forradalmasítják az üzleti és tudományos területeket egyaránt. Az adatokból való értelmezés lehetővé teszi a trendek felismerését és a jövőbeli döntések meghozatalát.",
@@ -289,7 +311,7 @@ export function Informatika({ children, jwt, setIsLoading, isLoading }) {
         category: "ICT",
       },
       {
-        id: 5,
+        id: 15,
         title: "Mesterséges Intelligencia és Gépi Tanulás",
         content:
           "A mesterséges intelligencia és a gépi tanulás területei forradalmasítják az informatikát. Az olyan alkalmazások, mint az autonóm járművek és a nyelvi felismerés, az MI és a gépi tanulás legújabb fejlesztéseinek eredményei.",
@@ -297,15 +319,100 @@ export function Informatika({ children, jwt, setIsLoading, isLoading }) {
         author: "Emberke 3",
         category: "ICT",
       },
+      {
+        id: 16,
+        title: "Exploring Quantum Mechanics",
+        content:
+          "Understanding the fundamental principles of quantum mechanics",
+        createdOn: "2023.01.15",
+        author: "Emberke 1",
+        category: "TECHNICAL_ENGLISH",
+      },
+      {
+        id: 17,
+        title: "Introduction to Data TECHNICAL_ENGLISH",
+        content: "Basic concepts and techniques in data TECHNICAL_ENGLISH",
+        createdOn: "2023.02.03",
+        author: "Emberke 2",
+        category: "TECHNICAL_ENGLISH",
+      },
+      {
+        id: 18,
+        title: "Advancements in Artificial Intelligence",
+        content:
+          "Recent developments and applications of artificial intelligence",
+        createdOn: "2023.03.15",
+        author: "Emberke 2",
+        category: "TECHNICAL_ENGLISH",
+      },
+      {
+        id: 19,
+        title: "Fundamentals of Cryptography",
+        content:
+          "Understanding encryption techniques and cryptographic protocols",
+        createdOn: "2023.04.04",
+        author: "Emberke 1",
+        category: "TECHNICAL_ENGLISH",
+      },
+      {
+        id: 20,
+        title: "Theoretical Foundations of Computer Networks",
+        content: "Key concepts and models in computer networking",
+        createdOn: "2023.05.20",
+        author: "Emberke 3",
+        category: "TECHNICAL_ENGLISH",
+      },
+      {
+        id: 21,
+        title: "Az Árpád-ház kora",
+        content: "A magyar történelem kezdete",
+        createdOn: "2023.01.15",
+        author: "Emberke 1",
+        category: "HISTORY",
+      },
+      {
+        id: 22,
+        title: "A Mohácsi csata",
+        content: "Magyarország elvesztette függetlenségét",
+        createdOn: "2023.02.03",
+        author: "Emberke 2",
+        category: "HISTORY",
+      },
+      {
+        id: 23,
+        title: "A Rákóczi-szabadságharc",
+        content: "Az összmagyar felkelés a Habsburgok ellen",
+        createdOn: "2023.03.15",
+        author: "Emberke 2",
+        category: "HISTORY",
+      },
+      {
+        id: 24,
+        title: "Az 1848-49-es forradalom és szabadságharc",
+        content: "Az osztrák uralom elleni küzdelem",
+        createdOn: "2023.04.04",
+        author: "Emberke 1",
+        category: "HISTORY",
+      },
+      {
+        id: 25,
+        title: "Az első világháború utáni Magyarország",
+        content: "A trianoni békeszerződés következményei",
+        createdOn: "2023.05.20",
+        author: "Emberke 3",
+        category: "HISTORY",
+      },
     ],
     []
   );
+  const [entries, setEntries] = useState(
+    dummyDataForEntries.filter((dummyEntry) => dummyEntry.subject === subject)
+  );
+  const [comments, setComments] = useState([]);
+  const [newComment, setNewComment] = useState("");
+  const [searchValue, setSearchValue] = useState("");
 
-  const [comments, setComments] = React.useState([]);
-  const [newComment, setNewComment] = React.useState("");
-  const [searchValue, setSearchValue] = React.useState("");
-
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
   const handleOpen = () => {
     setOpen(true);
     setNewComment("");
@@ -314,39 +421,13 @@ export function Informatika({ children, jwt, setIsLoading, isLoading }) {
   const handleClose = () => setOpen(false);
   const [selectedEntry, setSelectedEntry] = React.useState(null);
   const handleEntryClick = (entry) => {
+    console.log(entry);
     setSelectedEntry(entry);
     handleOpen();
   };
 
   const handleCommentChange = (event) => {
     setNewComment(event.target.value);
-  };
-  const fetchComments = () => {
-    const backendUrl = "/comment";
-    axios
-      .get(backendUrl)
-      .then((response) => {
-        const fetchedComments = response.data.comments;
-        console.log("Komment", fetchedComments);
-      })
-      .catch((error) => {
-        console.error("Error fetching comments:", error);
-        alert("Hiba a kommentek lekérdezésekor", error);
-      });
-  };
-
-  const deleteComment = (commentId) => {
-    const backendUrl = `/comment/${commentId}`;
-
-    axios
-      .delete(backendUrl)
-      .then((response) => {
-        console.log("Komment törölve", response.data);
-      })
-      .catch((error) => {
-        console.error("Error deleting comment:", error);
-        alert("Hiba a komment törlésekor", error);
-      });
   };
 
   const handleCommentSubmit = () => {
@@ -360,18 +441,7 @@ export function Informatika({ children, jwt, setIsLoading, isLoading }) {
         { headers: { Authorization: jwt } }
       )
       .then(function (response) {
-        console.log("Response:", response.data);
-        axios
-          .get(`/comment?entryId=${selectedEntry.id}`, {
-            headers: { Authorization: jwt },
-          })
-          .then((response) => {
-            const receivedComments = response.data.comments;
-            setComments(receivedComments);
-          })
-          .catch((error) => {
-            console.error("Error fetching comments:", error);
-          });
+        setComments(comments.concat(response.data));
       })
       .catch(function (error) {
         console.error("Error submitting comment:", error);
@@ -381,7 +451,7 @@ export function Informatika({ children, jwt, setIsLoading, isLoading }) {
   };
 
   useEffect(() => {
-    if (open && selectedEntry && selectedEntry.id) {
+    if (open && selectedEntry) {
       axios
         .get(`/comment?entryId=${selectedEntry.id}`, {
           headers: { Authorization: jwt },
@@ -402,17 +472,7 @@ export function Informatika({ children, jwt, setIsLoading, isLoading }) {
         headers: { Authorization: jwt },
       })
       .then((response) => {
-        axios
-          .get(`/comment?entryId=${selectedEntry.id}`, {
-            headers: { Authorization: jwt },
-          })
-          .then((response) => {
-            const receivedComments = response.data.comments;
-            setComments(receivedComments);
-          })
-          .catch((error) => {
-            console.error("Error fetching comments:", error);
-          });
+        setComments(comments.filter((comment) => comment.id !== index));
       })
       .catch((error) => {
         console.error("Error deleting resource:", error);
@@ -436,19 +496,27 @@ export function Informatika({ children, jwt, setIsLoading, isLoading }) {
 
   useEffect(() => {
     axios
-      .get("/entry?subject=ICT", {
+      .get(`/entry?subject=${subject}`, {
         headers: { Authorization: jwt },
       })
       .then((response) => {
         const receivedEntries = response.data.entries;
         if (receivedEntries.length === 0) {
-          setEntries(dummyDataForEntries);
+          setEntries(
+            dummyDataForEntries.filter(
+              (dummyEntry) => dummyEntry.subject === subject
+            )
+          );
         } else {
           setEntries(receivedEntries);
         }
       })
       .catch((error) => {
-        setEntries(dummyDataForEntries);
+        setEntries(
+          dummyDataForEntries.filter(
+            (dummyEntry) => dummyEntry.subject === subject
+          )
+        );
         console.error("Error fetching data:", error);
       });
   }, [setIsLoading, dummyDataForEntries, jwt]);
@@ -524,7 +592,7 @@ export function Informatika({ children, jwt, setIsLoading, isLoading }) {
       </StyledDrawer>
 
       <StyledContainer style={{ backgroundColor: "#ccc" }}>
-        <Title variant="h3">Informatikai bejegyzések</Title>
+        <Title variant="h3">Matematikai bejegyzések</Title>
         {selectedAuthor === null
           ? entries.map((entry, index) => (
               <Entry
@@ -583,59 +651,13 @@ export function Informatika({ children, jwt, setIsLoading, isLoading }) {
                 X
               </Button>
 
-              <StyledContainer style={{ backgroundColor: "#4caf50" }}>
-                <Title variant="h4">{selectedEntry.title}</Title>
-                <LargeText style={{ paddingBottom: "5px" }}>
-                  {selectedEntry.content}
-                </LargeText>
-                <div
-                  style={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    width: "100%",
-                    borderTop: "2px solid #2f3826",
-                    marginTop: "auto",
-                    paddingRight: "16px",
-                    paddingLeft: "16px",
-                    paddingTop: "5px",
-                  }}
-                >
-                  <Typography
-                    variant="body2"
-                    style={{
-                      padding: "7px 5px",
-                      backgroundColor: "#ba8d63",
-                      borderRadius: "8px",
-                      color: "#fff",
-                      fontWeight: "bold",
-                    }}
-                  >
-                    <CommentDate
-                      sx={{
-                        color: "white",
-                        fontSize: "14px",
-                        marginLeft: "5px",
-                        marginRight: "5px",
-                      }}
-                    >
-                      {selectedEntry.createdOn}
-                    </CommentDate>
-                  </Typography>
-                  <Typography
-                    variant="body2"
-                    style={{
-                      padding: "7px 4px",
-                      backgroundColor: "#6384ba",
-                      borderRadius: "8px",
-                      color: "#fff",
-                      fontWeight: "bold",
-                      marginLeft: "10px",
-                    }}
-                  >
-                    {selectedEntry.author}
-                  </Typography>
-                </div>
-              </StyledContainer>
+              <Entry
+                id={selectedEntry.id}
+                title={selectedEntry.title}
+                content={selectedEntry.content}
+                createdOn={selectedEntry.createdOn}
+                author={selectedEntry.author}
+              />
 
               <CommentSection>
                 <CommentHeader>Vélemények és hozzászólások</CommentHeader>
