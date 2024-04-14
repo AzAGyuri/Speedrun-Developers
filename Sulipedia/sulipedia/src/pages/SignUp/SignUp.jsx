@@ -62,7 +62,7 @@ export default function SignUp({ children, setIsLoading, jwt }) {
           );
         });
     }
-  }, [navigate, setIsLoading]);
+  }, [navigate, setIsLoading, jwt]);
 
   const handleSubmit = (event) => {
     event.preventDefault();

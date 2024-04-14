@@ -42,7 +42,7 @@ export default function SignIn({ setIsLoading, jwt }) {
           );
         });
     }
-  }, [navigate, setIsLoading]);
+  }, [navigate, setIsLoading, jwt]);
 
   const handleChange = (event) => {
     setFormData((currentFormData) => ({

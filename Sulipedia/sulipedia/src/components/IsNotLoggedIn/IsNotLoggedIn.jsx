@@ -21,6 +21,6 @@ export function IsNotLoggedIn({ jwt, currentUserId }) {
           navigate("/signIn");
         });
     }
-  }, [navigate]);
+  }, [navigate, jwt, currentUserId]);
   return <></>;
 }
