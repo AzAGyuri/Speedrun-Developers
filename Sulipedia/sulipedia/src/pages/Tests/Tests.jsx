@@ -355,8 +355,7 @@ export function Tests({ children, setIsLoading, isLoading, jwt }) {
       .catch((error) => {
         console.error("Hiba történt adat lekérdezéskor", error);
         alert(
-          "Hiba történt adat lekérdezéskor. Beépített tesztek megjelenítése",
-          error
+          "Hiba történt adat lekérdezéskor. Beépített tesztek megjelenítése!"
         );
         setRequestedTestData(staticTestData);
         setRequestedQuestionsAndAnswers(staticQuestionsAndAnswers);

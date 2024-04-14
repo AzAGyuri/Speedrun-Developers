@@ -172,12 +172,12 @@ export function LandingPage({ children, setIsLoading, isLoading, jwt }) {
         .then((response) => {
           let newEntry = response.data;
           console.log("Entry sikeresen közzétéve:", newEntry);
-          alert("Bejegyzés sikeresen közzétéve:", newEntry);
+          alert("Bejegyzés sikeresen közzétéve!");
           setEntries(entries.concat(newEntry));
         })
         .catch((error) => {
           console.error("Hiba történt a bejegyzés közzététele közben:", error);
-          alert("Hiba történt a bejegyzés közzététele közben:", error);
+          alert("Hiba történt a bejegyzés közzététele közben!");
         });
 
       setNewEntryModalOpen(false);

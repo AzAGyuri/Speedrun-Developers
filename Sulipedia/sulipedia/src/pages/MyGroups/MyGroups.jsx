@@ -241,7 +241,7 @@ export function MyGroups({
       })
       .catch((error) => {
         console.error("Hiba történt adatok lekérdezése során", error);
-        alert("Hiba történt adatok lekérdezése során", error);
+        alert("Hiba történt adatok lekérdezése során!");
         setGroups(staticGroups);
         setLoaded(false);
       });
@@ -289,7 +289,7 @@ export function MyGroups({
 
         .catch((error) => {
           console.error("Hiba történt adat lekérdezése során", error);
-          alert("Hiba történt adat lekérdezése során");
+          alert("Hiba történt adat lekérdezése során!");
         });
     } else {
       setSelectedGroup(group);
@@ -390,7 +390,7 @@ export function MyGroups({
         switch (error.status) {
           case 404:
             alert(
-              "A törlendő felhasználót, vagy a csoport, melyből törlést kell végrehajtani nem találtuk"
+              "A törlendő felhasználót, vagy a csoport, melyből törlést kell végrehajtani nem találtuk!"
             );
             break;
           case 410:

@@ -525,7 +525,7 @@ export function EntryList({ children, jwt, setIsLoading, isLoading, subject }) {
       })
       .catch(function (error) {
         console.error("Error submitting comment:", error);
-        alert("Hiba a komment elküldésekor", error);
+        alert("Hiba a komment elküldésekor");
       });
     setNewComment("");
   };
@@ -542,6 +542,7 @@ export function EntryList({ children, jwt, setIsLoading, isLoading, subject }) {
         })
         .catch((error) => {
           console.error("Error fetching comments:", error);
+          alert("Kommentek lekérdezése sikertelen");
         });
     }
   }, [selectedEntry, open, jwt]);
@@ -556,7 +557,7 @@ export function EntryList({ children, jwt, setIsLoading, isLoading, subject }) {
       })
       .catch((error) => {
         console.error("Error deleting resource:", error);
-        alert("Sikertelen törlés!");
+        alert("Sikertelen törlés! Más felhasználó kommentjét nem törölheted");
       });
   };
 
@@ -598,6 +599,7 @@ export function EntryList({ children, jwt, setIsLoading, isLoading, subject }) {
           )
         );
         console.error("Error fetching data:", error);
+        alert("Kommentek lekérdezése sikertelen");
       });
   }, [setIsLoading, dummyDataForEntries, jwt]);
 

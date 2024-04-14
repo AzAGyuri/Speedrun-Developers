@@ -155,8 +155,7 @@ export function Settings({ children, setIsLoading, isLoading, jwt }) {
             response.data
           );
           alert(
-            "Felhasználói adatok sikeresen frissítve:",
-            response.data
+            "Felhasználói adatok sikeresen frissítve! "
           );
           setIsLoading(true);
           navigate("/MyProfile");
@@ -168,8 +167,7 @@ export function Settings({ children, setIsLoading, isLoading, jwt }) {
             error
           );
           alert(
-            "Hiba történt a felhasználói adatok frissítése közben:",
-            error
+            "Hiba történt a felhasználói adatok frissítése közben!"
           );
         });
     }
@@ -200,7 +198,7 @@ export function Settings({ children, setIsLoading, isLoading, jwt }) {
         })
         .catch((error) => {
           console.error("Hiba történt adat lekérdezéskor", error);
-          alert("Hiba történt adat lekérdezéskor", error);
+          alert("Hiba történt adat lekérdezéskor");
         });
     }
     setTimeout(() => {

@@ -137,7 +137,7 @@ export function MyProfile({ children, setIsLoading, isLoading, jwt, currentUserI
         })
         .catch((error) => {
           console.error("Hiba történt adat lekérdezéskor", error);
-          alert("Hiba történt adat lekérdezéskor", error);
+          alert("Hiba történt adat lekérdezéskor");
         });
     }
     setTimeout(() => {
