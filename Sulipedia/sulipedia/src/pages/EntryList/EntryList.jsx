@@ -632,7 +632,7 @@ export function EntryList({ children, jwt, setIsLoading, isLoading, subject }) {
   useEffect(() => {
     if (open && selectedEntry) {
       axios
-        .get(`/comment?entryId=${selectedEntry.id}`, {
+        .get(`/comment/${selectedEntry.id}`, {
           headers: { Authorization: jwt },
         })
         .then((response) => {

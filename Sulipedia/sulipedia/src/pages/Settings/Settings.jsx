@@ -63,7 +63,7 @@ const styles = {
 export function Settings({ children, setIsLoading, isLoading, jwt }) {
   const navigate = useNavigate();
   const [phoneLengthError, setPhoneLengthError] = useState(false);
-  const [randomPfPBgColor, setRandomPfPBgColor] = useState("#bdbdbd");
+  const [randomAvatarBgColor, setRandomPfPBgColor] = useState("#bdbdbd");
   const [formData, setFormData] = useState({
     email: null,
     phoneNumber: null,
@@ -76,7 +76,6 @@ export function Settings({ children, setIsLoading, isLoading, jwt }) {
   const handleFormChange = (event) => {
     const { name, value } = event.target;
     let formattedValue = value;
-    console.log("HERE");
 
     if (name === "phoneNumber" || name === "password" || name === "nickname") {
       if (value.length === 0) {
@@ -115,8 +114,6 @@ export function Settings({ children, setIsLoading, isLoading, jwt }) {
       ...oldData,
       [name]: formattedValue,
     }));
-    console.log(formattedValue);
-    console.log(formData);
   };
 
   useEffect(() => {
@@ -187,7 +184,7 @@ export function Settings({ children, setIsLoading, isLoading, jwt }) {
             nickname: user.nickname,
             phoneNumber: user.phoneNumber,
           }));
-          setRandomPfPBgColor(user.randomPfPBgColor);
+          setRandomPfPBgColor(user.randomAvatarBgColor);
           setAvatar(
             user.nickname !== null
               ? user.nickname.length === 0
@@ -219,7 +216,7 @@ export function Settings({ children, setIsLoading, isLoading, jwt }) {
             <Grid item xs={12}>
               <Avatar
                 className="Avatar-icon"
-                style={{ ...styles.avatar, backgroundColor: randomPfPBgColor }}
+                style={{ ...styles.avatar, backgroundColor: randomAvatarBgColor }}
               >
                 {avatar.length > 0 ? avatar[0].toUpperCase() : null}
               </Avatar>

@@ -80,7 +80,7 @@ public class EntryController {
    * entries, or same type of entries filtered by the given subject
    */
   @Operation(
-    summary = "List all test entries with optional sbuject filter",
+    summary = "List all test entries with optional subject filter",
     description = "Az adatbázisban eltárolt összes teszt bejegyzés lekérdezése, opcionálisan tantárgy alapján szűrve"
   )
   @GetMapping("/entry/test")

@@ -109,7 +109,7 @@ export function MyProfile({ children, setIsLoading, isLoading, jwt, currentUserI
     registrationDate: "2024-03-01",
     userId: "123456789",
     profileImage: "path/to/profile-image.jpg",
-    randomPfPBgColor: "",
+    randomAvatarBgColor: "",
   });
 
   useEffect(() => {
@@ -132,7 +132,7 @@ export function MyProfile({ children, setIsLoading, isLoading, jwt, currentUserI
             registrationDate: user.createdOn.split("T")[0],
             userId: currentUserId,
             profileImage: user.profilePictureBase64,
-            randomPfPBgColor: user.randomPfPBgColor,
+            randomAvatarBgColor: user.randomAvatarBgColor,
           });
         })
         .catch((error) => {
@@ -154,7 +154,7 @@ export function MyProfile({ children, setIsLoading, isLoading, jwt, currentUserI
         <Avatar
           style={{
             ...styles.avatar,
-            backgroundColor: userData.randomPfPBgColor,
+            backgroundColor: userData.randomAvatarBgColor,
           }}
         >
           {userData.username.length > 0

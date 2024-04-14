@@ -36,7 +36,7 @@ public class CommentService {
   public CommentList getCommentsByEntryId(Integer entryId) {
     if (entryId == null) throw nullPointer();
 
-    if (entryRepository.existsById(entryId)) throw modelNotFound(
+    if (!entryRepository.existsById(entryId)) throw modelNotFound(
       "ENTRY_NOT_FOUND"
     );
 

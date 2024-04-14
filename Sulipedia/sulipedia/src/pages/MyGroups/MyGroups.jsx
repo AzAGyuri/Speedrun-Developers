@@ -200,9 +200,24 @@ export function MyGroups({
     name: "Szakmai angol",
     description: "Szakmai angol csoport",
     members: [
-      { id: 1, name: "John Doe", email: "semmi@valami.com", memberSince: "2024-04-14 14:28:43" },
-      { id: 2, name: "Alice Smith", email: "semmi@valami.com", memberSince: "2024-04-14 14:28:43" },
-      { id: 3, name: "Bob Johnson", email: "semmi@valami.com", memberSince: "2024-04-14 14:28:43" },
+      {
+        id: 1,
+        name: "John Doe",
+        email: "semmi@valami.com",
+        memberSince: "2024-04-14 14:28:43",
+      },
+      {
+        id: 2,
+        name: "Alice Smith",
+        email: "semmi@valami.com",
+        memberSince: "2024-04-14 14:28:43",
+      },
+      {
+        id: 3,
+        name: "Bob Johnson",
+        email: "semmi@valami.com",
+        memberSince: "2024-04-14 14:28:43",
+      },
     ],
     ownerId: 1,
   });
@@ -232,7 +247,7 @@ export function MyGroups({
 
   useEffect(() => {
     axios
-      .get(`/group?userId=${currentUserId}`, {
+      .get(`/group`, {
         headers: { Authorization: jwt },
       })
       .then((response) => {
@@ -287,7 +302,7 @@ export function MyGroups({
               id: user.id,
               name: user.username,
               email: user.email,
-              memberSince: user.createdOn
+              memberSince: user.createdOn,
             });
           });
 
@@ -463,25 +478,32 @@ export function MyGroups({
         headers: { Authorization: jwt },
       })
       .then((response) => {
-        const users = response.data.groupWithUsers.users.users;
-        users.forEach((user) => {
-          newMembers.push({
-            id: user.id,
-            name: user.username,
+        const users = response.data.users.users;
+        const usernamesNotFound = response.data.usernamesNotFound;
+        if (users.length !== 0) {
+          users.forEach((user) => {
+            newMembers.push({
+              id: user.id,
+              name: user.username,
+            });
           });
-        });
 
-        const updatedGroup = {
-          ...selectedGroup,
-          members: [...selectedGroup.members, ...newMembers],
-        };
-        const updatedGroups = groups.map((group) =>
-          group.id === selectedGroup.id ? updatedGroup : group
-        );
+          const updatedGroup = {
+            ...selectedGroup,
+            members: [...selectedGroup.members, ...newMembers],
+          };
+          const updatedGroups = groups.map((group) =>
+            group.id === selectedGroup.id ? updatedGroup : group
+          );
 
-        setGroups(updatedGroups);
-        handleCloseAddMember();
-        handleOpenMembers(updatedGroup);
+          setGroups(updatedGroups);
+          handleCloseAddMember();
+          handleOpenMembers(updatedGroup);
+        }
+
+        if (usernamesNotFound.length !== 0) {
+          alert(`A következő felhasználó nevűeket nem sikerült hozzáadni a csoporthoz, mert nem találhatóak meg: ${usernamesNotFound}`)
+        }
       })
       .catch((error) => {
         console.error("Hiba történt felhasználó hozzáadásakor", error);
@@ -807,24 +829,91 @@ export function MyGroups({
                 key={member.id}
               >
                 <ListItemAvatar>
-                  <Tooltip title={
-                    <div style={{}}>
-                      
-                      <Table>
-                        <TableCell>
-                          <TableRow>
-                            <div style={{ padding: "5px", fontSize: "20px", color: "#eb365a", border: "1px solid black", backgroundColor: "#84adf0" }}>{member.name}</div>
-                            <div style={{ padding: "5px", fontSize: "20px", color: "#eb365a", border: "1px solid black", backgroundColor: "#84adf0" }}>{member.id}</div>
-                            <div style={{ padding: "5px", fontSize: "20px", color: "#211ee3", border: "1px solid black", backgroundColor: "#84adf0", textDecoration:"underline", cursor:"pointer" }} onClick={() => handleEmailClick(member.email)}>{member.email}</div>
-                            <div style={{ padding: "5px", fontSize: "20px", color: "#eb365a", border: "1px solid black", backgroundColor: "#84adf0" }}>Regisztáció napja: {member.memberSince}</div>
-                          </TableRow>
-                          <TableRow style={{display: "flex", justifyContent: "center",marginTop:"10px"}}>
-                            <div style={{ padding: "5px", fontSize: "50px", color: "#eb365a", border: "1px solid black", backgroundColor: "#54538c" }}><Avatar style={{backgroundColor:"red", alignSelf:"center"}}>{member.name[0]}</Avatar></div>
-                          </TableRow>
-                        </TableCell>
-                      </Table>
-                    </div>
-                  } >
+                  <Tooltip
+                    title={
+                      <div style={{}}>
+                        <Table>
+                          <TableCell>
+                            <TableRow>
+                              <div
+                                style={{
+                                  padding: "5px",
+                                  fontSize: "20px",
+                                  color: "#eb365a",
+                                  border: "1px solid black",
+                                  backgroundColor: "#84adf0",
+                                }}
+                              >
+                                {member.name}
+                              </div>
+                              <div
+                                style={{
+                                  padding: "5px",
+                                  fontSize: "20px",
+                                  color: "#eb365a",
+                                  border: "1px solid black",
+                                  backgroundColor: "#84adf0",
+                                }}
+                              >
+                                {member.id}
+                              </div>
+                              <div
+                                style={{
+                                  padding: "5px",
+                                  fontSize: "20px",
+                                  color: "#211ee3",
+                                  border: "1px solid black",
+                                  backgroundColor: "#84adf0",
+                                  textDecoration: "underline",
+                                  cursor: "pointer",
+                                }}
+                                onClick={() => handleEmailClick(member.email)}
+                              >
+                                {member.email}
+                              </div>
+                              <div
+                                style={{
+                                  padding: "5px",
+                                  fontSize: "20px",
+                                  color: "#eb365a",
+                                  border: "1px solid black",
+                                  backgroundColor: "#84adf0",
+                                }}
+                              >
+                                Regisztáció napja: {member.memberSince}
+                              </div>
+                            </TableRow>
+                            <TableRow
+                              style={{
+                                display: "flex",
+                                justifyContent: "center",
+                                marginTop: "10px",
+                              }}
+                            >
+                              <div
+                                style={{
+                                  padding: "5px",
+                                  fontSize: "50px",
+                                  color: "#eb365a",
+                                  border: "1px solid black",
+                                  backgroundColor: "#54538c",
+                                }}
+                              >
+                                <Avatar
+                                  style={{
+                                    backgroundColor: "red",
+                                    alignSelf: "center",
+                                  }}
+                                >
+                                  {member.name[0]}
+                                </Avatar>
+                              </div>
+                            </TableRow>
+                          </TableCell>
+                        </Table>
+                      </div>
+                    }
+                  >
                     <Avatar>{member.name[0]}</Avatar>
                   </Tooltip>
                 </ListItemAvatar>
