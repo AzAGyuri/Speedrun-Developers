@@ -3,7 +3,6 @@ package hu.speedrundev.sulipedia.service;
 import static hu.speedrundev.sulipedia.util.ExceptionUtils.*;
 
 import hu.speedrundev.sulipedia.dto.availability.AvailabilityList;
-import hu.speedrundev.sulipedia.dto.availability.DeletedAvailability;
 import hu.speedrundev.sulipedia.dto.availability.GetAvailability;
 import hu.speedrundev.sulipedia.dto.availability.GetAvailabilityWithID;
 import hu.speedrundev.sulipedia.dto.availability.PostAvailability;
@@ -47,7 +46,7 @@ public class AvailabilityService {
     PostAvailability availability,
     String token
   ) {
-    if (availability == null) throw nullPointer();
+    if (availability == null || token == null) throw nullPointer();
 
     Optional<User> postingUser = userRepository.findByUsername(
       jwtUtil.getSubject(token)
@@ -67,7 +66,7 @@ public class AvailabilityService {
     Integer id,
     String token
   ) {
-    if (update == null || id == null) throw nullPointer();
+    if (update == null || id == null || token == null) throw nullPointer();
 
     if (!availabilityRepository.existsById(id)) throw modelNotFound(
       "AVAILABILITY_NOT_FOUND"
@@ -124,8 +123,8 @@ public class AvailabilityService {
     );
   }
 
-  public DeletedAvailability deleteAvailability(Integer id, String token) {
-    if (id == null) throw nullPointer();
+  public GetAvailabilityWithID deleteAvailability(Integer id, String token) {
+    if (id == null || token == null) throw nullPointer();
 
     if (!availabilityRepository.existsById(id)) throw modelNotFound(
       "AVAILABILITY_NOT_FOUND"
@@ -147,6 +146,6 @@ public class AvailabilityService {
 
     availabilityRepository.deleteById(id);
 
-    return new DeletedAvailability(deleted);
+    return new GetAvailabilityWithID(deleted);
   }
 }
