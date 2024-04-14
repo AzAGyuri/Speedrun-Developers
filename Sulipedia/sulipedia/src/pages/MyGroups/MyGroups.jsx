@@ -20,15 +20,17 @@ import {
   MenuItem,
   TableCell,
   TableRow,
+  Link,
+  Box,
   Table,
 } from "@mui/material";
 import { Delete, Add } from "@mui/icons-material";
 import Stack from "@mui/material/Stack";
-import Box from "@mui/material/Box";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { Loading } from "../../components/Loading/Loading";
 import axios from "axios";
 import { Popover } from "@mui/material";
+import { styled } from "@mui/system";
 
 const styles = {
   container: {
@@ -113,6 +115,15 @@ const styleSmall = {
   borderStyle: "double",
   borderColor: "#db140d",
 };
+
+const StyledLink = styled(Link)({
+  fontWeight: "bold",
+  textDecoration: "none",
+  color: "#1976d2",
+  "&:hover": {
+    textDecoration: "underline",
+  },
+});
 
 export function MyGroups({
   children,
@@ -478,6 +489,9 @@ export function MyGroups({
 
     setNewMemberName("");
   }
+  const handleEmailClick = (email) => {
+    window.location.href = `mailto:${email}`;
+  };
 
   const handleDeleteMember = (memberId) => {
     setIsLoading(true);
@@ -801,7 +815,7 @@ export function MyGroups({
                           <TableRow>
                             <div style={{ padding: "5px", fontSize: "20px", color: "#eb365a", border: "1px solid black", backgroundColor: "#84adf0" }}>{member.name}</div>
                             <div style={{ padding: "5px", fontSize: "20px", color: "#eb365a", border: "1px solid black", backgroundColor: "#84adf0" }}>{member.id}</div>
-                            <div style={{ padding: "5px", fontSize: "20px", color: "#eb365a", border: "1px solid black", backgroundColor: "#84adf0" }}>{member.email}</div>
+                            <div style={{ padding: "5px", fontSize: "20px", color: "#211ee3", border: "1px solid black", backgroundColor: "#84adf0", textDecoration:"underline", cursor:"pointer" }} onClick={() => handleEmailClick(member.email)}>{member.email}</div>
                             <div style={{ padding: "5px", fontSize: "20px", color: "#eb365a", border: "1px solid black", backgroundColor: "#84adf0" }}>Regisztáció napja: {member.memberSince}</div>
                           </TableRow>
                           <TableRow style={{display: "flex", justifyContent: "center",marginTop:"10px"}}>
