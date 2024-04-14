@@ -1,4 +1,4 @@
-import { Typography, Popover, } from "@mui/material";
+import { Typography, Popover, Avatar } from "@mui/material";
 import { Container, styled } from "@mui/system";
 
 const StyledContainer = styled(Container)({
@@ -15,6 +15,20 @@ const StyledContainer = styled(Container)({
   marginBottom: "20px",
   border: "2.5px solid #2f3826",
 });
+
+const styles = {
+  avatar: {
+    width: "30px",
+    height: "30px",
+    margin: "20px auto",
+    border: "4px solid #fff",
+    boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    fontSize: "20px",
+  },
+};
 
 const Title = styled(Typography)({
   marginBottom: (theme) => theme.spacing(2),
@@ -35,19 +49,46 @@ export function Entry({
   title,
   content,
   createdOn,
-  author,
+  authorName,
+  authorBgColor,
+  authorLogIn,
+  authorLogOff,
   handleEntryClick,
   open,
   handlePopoverOpen,
   handlePopoverClose,
   anchorEl,
 }) {
+  const statusColor =
+    authorLogIn && authorLogOff
+      ? new Date(authorLogOff) > new Date(authorLogIn)
+        ? "green"
+        : "red"
+      : "red";
+
+  const statusText =
+    authorLogIn && authorLogOff
+      ? new Date(authorLogOff) > new Date(authorLogIn)
+        ? "Online"
+        : "Offline"
+      : "Offline";
+
   return (
     <StyledContainer
       style={{ backgroundColor: "#4caf50" }}
       onClick={
         handleEntryClick
-          ? () => handleEntryClick({ title, content, createdOn, author, id })
+          ? () =>
+              handleEntryClick({
+                title,
+                content,
+                createdOn,
+                authorName,
+                authorBgColor,
+                authorLogIn,
+                authorLogOff,
+                id,
+              })
           : () => {
               alert("szia fanom, mi jót csinálsz?");
             }
@@ -89,34 +130,63 @@ export function Entry({
             fontWeight: "bold",
             marginLeft: "10px",
           }}
-          aria-owns={open ? 'mouse-over-popover' : undefined}
+          aria-owns={open ? "mouse-over-popover" : undefined}
           aria-haspopup="true"
           onMouseEnter={handlePopoverOpen}
           onMouseLeave={handlePopoverClose}
         >
-          {author}
+          {authorName}
         </Typography>
         <Popover
           id="mouse-over-popover"
           sx={{
-            pointerEvents: 'none',
+            pointerEvents: "none",
           }}
           open={open}
           anchorEl={anchorEl}
           anchorOrigin={{
-            vertical: 'top',
-            horizontal: 'center',
+            vertical: "top",
+            horizontal: "center",
           }}
           transformOrigin={{
-            vertical: 'bottom',
-            horizontal: 'center',
+            vertical: "bottom",
+            horizontal: "center",
           }}
           onClose={handlePopoverClose}
           disableRestoreFocus
         >
-          <Typography sx={{ p: 1 }}>I use Popover.</Typography>
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+            }}
+          >
+            <Avatar
+              style={{
+                ...styles.avatar,
+                backgroundColor: authorBgColor,
+              }}
+            >
+              {authorName.charAt(0).toUpperCase()}
+            </Avatar>
+            <div style={{ marginLeft: "10px" }}>
+              <Typography sx={{ fontWeight: "bold", marginBottom: "5px" }}>{authorName}</Typography>
+              <Typography
+                sx={{
+                  p: 0,
+                  color:
+                    statusColor === "green"
+                      ? "#4caf50"
+                      : statusColor === "red"
+                      ? "#f44336"
+                      : "#f44336",
+                }}
+              >
+                {statusText}
+              </Typography>
+            </div>
+          </div>
         </Popover>
-
       </div>
     </StyledContainer>
   );

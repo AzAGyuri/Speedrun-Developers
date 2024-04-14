@@ -220,6 +220,10 @@ export function EntryList({ children, jwt, setIsLoading, isLoading, subject }) {
         createdOn: "2023.01.15",
         author: {
           username: "Emberke 1",
+          lastLogin: null,
+          lastLogoff: null,
+          nickname: null,
+          randomAvatarBgColor: "#FA6257",
         },
         subject: "MATHS",
       },
@@ -230,6 +234,10 @@ export function EntryList({ children, jwt, setIsLoading, isLoading, subject }) {
         createdOn: "2023.02.03",
         author: {
           username: "Emberke 2",
+          lastLogin: null,
+          lastLogoff: null,
+          nickname: null,
+          randomAvatarBgColor: "#FA6257",
         },
         subject: "MATHS",
       },
@@ -240,6 +248,10 @@ export function EntryList({ children, jwt, setIsLoading, isLoading, subject }) {
         createdOn: "2023.03.15",
         author: {
           username: "Emberke 2",
+          lastLogin: null,
+          lastLogoff: null,
+          nickname: null,
+          randomAvatarBgColor: "#FA6257",
         },
         subject: "MATHS",
       },
@@ -250,6 +262,10 @@ export function EntryList({ children, jwt, setIsLoading, isLoading, subject }) {
         createdOn: "2023.04.04",
         author: {
           username: "Emberke 1",
+          lastLogin: null,
+          lastLogoff: null,
+          nickname: null,
+          randomAvatarBgColor: "#FA6257",
         },
         subject: "MATHS",
       },
@@ -260,6 +276,10 @@ export function EntryList({ children, jwt, setIsLoading, isLoading, subject }) {
         createdOn: "2023.05.20",
         author: {
           username: "Emberke 3",
+          lastLogin: null,
+          lastLogoff: null,
+          nickname: null,
+          randomAvatarBgColor: "#FA6257",
         },
         subject: "MATHS",
       },
@@ -269,7 +289,11 @@ export function EntryList({ children, jwt, setIsLoading, isLoading, subject }) {
         content: "A magyar irodalom kiemelkedő alakja és költői öröksége",
         createdOn: "2023.01.15",
         author: {
-          username: "Emberke 1"
+          username: "Emberke 1",
+          lastLogin: null,
+          lastLogoff: null,
+          nickname: null,
+          randomAvatarBgColor: "#FA6257",
         },
         category: "HUNGARIAN",
       },
@@ -279,7 +303,11 @@ export function EntryList({ children, jwt, setIsLoading, isLoading, subject }) {
         content: "Jókai Mór regényeinek jelentősége és hatása",
         createdOn: "2023.02.03",
         author: {
-          username: "Emberke 2"
+          username: "Emberke 2",
+          lastLogin: null,
+          lastLogoff: null,
+          nickname: null,
+          randomAvatarBgColor: "#FA6257",
         },
         category: "HUNGARIAN",
       },
@@ -289,7 +317,11 @@ export function EntryList({ children, jwt, setIsLoading, isLoading, subject }) {
         content: "Áprily Lajos műveinek sokszínűsége és irodalmi értéke",
         createdOn: "2023.03.15",
         author: {
-          username: "Emberke 2"
+          username: "Emberke 2",
+          lastLogin: null,
+          lastLogoff: null,
+          nickname: null,
+          randomAvatarBgColor: "#FA6257",
         },
         category: "HUNGARIAN",
       },
@@ -299,7 +331,11 @@ export function EntryList({ children, jwt, setIsLoading, isLoading, subject }) {
         content: "A romantika és a szimbolizmus jelentős költői és alkotásai",
         createdOn: "2023.04.04",
         author: {
-          username: "Emberke 1"
+          username: "Emberke 1",
+          lastLogin: null,
+          lastLogoff: null,
+          nickname: null,
+          randomAvatarBgColor: "#FA6257",
         },
         category: "HUNGARIAN",
       },
@@ -310,7 +346,11 @@ export function EntryList({ children, jwt, setIsLoading, isLoading, subject }) {
           "Az újító drámaírók és a kortárs magyar dráma jellegzetességei",
         createdOn: "2023.05.20",
         author: {
-          username: "Emberke 1"
+          username: "Emberke 1",
+          lastLogin: null,
+          lastLogoff: null,
+          nickname: null,
+          randomAvatarBgColor: "#FA6257",
         },
         category: "HUNGARIAN",
       },
@@ -321,7 +361,11 @@ export function EntryList({ children, jwt, setIsLoading, isLoading, subject }) {
           "Az algoritmusok és adatszerkezetek kulcsfontosságú fogalmak az informatikában. Az algoritmusok hatékony megvalósítása és az optimális adatszerkezetek kiválasztása lehetővé teszi az informatikai problémák hatékony megoldását.",
         createdOn: "2024-04-01",
         author: {
-          username: "Emberke 1"
+          username: "Emberke 1",
+          lastLogin: null,
+          lastLogoff: null,
+          nickname: null,
+          randomAvatarBgColor: "#FA6257",
         },
         category: "ICT",
       },
@@ -332,7 +376,11 @@ export function EntryList({ children, jwt, setIsLoading, isLoading, subject }) {
           "A felhőalapú számítástechnika forradalmasította az informatikát. Az egyre növekvő számú vállalat és felhasználó számára biztosítja az adatok tárolását, szolgáltatásokat és alkalmazásokat a világhálón keresztül.",
         createdOn: "2024-04-01",
         author: {
-          username: "Emberke 1"
+          username: "Emberke 1",
+          lastLogin: null,
+          lastLogoff: null,
+          nickname: null,
+          randomAvatarBgColor: "#FA6257",
         },
         category: "ICT",
       },
@@ -343,7 +391,11 @@ export function EntryList({ children, jwt, setIsLoading, isLoading, subject }) {
           "A kiberbiztonság és hálózatbiztonság napjainkban kulcsfontosságú területe az informatikának. Az internetes fenyegetések és a számítógépes bűnözés elleni védelem elengedhetetlen a biztonságos online környezet megteremtéséhez.",
         createdOn: "2024-04-01",
         author: {
-          username: "Emberke 1"
+          username: "Emberke 1",
+          lastLogin: null,
+          lastLogoff: null,
+          nickname: null,
+          randomAvatarBgColor: "#FA6257",
         },
         category: "ICT",
       },
@@ -354,7 +406,11 @@ export function EntryList({ children, jwt, setIsLoading, isLoading, subject }) {
           "Az adattudomány és a nagy adat elemzésének képességei forradalmasítják az üzleti és tudományos területeket egyaránt. Az adatokból való értelmezés lehetővé teszi a trendek felismerését és a jövőbeli döntések meghozatalát.",
         createdOn: "2024-04-01",
         author: {
-          username: "Emberke 1"
+          username: "Emberke 1",
+          lastLogin: null,
+          lastLogoff: null,
+          nickname: null,
+          randomAvatarBgColor: "#FA6257",
         },
         category: "ICT",
       },
@@ -365,7 +421,11 @@ export function EntryList({ children, jwt, setIsLoading, isLoading, subject }) {
           "A mesterséges intelligencia és a gépi tanulás területei forradalmasítják az informatikát. Az olyan alkalmazások, mint az autonóm járművek és a nyelvi felismerés, az MI és a gépi tanulás legújabb fejlesztéseinek eredményei.",
         createdOn: "2024-04-01",
         author: {
-          username: "Emberke 1"
+          username: "Emberke 1",
+          lastLogin: null,
+          lastLogoff: null,
+          nickname: null,
+          randomAvatarBgColor: "#FA6257",
         },
         category: "ICT",
       },
@@ -376,7 +436,11 @@ export function EntryList({ children, jwt, setIsLoading, isLoading, subject }) {
           "Understanding the fundamental principles of quantum mechanics",
         createdOn: "2023.01.15",
         author: {
-          username: "Emberke 1"
+          username: "Emberke 1",
+          lastLogin: null,
+          lastLogoff: null,
+          nickname: null,
+          randomAvatarBgColor: "#FA6257",
         },
         category: "TECHNICAL_ENGLISH",
       },
@@ -386,7 +450,11 @@ export function EntryList({ children, jwt, setIsLoading, isLoading, subject }) {
         content: "Basic concepts and techniques in data TECHNICAL_ENGLISH",
         createdOn: "2023.02.03",
         author: {
-          username: "Emberke 1"
+          username: "Emberke 1",
+          lastLogin: null,
+          lastLogoff: null,
+          nickname: null,
+          randomAvatarBgColor: "#FA6257",
         },
         category: "TECHNICAL_ENGLISH",
       },
@@ -397,7 +465,11 @@ export function EntryList({ children, jwt, setIsLoading, isLoading, subject }) {
           "Recent developments and applications of artificial intelligence",
         createdOn: "2023.03.15",
         author: {
-          username: "Emberke 1"
+          username: "Emberke 1",
+          lastLogin: null,
+          lastLogoff: null,
+          nickname: null,
+          randomAvatarBgColor: "#FA6257",
         },
         category: "TECHNICAL_ENGLISH",
       },
@@ -408,7 +480,11 @@ export function EntryList({ children, jwt, setIsLoading, isLoading, subject }) {
           "Understanding encryption techniques and cryptographic protocols",
         createdOn: "2023.04.04",
         author: {
-          username: "Emberke 1"
+          username: "Emberke 1",
+          lastLogin: null,
+          lastLogoff: null,
+          nickname: null,
+          randomAvatarBgColor: "#FA6257",
         },
         category: "TECHNICAL_ENGLISH",
       },
@@ -418,7 +494,11 @@ export function EntryList({ children, jwt, setIsLoading, isLoading, subject }) {
         content: "Key concepts and models in computer networking",
         createdOn: "2023.05.20",
         author: {
-          username: "Emberke 1"
+          username: "Emberke 1",
+          lastLogin: null,
+          lastLogoff: null,
+          nickname: null,
+          randomAvatarBgColor: "#FA6257",
         },
         category: "TECHNICAL_ENGLISH",
       },
@@ -428,7 +508,11 @@ export function EntryList({ children, jwt, setIsLoading, isLoading, subject }) {
         content: "A magyar történelem kezdete",
         createdOn: "2023.01.15",
         author: {
-          username: "Emberke 1"
+          username: "Emberke 1",
+          lastLogin: null,
+          lastLogoff: null,
+          nickname: null,
+          randomAvatarBgColor: "#FA6257",
         },
         category: "HISTORY",
       },
@@ -438,7 +522,11 @@ export function EntryList({ children, jwt, setIsLoading, isLoading, subject }) {
         content: "Magyarország elvesztette függetlenségét",
         createdOn: "2023.02.03",
         author: {
-          username: "Emberke 1"
+          username: "Emberke 1",
+          lastLogin: null,
+          lastLogoff: null,
+          nickname: null,
+          randomAvatarBgColor: "#FA6257",
         },
         category: "HISTORY",
       },
@@ -448,7 +536,11 @@ export function EntryList({ children, jwt, setIsLoading, isLoading, subject }) {
         content: "Az összmagyar felkelés a Habsburgok ellen",
         createdOn: "2023.03.15",
         author: {
-          username: "Emberke 1"
+          username: "Emberke 1",
+          lastLogin: null,
+          lastLogoff: null,
+          nickname: null,
+          randomAvatarBgColor: "#FA6257",
         },
         category: "HISTORY",
       },
@@ -458,7 +550,11 @@ export function EntryList({ children, jwt, setIsLoading, isLoading, subject }) {
         content: "Az osztrák uralom elleni küzdelem",
         createdOn: "2023.04.04",
         author: {
-          username: "Emberke 1"
+          username: "Emberke 1",
+          lastLogin: null,
+          lastLogoff: null,
+          nickname: null,
+          randomAvatarBgColor: "#FA6257",
         },
         category: "HISTORY",
       },
@@ -468,7 +564,11 @@ export function EntryList({ children, jwt, setIsLoading, isLoading, subject }) {
         content: "A trianoni békeszerződés következményei",
         createdOn: "2023.05.20",
         author: {
-          username: "Emberke 1"
+          username: "Emberke 1",
+          lastLogin: null,
+          lastLogoff: null,
+          nickname: null,
+          randomAvatarBgColor: "#FA6257",
         },
         category: "HISTORY",
       },
@@ -501,7 +601,6 @@ export function EntryList({ children, jwt, setIsLoading, isLoading, subject }) {
   const handleClose = () => setOpen(false);
   const [selectedEntry, setSelectedEntry] = React.useState(null);
   const handleEntryClick = (entry) => {
-    console.log(entry);
     setSelectedEntry(entry);
     handleOpen();
   };
@@ -681,7 +780,10 @@ export function EntryList({ children, jwt, setIsLoading, isLoading, subject }) {
                 title={entry.title}
                 content={entry.content}
                 createdOn={entry.createdOn}
-                author={entry.author.username}
+                authorName={entry.author.username}
+                authorBgColor={entry.author.randomAvatarBgColor}
+                authorLogIn={entry.author.lastLogin}
+                authorLogOff={entry.author.lastLogoff}
                 handleEntryClick={handleEntryClick}
                 open={openPopover}
                 handlePopoverOpen={handlePopoverOpen}
@@ -698,7 +800,10 @@ export function EntryList({ children, jwt, setIsLoading, isLoading, subject }) {
                   title={entry.title}
                   content={entry.content}
                   createdOn={entry.createdOn}
-                  author={entry.author.username}
+                  authorName={entry.author.username}
+                  authorBgColor={entry.author.randomAvatarBgColor}
+                  authorLogIn={entry.author.lastLogin}
+                  authorLogOff={entry.author.lastLogoff}
                   handleEntryClick={handleEntryClick}
                   open={openPopover}
                   handlePopoverOpen={handlePopoverOpen}
@@ -710,7 +815,6 @@ export function EntryList({ children, jwt, setIsLoading, isLoading, subject }) {
 
       {selectedEntry && (
         <div>
-          <Button onClick={handleOpen}>Open modal</Button>
           <Modal
             open={open}
             onClose={handleClose}
@@ -744,7 +848,7 @@ export function EntryList({ children, jwt, setIsLoading, isLoading, subject }) {
                 title={selectedEntry.title}
                 content={selectedEntry.content}
                 createdOn={selectedEntry.createdOn}
-                author={selectedEntry.author}
+                authorName={selectedEntry.authorName}
                 open={openPopover}
                 handlePopoverOpen={handlePopoverOpen}
                 handlePopoverClose={handlePopoverClose}
@@ -769,7 +873,14 @@ export function EntryList({ children, jwt, setIsLoading, isLoading, subject }) {
                   <Comment key={index}>
                     <CommentContent>{comment.content}</CommentContent>
                     <div>
-                      <CommentAuthor>{comment.author.username}</CommentAuthor>
+                      <CommentAuthor
+                      aria-owns={open ? 'mouse-over-popover' : undefined}
+                      aria-haspopup="true"
+                      onMouseEnter={handlePopoverOpen}
+                      onMouseLeave={handlePopoverClose}
+                      >
+                        {comment.author.username}
+                      </CommentAuthor>
                       <CommentDate>{comment.createdOn}</CommentDate>
                       <IconButton
                         edge="end"
