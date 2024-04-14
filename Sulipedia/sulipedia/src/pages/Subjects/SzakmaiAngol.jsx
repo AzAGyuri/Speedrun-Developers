@@ -9,6 +9,8 @@ import {
   ListItemText,
   Button,
   Tooltip,
+  Box,
+  Modal,
 } from "@mui/material";
 import { styled } from "@mui/system";
 import MenuIcon from "@mui/icons-material/Menu";
@@ -175,6 +177,20 @@ const CommentDate = styled("span")({
   color: "#777",
   marginLeft: "6px",
 });
+const style = {
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: "70%",
+  height: "90%",
+  bgcolor: "background.paper",
+  border: "2px solid #000",
+  boxShadow: 24,
+  p: 4,
+  overflow: "auto",
+};
+
 function Entry({ id, title, content, date, author, handleEntryClick }) {
   return (
     <StyledContainer
@@ -233,14 +249,14 @@ export function SzakAngol({ children, jwt }) {
     {
       title: "Exploring Quantum Mechanics",
       content: "Understanding the fundamental principles of quantum mechanics",
-      date: "2023.01.15",
+      createdOn: "2023.01.15",
       author: "Emberke 1",
       category: "TECHNICAL_ENGLISH",
     },
     {
       title: "Introduction to Data TECHNICAL_ENGLISH",
       content: "Basic concepts and techniques in data TECHNICAL_ENGLISH",
-      date: "2023.02.03",
+      createdOn: "2023.02.03",
       author: "Emberke 2",
       category: "TECHNICAL_ENGLISH",
     },
@@ -248,7 +264,7 @@ export function SzakAngol({ children, jwt }) {
       title: "Advancements in Artificial Intelligence",
       content:
         "Recent developments and applications of artificial intelligence",
-      date: "2023.03.15",
+      createdOn: "2023.03.15",
       author: "Emberke 2",
       category: "TECHNICAL_ENGLISH",
     },
@@ -256,14 +272,14 @@ export function SzakAngol({ children, jwt }) {
       title: "Fundamentals of Cryptography",
       content:
         "Understanding encryption techniques and cryptographic protocols",
-      date: "2023.04.04",
+      createdOn: "2023.04.04",
       author: "Emberke 1",
       category: "TECHNICAL_ENGLISH",
     },
     {
       title: "Theoretical Foundations of Computer Networks",
       content: "Key concepts and models in computer networking",
-      date: "2023.05.20",
+      createdOn: "2023.05.20",
       author: "Emberke 3",
       category: "TECHNICAL_ENGLISH",
     },
@@ -272,68 +288,96 @@ export function SzakAngol({ children, jwt }) {
   const [newComment, setNewComment] = React.useState("");
   const [searchValue, setSearchValue] = React.useState("");
 
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => {
+    setOpen(true);
+    setNewComment("");
+  };
+  
+  const handleClose = () => setOpen(false);
+  const [selectedEntry, setSelectedEntry] = React.useState(null);
+  const handleEntryClick = (entry) => {
+    setSelectedEntry(entry);
+    handleOpen();
+  };
+
   const handleCommentChange = (event) => {
     setNewComment(event.target.value);
   };
-  const fetchComments = () => {
-    const backendUrl = "/comment";
-    axios
-      .get(backendUrl)
-      .then((response) => {
-        const fetchedComments = response.data.comments;
-        console.log("Komment", fetchedComments);
-      })
-      .catch((error) => {
-        console.error("Error fetching comments:", error);
-        alert("Hiba a kommentek lekérdezésekor", error);
-      });
-  };
-  const deleteComment = (commentId) => {
-    const backendUrl = `/comment/${commentId}`;
 
+   const handleCommentSubmit = () => {
     axios
-      .delete(backendUrl)
-      .then((response) => {
-        console.log("Komment törölve", response.data);
+      .post(
+        "/comment",
+        {
+          content: newComment,
+          entryId: selectedEntry.id,
+        },
+        { headers: { Authorization: localStorage.getItem("jwt") } }
+      )
+      .then(function (response) {
+        console.log("Response:", response.data);
+        axios
+        .get(`/comment?entryId=${selectedEntry.id}`, {
+          headers: { Authorization: jwt },
+        })
+        .then((response) => {
+          const receivedComments = response.data.comments;
+          setComments(receivedComments);
+        })
+        .catch((error) => {
+          console.error("Error fetching comments:", error);
+        });
       })
-      .catch((error) => {
-        console.error("Error deleting comment:", error);
-        alert("Hiba a komment törlésekor", error);
-      });
-  };
-  const handleCommentSubmit = () => {
-    const backendUrl = "/comment";
-    const requestBody = {
-      content: newComment,
-      entryId: 0,
-    };
-    axios
-      .post(backendUrl, requestBody, {
-        headers: { Authorization: localStorage.getItem("jwt") },
-      })
-      .then((response) => {
-        const newComments = [
-          ...comments,
-          {
-            content: newComment,
-            author: "Felhasználó",
-            date: new Date().toLocaleDateString(),
-          },
-        ];
-        setComments(newComments);
-        setNewComment("");
-      })
-      .catch((error) => {
+      .catch(function (error) {
         console.error("Error submitting comment:", error);
         alert("Hiba a komment elküldésekor", error);
       });
+      setNewComment("");
   };
 
+  useEffect(() => {
+    if (open && selectedEntry && selectedEntry.id) {
+      axios
+        .get(`/comment?entryId=${selectedEntry.id}`, {
+          headers: { Authorization: jwt },
+        })
+        .then((response) => {
+          const receivedComments = response.data.comments;
+          setComments(receivedComments);
+        })
+        .catch((error) => {
+          console.error("Error fetching comments:", error);
+        });
+    }
+  }, [selectedEntry, open, jwt]);
+  
+  
+  
+
   const handleCommentDelete = (index) => {
-    const updatedComments = [...comments];
-    updatedComments.splice(index, 1);
-    setComments(updatedComments);
+    axios.delete(`/comment/${index}`, {
+      headers: { Authorization: jwt },
+    })
+  .then((response) => {
+    axios
+        .get(`/comment?entryId=${selectedEntry.id}`, {
+          headers: { Authorization: jwt },
+        })
+        .then((response) => {
+          const receivedComments = response.data.comments;
+          setComments(receivedComments);
+        })
+        .catch((error) => {
+          console.error("Error fetching comments:", error);
+        });
+  })
+  .catch((error) => {
+    console.error('Error deleting resource:', error);
+    alert("Sikertelen törlés!")
+  });
   };
+
   const handleAllAuthorsSelect = () => {
     setSelectedAuthor(null);
     setDrawerOpen(false);
@@ -436,8 +480,9 @@ export function SzakAngol({ children, jwt }) {
                 key={index}
                 title={entry.title}
                 content={entry.content}
-                date={entry.date}
+                date={entry.createdOn}
                 author={entry.author}
+                handleEntryClick={handleEntryClick}
               />
             ))
           : entries
@@ -447,39 +492,124 @@ export function SzakAngol({ children, jwt }) {
                   key={index}
                   title={entry.title}
                   content={entry.content}
-                  date={entry.date}
+                  date={entry.createdOn}
                   author={entry.author}
+                  handleEntryClick={handleEntryClick}
                 />
               ))}
       </StyledContainer>
 
-      <CommentSection>
-        <CommentHeader>Vélemények és hozzászólások</CommentHeader>
-        <CommentInput
-          placeholder="Mit gondolsz a tananyagról?..."
-          value={newComment}
-          onChange={handleCommentChange}
-        />
-        <CommentButton variant="contained" onClick={handleCommentSubmit}>
-          Hozzászólás küldése
-        </CommentButton>
-        {comments.map((comment, index) => (
-          <Comment key={index}>
-            <CommentContent>{comment.content}</CommentContent>
-            <div>
-              <CommentAuthor>{comment.author}</CommentAuthor>
-              <CommentDate>{comment.date}</CommentDate>
-              <IconButton
+      {selectedEntry && (
+        <div>
+          <Button onClick={handleOpen}>Open modal</Button>
+          <Modal
+            open={open}
+            onClose={handleClose}
+            aria-labelledby="modal-modal-title"
+            aria-describedby="modal-modal-description"
+          >
+            <Box
+              sx={{
+                ...style,
+                backgroundColor: "#4b8efa",
+              }}
+            >
+              <Button
                 edge="end"
-                color="inherit"
-                onClick={() => handleCommentDelete(index)}
+                color="error"
+                variant="contained"
+                onClick={handleClose}
+                style={{
+                  position: "absolute",
+                  top: 0,
+                  right: 0,
+                  marginTop: "5px",
+                  marginRight: "5px",
+                }}
               >
-                <DeleteIcon />
-              </IconButton>
-            </div>
-          </Comment>
-        ))}
-      </CommentSection>
+                X
+              </Button>
+
+              <StyledContainer style={{ backgroundColor: "#4caf50" }}>
+                <Title variant="h4">{selectedEntry.title}</Title>
+                <LargeText style={{ paddingBottom: "5px" }}>
+                  {selectedEntry.content}
+                </LargeText>
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    width: "100%",
+                    borderTop: "2px solid #2f3826",
+                    marginTop: "auto",
+                    paddingRight: "16px",
+                    paddingLeft: "16px",
+                    paddingTop: "5px",
+                  }}
+                >
+                  <Typography
+                    variant="body2"
+                    style={{
+                      padding: "7px 5px",
+                      backgroundColor: "#ba8d63",
+                      borderRadius: "8px",
+                      color: "#fff",
+                      fontWeight: "bold",
+                    }}
+                  >
+                    <CommentDate sx={{color: "white", fontSize: "14px", marginLeft: "5px", marginRight: "5px"}}>{selectedEntry.date}</CommentDate>
+                  </Typography>
+                  <Typography
+                    variant="body2"
+                    style={{
+                      padding: "7px 4px",
+                      backgroundColor: "#6384ba",
+                      borderRadius: "8px",
+                      color: "#fff",
+                      fontWeight: "bold",
+                      marginLeft: "10px",
+                    }}
+                  >
+                    {selectedEntry.author}
+                  </Typography>
+                </div>
+              </StyledContainer>
+
+              <CommentSection>
+                <CommentHeader>Vélemények és hozzászólások</CommentHeader>
+                <CommentInput
+                  placeholder="Mit gondolsz a tananyagról?..."
+                  value={newComment}
+                  onChange={handleCommentChange}
+                />
+                <CommentButton
+                  variant="contained"
+                  onClick={handleCommentSubmit}
+                  style={{ marginLeft: "3px", marginBottom: "3px" }}
+                >
+                  Hozzászólás küldése
+                </CommentButton>
+                {comments.map((comment, index) => (
+                  <Comment key={index}>
+                    <CommentContent>{comment.content}</CommentContent>
+                    <div>
+                      <CommentAuthor>{comment.author.username}</CommentAuthor>
+                      <CommentDate>{comment.createdOn}</CommentDate>
+                      <IconButton
+                        edge="end"
+                        color="inherit"
+                        onClick={() => handleCommentDelete(comment.id)}
+                      >
+                        <DeleteIcon />
+                      </IconButton>
+                    </div>
+                  </Comment>
+                ))}
+              </CommentSection>
+            </Box>
+          </Modal>
+        </div>
+      )}
     </>
   );
 }
