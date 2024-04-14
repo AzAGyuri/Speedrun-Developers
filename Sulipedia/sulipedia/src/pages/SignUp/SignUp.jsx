@@ -179,39 +179,39 @@ export default function SignUp({ children, setIsLoading, jwt }) {
 
   const validateForm = () => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    
+
     if (!emailRegex.test(formData.email)) {
       setEmailError(true);
     }
-  
+
     const passwordRegex = /^(?=.*[A-Za-zÁÉÍÓÖŐÚÜŰáéíóöőúüű])(?=.*\d).{8,}$/;;
-    if(!passwordRegex.test(formData.password)){
+    if (!passwordRegex.test(formData.password)) {
       setPasswordError(true);
     }
-    if(!formData.password === formData.confirmPassword){
+    if (!formData.password === formData.confirmPassword) {
       setPasswordError(true);
     }
-  
-    
+
+
     if (formData.surName.length < 2) {
       setLastNameError(true);
     } else {
       setLastNameError(false);
     }
-  
+
     if (formData.realName.length < 3) {
       setFirstNameError(true);
     } else {
       setFirstNameError(false);
     }
-    
+
     if (
       formData.phone &&
       !(formData.phone.length > 13 && formData.phone.length < 15)
     ) {
       setPhoneError(true);
     }
-  
+
   };
 
   const isFormValid = () => {
@@ -452,8 +452,8 @@ export default function SignUp({ children, setIsLoading, jwt }) {
                       phoneError
                         ? "Érvénytelen telefonszám (11 számjegy szükséges)"
                         : phoneLengthError
-                        ? "A telefonszám nem lehet hosszabb 11 karakternél"
-                        : ""
+                          ? "A telefonszám nem lehet hosszabb 11 karakternél"
+                          : ""
                     }
                     variant="outlined"
                   />

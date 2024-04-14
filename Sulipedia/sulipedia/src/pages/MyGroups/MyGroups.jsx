@@ -186,9 +186,9 @@ export function MyGroups({
     name: "Szakmai angol",
     description: "Szakmai angol csoport",
     members: [
-      { id: 1, name: "John Doe" },
-      { id: 2, name: "Alice Smith" },
-      { id: 3, name: "Bob Johnson" },
+      { id: 1, name: "John Doe", email:"semmi@valami.com", memberSince:"2024-04-14 14:28:43" },
+      { id: 2, name: "Alice Smith", email:"semmi@valami.com", memberSince:"2024-04-14 14:28:43" },
+      { id: 3, name: "Bob Johnson", email:"semmi@valami.com", memberSince:"2024-04-14 14:28:43" },
     ],
     ownerId: 1,
   });
@@ -267,6 +267,8 @@ export function MyGroups({
             localMembers.push({
               id: user.id,
               name: user.username,
+              email: user.email,
+              memberSince: user.createdOn
             });
           });
         })
@@ -782,8 +784,15 @@ export function MyGroups({
                 key={member.id}
               >
                 <ListItemAvatar>
-                  <Tooltip title={member.name} >
-                  <Avatar>{member.name[0]}</Avatar>
+                  <Tooltip title={
+                    <div style={{ width: "auto", height: "auto", }}>
+                      <div style={{ padding: "5px", fontSize: "20px", color: "#eb365a", border: "1px solid black", backgroundColor: "#84adf0" }}>{member.name}</div>
+                      <div style={{ padding: "5px", fontSize: "20px", color: "#eb365a", border: "1px solid black", backgroundColor: "#84adf0" }}>{member.id}</div>
+                      <div style={{ padding: "5px", fontSize: "20px", color: "#eb365a", border: "1px solid black", backgroundColor: "#84adf0" }}>{member.email}</div>
+                      <div style={{ padding: "5px", fontSize: "20px", color: "#eb365a", border: "1px solid black", backgroundColor: "#84adf0" }}>Regisztáció napja: {member.memberSince}</div>
+                    </div>
+                  } >
+                    <Avatar>{member.name[0]}</Avatar>
                   </Tooltip>
                 </ListItemAvatar>
                 <ListItemText primary={member.name} />
