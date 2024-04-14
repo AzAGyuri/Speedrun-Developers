@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -44,9 +45,9 @@ public class AvailabilityController {
 
   /**
    * <h3>GET(/availability)</h3>
-   * 
+   *
    * List all stored availabilities from the DB
-   * 
+   *
    * @return new {@code AvailabilityList},<br></br>
    * containing all availabilities for any and all users
    */
@@ -60,23 +61,8 @@ public class AvailabilityController {
   }
 
   /**
-   * <h3>GET(/availability/{id})</h3>
-   * 
-   * @param userId
-   * @return
-   */
-  @Operation(
-    summary = "Get all availabilites of a user from DB",
-    description = "Az adatbázisban eltárolt felhasználónak az elérhetősége(i) kilistázása"
-  )
-  @GetMapping("/availability/{id}")
-  public AvailabilityList getUserAvailabilities(@PathVariable Integer userId) {
-    return service.getUserAvailabilities(userId);
-  }
-
-  /**
    * <h3>POST(/availability)</h3>
-   * 
+   *
    * @param availability
    * @return
    */
@@ -87,14 +73,18 @@ public class AvailabilityController {
   @PostMapping("/availability")
   @ResponseStatus(code = HttpStatus.CREATED)
   public GetAvailabilityWithID createAvailability(
-    @Valid @RequestBody PostAvailability availability
+    @Valid @RequestBody PostAvailability availability,
+    @RequestHeader(name = "Authorization") String jwt
   ) {
-    return service.createAvailability(availability);
+    return service.createAvailability(
+      availability,
+      jwt.substring("Bearer".length()).trim()
+    );
   }
 
   /**
    * <h3>PUT(/availability/{id})</h3>
-   * 
+   *
    * @param update
    * @param id
    * @return
@@ -106,14 +96,19 @@ public class AvailabilityController {
   @PutMapping("/availability/{id}")
   public GetAvailability updateAvailability(
     @Valid @RequestBody UpdateAvailability update,
-    @PathVariable Integer id
+    @PathVariable Integer id,
+    @RequestHeader(name = "Authorization") String jwt
   ) {
-    return service.updateAvailability(update, id);
+    return service.updateAvailability(
+      update,
+      id,
+      jwt.substring("Bearer".length()).trim()
+    );
   }
 
   /**
    * <h3>DELETE(/availability/{id})</h3>
-   * 
+   *
    * @param id
    * @return
    */
@@ -122,7 +117,13 @@ public class AvailabilityController {
     description = "Az adatbázisban eltárolt elérhetőség törlése; ez a folyamat nem visszafordítható!"
   )
   @DeleteMapping("/availability/{id}")
-  public DeletedAvailability deleteAvailability(@PathVariable Integer id) {
-    return service.deleteAvailability(id);
+  public DeletedAvailability deleteAvailability(
+    @PathVariable Integer id,
+    @RequestHeader(name = "Authorization") String jwt
+  ) {
+    return service.deleteAvailability(
+      id,
+      jwt.substring("Bearer".length()).trim()
+    );
   }
 }
