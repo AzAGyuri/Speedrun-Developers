@@ -14,9 +14,8 @@ import hu.speedrundev.sulipedia.model.Roles;
 import hu.speedrundev.sulipedia.model.User;
 import hu.speedrundev.sulipedia.repository.UserRepository;
 import hu.speedrundev.sulipedia.util.JwtUtil;
-import jakarta.validation.Valid;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Optional;
 import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -46,7 +45,7 @@ public class UserService {
     return new UserList(repository.getUnderageStudents());
   }
 
-  public UserList getNewUsersSinceDate(LocalDate date) {
+  public UserList getNewUsersSinceDate(LocalDateTime date) {
     if (date == null) throw nullPointer();
 
     return new UserList(repository.getUsersCreatedSinceDate(date));
@@ -67,10 +66,9 @@ public class UserService {
 
   public GetUserWithID createUser(PostUser user) {
     if (user == null) throw nullPointer();
-    if (
-      repository.existsUserByUsername(user.getUsername()) ||
-      repository.existsUserByEmail(user.getEmail())
-    ) throw notUnique("USER_ALREADY_EXISTS");
+    if (repository.existsUserByEmail(user.getEmail())) throw notUnique(
+      "USER_ALREADY_EXISTS"
+    );
 
     user.setPasswordRaw(
       new BCryptPasswordEncoder().encode(user.getPasswordRaw())
@@ -79,22 +77,21 @@ public class UserService {
     return new GetUserWithID(repository.save(new User(user)));
   }
 
-  public GetUser updateUser(UpdateUser changes, String jwt) {
-    if (jwt == null || changes == null) throw nullPointer();
+  public GetUser updateUser(UpdateUser changes, String token) {
+    if (token == null || changes == null) throw nullPointer();
     if (changes.isAllNull()) throw badRequest("INPUTS_ALL_NULL");
 
-    String subject = jwtUtil.getSubject(jwt);
-
-    if (!repository.existsUserByUsername(subject)) throw modelNotFound(
-      "USER_NOT_FOUND"
+    Optional<User> updater = repository.findByUsername(
+      jwtUtil.getSubject(token)
     );
 
-    if (
-      repository.existsUserByUsername(changes.getNickname()) &&
-      repository.existsUserByEmail(changes.getEmail())
-    ) throw notUnique("USERNAME_ALREADY_TAKEN");
+    if (updater.isEmpty()) throw modelNotFound("USER_NOT_FOUND");
 
-    User oldData = new User(repository.getByUsername(subject));
+    if (repository.existsUserByEmail(changes.getEmail())) throw notUnique(
+      "USER_EMAIL_ALREADY_TAKEN"
+    );
+
+    User oldData = new User(updater.get());
 
     if (
       passwordEncoder.matches(
@@ -104,7 +101,7 @@ public class UserService {
       oldData.doesAllMatch(changes)
     ) throw badRequest("NEW_DATA_IDENTICAL_TO_OLD");
 
-    User updatingUser = repository.getByUsername(subject);
+    User updatingUser = repository.getByUsername(jwtUtil.getSubject(token));
 
     if (
       changes.getEmail() != null &&
@@ -148,9 +145,14 @@ public class UserService {
     return new GetUser(repository.save(updatingUser));
   }
 
-  public GetUser updateUserRoles(Integer id, @Valid Set<RoleDto> roles) {
-    if (id == null || roles == null) throw nullPointer();
-    if (isNotUserById(id)) throw modelNotFound("USER_NOT_FOUND");
+  public GetUser updateUserRoles(Integer id, Set<RoleDto> roles, String token) {
+    if (id == null || roles == null || token == null) throw nullPointer();
+
+    Optional<User> roleUpdater = repository.findByUsername(
+      jwtUtil.getSubject(token)
+    );
+
+    if (roleUpdater.isEmpty()) throw modelNotFound("USER_NOT_FOUND");
 
     User updatedUser = repository.getReferenceById(id);
 
@@ -169,23 +171,33 @@ public class UserService {
     return new GetUser(repository.save(updatedUser));
   }
 
-  public GetUser logicalDeletionOfUser(Integer id) {
-    if (id == null) throw nullPointer();
-    if (isNotUserById(id)) throw modelNotFound("USER_NOT_FOUND");
+  public GetUser logicalDeletionOfUser(String token) {
+    if (token == null) throw nullPointer();
 
-    User softDeletedUser = repository.getReferenceById(id);
+    Optional<User> deletedUser = repository.findByUsername(
+      jwtUtil.getSubject(token)
+    );
+
+    if (deletedUser.isEmpty()) throw modelNotFound("USER_NOT_FOUND");
+
+    User softDeletedUser = deletedUser.get();
     softDeletedUser.setDeleted(true);
     softDeletedUser.setDeletedOn(LocalDateTime.now());
 
     return new GetUser(repository.save(softDeletedUser));
   }
 
-  public NulledUser nullDeleteUser(Integer id) {
-    if (id == null) throw nullPointer();
-    if (isNotUserById(id)) throw modelNotFound("USER_NOT_FOUND");
+  public NulledUser nullDeleteUser(String token) {
+    if (token == null) throw nullPointer();
 
-    User nulledUser = repository.getReferenceById(id);
-    User oldData = repository.getReferenceById(id);
+    Optional<User> deletedUser = repository.findByUsername(
+      jwtUtil.getSubject(token)
+    );
+
+    if (deletedUser.isEmpty()) throw modelNotFound("USER_NOT_FOUND");
+
+    User nulledUser = deletedUser.get();
+    User oldData = deletedUser.get();
 
     nulledUser.nulledDelete();
 

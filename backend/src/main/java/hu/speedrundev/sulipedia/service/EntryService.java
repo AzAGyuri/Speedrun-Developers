@@ -80,12 +80,12 @@ public class EntryService {
     );
   }
 
-  public GetEntry getEntry(Integer id) {
-    if (id == null) throw nullPointer();
-    if (!entryRepository.existsById(id)) throw modelNotFound("ENTRY_NOT_FOUND");
+  // public GetEntry getEntry(Integer id) {
+  //   if (id == null) throw nullPointer();
+  //   if (!entryRepository.existsById(id)) throw modelNotFound("ENTRY_NOT_FOUND");
 
-    return new GetEntry(entryRepository.getReferenceById(id));
-  }
+  //   return new GetEntry(entryRepository.getReferenceById(id));
+  // }
 
   public GetEntryWithID createEntry(
     PostEntry entry,
@@ -143,185 +143,185 @@ public class EntryService {
     return new GetEntryWithID((savedEntry));
   }
 
-  public GetEntry updateEntry(Integer id, UpdateEntry changes) {
-    if (id == null || changes == null) throw nullPointer();
-    if (changes.isAllNull()) throw badRequest("ENTRY_UPDATE_INPUTS_NULL");
-    if (entryRepository.existsById(id)) throw modelNotFound("ENTRY_NOT_FOUND");
+  // public GetEntry updateEntry(Integer id, UpdateEntry changes) {
+  //   if (id == null || changes == null) throw nullPointer();
+  //   if (changes.isAllNull()) throw badRequest("ENTRY_UPDATE_INPUTS_NULL");
+  //   if (entryRepository.existsById(id)) throw modelNotFound("ENTRY_NOT_FOUND");
 
-    if (changes.getTest() != null && changes.getUpdateQuestions() != null) {
-      if (
-        changes.getTest() &&
-        changes.getUpdateQuestions() &&
-        !changes.areQuestionIdsSupplied()
-      ) throw badRequest("NO_NEW_QUESTIONS_WERE_SUPPLIED");
-    }
+  //   if (changes.getTest() != null && changes.getUpdateQuestions() != null) {
+  //     if (
+  //       changes.getTest() &&
+  //       changes.getUpdateQuestions() &&
+  //       !changes.areQuestionIdsSupplied()
+  //     ) throw badRequest("NO_NEW_QUESTIONS_WERE_SUPPLIED");
+  //   }
 
-    for (Integer qID : changes.getQuestionIds()) {
-      if (questionRepository.existsById(qID)) throw modelNotFound(
-        "QUESTION_ID_NOT_FOUND"
-      );
-    }
+  //   for (Integer qID : changes.getQuestionIds()) {
+  //     if (questionRepository.existsById(qID)) throw modelNotFound(
+  //       "QUESTION_ID_NOT_FOUND"
+  //     );
+  //   }
 
-    Entry oldEntry = entryRepository.getReferenceById(id);
+  //   Entry oldEntry = entryRepository.getReferenceById(id);
 
-    List<Question> questions = changes
-      .getQuestionIds()
-      .stream()
-      .map(questionRepository::getReferenceById)
-      .toList();
+  //   List<Question> questions = changes
+  //     .getQuestionIds()
+  //     .stream()
+  //     .map(questionRepository::getReferenceById)
+  //     .toList();
 
-    if (oldEntry.isAllUnchanged(changes, questions)) {
-      throw badRequest("NEW_DATA_IDENTICAL_TO_OLD");
-    }
+  //   if (oldEntry.isAllUnchanged(changes, questions)) {
+  //     throw badRequest("NEW_DATA_IDENTICAL_TO_OLD");
+  //   }
 
-    Entry updatingEntry = entryRepository.getReferenceById(id);
+  //   Entry updatingEntry = entryRepository.getReferenceById(id);
 
-    if (changes.getKeep() != null) {
-      updatingEntry.setKeep(changes.getKeep());
-    }
+  //   if (changes.getKeep() != null) {
+  //     updatingEntry.setKeep(changes.getKeep());
+  //   }
 
-    if (changes.getContent() != null) {
-      updatingEntry.setContent(changes.getContent());
-    }
+  //   if (changes.getContent() != null) {
+  //     updatingEntry.setContent(changes.getContent());
+  //   }
 
-    if (changes.getTitle() != null) {
-      updatingEntry.setTitle(changes.getTitle());
-    }
+  //   if (changes.getTitle() != null) {
+  //     updatingEntry.setTitle(changes.getTitle());
+  //   }
 
-    boolean testPreviousState = updatingEntry.getTest();
-    if (changes.getTest() != null) {
-      updatingEntry.setTest(changes.getTest());
-    }
+  //   boolean testPreviousState = updatingEntry.getTest();
+  //   if (changes.getTest() != null) {
+  //     updatingEntry.setTest(changes.getTest());
+  //   }
 
-    if (!testPreviousState) {
-      updatingEntry.setQuestions(questions);
-    } else {
-      for (Integer qID : changes.getQuestionIds()) {
-        questionRepository.deleteById(qID);
-      }
-      updatingEntry.getQuestions().clear();
-    }
+  //   if (!testPreviousState) {
+  //     updatingEntry.setQuestions(questions);
+  //   } else {
+  //     for (Integer qID : changes.getQuestionIds()) {
+  //       questionRepository.deleteById(qID);
+  //     }
+  //     updatingEntry.getQuestions().clear();
+  //   }
 
-    if (oldEntry.isAllUnchanged(updatingEntry)) throw badRequest(
-      "UPDATED_ENTITY_DATA_MATCHED_OLD"
-    );
+  //   if (oldEntry.isAllUnchanged(updatingEntry)) throw badRequest(
+  //     "UPDATED_ENTITY_DATA_MATCHED_OLD"
+  //   );
 
-    return new GetEntry(entryRepository.save(updatingEntry));
-  }
+  //   return new GetEntry(entryRepository.save(updatingEntry));
+  // }
 
-  public EntryList getEntriesThatAreKept() {
-    return new EntryList(entryRepository.findAllKept());
-  }
+  // public EntryList getEntriesKept() {
+  //   return new EntryList(entryRepository.findAllKept());
+  // }
 
-  public EntryList getEntriesNotKept() {
-    return new EntryList(entryRepository.findAllNotKept());
-  }
+  // public EntryList getEntriesNotKept() {
+  //   return new EntryList(entryRepository.findAllNotKept());
+  // }
 
-  public GetEntry logicalDeleteEntry(Integer id) {
-    if (id == null) throw nullPointer();
-    if (entryRepository.existsById(id)) throw modelNotFound("ENTRY_NOT_FOUND");
+  // public GetEntry logicalDeleteEntry(Integer id) {
+  //   if (id == null) throw nullPointer();
+  //   if (entryRepository.existsById(id)) throw modelNotFound("ENTRY_NOT_FOUND");
 
-    Entry softDeletedEntry = entryRepository.getReferenceById(id);
-    softDeletedEntry.setDeleted(true);
-    softDeletedEntry.setDeletedOn(LocalDateTime.now());
+  //   Entry softDeletedEntry = entryRepository.getReferenceById(id);
+  //   softDeletedEntry.setDeleted(true);
+  //   softDeletedEntry.setDeletedOn(LocalDateTime.now());
 
-    return new GetEntry(entryRepository.save(softDeletedEntry));
-  }
+  //   return new GetEntry(entryRepository.save(softDeletedEntry));
+  // }
 
-  public NulledEntry nullDeleteEntry(Integer id) {
-    if (id == null) throw nullPointer();
-    if (entryRepository.existsById(id)) throw modelNotFound("ENTRY_NOT_FOUND");
+  // public NulledEntry nullDeleteEntry(Integer id) {
+  //   if (id == null) throw nullPointer();
+  //   if (entryRepository.existsById(id)) throw modelNotFound("ENTRY_NOT_FOUND");
 
-    Entry nulledEntry = entryRepository.getReferenceById(id);
-    Entry oldData = entryRepository.getReferenceById(id);
+  //   Entry nulledEntry = entryRepository.getReferenceById(id);
+  //   Entry oldData = entryRepository.getReferenceById(id);
 
-    nulledEntry.nulledDelete();
+  //   nulledEntry.nulledDelete();
 
-    return new NulledEntry(
-      new GetEntry(oldData),
-      new GetEntry(entryRepository.save(nulledEntry))
-    );
-  }
+  //   return new NulledEntry(
+  //     new GetEntry(oldData),
+  //     new GetEntry(entryRepository.save(nulledEntry))
+  //   );
+  // }
 
-  public AnswerList listAllAnswers() {
-    return new AnswerList(answerRepository.findAll());
-  }
+  // public AnswerList listAllAnswers() {
+  //   return new AnswerList(answerRepository.findAll());
+  // }
 
-  public boolean deleteAnswer(Integer id) {
-    if (id == null) throw nullPointer();
-    if (!answerRepository.existsById(id)) throw modelNotFound(
-      "ANSWER_NOT_FOUND"
-    );
+  // public boolean deleteAnswer(Integer id) {
+  //   if (id == null) throw nullPointer();
+  //   if (!answerRepository.existsById(id)) throw modelNotFound(
+  //     "ANSWER_NOT_FOUND"
+  //   );
 
-    answerRepository.deleteById(id);
+  //   answerRepository.deleteById(id);
 
-    return true;
-  }
+  //   return true;
+  // }
 
-  public QuestionList listAllQuestions() {
-    return new QuestionList(questionRepository.findAll());
-  }
+  // public QuestionList listAllQuestions() {
+  //   return new QuestionList(questionRepository.findAll());
+  // }
 
-  public boolean deleteQuestion(Integer id) {
-    if (id == null) throw nullPointer();
-    if (!questionRepository.existsById(id)) throw modelNotFound(
-      "QUESTION_NOT_FOUND"
-    );
+  // public boolean deleteQuestion(Integer id) {
+  //   if (id == null) throw nullPointer();
+  //   if (!questionRepository.existsById(id)) throw modelNotFound(
+  //     "QUESTION_NOT_FOUND"
+  //   );
 
-    questionRepository.deleteById(id);
+  //   questionRepository.deleteById(id);
 
-    return true;
-  }
+  //   return true;
+  // }
 
-  public AttachmentList listAllAttachmentsByOptionalEntry(Integer entryId) {
-    if (entryId != null) return new AttachmentList(
-      attachmentRepository.findAllByEntryId(entryId)
-    );
-    return new AttachmentList(attachmentRepository.findAll());
-  }
+  // public AttachmentList listAllAttachmentsByOptionalEntry(Integer entryId) {
+  //   if (entryId != null) return new AttachmentList(
+  //     attachmentRepository.findAllByEntryId(entryId)
+  //   );
+  //   return new AttachmentList(attachmentRepository.findAll());
+  // }
 
-  public ResponseEntity<byte[]> getAttachmentFile(Integer id) {
-    if (id == null) throw nullPointer();
+  // public ResponseEntity<byte[]> getAttachmentFile(Integer id) {
+  //   if (id == null) throw nullPointer();
 
-    Attachment attachment = attachmentRepository.getReferenceById(id);
+  //   Attachment attachment = attachmentRepository.getReferenceById(id);
 
-    return ResponseEntity
-      .ok()
-      .header(
-        HttpHeaders.CONTENT_DISPOSITION,
-        "attachment; filename=\"" + attachment.getId() + "\""
-      )
-      .body(attachment.getFileData());
-  }
+  //   return ResponseEntity
+  //     .ok()
+  //     .header(
+  //       HttpHeaders.CONTENT_DISPOSITION,
+  //       "attachment; filename=\"" + attachment.getId() + "\""
+  //     )
+  //     .body(attachment.getFileData());
+  // }
 
-  public boolean deleteAttachment(Integer id) {
-    if (id == null) throw nullPointer();
-    if (!attachmentRepository.existsById(id)) throw modelNotFound(
-      "ATTACHMENT_NOT_FOUND"
-    );
+  // public boolean deleteAttachment(Integer id) {
+  //   if (id == null) throw nullPointer();
+  //   if (!attachmentRepository.existsById(id)) throw modelNotFound(
+  //     "ATTACHMENT_NOT_FOUND"
+  //   );
 
-    attachmentRepository.deleteById(id);
+  //   attachmentRepository.deleteById(id);
 
-    return true;
-  }
+  //   return true;
+  // }
 
-  public GetAttachment updateAttachment(Integer id, MultipartFile file) {
-    if (id == null || file == null) throw nullPointer();
+  // public GetAttachment updateAttachment(Integer id, MultipartFile file) {
+  //   if (id == null || file == null) throw nullPointer();
 
-    if (!attachmentRepository.existsById(id)) throw modelNotFound(
-      "ATTACHMENT_NOT_FOUND"
-    );
+  //   if (!attachmentRepository.existsById(id)) throw modelNotFound(
+  //     "ATTACHMENT_NOT_FOUND"
+  //   );
 
-    Attachment attachment = attachmentRepository.getReferenceById(id);
+  //   Attachment attachment = attachmentRepository.getReferenceById(id);
 
-    if (attachment.isNotChanged(file)) throw badRequest(
-      "NEW_ATTACHMENT_IDENTICAL_TO_OLD"
-    );
+  //   if (attachment.isNotChanged(file)) throw badRequest(
+  //     "NEW_ATTACHMENT_IDENTICAL_TO_OLD"
+  //   );
 
-    Attachment updated = attachment.update(file);
+  //   Attachment updated = attachment.update(file);
 
-    if (updated == null) throw nullPointer();
+  //   if (updated == null) throw nullPointer();
 
-    return new GetAttachment(attachmentRepository.save(updated));
-  }
+  //   return new GetAttachment(attachmentRepository.save(updated));
+  // }
 }

@@ -1,7 +1,7 @@
 package hu.speedrundev.sulipedia.repository;
 
 import hu.speedrundev.sulipedia.model.User;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -12,7 +12,7 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     nativeQuery = true,
     value = "SELECT * FROM registered_users u WHERE u.created_on > ?1 AND u.deleted IS NULL"
   )
-  List<User> getUsersCreatedSinceDate(LocalDate date);
+  List<User> getUsersCreatedSinceDate(LocalDateTime date);
 
   @Query(
     nativeQuery = true,

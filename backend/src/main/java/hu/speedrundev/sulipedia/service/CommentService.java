@@ -33,17 +33,15 @@ public class CommentService {
   @Autowired
   private JwtUtil jwtUtil;
 
-  public CommentList getCommentsByOptionalEntryId(Integer entryId) {
-    if (entryRepository.getReferenceById(entryId).getTest()) throw badRequest(
-      "COMMENTS_REQUESTED_FOR_ENTRY_IS_TEST"
+  public CommentList getCommentsByEntryId(Integer entryId) {
+    if (entryId == null) throw nullPointer();
+
+    if (entryRepository.existsById(entryId)) throw modelNotFound(
+      "ENTRY_NOT_FOUND"
     );
 
-    if (entryId == null) return new CommentList(
-      commentRepository
-        .findAll()
-        .stream()
-        .filter(comment -> comment.getAuthor().getDeleted() == null)
-        .toList()
+    if (entryRepository.getReferenceById(entryId).getTest()) throw badRequest(
+      "COMMENTS_REQUESTED_FOR_ENTRY_IS_TEST"
     );
 
     return new CommentList(
@@ -83,7 +81,7 @@ public class CommentService {
   }
 
   public boolean deleteComment(Integer id, String token) {
-    if (id == null) throw nullPointer();
+    if (id == null || token == null) throw nullPointer();
     if (!commentRepository.existsById(id)) throw modelNotFound(
       "COMMENT_NOT_FOUND"
     );

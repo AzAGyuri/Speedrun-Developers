@@ -16,4 +16,27 @@ public class UserRegistration extends PostUser {
   ) {
     super(username, email, nickname, phoneNumber, passwordRaw);
   }
+
+  public boolean isAnyRequiredNull() {
+    return (
+      getUsername() == null || getEmail() == null || getPasswordRaw() == null
+    );
+  }
+
+  public boolean isAnyRequiredEmpty() {
+    return (
+      getUsername().isBlank() ||
+      getPhoneNumber().isBlank() ||
+      getPasswordRaw().isBlank()
+    );
+  }
+
+  public boolean invalidPassword() {
+    String passwordRaw = getPasswordRaw();
+    return (
+      passwordRaw.isBlank() ||
+      passwordRaw.length() < 8 ||
+      !passwordRaw.matches(".*\\d.*")
+    );
+  }
 }

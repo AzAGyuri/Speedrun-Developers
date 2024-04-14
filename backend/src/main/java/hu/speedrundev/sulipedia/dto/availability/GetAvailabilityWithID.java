@@ -16,7 +16,11 @@ public class GetAvailabilityWithID extends GetAvailability {
   }
 
   public GetAvailabilityWithID(Availability availability) {
-    this(availability.getLink(), AvailTypeDto.valueOf(availability.getAvailabilityType().toString()), availability.getId());
+    this(
+      availability.getLink(),
+      AvailTypeDto.valueOf(availability.getAvailabilityType().toString()),
+      availability.getId()
+    );
   }
 
   private Integer id;

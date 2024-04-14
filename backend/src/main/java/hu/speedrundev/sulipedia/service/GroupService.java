@@ -32,20 +32,40 @@ public class GroupService {
   @Autowired
   private JwtUtil jwtUtil;
 
-  public GroupList listGroupsByOptionalUserId(Integer userId) {
-    if (userId == null) return new GroupList(groupRepository.findAll());
-    return new GroupList(groupRepository.findAllByUserId(userId));
+  public GroupList listGroupsByUserJWT(String token) {
+    Optional<User> user = userRepository.findByUsername(
+      jwtUtil.getSubject(token)
+    );
+
+    if (user.isEmpty()) throw modelNotFound("USER_NOT_FOUND");
+
+    return new GroupList(groupRepository.findAllByUserId(user.get().getId()));
   }
 
-  public GetGroupWithUsers getGroup(Integer id) {
-    if (id == null) throw nullPointer();
+  public GetGroupWithUsers getGroup(Integer id, String token) {
+    if (id == null || token == null) throw nullPointer();
+
+    Optional<User> user = userRepository.findByUsername(
+      jwtUtil.getSubject(token)
+    );
+
+    if (user.isEmpty()) throw modelNotFound("USER_NOT_FOUND");
     if (!groupRepository.existsById(id)) throw modelNotFound("GROUP_NOT_FOUND");
+
+    boolean userIsInGroup = false;
+    for (User innerUser : groupRepository.getReferenceById(id).getUsers()) {
+      userIsInGroup |= innerUser.getId() == user.get().getId();
+    }
+
+    if (!userIsInGroup) throw noYouDont(
+      "USER_REQUESTING_INFO_IS_NOT_PART_OF_GROUP"
+    );
 
     return new GetGroupWithUsers(groupRepository.getReferenceById(id));
   }
 
   public GetGroupWithUsers createGroup(PostGroup group, String token) {
-    if (group == null) throw nullPointer();
+    if (group == null || token == null) throw nullPointer();
 
     Optional<User> creator = userRepository.findByUsername(
       jwtUtil.getSubject(token)
@@ -81,7 +101,7 @@ public class GroupService {
 
     if (!groupRepository.existsById(id)) throw modelNotFound("GROUP_NOT_FOUND");
 
-    if (usernames.isEmpty()) throw badRequest("USERNAME_LIST_IS_EMPTY");
+    if (usernames == null || usernames.isEmpty()) throw badRequest("USERNAME_LIST_IS_EMPTY");
 
     Optional<User> adder = userRepository.findByUsername(
       jwtUtil.getSubject(token)
@@ -125,10 +145,7 @@ public class GroupService {
 
     group.getUsers().removeAll(alreadyAddedUsers);
 
-    return new GroupUserPutterResponse(
-      new GetGroupWithUsers(group),
-      usernamesNotFound
-    );
+    return new GroupUserPutterResponse(group, usernamesNotFound);
   }
 
   public GetGroupWithUsers deleteUserFromGroup(
@@ -172,7 +189,7 @@ public class GroupService {
 
     if (
       groupToRemoveFrom.getCreator().getId() == removingUser.getId()
-    ) throw badRequest("USER_REQUESTING_REMOVAL_IS_GROUP_CREATOR");
+    ) throw badRequest("USER_REQUESTING_DELETION_IS_GROUP_CREATOR");
 
     removingUser.getJoinedGroups().remove(groupToRemoveFrom);
     groupToRemoveFrom.getUsers().remove(removingUser);

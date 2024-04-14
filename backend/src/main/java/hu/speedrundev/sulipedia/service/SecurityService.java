@@ -60,10 +60,22 @@ public class SecurityService {
 
   public GetUserWithID register(UserRegistration registrationInfo) {
     if (registrationInfo == null) throw nullPointer();
+
     if (
-      repository.existsUserByUsername(registrationInfo.getUsername()) &&
       repository.existsUserByEmail(registrationInfo.getEmail())
-    ) throw notUnique("USERNAME_ALREADY_TAKEN");
+    ) throw notUnique("USER_EMAIL_ALREADY_TAKEN");
+
+    if (registrationInfo.isAnyRequiredNull()) throw badRequest(
+      "SOME_REQUIRED_INPUT_DATA_IS_NULL"
+    );
+
+    if (registrationInfo.isAnyRequiredEmpty()) throw badRequest(
+      "SOME_REQUIRED_INPUT_DATA_IS_EMPTY"
+    );
+
+    if (registrationInfo.invalidPassword()) throw badRequest(
+      "INPUT_PASSWORD_IS_INVALID"
+    );
 
     registrationInfo.setPasswordRaw(
       passwordEncoder.encode(registrationInfo.getPasswordRaw())
@@ -72,10 +84,10 @@ public class SecurityService {
     return new GetUserWithID(repository.save(new User(registrationInfo)));
   }
 
-  public boolean logout(String jwtToken) {
-    if (jwtToken == null) throw nullPointer();
+  public boolean logout(String token) {
+    if (token == null) throw nullPointer();
 
-    String username = jwtUtil.getSubject(jwtToken);
+    String username = jwtUtil.getSubject(token);
 
     if (!repository.existsUserByUsername(username)) throw modelNotFound(
       "USER_NOT_FOUND"
@@ -88,7 +100,7 @@ public class SecurityService {
     return true;
   }
 
-  public boolean isJWTValid(String jwtToken) {
-    return !jwtUtil.isTokenExpired(jwtToken);
+  public boolean isJWTValid(String token) {
+    return !jwtUtil.isTokenExpired(token);
   }
 }

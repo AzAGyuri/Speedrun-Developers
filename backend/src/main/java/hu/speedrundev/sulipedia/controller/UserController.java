@@ -12,7 +12,7 @@ import hu.speedrundev.sulipedia.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -45,7 +45,7 @@ public class UserController {
   /**
    * <h3>SERVICE</h3>
    *
-   * Service for the controller of type {@code UserService},<br></br>
+   * Service for the controller of type {@code UserService}
    * responsible for serving the controller
    */
   @Autowired
@@ -108,21 +108,21 @@ public class UserController {
   }
 
   /**
-   * <h3>GET(/user/since?date=yyyy-MM-dd&time=HH:mm:ss)</h3>
+   * <h3>GET(/user/since?date=yyyy-MM-dd/HH:mm:ss)</h3>
    *
    * Request all users created in the DB since a given date (e.g. last login)
    *
    * @param date a date to base the search on (required) ({@code Date})
    *
-   * @return a new {@code UserList},<br></br>
-   * containing a list of {@code UserListItem}s<br></br>
-   * with IDs, and all other data of the user,<br></br>
+   * @return a new {@code UserList}
+   * containing a list of {@code UserListItem}s
+   * with IDs, and all other data of the user
    * that were created since the given {@code Date} (and {@code LocalTime})
    *
-   * @throws ResponseStatusException <br></br>
-   * with {@code HttpStatus.INTERNAL_SERVER_ERROR}<br></br>
-   * and reason {@code UNEXPECTED_NULL_POINTER_EXCEPTION}<br></br>
-   * if the service for some reason<br></br>
+   * @throws ResponseStatusException
+   * with {@code HttpStatus.INTERNAL_SERVER_ERROR}
+   * and reason {@code UNEXPECTED_NULL_POINTER_EXCEPTION}
+   * if the service for some reason
    * recieves a {@code null} as the date
    */
   @Operation(
@@ -132,8 +132,8 @@ public class UserController {
   @GetMapping("/user/since")
   public UserList getNewUsersSinceDate(
     @RequestParam(value = "date") @DateTimeFormat(
-      pattern = "yyyy-MM-dd"
-    ) @Valid LocalDate date
+      pattern = "yyyy-MM-dd/HH:mm:ss"
+    ) @Valid LocalDateTime date
   ) {
     return service.getNewUsersSinceDate(date);
   }
@@ -143,22 +143,22 @@ public class UserController {
    *
    * Request a user from the DB by ID
    *
-   * @param id the ID of the user we're looking for<br></br>
+   * @param id the ID of the user we're looking for
    * (required) ({@code @PathVariable} {@code Integer})
    *
-   * @return a new {@code GetUserWithEntries},<br></br>
-   * containing the data of<br></br>
+   * @return a new {@code GetUserWithEntries}
+   * containing the data of
    * the {@code User} and its {@code Entries}
    *
-   * @throws ResponseStatusException <br></br>
-   * with {@code HttpStatus.INTERNAL_SERVER_ERROR}<br></br>
-   * and reason {@code UNEXPECTED_NULL_POINTER_EXCEPTION}<br></br>
-   * if the service for some reason<br></br>
+   * @throws ResponseStatusException
+   * with {@code HttpStatus.INTERNAL_SERVER_ERROR}
+   * and reason {@code UNEXPECTED_NULL_POINTER_EXCEPTION}
+   * if the service for some reason
    * recieves a {@code null} as the ID
    *
-   * @throws ResponseStatusException <br></br>
-   * with {@code HttpStatus.NOT_FOUND}<br></br>
-   * and reason {@code USER_NOT_FOUND}<br></br>
+   * @throws ResponseStatusException
+   * with {@code HttpStatus.NOT_FOUND}
+   * and reason {@code USER_NOT_FOUND}
    * if the user couldn't be found by the given ID
    */
   @Operation(
@@ -175,24 +175,24 @@ public class UserController {
    *
    * Create a user in the DB
    *
-   * @param user the user to be created,<br></br>
-   * with its date sent in via RequestBody, in JSON format<br></br>
+   * @param user the user to be created
+   * with its date sent in via RequestBody, in JSON format
    * (required) ({@code @Valid} {@code @RequestBody} {@code PostUser})
    *
-   * @return a new {@code GetUserWithID}<br></br>
-   * as conformation of creation,<br></br>
-   * with the new user's data, and its assigned ID,<br></br>
+   * @return a new {@code GetUserWithID}
+   * as conformation of creation
+   * with the new user's data, and its assigned ID
    * and an {@code HttpStatus.CREATED} status code response
    *
-   * @throws ResponseStatusException <br></br>
-   * with {@code HttpStatus.INTERNAL_SERVER_ERROR}<br></br>
-   * and reason {@code UNEXPECTED_NULL_POINTER_EXCEPTION}<br></br>
-   * if the service for some reason<br></br>
+   * @throws ResponseStatusException
+   * with {@code HttpStatus.INTERNAL_SERVER_ERROR}
+   * and reason {@code UNEXPECTED_NULL_POINTER_EXCEPTION}
+   * if the service for some reason
    * recieves a {@code null} as the {@code PostUser} parameter
    *
-   * @throws ResponseStatusException <br></br>
-   * with {@code HttpStatus.CONFLICT}<br></br>
-   * and reason {@code USER_ALREADY_EXISTS}<br></br>
+   * @throws ResponseStatusException
+   * with {@code HttpStatus.CONFLICT}
+   * and reason {@code USER_ALREADY_EXISTS}
    * if the new user's name is not unique
    */
   @Operation(
@@ -211,45 +211,45 @@ public class UserController {
    *
    * Update a user's information stored in the DB
    *
-   * @param id the ID of the user, whose data to be updated<br></br>
+   * @param id the ID of the user, whose data to be updated
    * (required) ({@code @PathVariable} {@code Integer})
    *
-   * @param changes the data of the updates to be made to the user<br></br>
+   * @param changes the data of the updates to be made to the user
    * ({@code @Valid} {@code @RequestBody} {@code UpdateUser})
    *
-   * @return a new {@code GetUser}<br></br>
-   * as conformation of successful update,<br></br>
+   * @return a new {@code GetUser}
+   * as conformation of successful update
    * with updated user information
    *
-   * @throws ResponseStatusException <br></br>
-   * with {@code HttpStatus.INTERNAL_SERVER_ERROR}<br></br>
-   * and reason {@code UNEXPECTED_NULL_POINTER_EXCEPTION}<br></br>
-   * if the service for some reason<br></br>
+   * @throws ResponseStatusException
+   * with {@code HttpStatus.INTERNAL_SERVER_ERROR}
+   * and reason {@code UNEXPECTED_NULL_POINTER_EXCEPTION}
+   * if the service for some reason
    * recieves a {@code null} on any input params
    *
-   * @throws ResponseStatusException <br></br>
-   * with {@code HttpStatus.BAD_REQUEST}<br></br>
-   * and reason {@code INPUTS_ALL_NULL}<br></br>
+   * @throws ResponseStatusException
+   * with {@code HttpStatus.BAD_REQUEST}
+   * and reason {@code INPUTS_ALL_NULL}
    * if the new input data is all null
    *
-   * @throws ResponseStatusException <br></br>
-   * with {@code HttpStatus.NOT_FOUND}<br></br>
-   * and reason {@code USER_NOT_FOUND}<br></br>
-   * if the user couldn't be found by the given ID
+   * @throws ResponseStatusException
+   * with {@code HttpStatus.NOT_FOUND}
+   * and reason {@code USER_NOT_FOUND}
+   * if the user couldn't be found by the given JWT
    *
-   * @throws ResponseStatusException <br></br>
-   * with {@code HttpStatus.CONFLICT}<br></br>
-   * and reason {@code USERNAME_ALREADY_TAKEN}<br></br>
+   * @throws ResponseStatusException
+   * with {@code HttpStatus.CONFLICT}
+   * and reason {@code USER_EMAIL_ALREADY_TAKEN}
    * if the new username has already been taken
    *
-   * @throws ResponseStatusException <br></br>
-   * with {@code HttpStatus.BAD_REQUEST}<br></br>
-   * and reason {@code NEW_DATA_IDENTICAL_TO_OLD}<br></br>
+   * @throws ResponseStatusException
+   * with {@code HttpStatus.BAD_REQUEST}
+   * and reason {@code NEW_DATA_IDENTICAL_TO_OLD}
    * if all new input data matched the old data
    *
-   * @throws ResponseStatusException <br></br>
-   * with {@code HttpStatus.BAD_REQUEST}<br></br>
-   * and reason {@code UPDATED_ENTITY_DATA_MATCHED_OLD}<br></br>
+   * @throws ResponseStatusException
+   * with {@code HttpStatus.BAD_REQUEST}
+   * and reason {@code UPDATED_ENTITY_DATA_MATCHED_OLD}
    * if even after updating the new data matched all the old ones
    */
   @Operation(
@@ -269,35 +269,30 @@ public class UserController {
    *
    * Update a user's permissions and roles stored in the DB
    *
-   * @param id the ID of the user, whose data to be updated<br></br>
+   * @param id the ID of the user, whose data to be updated
    * (required) ({@code @PathVariable} {@code Integer})
    *
-   * @param roles the data of the updates to be made to the user<br></br>
+   * @param roles the data of the updates to be made to the user
    * ({@code @Valid} {@code @RequestBody} {@code Set<RoleDto>})
    *
-   * @return a new {@code GetUser}<br></br>
-   * as conformation of successful update,<br></br>
+   * @return a new {@code GetUser}
+   * as conformation of successful update
    * with updated user information
    *
-   * @throws ResponseStatusException <br></br>
-   * with {@code HttpStatus.INTERNAL_SERVER_ERROR}<br></br>
-   * and reason {@code UNEXPECTED_NULL_POINTER_EXCEPTION}<br></br>
-   * if the service for some reason<br></br>
+   * @throws ResponseStatusException
+   * with {@code HttpStatus.INTERNAL_SERVER_ERROR}
+   * and reason {@code UNEXPECTED_NULL_POINTER_EXCEPTION}
+   * if the service for some reason
    * recieves a {@code null} on any input params
    *
-   * @throws ResponseStatusException <br></br>
-   * with {@code HttpStatus.NOT_FOUND}<br></br>
-   * and reason {@code USER_NOT_FOUND}<br></br>
+   * @throws ResponseStatusException
+   * with {@code HttpStatus.NOT_FOUND}
+   * and reason {@code USER_NOT_FOUND}
    * if the user couldn't be found by the given ID
    *
-   * @throws ResponseStatusException <br></br>
-   * with {@code HttpStatus.CONFLICT}<br></br>
-   * and reason {@code USERNAME_ALREADY_TAKEN}<br></br>
-   * if the new username has already been taken
-   *
-   * @throws ResponseStatusException <br></br>
-   * with {@code HttpStatus.BAD_REQUEST}<br></br>
-   * and reason {@code THERE_WERE_NO_NEW_ROLES_TO_BE_ADDED}<br></br>
+   * @throws ResponseStatusException
+   * with {@code HttpStatus.BAD_REQUEST}
+   * and reason {@code THERE_WERE_NO_NEW_ROLES_TO_BE_ADDED}
    * if there were no new roles that could be added to the user
    */
 
@@ -308,61 +303,82 @@ public class UserController {
   @PatchMapping("/user/{id}")
   public GetUser updateUserRoles(
     @PathVariable Integer id,
-    @Valid @RequestBody Set<RoleDto> roles
+    @RequestBody Set<RoleDto> roles,
+    @RequestHeader(name = "Authorization") String jwt
   ) {
-    return service.updateUserRoles(id, roles);
+    return service.updateUserRoles(
+      id,
+      roles,
+      jwt.substring("Bearer".length()).trim()
+    );
   }
 
   /**
    * <h3>DELETE(/user/{id})</h3>
    *
-   * Delete a user logically<br></br>
+   * Delete a user logically
    *
-   * @param id the ID of the user to be set for deletion<br></br>
+   * @param id the ID of the user to be set for deletion
    * (required) ({@code @PathVariable} {@code Integer})
    *
-   * @return a new {@code GetUser}<br></br>
+   * @return a new {@code GetUser}
    * as conformation of successful logical deletion
    *
-   * @throws ResponseStatusException <br></br>
-   * with {@code HttpStatus.INTERNAL_SERVER_ERROR}<br></br>
-   * and reason {@code UNEXPECTED_NULL_POINTER_EXCEPTION}<br></br>
-   * if the service for some reason<br></br>
+   * @throws ResponseStatusException
+   * with {@code HttpStatus.INTERNAL_SERVER_ERROR}
+   * and reason {@code UNEXPECTED_NULL_POINTER_EXCEPTION}
+   * if the service for some reason
    * recieves a {@code null} on any input params
    *
-   * @throws ResponseStatusException <br></br>
-   * with {@code HttpStatus.NOT_FOUND}<br></br>
-   * and reason {@code USER_NOT_FOUND}<br></br>
-   * if the user couldn't be found by the given ID
+   * @throws ResponseStatusException
+   * with {@code HttpStatus.NOT_FOUND}
+   * and reason {@code USER_NOT_FOUND}
+   * if the user could not be properly extracted from the JWT
    */
   @Operation(
     summary = "Delete one user from DB logically",
     description = "Az adatbázisban tárolt felhasználót logikailag töröljük"
   )
-  @DeleteMapping("/user/{id}")
-  public GetUser logicalDeletionOfUser(@PathVariable Integer id) {
-    return service.logicalDeletionOfUser(id);
+  @DeleteMapping("/user")
+  public GetUser logicalDeletionOfUser(
+    @RequestHeader(name = "Authorization") String jwt
+  ) {
+    return service.logicalDeletionOfUser(
+      jwt.substring("Bearer".length()).trim()
+    );
   }
 
   /**
    * <h3>DELETE(/user/nulled/{id})</h3>
    *
-   * Set one user's information to empty, and logically delete it<br></br>
+   * Set one user's information to empty, and logically delete it
    *
-   * @param id the ID of the user, whose data to be deleted<br></br>
+   * @param id the ID of the user, whose data to be deleted
    * (required) ({@code @PathVariable} {@code Integer})
    *
-   * @return a new {@code NulledUser}<br></br>
-   * containing oldData {@code GetUser} and nulledData {@code GetUser}<br></br>
-   * to confirm the nulling of the users previous data,<br></br>
+   * @return a new {@code NulledUser}
+   * containing oldData {@code GetUser} and nulledData {@code GetUser}
+   * to confirm the nulling of the users previous data
    * and confirm successful flagging for deletion
+   * 
+   * @throws ResponseStatusException with status code
+   * {@code HttpStatus.INTERNAL_SERVER_ERROR} and reason
+   * {@code UNEXPECTED_NULL_POINTER_EXCEPTION} if the service
+   * for some reason recieves a null value for the JWT token
+   * 
+   * @throws ResponseStatusException with status code
+   * {@code HttpStatus.NOT_FOUND} and reason
+   * {@code USER_NOT_FOUND} if the user could not be properly
+   * extracted from the JWT
    */
   @Operation(
     summary = "Flag a user for deletion, and null all of its data",
     description = "Az adatbázisban tárolt felhasználót beállítjuk törlendőre, adatait nullázzuk"
   )
-  @DeleteMapping("/user/nulled/{id}")
-  public NulledUser nullDeleteUser(@PathVariable Integer id) {
-    return service.nullDeleteUser(id);
+  @DeleteMapping("/user/nulled")
+  public NulledUser nullDeleteUser(
+    @RequestHeader(name = "Authorization") String jwt
+  ) {
+    return service.nullDeleteUser(jwt.substring("Bearer".length()).trim());
   }
 }
