@@ -36,3 +36,10 @@ A LandingPage felhasználóbarát felülettel rendelkezik, amely lehetővé tesz
 - Használd az üdvözlő modal ablakot az alkalmazásba való belépés utáni első információk megszerzésére az oldal céljáról és készítőiről.
 - Az új bejegyzés gomb segítségével a felhasználók könnyen és gyorsan hozzáadhatnak új tartalmakat az alkalmazáshoz.
 - Az oldal bal oldlán található gombokkal a felhasználók könnyedén rá is szürhetnek a bejegyzésekre
+
+
+![Kezdő oldalon minden matematikai bejegyzés](./images/LandingAllPostsImg.png)
+
+![Kezdő oldaolon üdvözlő modal](./images/LandingModalImg.png)
+
+![Kezdő oldalon új bejegyzs hozzáadása](./images/landingNewPostImg.png)

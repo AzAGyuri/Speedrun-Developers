@@ -21,3 +21,4 @@ A `Tests` komponens lehetővé teszi a felhasználók számára, hogy különbö
 ### Fontos Megjegyzések
 - Az eredmények megjelenése után láthatod, melyik kérdésre adtál helyes vagy helytelen választ, és visszajelzést kapsz az eredményedről.
 - Az egyes kérdésekre adott helyes válaszokat csak az "Ellenőrzés" gomb megnyomása után tudod megtekinteni.
+![Admin felhasználó összes csoportja](./images/testImg.png)
