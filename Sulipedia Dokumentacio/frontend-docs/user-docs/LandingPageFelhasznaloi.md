@@ -8,7 +8,7 @@ A LandingPage komponens az alkalmazás főoldalát jelenti, ahol a felhasználó
 
 ### Használat
 
-1. **Üdvözlő Modal Megjelenítése**: Az oldal betöltődésekor egy modal ablak jelenik meg, amely üdvözli a felhasználót, és lehetőséget ad a [LearnMoreFelhasznaloi.md](további információk) és az [AboutUsFelhasznaloi.md](oldal készítői)nek megtekintésére.
+1. **Üdvözlő Modal Megjelenítése**: Az oldal betöltődésekor egy modal ablak jelenik meg, amely üdvözli a felhasználót, és lehetőséget ad a [további információk](LearnMoreFelhasznaloi.md) és az [oldal készítői](AboutUsFelhasznaloi.md)nek megtekintésére.
    
 2. **Bejegyzések Megtekintése**: A fő tartalmi részben megjelennek a bejegyzések, amelyeket a felhasználók létrehoztak.
 

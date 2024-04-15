@@ -58,7 +58,7 @@ export function Entry({
   const statusColor =
     authorLogIn && authorLogOff
       ? new Date(authorLogOff) > new Date(authorLogIn)
-        ? "green"
+        ? "blue"
         : "red"
       : "red";
 
@@ -155,8 +155,8 @@ console.log(authorLogIn,authorLogOff,new Date(authorLogOff), new Date(authorLogI
                 sx={{
                   p: 0,
                   color:
-                    statusColor === "green"
-                      ? "#4caf50"
+                    statusColor === "blue"
+                      ? "#00f"
                       : statusColor === "red"
                       ? "#f44336"
                       : "#f44336",
