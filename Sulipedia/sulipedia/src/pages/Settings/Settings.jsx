@@ -342,7 +342,6 @@ export function Settings({ children, setIsLoading, isLoading, jwt }) {
                 InputLabelProps={{
                   style: {
                     fontSize: "18px",
-                    color: "black",
                     textShadow: "3px 3px 2px #fe7180",
                     color: passwordError ? "#8B0000" : "black",
                   },
