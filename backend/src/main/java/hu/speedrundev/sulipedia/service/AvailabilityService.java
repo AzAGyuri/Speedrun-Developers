@@ -13,7 +13,6 @@ import hu.speedrundev.sulipedia.model.User;
 import hu.speedrundev.sulipedia.repository.AvailabilityRepository;
 import hu.speedrundev.sulipedia.repository.UserRepository;
 import hu.speedrundev.sulipedia.util.JwtUtil;
-import jakarta.validation.Valid;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -62,7 +61,7 @@ public class AvailabilityService {
   }
 
   public GetAvailability updateAvailability(
-    @Valid UpdateAvailability update,
+    UpdateAvailability update,
     Integer id,
     String token
   ) {
