@@ -8,11 +8,11 @@ A `ResAppBar` komponens az alkalmazás felső részén elhelyezkedő navigáció
 
 ### Használat
 
-1. **Navigáció az Alapvető Funkciókhoz**: A navigációs sávban található gombok segítségével a felhasználók hozzáférhetnek az alapvető funkciókhoz, mint például a [LandingPageFelhasznaloi.md](főoldal), [CurriculumsFelhasznaloi.md](tananyagok), [TestsFelhasznaloi.md](tesztek) és [MyGroupsFelhasznaloi.md](csoportjaim) oldalakhoz.
+1. **Navigáció az Alapvető Funkciókhoz**: A navigációs sávban található gombok segítségével a felhasználók hozzáférhetnek az alapvető funkciókhoz, mint például a [főoldal](LandingPageFelhasznaloi.md), [tananyagok](CurriculumsFelhasznaloi.md), [tesztek](TestsFelhasznaloi.md) és [csoportjaim](MyGroupsFelhasznaloi.md) oldalakhoz.
 
 2. **Mobilnézet esetén**: Kisebb képernyőméretek esetén az ikonokra kattintva egy oldalsáv jelenik meg, amelyben a felhasználók könnyen navigálhatnak a főbb funkciókhoz.
 
-3. **Felhasználói Profil Kezelése**: A jobb felső sarokban található ikonok segítségével a felhasználók kezelhetik a profiljukhoz kapcsolódó [SettingsFelhasznaloi.md](beállításokat), megtekinthetik a [MyProfileFelhasznaloi.md](profiljukat) és kijelentkezhetnek, valamint innen is megtekinthetik az [AboutUsFelhasznaloi.md](oldal készítőinek adatait).
+3. **Felhasználói Profil Kezelése**: A jobb felső sarokban található ikonok segítségével a felhasználók kezelhetik a profiljukhoz kapcsolódó [beállításokat](SettingsFelhasznaloi.md), megtekinthetik a [profiljukat](MyProfileFelhasznaloi.md) és kijelentkezhetnek, valamint innen is megtekinthetik az [oldal készítőinek adatait](AboutUsFelhasznaloi.md).
 
 ---
 

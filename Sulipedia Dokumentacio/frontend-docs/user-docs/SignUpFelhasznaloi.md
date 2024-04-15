@@ -18,7 +18,7 @@ A Regisztrációs Oldal lehetővé teszi a felhasználók számára, hogy új pr
 
 5. **Profil létrehozása**: Kattints a "Profil létrehozása" gombra a regisztráció befejezéséhez és az új fiók létrehozásához.
 
-6. **Bejelentkezés**: Ha már van profilod, kattints a "Már van profilod? Jelentkezz be!" linkre a [SignInFelhasznaloi.md](bejelentkezési oldal)ra való navigáláshoz.
+6. **Bejelentkezés**: Ha már van profilod, kattints a "Már van profilod? Jelentkezz be!" linkre a [bejelentkezési oldal](SignInFelhasznaloi.md)ra való navigáláshoz.
 
 ---
 
@@ -44,6 +44,7 @@ Az oldal felhasználóbarát felülettel rendelkezik, amely lehetővé teszi a k
 - Győződj meg róla, hogy az email cím helyes formátumban van megadva.
 - Győződj meg róla, hogy a jelszó elég erős és tartalmaz legalább egy betűt és egy számot.
 - Ha telefonszámot adsz meg, győződj meg róla, hogy a számot a helyes formátumban adtad meg.
+- Regisztráció után az oldal egbyől bejelentkezik és a [kezdő oldal](LandingPageFelhasznaloi.md)ra navigál
 
 ![Regisztációs oldal hibás adatok](./images/SignUpAllWrongImg.png)
 
