@@ -16,6 +16,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.CsrfConfigurer;
 import org.springframework.security.config.annotation.web.configurers.FormLoginConfigurer;
+import org.springframework.security.config.annotation.web.configurers.LogoutConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -67,6 +68,7 @@ public class SpringSecurityConfig {
       )
       .httpBasic(withDefaults())
       .formLogin(FormLoginConfigurer::disable)
+      .logout(LogoutConfigurer::disable)
       .exceptionHandling(exception ->
         exception
           .authenticationEntryPoint(jwtAuthenticationEntryPoint)
