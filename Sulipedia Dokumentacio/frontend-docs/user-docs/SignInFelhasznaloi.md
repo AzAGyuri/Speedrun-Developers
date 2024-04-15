@@ -31,3 +31,5 @@ Az oldal felhasználóbarát felülettel rendelkezik, amely lehetővé teszi a k
 - **Regisztrációhoz Navigáció**: Az oldalon lehetőség van a regisztrációra is, ha a felhasználó még nem rendelkezik fiókkal. Ehhez a "Még nincs profilod? Hozz létre egyet!" linkre kell kattintani.
 
 - **Reszponzív Design**: Az oldal reszponzív dizájnja lehetővé teszi a használatát különböző eszközökön, például asztali számítógépeken, laptopokon, táblagépeken és mobiltelefonokon is.
+
+![Bejelentkezési oldal](./images/SignInImg.png)

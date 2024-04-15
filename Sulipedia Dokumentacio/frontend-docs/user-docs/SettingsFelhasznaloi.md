@@ -17,3 +17,4 @@ A profil módosítási lehetőségei a következők:
 - **Becenév**: Az aktuális becenév megjelenítése és módosítása.
 - **Jelszó**: A jelszó megváltoztatása új jelszó megadásával.
 
+![Admin felhasználó összes csoportja](./images/settingsImg.png)

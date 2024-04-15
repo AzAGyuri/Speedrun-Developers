@@ -15,3 +15,5 @@ A LearnMore komponens egy olyan oldalt jelenít meg, amely bemutatja az alkalmaz
 3. **Kapcsolatfelvételi Lehetőség**: A felhasználók lehetőséget kapnak arra, hogy közvetlenül kapcsolatba lépjenek az alkotókkal kérdéseikkel vagy észrevételeikkel.
 
 ---
+
+![Tudj meg többet oldal](./images/learnMoreImg.png)
