@@ -32,4 +32,7 @@ Az oldal felhasználóbarát felülettel rendelkezik, amely lehetővé teszi a k
 
 - **Reszponzív Design**: Az oldal reszponzív dizájnja lehetővé teszi a használatát különböző eszközökön, például asztali számítógépeken, laptopokon, táblagépeken és mobiltelefonokon is.
 
+### Fontos Megjegyzések
+- Bejelentkezés után az oldal a [kezdő oldalra](LandingPageFelhasznaloi.md)ra navigál
+
 ![Bejelentkezési oldal](./images/SignInImg.png)

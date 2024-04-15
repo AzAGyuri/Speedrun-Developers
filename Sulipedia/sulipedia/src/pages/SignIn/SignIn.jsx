@@ -151,7 +151,7 @@ export default function SignIn({ setIsLoading, jwt }) {
                 required
                 fullWidth
                 id="email"
-                label="Email cím vagy teljes név"
+                label="Email cím vagy felhasználónév"
                 name="usernameOrEmail"
                 autoComplete="email"
                 autoFocus
