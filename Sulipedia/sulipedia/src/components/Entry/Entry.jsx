@@ -56,13 +56,17 @@ export function Entry({
   handleEntryClick,
 }) {
   const statusColor =
-    authorLogIn && authorLogOff
+    authorLogIn && !authorLogOff
+      ? "blue"
+      : authorLogIn && authorLogOff
       ? new Date(authorLogIn).getTime() > new Date(authorLogOff).getTime()
         ? "blue"
         : "red"
       : "red";
   const statusText =
-    authorLogIn && authorLogOff
+    authorLogIn && !authorLogOff
+      ? "Online"
+      : authorLogIn && authorLogOff
       ? new Date(authorLogIn).getTime() > new Date(authorLogOff).getTime()
         ? "Online"
         : "Offline"
