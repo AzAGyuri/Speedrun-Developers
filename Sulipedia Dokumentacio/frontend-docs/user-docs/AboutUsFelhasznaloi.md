@@ -25,3 +25,5 @@ Az oldal felhasználóbarát felülettel rendelkezik, amely lehetővé teszi a k
 - **Kép**: Az emberekhez tartozik egy kép, amely segít a felhasználóknak azonosítani és megismeri őket.
 
 ---
+
+![alt text](http://url/to/img.png)

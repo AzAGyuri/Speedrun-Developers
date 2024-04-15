@@ -68,11 +68,11 @@ export function Entry({
 
   const statusText =
     authorLogIn && authorLogOff
-      ? new Date(authorLogOff) > new Date(authorLogIn)
+      ? new Date(authorLogOff).getMilliseconds() > new Date(authorLogIn).getMilliseconds()
         ? "Online"
         : "Offline"
       : "Offline";
-
+console.log(authorLogIn,authorLogOff,new Date(authorLogOff), new Date(authorLogIn));
   return (
     <StyledContainer
       style={{ backgroundColor: "#4caf50" }}
