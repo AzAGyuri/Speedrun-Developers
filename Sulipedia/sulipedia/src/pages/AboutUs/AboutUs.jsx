@@ -58,7 +58,7 @@ const rows = [
   ),
   createData(
     "Zagyi Krisztián Zsolt",
-    "RedBull szponzit várok!",
+    "Könnyű megoldások keresője az életben",
     <>Nincs lehetetlen, csak olyan lehetőség, amire eddig nem gondoltunk.</>,
     <Image id="gyuriKep" alt="Krisztián" src={Krisz} />
   ),
