@@ -306,7 +306,6 @@ export function LandingPage({ children, setIsLoading, isLoading, jwt }) {
             <div className="flex-item">
               {filteredEntries
                 .slice(0)
-                .reverse()
                 .map((entry) => (
                   <div className="contente-flex" key={entry.id}>
                     <div className="flexcontente-item">
@@ -450,7 +449,6 @@ export function LandingPage({ children, setIsLoading, isLoading, jwt }) {
           <div className="flex-item">
             {filteredEntries
               .slice(0)
-              .reverse()
               .map((entry) => (
                 <div className="contente-flex" key={entry.id}>
                   <div className="flexcontente-item">
