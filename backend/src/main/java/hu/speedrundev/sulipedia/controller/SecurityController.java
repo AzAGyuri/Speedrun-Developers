@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -143,6 +144,7 @@ public class SecurityController {
     description = "Egy új felhasználó regisztrálása a backend-en, és eltárolni az adatbázisban, titkosított jelszóval"
   )
   @PostMapping("/register")
+  @ResponseStatus(code = HttpStatus.CREATED)
   public ResponseEntity<GetUserWithID> register(
     @RequestBody UserRegistration registrationInfo
   ) {
