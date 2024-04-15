@@ -2,17 +2,45 @@
 
 ## Entitások
 
+- Tananyagok oldal:
+
 ![Bejegyzések megjelnítése](./images/bejegyzesek_megjelenitese.png)
+
+- Kiválasztott bejegyzés:
+
+![Egy bejegyzés megjelenítése kommentekkel](./images/bejegyzes_kommentekkel_megjelenitese.png)
+
+- Főoldal:
+
+![Bejegyzések megjelenítése, főoldal](./images/bejegyzesek_megjelenitese_fooldal.png)
+
+- Tesztek oldal:
 
 ![Tesztek megjelnítése](./images/tesztek_megjelenitese.png)
 
+- Csoportjaim oldal:
+
 ![Csoportjaim megjelnítése](./images/csoportjaim_megjelenitese.png)
+
+- Kiválasztott csoport tagjai:
 
 ![Csoporttagok megjelnítése](./images/csoporttagok_megjelenitese.png)
 
+- Profilom oldal:
+
 ![Profilom megjelnítése](./images/profilom_megjelenitese.png)
 
+- Beállítások oldal:
+
 ![Beállítások megjelnítése](./images/beallitasok_megjelenitese.png)
+
+- Bejelentkező oldal:
+
+![Bejelentkező felület](./images/bejelentkezes.png)
+
+- Regisztrációs oldal:
+
+![Regisztrációs felület](./images/regisztracio.png)
 
 ---
 
