@@ -49,5 +49,5 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "https://sulipedia.duckdns.org/api/v1"
+  "proxy": "https://api.sulipedia.duckdns.org"
 }
