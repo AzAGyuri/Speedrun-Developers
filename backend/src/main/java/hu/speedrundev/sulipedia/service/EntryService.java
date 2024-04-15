@@ -62,11 +62,28 @@ public class EntryService {
         .findAll()
         .stream()
         .filter(Predicate.not(Entry::getTest))
+        .sorted((o1, o2) ->
+          (
+            o1.getCreatedOn().isBefore(o2.getCreatedOn())
+              ? 1
+              : (o1.getCreatedOn().isAfter(o2.getCreatedOn()) ? -1 : 0)
+          )
+        )
         .toList()
     );
 
     return new EntryList(
-      entryRepository.findAllEntriesBySubject(subject.toString())
+      entryRepository
+        .findAllEntriesBySubject(subject.toString())
+        .stream()
+        .sorted((o1, o2) ->
+          (
+            o1.getCreatedOn().isBefore(o2.getCreatedOn())
+              ? 1
+              : (o1.getCreatedOn().isAfter(o2.getCreatedOn()) ? -1 : 0)
+          )
+        )
+        .toList()
     );
   }
 
@@ -142,7 +159,6 @@ public class EntryService {
 
     return new GetEntryWithID((savedEntry));
   }
-
   // public GetEntry updateEntry(Integer id, UpdateEntry changes) {
   //   if (id == null || changes == null) throw nullPointer();
   //   if (changes.isAllNull()) throw badRequest("ENTRY_UPDATE_INPUTS_NULL");
