@@ -238,6 +238,13 @@ export function Settings({ children, setIsLoading, isLoading, jwt }) {
                 onChange={handleFormChange}
                 fullWidth
                 margin="normal"
+                InputLabelProps={{
+                  style: {
+                    fontSize: "18px",
+                    color: "black",
+                    textShadow: "3px 3px 2px #fe7180",
+                  },
+                }}
               />
             </Grid>
             <Grid item xs={12}>
@@ -263,6 +270,13 @@ export function Settings({ children, setIsLoading, isLoading, jwt }) {
                     ? "A telefonszám nem lehet hosszabb 11 karakternél"
                     : ""
                 }
+                InputLabelProps={{
+                  style: {
+                    fontSize: "18px",
+                    color: "black",
+                    textShadow: "3px 3px 2px #fe7180",
+                  },
+                }}
               />
             </Grid>
             <Grid item xs={12}>
@@ -282,6 +296,13 @@ export function Settings({ children, setIsLoading, isLoading, jwt }) {
                 onChange={handleFormChange}
                 fullWidth
                 margin="normal"
+                InputLabelProps={{
+                  style: {
+                    fontSize: "18px",
+                    color: "black",
+                    textShadow: "3px 3px 2px #fe7180",
+                  },
+                }}
               />
             </Grid>
             <Grid item xs={12}>
@@ -320,6 +341,9 @@ export function Settings({ children, setIsLoading, isLoading, jwt }) {
                 }}
                 InputLabelProps={{
                   style: {
+                    fontSize: "18px",
+                    color: "black",
+                    textShadow: "3px 3px 2px #fe7180",
                     color: passwordError ? "#8B0000" : "black",
                   },
                 }}
