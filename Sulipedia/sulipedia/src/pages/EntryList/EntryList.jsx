@@ -851,6 +851,7 @@ export function EntryList({ children, jwt, setIsLoading, isLoading, subject }) {
                 content={selectedEntry.content}
                 createdOn={selectedEntry.createdOn}
                 authorName={selectedEntry.authorName}
+                authorBgColor={selectedEntry.authorBgColor}
                 open={openPopover}
                 handlePopoverOpen={handlePopoverOpen}
                 handlePopoverClose={handlePopoverClose}

@@ -1,4 +1,4 @@
-import { Typography, Popover, Avatar } from "@mui/material";
+import { Typography, Popover, Avatar, Tooltip } from "@mui/material";
 import { Container, styled } from "@mui/system";
 
 const StyledContainer = styled(Container)({
@@ -106,6 +106,7 @@ console.log(authorLogIn,authorLogOff,new Date(authorLogOff), new Date(authorLogI
           paddingRight: "16px",
           paddingLeft: "16px",
           paddingTop: "5px",
+          height: "auto",
         }}
       >
         <Typography
@@ -116,28 +117,14 @@ console.log(authorLogIn,authorLogOff,new Date(authorLogOff), new Date(authorLogI
             borderRadius: "8px",
             color: "#fff",
             fontWeight: "bold",
+            height: "auto",
+            marginTop: "auto",
           }}
         >
           {createdOn}
         </Typography>
-        <Typography
-          variant="body2"
-          style={{
-            padding: "7px 4px",
-            backgroundColor: "#6384ba",
-            borderRadius: "8px",
-            color: "#fff",
-            fontWeight: "bold",
-            marginLeft: "10px",
-          }}
-          aria-owns={open ? "mouse-over-popover" : undefined}
-          aria-haspopup="true"
-          onMouseEnter={handlePopoverOpen}
-          onMouseLeave={handlePopoverClose}
-        >
-          {authorName}
-        </Typography>
-        <Popover
+        
+        <Tooltip
           id="mouse-over-popover"
           sx={{
             pointerEvents: "none",
@@ -186,7 +173,7 @@ console.log(authorLogIn,authorLogOff,new Date(authorLogOff), new Date(authorLogI
               </Typography>
             </div>
           </div>
-        </Popover>
+        </Tooltip>
       </div>
     </StyledContainer>
   );
