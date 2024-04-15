@@ -115,7 +115,10 @@ public class User {
     email = user.getEmail();
     userPassword = user.getPasswordRaw();
     username = user.getUsername();
+    roles = new HashSet<>();
     roles.add(Roles.ROLE_STUDENT);
+    nickname = user.getNickname();
+    phoneNumber = user.getPhoneNumber();
     randomAvatarBgColor = generateThreeRandomColors();
   }
 
@@ -128,6 +131,7 @@ public class User {
     roles.add(Roles.ROLE_STUDENT);
     nickname = user.getNickname();
     phoneNumber = user.getPhoneNumber();
+    lastLogin = LocalDateTime.now();
     randomAvatarBgColor = generateThreeRandomColors();
   }
 
