@@ -913,6 +913,8 @@ export function MyGroups({
                 <Tooltip title={`${member.name} kidobása a csoportból`}>
                   {member.id === selectedGroup.ownerId ? (
                     <></>
+                  ) : Number(currentUserId) !== selectedGroup.ownerId ? (
+                    <></>
                   ) : (
                     <IconButton
                       edge="end"
