@@ -22,3 +22,9 @@ A MyGroups komponens lehetővé teszi a felhasználók számára, hogy csoportok
 
 - A csoport vezetője jogosult új csoportok létrehozására és a csoport tagjainak kezelésére (hozzáadás és törlés).
 - A csoport tagjai csak a csoport tagjainak listáját láthatják, és nem rendelkeznek jogosultsággal a csoport struktúrájának módosítására.
+
+![Admin felhasználó összes csoportja](./images/myGroupsGroupImg.png)
+
+![Szakmai angol csoport össze tagja](./images/myGroupsmembersImg.png)
+
+![Szakmai angol csoport Polyák György tagjának adatai](./images/myGroupsMembersDataImg.png)

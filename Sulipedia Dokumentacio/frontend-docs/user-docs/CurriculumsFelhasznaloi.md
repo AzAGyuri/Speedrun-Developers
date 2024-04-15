@@ -27,3 +27,5 @@ Az oldal felhasználóbarát felülettel rendelkezik, amely lehetővé teszi a t
 
 ### Fontos Megjegyzések 
 - Használd a navigációs linket az egyes tantárgyakhoz való gyors navigáláshoz és részletes információkhoz való hozzáféréshez.
+
+![Összes választható tananyag képe](./images/curriculumsAll.png)

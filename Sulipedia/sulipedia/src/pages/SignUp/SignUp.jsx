@@ -29,19 +29,18 @@ const defaultTheme = createTheme();
 export default function SignUp({ children, setIsLoading, jwt }) {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
-    surName: "",
-    realName: "",
-    nickname: null,
+    surName: null,
+    realName: null,
+    username: "",
     email: "",
     password: "",
     confirmPassword: "",
-    phone: null
+    phone: null,
   });
 
   const [emailError, setEmailError] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
-  const [lastNameError, setLastNameError] = useState(false);
-  const [firstNameError, setFirstNameError] = useState(false);
+  const [usernameError, setUsernameError] = useState(false);
   const [phoneError, setPhoneError] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [phoneLengthError, setPhoneLengthError] = useState(false);
@@ -69,10 +68,13 @@ export default function SignUp({ children, setIsLoading, jwt }) {
     validateForm();
     if (isFormValid()) {
       const finalFormData = {
-        username: `${formData.surName} ${formData.realName}`,
+        username: formData.username,
         email: formData.email,
         passwordRaw: formData.password,
-        nickname: formData.nickname,
+        nickname:
+          formData.surName && formData.realName
+            ? `${formData.surName} ${formData.realName}`
+            : null,
         phoneNumber: formData.phone,
       };
       axios
@@ -91,7 +93,7 @@ export default function SignUp({ children, setIsLoading, jwt }) {
           switch (errorCode) {
             case 409:
               alert(
-                "Regisztráció sikertelen!\nIndok: a felhasználónév és/vagy email cím már foglalt!"
+                "Regisztráció sikertelen! A felhasználónév és/vagy email cím már foglalt!"
               );
               break;
             case 500:
@@ -160,11 +162,8 @@ export default function SignUp({ children, setIsLoading, jwt }) {
       case "password":
         setPasswordError(false);
         break;
-      case "lastName":
-        setLastNameError(false);
-        break;
-      case "firstName":
-        setFirstNameError(false);
+      case "username":
+        setUsernameError(false);
         break;
       case "phone":
         setPhoneError(false);
@@ -184,7 +183,7 @@ export default function SignUp({ children, setIsLoading, jwt }) {
       setEmailError(true);
     }
 
-    const passwordRegex = /^(?=.*[A-Za-zÁÉÍÓÖŐÚÜŰáéíóöőúüű])(?=.*\d).{8,}$/;;
+    const passwordRegex = /^(?=.*[A-Za-zÁÉÍÓÖŐÚÜŰáéíóöőúüű])(?=.*\d).{8,}$/;
     if (!passwordRegex.test(formData.password)) {
       setPasswordError(true);
     }
@@ -192,17 +191,10 @@ export default function SignUp({ children, setIsLoading, jwt }) {
       setPasswordError(true);
     }
 
-
-    if (formData.surName.length < 2) {
-      setLastNameError(true);
+    if (formData.username.length < 3) {
+      setUsernameError(true);
     } else {
-      setLastNameError(false);
-    }
-
-    if (formData.realName.length < 3) {
-      setFirstNameError(true);
-    } else {
-      setFirstNameError(false);
+      setUsernameError(false);
     }
 
     if (
@@ -211,15 +203,13 @@ export default function SignUp({ children, setIsLoading, jwt }) {
     ) {
       setPhoneError(true);
     }
-
   };
 
   const isFormValid = () => {
     return (
       !emailError &&
       !passwordError &&
-      !lastNameError &&
-      !firstNameError &&
+      !usernameError &&
       !phoneError &&
       formData.password === formData.confirmPassword
     );
@@ -247,7 +237,10 @@ export default function SignUp({ children, setIsLoading, jwt }) {
             }}
             className="signup-form"
           >
-            <Tooltip placement="top" title="Ez egy biztonságos létrehozási felület">
+            <Tooltip
+              placement="top"
+              title="Ez egy biztonságos létrehozási felület"
+            >
               <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
                 <LockOutlinedIcon />
               </Avatar>
@@ -262,7 +255,7 @@ export default function SignUp({ children, setIsLoading, jwt }) {
               sx={{ mt: 3 }}
             >
               <Grid container spacing={2}>
-                <Grid item xs={12} sm={6}>
+                <Grid item xs={12}>
                   <TextField
                     InputProps={{
                       startAdornment: (
@@ -273,19 +266,37 @@ export default function SignUp({ children, setIsLoading, jwt }) {
                     }}
                     required
                     fullWidth
+                    name="username"
+                    id="username"
+                    label="Felhasználó név"
+                    autoFocus
+                    variant="outlined"
+                    value={formData.username}
+                    error={usernameError}
+                    helperText={
+                      usernameError
+                        ? "A felhasználó névnek legalább 3 karakter hosszúnak kell lennie."
+                        : ""
+                    }
+                    onChange={handleChange}
+                  />
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                  <TextField
+                    InputProps={{
+                      startAdornment: (
+                        <InputAdornment position="start">
+                          <BadgeIcon></BadgeIcon>
+                        </InputAdornment>
+                      ),
+                    }}
+                    fullWidth
                     id="lastName"
-                    label="Vezetéknév"
+                    label="Vezetéknév (opcionális)"
                     name="surName"
-                    autoComplete="family-name"
                     minLength={3}
                     value={formData.surName}
                     onChange={handleChange}
-                    error={lastNameError}
-                    helperText={
-                      lastNameError
-                        ? "A vezetéknév legalább 2 karakter hosszú kell, hogy legyen legyen"
-                        : ""
-                    }
                     variant="outlined"
                   />
                 </Grid>
@@ -298,42 +309,15 @@ export default function SignUp({ children, setIsLoading, jwt }) {
                         </InputAdornment>
                       ),
                     }}
-                    autoComplete="given-name"
                     name="realName"
-                    required
                     fullWidth
                     id="firstName"
-                    label="Keresztnév"
+                    label="Keresztnév (opcionális)"
                     autoFocus
                     minLength={3}
                     value={formData.realName}
                     onChange={handleChange}
-                    error={firstNameError}
-                    helperText={
-                      firstNameError
-                        ? "A Keresztnév legalább 3 karakter hosszú kell, hogy legyen"
-                        : ""
-                    }
                     variant="outlined"
-                  />
-                </Grid>
-                <Grid item xs={12} sm={6}>
-                  <TextField
-                    InputProps={{
-                      startAdornment: (
-                        <InputAdornment position="start">
-                          <BadgeIcon></BadgeIcon>
-                        </InputAdornment>
-                      ),
-                    }}
-                    name="nickname"
-                    fullWidth
-                    id="nickname"
-                    label="Becenév (opcionális)"
-                    autoFocus
-                    variant="outlined"
-                    value={formData.nickname}
-                    onChange={handleChange}
                   />
                 </Grid>
                 <Grid item xs={12}>
@@ -452,8 +436,8 @@ export default function SignUp({ children, setIsLoading, jwt }) {
                       phoneError
                         ? "Érvénytelen telefonszám (11 számjegy szükséges)"
                         : phoneLengthError
-                          ? "A telefonszám nem lehet hosszabb 11 karakternél"
-                          : ""
+                        ? "A telefonszám nem lehet hosszabb 11 karakternél"
+                        : ""
                     }
                     variant="outlined"
                   />

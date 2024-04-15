@@ -54,10 +54,6 @@ export function Entry({
   authorLogIn,
   authorLogOff,
   handleEntryClick,
-  open,
-  handlePopoverOpen,
-  handlePopoverClose,
-  anchorEl,
 }) {
   const statusColor =
     authorLogIn && authorLogOff
@@ -129,8 +125,6 @@ console.log(authorLogIn,authorLogOff,new Date(authorLogOff), new Date(authorLogI
           sx={{
             pointerEvents: "none",
           }}
-          open={open}
-          anchorEl={anchorEl}
           anchorOrigin={{
             vertical: "top",
             horizontal: "center",
@@ -139,7 +133,6 @@ console.log(authorLogIn,authorLogOff,new Date(authorLogOff), new Date(authorLogI
             vertical: "bottom",
             horizontal: "center",
           }}
-          onClose={handlePopoverClose}
           disableRestoreFocus
         >
           <div

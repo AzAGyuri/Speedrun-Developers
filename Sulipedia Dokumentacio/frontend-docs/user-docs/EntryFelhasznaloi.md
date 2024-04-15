@@ -21,3 +21,10 @@ Az `Entry` komponens egy stílusos és interaktív bejegyzést jelenít meg az a
 ### Fontos Megjegyzések
 - A komponens interaktív, lehetővé téve a felhasználók számára a bejegyzésekkel való könnyű interakciót.
 - A stílusos megjelenés és az interaktivitás segíti a felhasználókat a tartalmak hatékony átlátásában.
+
+
+![Az magyar tananyagok oldal képe](./images/curriculumsPageImg.png)
+
+![Posztoló alapján való szűrés bejegyzések/tananyagokra](./images/curriculumsSearch.png)
+
+![kommentek több felhasználótól](./images/commetnByUsersImg.png)

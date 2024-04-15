@@ -26,4 +26,4 @@ Az oldal felhasználóbarát felülettel rendelkezik, amely lehetővé teszi a k
 
 ---
 
-![alt text](http://url/to/img.png)
+![About us oldal képe](./images/aboutUsImg.png)

@@ -588,16 +588,6 @@ export function EntryList({ children, jwt, setIsLoading, isLoading, subject }) {
     setNewComment("");
   };
 
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const handlePopoverOpen = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-  const handlePopoverClose = () => {
-    setAnchorEl(null);
-  };
-
-  const openPopover = Boolean(anchorEl);
-
   const handleClose = () => setOpen(false);
   const [selectedEntry, setSelectedEntry] = React.useState(null);
   const handleEntryClick = (entry) => {
@@ -787,10 +777,6 @@ export function EntryList({ children, jwt, setIsLoading, isLoading, subject }) {
                 authorLogIn={entry.author.lastLogin}
                 authorLogOff={entry.author.lastLogoff}
                 handleEntryClick={handleEntryClick}
-                open={openPopover}
-                handlePopoverOpen={handlePopoverOpen}
-                handlePopoverClose={handlePopoverClose}
-                anchorEl={anchorEl}
               />
             ))
           : entries
@@ -807,10 +793,6 @@ export function EntryList({ children, jwt, setIsLoading, isLoading, subject }) {
                   authorLogIn={entry.author.lastLogin}
                   authorLogOff={entry.author.lastLogoff}
                   handleEntryClick={handleEntryClick}
-                  open={openPopover}
-                  handlePopoverOpen={handlePopoverOpen}
-                  handlePopoverClose={handlePopoverClose}
-                  anchorEl={anchorEl}
                 />
               ))}
       </StyledContainer>
@@ -852,10 +834,8 @@ export function EntryList({ children, jwt, setIsLoading, isLoading, subject }) {
                 createdOn={selectedEntry.createdOn}
                 authorName={selectedEntry.authorName}
                 authorBgColor={selectedEntry.authorBgColor}
-                open={openPopover}
-                handlePopoverOpen={handlePopoverOpen}
-                handlePopoverClose={handlePopoverClose}
-                anchorEl={anchorEl}
+                authorLogIn={selectedEntry.lastLogin}
+                authorLogOff={selectedEntry.lastLogoff}
               />
 
               <CommentSection>
@@ -879,8 +859,6 @@ export function EntryList({ children, jwt, setIsLoading, isLoading, subject }) {
                       <CommentAuthor
                       aria-owns={open ? 'mouse-over-popover' : undefined}
                       aria-haspopup="true"
-                      onMouseEnter={handlePopoverOpen}
-                      onMouseLeave={handlePopoverClose}
                       >
                         {comment.author.username}
                       </CommentAuthor>
