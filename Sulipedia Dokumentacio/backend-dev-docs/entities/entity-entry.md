@@ -9,8 +9,8 @@ Az bejegyzések tárolásásra szolgáló objektum, mely kapcsolatban áll a [Fe
 | content   |  Bejegyzés tartalma  | String                                | 4000   | I        |                                     |
 | keep      | Bejegyzés megtartása | Boolean                               |        | I        |                                     |
 | test      | Teszt-e a bejegyzés  | Boolean                               |        | I        |                                     |
-| deleted   |    Törölve lett-e    | Boolean                               |        |          |                                     |
-| deletedOn |    Törlés dátuma     | LocalDateTime                         |        |          |                                     |
+| deleted   |    Törölve lett-e    | Boolean                               |        | N        |                                     |
+| deletedOn |    Törlés dátuma     | LocalDateTime                         |        | N        |                                     |
 | createdOn |  Létrehozás dátuma   | LocalDateTime                         |        | I        |                                     |
 | subject   | Bejegyzés tantárgya  | [Subjects](../enums/enum-subjects.md) |        | I        | Az enum értékeit veheti fel.        |
-| author    |   Bejegyzés írója    | [User](entity-user.md)                |        |          | A User.id-hoz tartozó idegen kulcs. |
+| author    |   Bejegyzés írója    | [User](entity-user.md)                |        | N        | A User.id-hoz tartozó idegen kulcs. |
