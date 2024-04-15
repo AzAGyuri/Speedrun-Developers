@@ -1,4 +1,4 @@
-import { Typography, Popover, Avatar, Tooltip } from "@mui/material";
+import { Typography, Avatar, Tooltip } from "@mui/material";
 import { Container, styled } from "@mui/system";
 
 const StyledContainer = styled(Container)({

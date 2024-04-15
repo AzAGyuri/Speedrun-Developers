@@ -50,9 +50,6 @@ const StyledListItem = styled(ListItem)({
   border: "2px solid #4caf50",
   fontFamily: "Arial, sans-serif",
   fontSize: "1.2rem",
-  "&:hover": {
-    backgroundColor: "#6c7530",
-  },
   cursor: "pointer",
   "&:hover": {
     backgroundColor: "#e0e0e0",
@@ -68,9 +65,6 @@ const StyledAllAuthorsListItem = styled(ListItem)({
   border: "2px solid #e6760e",
   fontFamily: "Arial, sans-serif",
   fontSize: "1.4rem",
-  "&:hover": {
-    backgroundColor: "#6c7530",
-  },
   cursor: "pointer",
   "&:hover": {
     backgroundColor: "#e0e0e0",
@@ -147,7 +141,6 @@ const CommentButton = styled(Button)({
 const Comment = styled("div")({
   marginTop: (theme) => theme.spacing(2),
   padding: (theme) => theme.spacing(2),
-  marginTop: "20px",
   backgroundColor: "#fff",
   borderRadius: "5px",
   boxShadow: "0px 3px 8px rgba(0, 0, 0, 0.1)",
