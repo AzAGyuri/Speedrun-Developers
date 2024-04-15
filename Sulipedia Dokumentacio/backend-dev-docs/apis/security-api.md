@@ -1,4 +1,6 @@
-### Biztonsági API Vezérlő
+## Biztonsági kezelő API
+
+### Vezérlő
 
 #### `POST(/login)`
 
@@ -9,6 +11,12 @@ Felhasználó hitelesítése az adatbázisból.
   - Végpont: `/login`
   - Test:
     - `UserLogin`: Tartalmazza a felhasználónév vagy e-mail címet és a nyers jelszót.
+      ```json
+      {
+        "usernameOrEmail": "string",
+        "passwordRaw": "string"
+      }
+      ```
 - **Válasz:**
   - Állapot: `200 OK`
   - Test:
@@ -27,8 +35,18 @@ Felhasználó hitelesítése az adatbázisból.
 - **Kérés:**
   - Metódus: `POST`
   - Végpont: `/register`
-  - Test:
-    - `UserRegistration`: Tartalmazza a felhasználó felhasználónevét, nyers jelszavát, e-mail címét, és az opcionális telefonszámot és becenévet.
+  - Bemenet
+    - Test:
+      - `UserRegistration`: Tartalmazza a felhasználó felhasználónevét, nyers jelszavát, e-mail címét, és az opcionális telefonszámot és becenévet.
+      ```json
+      {
+        "username": "string",
+        "email": "string",
+        "nickname": "string",
+        "phoneNumber": "string",
+        "passwordRaw": "string"
+      }
+      ```
 - **Válasz:**
   - Állapot: `201 Created`
   - Test:
@@ -47,8 +65,8 @@ Kijelentkezés egy már bejelentkezett felhasználóból.
 - **Kérés:**
   - Metódus: `GET`
   - Végpont: `/logout`
-  - Fejlécek:
-    - `Authorization`: A felhasználó JSON Web Token-je.
+  - Bemenet:
+    - Fejléc: `Authorization` - A felhasználó JSON Web Token-je.
 - **Válasz:**
   - Állapot: `200 OK`
   - Test: `true` (sikeres kijelentkezést jelöl).
@@ -63,36 +81,24 @@ A kérés fejlécében található JWT lejáratának tesztelése.
 - **Kérés:**
   - Metódus: `GET`
   - Végpont: `/validatetoken`
-  - Fejlécek:
-    - `Authorization`: A felhasználó JSON Web Token-je.
+  - Bemenet:
+    - Fejléc: `Authorization` - A felhasználó JSON Web Token-je.
 - **Válasz:**
   - Állapot: `200 OK`
   - Test: `true` (sikeres ellenőrzést jelöl).
 
 #### Segédmetódusok
 
-- `convertRolesToStringArr`: A felhasználó szerepeinek átalakítása string tömbbé.
-- `getJwtHeader`: JWT fejléc generálása a válaszhoz.
+- `convertRolesToStringArr(roles: Set<RoleDto>)`: A felhasználó szerepeinek átalakítása string tömbbé.
+- `getJwtHeader(username: String, authorities: String[])`: JWT fejléc generálása a válaszhoz.
 
-### Biztonsági Szolgáltatás
+### Szolgáltatás
 
 A `SecurityService` az üzleti logikát kezeli a felhasználók hitelesítése, regisztrálása és JWT validálása tekintetében.
 
 #### Metódusok
 
-- `login`: Felhasználó hitelesítése megadott hitelesítő adatok alapján.
-- `register`: Új felhasználó regisztrálása.
-- `logout`: Kijelentkezés egy bejelentkezett felhasználóból.
-- `isJWTValid`: JWT lejárati idejének ellenőrzése.
-
-### Felhasználó Repository
-
-A `UserRepository` metódusokat biztosít a felhasználói adatok eléréséhez az adatbázisból, többek között egyedi lekérdezéseket is tartalmaz a felhasználók különböző szempontok szerinti lekérdezéséhez.
-
-#### Egyedi Lekérdezések
-
-- `getUsersCreatedSinceDate`: Felhasználók lekérése egy adott dátum óta.
-- `getTeachers`: Az összes tanár felhasználó lekérése.
-- `getUnderageStudents`: Kiskorú diák felhasználók lekérése.
-- `getByUsername`: Felhasználó lekérése felhasználónév alapján.
-- `findAllNotDeleted`: Az összes nem törölt felhasználó lekérése.
+- `login(user: UserLogin)`: Felhasználó hitelesítése megadott hitelesítő adatok alapján.
+- `register(registrationInfo: UserRegistration)`: Új felhasználó regisztrálása.
+- `logout(token: String)`: Kijelentkezés egy bejelentkezett felhasználóból.
+- `isJWTValid(token: String)`: JWT lejárati idejének ellenőrzése.

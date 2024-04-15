@@ -6,14 +6,16 @@
 
 Az adatbázisban tárolt összes csoport kilistázása a felhasználó JWT-je alapján.
 
-- **Metódus:** `GET`
-- **Végpont:** `/group`
-- **Kérelemfejléc:** `Authorization` - A felhasználó JSON Web Token-je.
+- **Kérés:**
+  - Metódus: `GET`
+  - Végpont: `/group`
+  - Bemenet:
+    - Fejléc: `Authorization` - A felhasználó JSON Web Token-je.
 - **Válasz:**
-    - **Állapot:** `200 OK`
-    - **Csoport:** `GroupList` - Az összes csoport, amelyben a felhasználó részt vesz.
+  - Állapot: `200 OK`
+  - Test: `GroupList` - Az összes csoport, amelyben a felhasználó részt vesz.
 - **Kivételek:**
-    - `USER_NOT_FOUND`: A felhasználó nem található.
+  - `USER_NOT_FOUND`: A felhasználó nem található.
 
 ---
 
@@ -21,16 +23,19 @@ Az adatbázisban tárolt összes csoport kilistázása a felhasználó JWT-je al
 
 Az adatbázisban tárolt egy csoport lekérdezése minden adatával.
 
-- **Metódus:** `GET`
-- **Végpont:** `/group/{id}`
-- **Kérelemfejléc:** `Authorization` - A felhasználó JSON Web Token-je.
-- **Paraméter:** `id` - A csoport azonosítója.
+- **Kérés:**
+  - Metódus: `GET`
+  - Végpont: `/group/{id}`
+  - Bemenet:
+    - Fejléc: `Authorization` - A felhasználó JSON Web Token-je.
+    - Útvonal: `id` - A csoport azonosítója.
 - **Válasz:**
-    - **Csoport:** `GetGroupWithUsers` - A csoport és a hozzá tartozó felhasználók.
+  - Állapot: `200 OK`
+  - Test: `GetGroupWithUsers` - A csoport és a hozzá tartozó felhasználók.
 - **Kivételek:**
-    - `USER_NOT_FOUND`: A felhasználó nem található.
-    - `GROUP_NOT_FOUND`: A csoport nem található.
-    - `USER_REQUESTING_INFO_IS_NOT_PART_OF_GROUP`: A felhasználó nem tagja a csoportnak.
+  - `USER_NOT_FOUND`: A felhasználó nem található.
+  - `GROUP_NOT_FOUND`: A csoport nem található.
+  - `USER_REQUESTING_INFO_IS_NOT_PART_OF_GROUP`: A felhasználó nem tagja a csoportnak.
 
 ---
 
@@ -38,15 +43,25 @@ Az adatbázisban tárolt egy csoport lekérdezése minden adatával.
 
 Az adatbázisban létrehozni és eltárolni egy új csoportot.
 
-- **Metódus:** `POST`
-- **Végpont:** `/group`
-- **Kérelem:** `PostGroup` - Az új csoport adatai.
-- **Kérelemfejléc:** `Authorization` - A felhasználó JSON Web Token-je.
+- **Kérés:**
+  - Metódus: `POST`
+  - Végpont: `/group`
+  - Bemenet:
+    - Test: `PostGroup` - Az új csoport adatai.
+      ```json
+      {
+        "groupName": "string",
+        "specializations": ["IT", "ECONOMY", "MANAGEMENT"],
+        "descriptionContent": "string"
+      }
+      ```
+    - Fejléc: `Authorization` - A felhasználó JSON Web Token-je.
 - **Válasz:**
-    - **Csoport:** `GetGroupWithUsers` - Az új csoport és a hozzá tartozó felhasználók.
+  - Állapot: `201 Created`
+  - Test: `GetGroupWithUsers` - Az új csoport és a hozzá tartozó felhasználók.
 - **Kivételek:**
-    - `USER_NOT_FOUND`: A felhasználó nem található.
-    - `NO_SPECIALIZATIONS_SUPPLIED`: Nincsenek megadva a szakosodások.
+  - `USER_NOT_FOUND`: A felhasználó nem található.
+  - `NO_SPECIALIZATIONS_SUPPLIED`: Nincsenek megadva a szakosodások.
 
 ---
 
@@ -54,18 +69,20 @@ Az adatbázisban létrehozni és eltárolni egy új csoportot.
 
 Az adatbázisban eltárolt csoportba beszúrni egy új felhasználót név szerint.
 
-- **Metódus:** `PUT`
-- **Végpont:** `/group/{id}`
-- **KérelemCsoport:** `List<String>` - A felhasználónevek listája.
-- **Kérelemfejléc:** `Authorization` - A felhasználó JSON Web Token-je.
-- **Paraméter:** `id` - A csoport azonosítója.
+- **Kérés:**
+  - Metódus: `PUT`
+  - Végpont: `/group/{id}`
+  - Bemenet:
+    - Test: `List<String>` - A hozzáadandó felhasználónevek listája.
+    - Fejléc: `Authorization` - A felhasználó JSON Web Token-je.
+    - Útvonal: `id` - A csoport azonosítója.
 - **Válasz:**
-    - **Csoport:** `GroupUserPutterResponse` - A beszúrt felhasználók és a nem talált felhasználók.
+  - **Csoport:** `GroupUserPutterResponse` - A beszúrt felhasználók és a nem talált felhasználók.
 - **Kivételek:**
-    - `GROUP_NOT_FOUND`: A csoport nem található.
-    - `USERNAME_LIST_IS_EMPTY`: A felhasználónévlista üres.
-    - `USERNAME_NOT_FOUND`: A felhasználó nem található.
-    - `USER_REQUESTING_ADD_IS_NOT_GROUP_CREATOR`: A kérő felhasználó nem a csoport létrehozója.
+  - `GROUP_NOT_FOUND`: A csoport nem található.
+  - `USERNAME_LIST_IS_EMPTY`: A felhasználónévlista üres.
+  - `USERNAME_NOT_FOUND`: A felhasználó nem található.
+  - `USER_REQUESTING_ADD_IS_NOT_GROUP_CREATOR`: A kérő felhasználó nem a csoport létrehozója.
 
 ---
 
@@ -73,18 +90,21 @@ Az adatbázisban eltárolt csoportba beszúrni egy új felhasználót név szeri
 
 Az adatbázisban eltárolt csoportból egy felhasználót törlése saját ID-jaik alapján.
 
-- **Metódus:** `DELETE`
-- **Végpont:** `/group/{groupId}/{userId}`
-- **Kérelemfejléc:** `Authorization` - A felhasználó JSON Web Token-je.
-- **Paraméterek:** `groupId` - A csoport azonosítója, `userId` - A felhasználó azonosítója.
+- **Kérés:**
+  - Metódus: `DELETE`
+  - Végpont: `/group/{groupId}/{userId}`
+    - Fejléc: `Authorization` - A felhasználó JSON Web Token-je.
+    - Útvonal:
+      - `groupId` - A csoport azonosítója
+      - `userId` - A felhasználó azonosítója.
 - **Válasz:**
-    - **Csoport:** `GetGroupWithUsers` - A frissített csoport és a törlésre került felhasználók.
+  - Test: `GetGroupWithUsers` - A frissített csoport és a törlésre került felhasználók.
 - **Kivételek:**
-    - `GROUP_NOT_FOUND`: A csoport nem található.
-    - `USER_NOT_FOUND`: A felhasználó nem található.
-    - `USER_NOT_IN_GROUP`: A felhasználó nem tagja a csoportnak.
-    - `USER_REQUESTING_REMOVAL_IS_NOT_GROUP_CREATOR`: A kérő felhasználó nem a csoport létrehozója.
-    - `USER_REQUESTING_DELETION_IS_GROUP_CREATOR`: A kérő felhasználó a csoport létrehozója.
+  - `GROUP_NOT_FOUND`: A csoport nem található.
+  - `USER_NOT_FOUND`: A felhasználó nem található.
+  - `USER_NOT_IN_GROUP`: A felhasználó nem tagja a csoportnak.
+  - `USER_REQUESTING_REMOVAL_IS_NOT_GROUP_CREATOR`: A kérő felhasználó nem a csoport létrehozója.
+  - `USER_REQUESTING_DELETION_IS_GROUP_CREATOR`: A kérő felhasználó a csoport létrehozója.
 
 ---
 
@@ -92,14 +112,36 @@ Az adatbázisban eltárolt csoportból egy felhasználót törlése saját ID-ja
 
 Az adatbázisban eltárolt csoport kitörlése ID alapján.
 
-- **Metódus:** `DELETE`
-- **Végpont:** `/group/{id}`
-- **Kérelemfejléc:** `Authorization` - A felhasználó JSON Web Token-je.
-- **Paraméter:** `id` - A csoport azonosítója.
+- **Kérés:**
+  - Metódus: `DELETE`
+  - Végpont: `/group/{id}`
+    - Fejléc: `Authorization` - A felhasználó JSON Web Token-je.
+    - Útvonal: `id` - A csoport azonosítója.
 - **Válasz:**
-    - **Csoport:** `GetGroupWithID` - A törölt csoport adatai.
+  - Test: `GetGroupWithID` - A törölt csoport adatai.
 - **Kivételek:**
-    - `GROUP_NOT_FOUND`: A csoport nem található.
-    - `USER_NOT_FOUND`: A felhasználó nem található.
-    - `USER_REQUESTING_GROUP_DELETE_IS_NOT_CREATOR`: A kérő felhasználó nem a csoport létrehozója.
-    - `GROUP_REQUESTED_FOR_DELETION_IS_NOT_EMPTY`: A csoport nem üres.
+  - `GROUP_NOT_FOUND`: A csoport nem található.
+  - `USER_NOT_FOUND`: A felhasználó nem található.
+  - `USER_REQUESTING_GROUP_DELETE_IS_NOT_CREATOR`: A kérő felhasználó nem a csoport létrehozója.
+  - `GROUP_REQUESTED_FOR_DELETION_IS_NOT_EMPTY`: A csoport nem üres.
+
+### Szolgáltatás
+
+A `GroupService` osztály végzi a csoportokkal kapcsolatos üzleti logikát és adatelérést.
+
+#### Metódusok
+
+- `listGroupsByUserJWT(token: String)`: A csoportok kilistázása kérést indító felhasználó JWT-je alapján.
+- `getGroup(id: Integer, token: String)`: Egy csoport adatainak lekérése azonosító alapján, és kérő JWT-je alapján ellenőrizve, hogy van-e joga lekérni az adatokat.
+- `createGroup(group: PostGroup, token: String)`: Új csoport létrehozása; létrehozója a kérést indítványozó felhasználó lesz, melyet JWT-ből nyerünk ki.
+- `putUserIntoGroup(id: Integer, token: String, usernames: List<String>)`: Azonosító alapján csoporthoz tagok hozzáadása felhasználó nevek listájából. Ha egy adott felhasználó nem ismert az adatbázisban, azon felhasználónevek visszaküldésre kerülnek a válasz testben. JWT-vel validáljuk, hogy a kérőnek van-e joga ehhez a művelethez.
+- `deleteUserFromGroup(groupId: Integer, userId: Integer, token: String)`: Azonosító alapján csoportból csoporttag kirúgása annak felhasználói azonosítója alapján. JWT-vel validáljuk, hogy a kérőnek van-e joga ehhez a művelethez.
+- `deleteGroup(id: Integer, token: String)`: Csoport törlése azonosító alapján. JWT-vel validáljuk, hogy a kérőnek van-e joga ehhez a művelethez.
+
+### Adatbázis
+
+A `GroupRepository` metódusokat biztosít a csoportok adatbázisból történő eléréséhez.
+
+#### Egyedi lekérdezések
+
+- `findAllByUserId(userId: Integer)`: Felhasználó azonosítója alapján az összes csoport lekérdezése.
