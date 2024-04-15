@@ -5,7 +5,7 @@
 A MyProfile komponens lehetővé teszi a felhasználó számára, hogy megtekintse saját profiladatait egy könnyen áttekinthető felhasználói felületen. A profil tartalmazza az alábbi információkat:
 
 - **Profilkép**: Egy személyre szabott avatar kép, amely az első betűt mutatja a felhasználó vezetéknevéből..
-- **Felhasználónév vagy Becenév**: A felhasználó beceneve, ha ez nincs, akkor neve.
+- **Felhasználónév vagy Becenév**: A felhasználó felhasználóneve, ha pedig van beceneve, akkor az.
 - **E-mail cím**: A felhasználó regisztrált e-mail címe.
 - **Telefonszám**: A felhasználó regisztrált telefonszáma (ha elérhető).
 - **Regisztráció dátuma**: A felhasználó regisztrációjának dátuma.
