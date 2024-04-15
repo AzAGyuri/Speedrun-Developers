@@ -18,7 +18,6 @@ Legyen az egy kérdés egy felhasználótól, vagy legyen az eleve tananyag, ak�
 
 [Fejlesztői dokumentáció](./Sulipedia%20Dokumentacio/developer-documentation.md)
 
+Az oldal megtekinthető élesben is az alábbi linken:
 
-
-
-
+- https://sulipedia.duckdns.org
