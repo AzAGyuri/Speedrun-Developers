@@ -57,18 +57,17 @@ export function Entry({
 }) {
   const statusColor =
     authorLogIn && authorLogOff
-      ? new Date(authorLogOff) > new Date(authorLogIn)
+      ? new Date(authorLogIn).getTime() > new Date(authorLogOff).getTime()
         ? "blue"
         : "red"
       : "red";
-
   const statusText =
     authorLogIn && authorLogOff
-      ? new Date(authorLogOff).getMilliseconds() > new Date(authorLogIn).getMilliseconds()
+      ? new Date(authorLogIn).getTime() > new Date(authorLogOff).getTime()
         ? "Online"
         : "Offline"
       : "Offline";
-console.log(authorLogIn,authorLogOff,new Date(authorLogOff), new Date(authorLogIn));
+
   return (
     <StyledContainer
       style={{ backgroundColor: "#4caf50" }}
@@ -119,7 +118,7 @@ console.log(authorLogIn,authorLogOff,new Date(authorLogOff), new Date(authorLogI
         >
           {createdOn}
         </Typography>
-        
+
         <Tooltip
           id="mouse-over-popover"
           sx={{
@@ -150,7 +149,9 @@ console.log(authorLogIn,authorLogOff,new Date(authorLogOff), new Date(authorLogI
               {authorName.charAt(0).toUpperCase()}
             </Avatar>
             <div style={{ marginLeft: "10px" }}>
-              <Typography sx={{ fontWeight: "bold", marginBottom: "5px" }}>{authorName}</Typography>
+              <Typography sx={{ fontWeight: "bold", marginBottom: "5px" }}>
+                {authorName}
+              </Typography>
               <Typography
                 sx={{
                   p: 0,
