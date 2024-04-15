@@ -25,7 +25,7 @@ function App() {
   return (
     <>
       <Router>
-        <ResAppBar setIsLoading={setIsLoading} />
+        <ResAppBar setIsLoading={setIsLoading} jwt={jwt} />
           <Routes>
             <Route path="/curriculums" element={<Curriculums setIsLoading={setIsLoading} children={<IsNotLoggedIn jwt={jwt} curretUserId={currentUserId} />} />} />
             <Route path="/tests" element={<Tests setIsLoading={setIsLoading} isLoading={isLoading} jwt={jwt} children={<IsNotLoggedIn jwt={jwt} curretUserId={currentUserId} />} />} />

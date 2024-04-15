@@ -17,13 +17,14 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 import SulipediaLogo from "../../resources/logo.png";
 import FormatListBulletedTwoToneIcon from "@mui/icons-material/FormatListBulletedTwoTone";
 import SupervisedUserCircleTwoToneIcon from "@mui/icons-material/SupervisedUserCircleTwoTone";
+import axios from "axios";
 
 import PersonIcon from "@mui/icons-material/Person";
 import ManageAccountsIcon from "@mui/icons-material/ManageAccounts";
 import EngineeringIcon from "@mui/icons-material/Engineering";
 import LogoutIcon from "@mui/icons-material/Logout";
 
-export function ResAppBar({ setIsLoading }) {
+export function ResAppBar({ setIsLoading, jwt }) {
   const isSmallScreen = useMediaQuery("(max-width:950px)");
   const [anchorElUser, setAnchorElUser] = React.useState(null);
   const [drawerOpen, setDrawerOpen] = React.useState(false);
@@ -37,6 +38,12 @@ export function ResAppBar({ setIsLoading }) {
   };
 
   const handleLogOut = () => {
+    axios.get("/logout", { headers: { Authorization: jwt } }).catch((error) => {
+      console.error(
+        "Hiba történt kijelentkezés mentése során. Na mindegy.",
+        error
+      );
+    });
     localStorage.removeItem("currentUserId");
     localStorage.removeItem("jwt");
     handleCloseUserMenu();
@@ -68,10 +75,15 @@ export function ResAppBar({ setIsLoading }) {
                   anchor="right"
                   open={drawerOpen}
                   onClose={toggleDrawer}
-                  sx={{ "& .MuiDrawer-paper": { backgroundColor: "#87a19f", height: '40vh' } }}
+                  sx={{
+                    "& .MuiDrawer-paper": {
+                      backgroundColor: "#87a19f",
+                      height: "40vh",
+                    },
+                  }}
                 >
                   <Box
-                    sx={{ width: 250, height: '100vh' }}
+                    sx={{ width: 250, height: "100vh" }}
                     role="presentation"
                     onClick={toggleDrawer}
                     onKeyDown={toggleDrawer}
@@ -90,7 +102,7 @@ export function ResAppBar({ setIsLoading }) {
                             display: "block",
                             backgroundColor: "#33FFBE",
                             border: "1px solid black",
-                            height: '22%'
+                            height: "22%",
                           }}
                         >
                           <Typography textAlign="center">Sulipedia</Typography>
@@ -109,7 +121,7 @@ export function ResAppBar({ setIsLoading }) {
                           display: "block",
                           backgroundColor: "#FFF033",
                           border: "1px solid black",
-                          height: '22%'
+                          height: "22%",
                         }}
                       >
                         <Typography textAlign="center">Tananyagok</Typography>
@@ -126,7 +138,7 @@ export function ResAppBar({ setIsLoading }) {
                           display: "block",
                           backgroundColor: "#FF5733",
                           border: "1px solid black",
-                          height: '22%'
+                          height: "22%",
                         }}
                       >
                         <Typography textAlign="center">Tesztek</Typography>
@@ -144,7 +156,7 @@ export function ResAppBar({ setIsLoading }) {
                           display: "block",
                           backgroundColor: "#7AFF33",
                           border: "1px solid black",
-                          height: '22%',
+                          height: "22%",
                         }}
                       >
                         <Typography textAlign="center">Csoportjaim</Typography>
@@ -181,7 +193,7 @@ export function ResAppBar({ setIsLoading }) {
                     letterSpacing: ".3rem",
                     color: "inherit",
                     textDecoration: "none",
-                    textShadow: "2px 2px #000"
+                    textShadow: "2px 2px #000",
                   }}
                 >
                   <Tooltip title="Főoldal">
