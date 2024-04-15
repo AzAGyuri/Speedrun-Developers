@@ -10,8 +10,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 @OpenAPIDefinition(
   servers = {
     @Server(
-      url = "https://api.sulipedia.duckdns.org/swagger-ui/index.html",
-      description = "Sulipédia vizsgaremek projekt Swagger UI backend közvetlen kezelő felülete"
+      url = "https://api.sulipedia.duckdns.org",
+      description = "Sulipédia vizsgaremek projekt"
     ),
   }
 )
