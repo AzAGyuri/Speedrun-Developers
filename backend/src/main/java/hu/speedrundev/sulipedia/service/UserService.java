@@ -4,19 +4,23 @@ import static hu.speedrundev.sulipedia.util.ExceptionUtils.*;
 
 import hu.speedrundev.sulipedia.dto.user.GetUser;
 import hu.speedrundev.sulipedia.dto.user.GetUserWithAvailabilities;
+import hu.speedrundev.sulipedia.dto.user.GetUserWithGroups;
 import hu.speedrundev.sulipedia.dto.user.GetUserWithID;
 import hu.speedrundev.sulipedia.dto.user.NulledUser;
 import hu.speedrundev.sulipedia.dto.user.PostUser;
 import hu.speedrundev.sulipedia.dto.user.RoleDto;
 import hu.speedrundev.sulipedia.dto.user.UpdateUser;
 import hu.speedrundev.sulipedia.dto.user.UserList;
+import hu.speedrundev.sulipedia.model.Group;
 import hu.speedrundev.sulipedia.model.Roles;
 import hu.speedrundev.sulipedia.model.User;
+import hu.speedrundev.sulipedia.repository.GroupRepository;
 import hu.speedrundev.sulipedia.repository.UserRepository;
 import hu.speedrundev.sulipedia.util.JwtUtil;
 import java.time.LocalDateTime;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -26,6 +30,9 @@ public class UserService {
 
   @Autowired
   private UserRepository repository;
+
+  @Autowired
+  private GroupRepository groupRepository;
 
   @Autowired
   private JwtUtil jwtUtil;
@@ -204,5 +211,42 @@ public class UserService {
       new GetUser(oldData),
       new GetUser(repository.save(nulledUser))
     );
+  }
+
+  public GetUserWithGroups removeUserFromGroup(Integer id, String token) {
+    if (id == null || token == null) throw nullPointer();
+
+    if (!groupRepository.existsById(id)) throw modelNotFound("GROUP_NOT_FOUND");
+
+    Optional<User> user = repository.findByUsername(jwtUtil.getSubject(token));
+
+    if (user.isEmpty()) throw modelNotFound("USER_NOT_FOUND");
+
+    User realUser = user.get();
+
+    boolean isUserInGroup = false;
+    boolean isUserCreator = false;
+    for (Group joinedGroup : realUser.getJoinedGroups()) {
+      isUserInGroup |= joinedGroup.getId() == id.intValue();
+      isUserCreator |= joinedGroup.getCreator().getId() == realUser.getId();
+    }
+
+    if (!isUserInGroup) throw badRequest(
+      "USER_REQUESTING_EXIT_IS_NOT_MEMBER_IN_GROUP"
+    );
+
+    if (isUserCreator) throw badRequest(
+      "USER_REQUESTING_EXIT_IS_GROUP_CREATOR"
+    );
+
+    realUser.setJoinedGroups(
+      realUser
+        .getJoinedGroups()
+        .stream()
+        .filter(group -> group.getId() != id)
+        .collect(Collectors.toSet())
+    );
+
+    return new GetUserWithGroups(repository.save(realUser));
   }
 }
