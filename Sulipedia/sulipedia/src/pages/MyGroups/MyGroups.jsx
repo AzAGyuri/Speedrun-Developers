@@ -28,6 +28,7 @@ import Stack from "@mui/material/Stack";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { Loading } from "../../components/Loading/Loading";
 import axios from "axios";
+import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 
 const styles = {
   container: {
@@ -374,6 +375,7 @@ export function MyGroups({
       })
       .catch((error) => {
         console.error("Hiba történt csoport létrehozáskor", error);
+        alert("Hiba történt csoport létrehozáskor");
       });
 
     handleClose();
@@ -501,6 +503,7 @@ export function MyGroups({
       })
       .catch((error) => {
         console.error("Hiba történt felhasználó hozzáadásakor", error);
+        alert("Hiba történt felhasználó hozzáadásakor");
       });
 
     setNewMemberName("");
@@ -514,6 +517,9 @@ export function MyGroups({
     console.log(groups);
   }, [groups]);
 
+  const handleLeaveGroup = (groupId) =>{
+
+  } 
   const handleDeleteMember = (memberId) => {
     setIsLoading(true);
     let updatedGroup = selectedGroup;
@@ -919,11 +925,17 @@ export function MyGroups({
                   </Tooltip>
                 </ListItemAvatar>
                 <ListItemText primary={member.name} />
-                <Tooltip title={`${member.name} kidobása a csoportból`}>
+                <Tooltip title={ Number(currentUserId) !== selectedGroup.ownerId ? `Kilépés a csoportból`:`${member.name} kidobása a csoportból`}>
                   {member.id === selectedGroup.ownerId ? (
                     <></>
                   ) : Number(currentUserId) !== selectedGroup.ownerId ? (
-                    <></>
+                    <IconButton
+                      edge="end"
+                      aria-label="delete"
+                      onClick={() => handleLeaveGroup(member.id)}
+                    >
+                      <ExitToAppIcon sx={{ color: "#d32f2f" }} />
+                    </IconButton>
                   ) : (
                     <IconButton
                       edge="end"
