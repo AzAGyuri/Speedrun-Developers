@@ -241,8 +241,13 @@ public class UserService {
     boolean isUserInGroup = false;
     boolean isUserCreator = false;
     for (Group joinedGroup : realUser.getJoinedGroups()) {
-      isUserInGroup |= joinedGroup.getId() == id.intValue();
-      isUserCreator |= joinedGroup.getCreator().getId() == realUser.getId();
+      boolean currentGroupIsRequestedGroup =
+        joinedGroup.getId() == id.intValue();
+
+      isUserInGroup |= currentGroupIsRequestedGroup;
+
+      if (currentGroupIsRequestedGroup) isUserCreator |=
+        joinedGroup.getCreator().getId() == realUser.getId();
     }
 
     if (!isUserInGroup) throw badRequest(
