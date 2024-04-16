@@ -44,6 +44,9 @@ const rows = [
       Now they are convinced that a human being is not <br /> just free on his
       own, but has to go out and earn money, so that he can buy freedom! <br />{" "}
       And now they have their purpose in life! <br />- Mr. Freeman
+      <div><br></br></div>
+      <div>"If God be for us, who can be against us?"</div>
+      <div>Romans 8:31</div>
     </>,
     <Image id="gyuriKep" alt="Gyuri" src={Gyuri} />
   ),
