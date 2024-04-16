@@ -849,8 +849,9 @@ export function MyGroups({
                               </div>
                               <div
                                 style={{
-                                  padding: "5px",
-                                  fontSize: "20px",
+                                  padding: "auto",
+                                  margin:"auto",
+                                  fontSize: "15px",
                                   color: "#211ee3",
                                   border: "1px solid black",
                                   backgroundColor: "#84adf0",
@@ -870,7 +871,10 @@ export function MyGroups({
                                   backgroundColor: "#84adf0",
                                 }}
                               >
-                                Regisztáció napja: {member.memberSince}
+                                <div>
+                                Regisztáció napja: 
+                                </div>
+                                <div>{member.memberSince}</div>
                               </div>
                             </TableRow>
                             <TableRow

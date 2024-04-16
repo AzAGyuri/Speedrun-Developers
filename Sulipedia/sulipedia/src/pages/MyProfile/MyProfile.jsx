@@ -171,7 +171,8 @@ export function MyProfile({ children, setIsLoading, isLoading, jwt, currentUserI
               Email:
             </Typography>
             <Typography variant="body1" style={styles.infoValue}>
-              {userData.email}
+              <div>{userData.email.split("@")[0]}</div>
+              {"@"+userData.email.split("@")[1]}
             </Typography>
           </div>
           <div style={styles.infoItem}>
