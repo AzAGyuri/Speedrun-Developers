@@ -28,7 +28,7 @@ import Stack from "@mui/material/Stack";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { Loading } from "../../components/Loading/Loading";
 import axios from "axios";
-import ExitToAppIcon from '@mui/icons-material/ExitToApp';
+import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 
 const styles = {
   container: {
@@ -432,8 +432,7 @@ export function MyGroups({
               break;
           }
         });
-    }
-    else {
+    } else {
       alert("A csoport nem lett törölve!");
     }
   }
@@ -518,13 +517,22 @@ export function MyGroups({
     window.location.href = `mailto:${email}`;
   };
 
-  useEffect(() => {
-    console.log(groups);
-  }, [groups]);
-
   const handleLeaveGroup = (groupId) => {
+    setIsLoading(true);
+    axios
+      .patch(`/api/v1/user/group/${groupId}`, null, {
+        headers: { Authorization: jwt },
+      })
+      .then((response) => {
+        console.log("Kilépés sikeresen megtörtént:", response.data);
+        setGroups(groups.filter((group) => group.id !== groupId));
+      })
+      .catch((error) => {
+        console.error("Hiba történt kilépés közben", error);
+        alert("Sikertelen kilépés a csoportból.");
+      });
+  };
 
-  }
   const handleDeleteMember = (memberId) => {
     if (window.confirm("Biztosan kidobod ezt a tagot a csoportból?")) {
       setIsLoading(true);
@@ -580,8 +588,7 @@ export function MyGroups({
               break;
           }
         });
-    }
-    else {
+    } else {
       alert("A tag nem lett kidobva a csoportból.");
     }
   };
@@ -596,7 +603,7 @@ export function MyGroups({
           Csoportjaim
         </Typography>
         <List>
-          {groups.map((group, index) => (
+          {groups.map((group) => (
             <React.Fragment key={group.id}>
               <ListItem alignItems="flex-start">
                 <ListItemAvatar onClick={() => handleOpenMembers(group)}>
@@ -633,7 +640,13 @@ export function MyGroups({
                   }
                 />
                 <div style={styles.actions}>
-                  <Tooltip title={`${group.name} csoport törlése`}>
+                  <Tooltip
+                    title={
+                      group.ownerId === Number(currentUserId)
+                        ? `${group.name} csoport törlése`
+                        : "Kilépés a csoportból"
+                    }
+                  >
                     {group.ownerId === Number(currentUserId) ? (
                       <IconButton
                         color="secondary"
@@ -646,7 +659,13 @@ export function MyGroups({
                         <Delete sx={{ color: "#d32f2f" }} />
                       </IconButton>
                     ) : (
-                      <></>
+                      <IconButton
+                        aria-label="delete"
+                        style={styles.deleteButton}
+                        onClick={() => handleLeaveGroup(group.id)}
+                      >
+                        <ExitToAppIcon sx={{ color: "#d32f2f" }} />
+                      </IconButton>
                     )}
                   </Tooltip>
                 </div>
@@ -936,17 +955,17 @@ export function MyGroups({
                   </Tooltip>
                 </ListItemAvatar>
                 <ListItemText primary={member.name} />
-                <Tooltip title={Number(currentUserId) !== selectedGroup.ownerId ? `Kilépés a csoportból` : `${member.name} kidobása a csoportból`}>
+                <Tooltip
+                  title={
+                    Number(currentUserId) !== selectedGroup.ownerId
+                      ? `Kilépés a csoportból`
+                      : `${member.name} kidobása a csoportból`
+                  }
+                >
                   {member.id === selectedGroup.ownerId ? (
                     <></>
                   ) : Number(currentUserId) !== selectedGroup.ownerId ? (
-                    <IconButton
-                      edge="end"
-                      aria-label="delete"
-                      onClick={() => handleLeaveGroup(member.id)}
-                    >
-                      <ExitToAppIcon sx={{ color: "#d32f2f" }} />
-                    </IconButton>
+                    <></>
                   ) : (
                     <IconButton
                       edge="end"
