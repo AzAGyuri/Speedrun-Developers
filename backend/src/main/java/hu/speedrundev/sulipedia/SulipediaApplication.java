@@ -10,7 +10,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 @OpenAPIDefinition(
   servers = {
     @Server(
-      url = "https://api.sulipedia.duckdns.org",
+      url = "https://sulipedia.duckdns.org/api/v1",
       description = "Sulipédia vizsgaremek projekt"
     ),
   }

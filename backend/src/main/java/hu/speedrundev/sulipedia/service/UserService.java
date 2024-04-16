@@ -87,10 +87,6 @@ public class UserService {
 
     if (updater.isEmpty()) throw modelNotFound("USER_NOT_FOUND");
 
-    if (repository.existsUserByEmail(changes.getEmail())) throw notUnique(
-      "USER_EMAIL_ALREADY_TAKEN"
-    );
-
     User oldData = new User(updater.get());
 
     if (
@@ -107,6 +103,9 @@ public class UserService {
       changes.getEmail() != null &&
       !oldData.getEmail().equalsIgnoreCase(changes.getEmail())
     ) {
+      if (repository.existsUserByEmail(changes.getEmail())) throw notUnique(
+        "USER_EMAIL_ALREADY_TAKEN"
+      );
       updatingUser.setEmail(changes.getEmail());
     }
 
