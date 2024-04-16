@@ -181,7 +181,14 @@ const style = {
   overflow: "auto",
 };
 
-export function EntryList({ children, jwt, setIsLoading, isLoading, subject }) {
+export function EntryList({
+  children,
+  jwt,
+  setIsLoading,
+  isLoading,
+  subject,
+  currentUserId,
+}) {
   let title = "";
   switch (subject) {
     case "TECHNICAL_ENGLISH":
@@ -212,6 +219,7 @@ export function EntryList({ children, jwt, setIsLoading, isLoading, subject }) {
         content: "A prímszámok fontos szerepet játszanak a matematikában",
         createdOn: "2023.01.15",
         author: {
+          id: 1,
           username: "Emberke 1",
           lastLogin: null,
           lastLogoff: null,
@@ -226,6 +234,7 @@ export function EntryList({ children, jwt, setIsLoading, isLoading, subject }) {
         content: "Az alapvető algebrai műveletek és fogalmak",
         createdOn: "2023.02.03",
         author: {
+          id: 2,
           username: "Emberke 2",
           lastLogin: null,
           lastLogoff: null,
@@ -240,6 +249,7 @@ export function EntryList({ children, jwt, setIsLoading, isLoading, subject }) {
         content: "A geometriai alakzatok és tulajdonságaik megértése",
         createdOn: "2023.03.15",
         author: {
+          id: 2,
           username: "Emberke 2",
           lastLogin: null,
           lastLogoff: null,
@@ -254,6 +264,7 @@ export function EntryList({ children, jwt, setIsLoading, isLoading, subject }) {
         content: "Az alapfogalmak és az elsődleges szabályok",
         createdOn: "2023.04.04",
         author: {
+          id: 1,
           username: "Emberke 1",
           lastLogin: null,
           lastLogoff: null,
@@ -268,6 +279,7 @@ export function EntryList({ children, jwt, setIsLoading, isLoading, subject }) {
         content: "A valószínűségszámítás fontossága és alkalmazása",
         createdOn: "2023.05.20",
         author: {
+          id: 3,
           username: "Emberke 3",
           lastLogin: null,
           lastLogoff: null,
@@ -282,6 +294,7 @@ export function EntryList({ children, jwt, setIsLoading, isLoading, subject }) {
         content: "A magyar irodalom kiemelkedő alakja és költői öröksége",
         createdOn: "2023.01.15",
         author: {
+          id: 1,
           username: "Emberke 1",
           lastLogin: null,
           lastLogoff: null,
@@ -296,6 +309,7 @@ export function EntryList({ children, jwt, setIsLoading, isLoading, subject }) {
         content: "Jókai Mór regényeinek jelentősége és hatása",
         createdOn: "2023.02.03",
         author: {
+          id: 2,
           username: "Emberke 2",
           lastLogin: null,
           lastLogoff: null,
@@ -310,6 +324,7 @@ export function EntryList({ children, jwt, setIsLoading, isLoading, subject }) {
         content: "Áprily Lajos műveinek sokszínűsége és irodalmi értéke",
         createdOn: "2023.03.15",
         author: {
+          id: 2,
           username: "Emberke 2",
           lastLogin: null,
           lastLogoff: null,
@@ -324,6 +339,7 @@ export function EntryList({ children, jwt, setIsLoading, isLoading, subject }) {
         content: "A romantika és a szimbolizmus jelentős költői és alkotásai",
         createdOn: "2023.04.04",
         author: {
+          id: 1,
           username: "Emberke 1",
           lastLogin: null,
           lastLogoff: null,
@@ -339,6 +355,7 @@ export function EntryList({ children, jwt, setIsLoading, isLoading, subject }) {
           "Az újító drámaírók és a kortárs magyar dráma jellegzetességei",
         createdOn: "2023.05.20",
         author: {
+          id: 1,
           username: "Emberke 1",
           lastLogin: null,
           lastLogoff: null,
@@ -354,6 +371,7 @@ export function EntryList({ children, jwt, setIsLoading, isLoading, subject }) {
           "Az algoritmusok és adatszerkezetek kulcsfontosságú fogalmak az informatikában. Az algoritmusok hatékony megvalósítása és az optimális adatszerkezetek kiválasztása lehetővé teszi az informatikai problémák hatékony megoldását.",
         createdOn: "2024-04-01",
         author: {
+          id: 1,
           username: "Emberke 1",
           lastLogin: null,
           lastLogoff: null,
@@ -369,6 +387,7 @@ export function EntryList({ children, jwt, setIsLoading, isLoading, subject }) {
           "A felhőalapú számítástechnika forradalmasította az informatikát. Az egyre növekvő számú vállalat és felhasználó számára biztosítja az adatok tárolását, szolgáltatásokat és alkalmazásokat a világhálón keresztül.",
         createdOn: "2024-04-01",
         author: {
+          id: 1,
           username: "Emberke 1",
           lastLogin: null,
           lastLogoff: null,
@@ -384,6 +403,7 @@ export function EntryList({ children, jwt, setIsLoading, isLoading, subject }) {
           "A kiberbiztonság és hálózatbiztonság napjainkban kulcsfontosságú területe az informatikának. Az internetes fenyegetések és a számítógépes bűnözés elleni védelem elengedhetetlen a biztonságos online környezet megteremtéséhez.",
         createdOn: "2024-04-01",
         author: {
+          id: 1,
           username: "Emberke 1",
           lastLogin: null,
           lastLogoff: null,
@@ -399,6 +419,7 @@ export function EntryList({ children, jwt, setIsLoading, isLoading, subject }) {
           "Az adattudomány és a nagy adat elemzésének képességei forradalmasítják az üzleti és tudományos területeket egyaránt. Az adatokból való értelmezés lehetővé teszi a trendek felismerését és a jövőbeli döntések meghozatalát.",
         createdOn: "2024-04-01",
         author: {
+          id: 1,
           username: "Emberke 1",
           lastLogin: null,
           lastLogoff: null,
@@ -414,6 +435,7 @@ export function EntryList({ children, jwt, setIsLoading, isLoading, subject }) {
           "A mesterséges intelligencia és a gépi tanulás területei forradalmasítják az informatikát. Az olyan alkalmazások, mint az autonóm járművek és a nyelvi felismerés, az MI és a gépi tanulás legújabb fejlesztéseinek eredményei.",
         createdOn: "2024-04-01",
         author: {
+          id: 1,
           username: "Emberke 1",
           lastLogin: null,
           lastLogoff: null,
@@ -429,6 +451,7 @@ export function EntryList({ children, jwt, setIsLoading, isLoading, subject }) {
           "Understanding the fundamental principles of quantum mechanics",
         createdOn: "2023.01.15",
         author: {
+          id: 1,
           username: "Emberke 1",
           lastLogin: null,
           lastLogoff: null,
@@ -443,6 +466,7 @@ export function EntryList({ children, jwt, setIsLoading, isLoading, subject }) {
         content: "Basic concepts and techniques in data TECHNICAL_ENGLISH",
         createdOn: "2023.02.03",
         author: {
+          id: 1,
           username: "Emberke 1",
           lastLogin: null,
           lastLogoff: null,
@@ -458,6 +482,7 @@ export function EntryList({ children, jwt, setIsLoading, isLoading, subject }) {
           "Recent developments and applications of artificial intelligence",
         createdOn: "2023.03.15",
         author: {
+          id: 1,
           username: "Emberke 1",
           lastLogin: null,
           lastLogoff: null,
@@ -473,6 +498,7 @@ export function EntryList({ children, jwt, setIsLoading, isLoading, subject }) {
           "Understanding encryption techniques and cryptographic protocols",
         createdOn: "2023.04.04",
         author: {
+          id: 1,
           username: "Emberke 1",
           lastLogin: null,
           lastLogoff: null,
@@ -487,6 +513,7 @@ export function EntryList({ children, jwt, setIsLoading, isLoading, subject }) {
         content: "Key concepts and models in computer networking",
         createdOn: "2023.05.20",
         author: {
+          id: 1,
           username: "Emberke 1",
           lastLogin: null,
           lastLogoff: null,
@@ -501,6 +528,7 @@ export function EntryList({ children, jwt, setIsLoading, isLoading, subject }) {
         content: "A magyar történelem kezdete",
         createdOn: "2023.01.15",
         author: {
+          id: 1,
           username: "Emberke 1",
           lastLogin: null,
           lastLogoff: null,
@@ -515,6 +543,7 @@ export function EntryList({ children, jwt, setIsLoading, isLoading, subject }) {
         content: "Magyarország elvesztette függetlenségét",
         createdOn: "2023.02.03",
         author: {
+          id: 1,
           username: "Emberke 1",
           lastLogin: null,
           lastLogoff: null,
@@ -529,6 +558,7 @@ export function EntryList({ children, jwt, setIsLoading, isLoading, subject }) {
         content: "Az összmagyar felkelés a Habsburgok ellen",
         createdOn: "2023.03.15",
         author: {
+          id: 1,
           username: "Emberke 1",
           lastLogin: null,
           lastLogoff: null,
@@ -543,6 +573,7 @@ export function EntryList({ children, jwt, setIsLoading, isLoading, subject }) {
         content: "Az osztrák uralom elleni küzdelem",
         createdOn: "2023.04.04",
         author: {
+          id: 1,
           username: "Emberke 1",
           lastLogin: null,
           lastLogoff: null,
@@ -557,6 +588,7 @@ export function EntryList({ children, jwt, setIsLoading, isLoading, subject }) {
         content: "A trianoni békeszerződés következményei",
         createdOn: "2023.05.20",
         author: {
+          id: 1,
           username: "Emberke 1",
           lastLogin: null,
           lastLogoff: null,
@@ -673,6 +705,7 @@ export function EntryList({ children, jwt, setIsLoading, isLoading, subject }) {
         } else {
           setEntries(receivedEntries);
         }
+        console.log(receivedEntries);
       })
       .catch((error) => {
         setEntries(
@@ -690,6 +723,10 @@ export function EntryList({ children, jwt, setIsLoading, isLoading, subject }) {
       setIsLoading(false);
     }, 300);
   }, [setIsLoading, isLoading]);
+
+  const handleDeleteClick = (event) => {
+    const entryId = event.currentTarget.id;
+  };
 
   if (isLoading) return <Loading />;
 
@@ -765,11 +802,14 @@ export function EntryList({ children, jwt, setIsLoading, isLoading, subject }) {
                 title={entry.title}
                 content={entry.content}
                 createdOn={entry.createdOn}
+                authorId={entry.author.id}
+                currentUserId={currentUserId}
                 authorName={entry.author.username}
                 authorBgColor={entry.author.randomAvatarBgColor}
                 authorLogIn={entry.author.lastLogin}
                 authorLogOff={entry.author.lastLogoff}
                 handleEntryClick={handleEntryClick}
+                handleDeleteClick={handleDeleteClick}
               />
             ))
           : entries
@@ -781,11 +821,14 @@ export function EntryList({ children, jwt, setIsLoading, isLoading, subject }) {
                   title={entry.title}
                   content={entry.content}
                   createdOn={entry.createdOn}
+                  authorId={entry.author.id}
+                  currentUserId={currentUserId}
                   authorName={entry.author.username}
                   authorBgColor={entry.author.randomAvatarBgColor}
                   authorLogIn={entry.author.lastLogin}
                   authorLogOff={entry.author.lastLogoff}
                   handleEntryClick={handleEntryClick}
+                  handleDeleteClick={handleDeleteClick}
                 />
               ))}
       </StyledContainer>
@@ -827,8 +870,8 @@ export function EntryList({ children, jwt, setIsLoading, isLoading, subject }) {
                 createdOn={selectedEntry.createdOn}
                 authorName={selectedEntry.authorName}
                 authorBgColor={selectedEntry.authorBgColor}
-                authorLogIn={selectedEntry.lastLogin}
-                authorLogOff={selectedEntry.lastLogoff}
+                authorLogIn={selectedEntry.authorLogIn}
+                authorLogOff={selectedEntry.authorLogOff}
               />
 
               <CommentSection>
@@ -850,8 +893,8 @@ export function EntryList({ children, jwt, setIsLoading, isLoading, subject }) {
                     <CommentContent>{comment.content}</CommentContent>
                     <div>
                       <CommentAuthor
-                      aria-owns={open ? 'mouse-over-popover' : undefined}
-                      aria-haspopup="true"
+                        aria-owns={open ? "mouse-over-popover" : undefined}
+                        aria-haspopup="true"
                       >
                         {comment.author.username}
                       </CommentAuthor>

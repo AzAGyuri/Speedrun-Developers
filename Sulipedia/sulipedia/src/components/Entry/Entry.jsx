@@ -1,4 +1,6 @@
-import { Typography, Avatar, Tooltip } from "@mui/material";
+import './Entry.css';
+import { Typography, Avatar, Tooltip, IconButton } from "@mui/material";
+import DeleteIcon from "@mui/icons-material/Delete";
 import { Container, styled } from "@mui/system";
 
 const StyledContainer = styled(Container)({
@@ -49,12 +51,21 @@ export function Entry({
   title,
   content,
   createdOn,
+  authorId,
+  currentUserId,
   authorName,
   authorBgColor,
   authorLogIn,
   authorLogOff,
   handleEntryClick,
+  handleDeleteClick,
 }) {
+  const formattedCreatedOn = (
+    <>
+      <div>{createdOn.split(" ")[0]}</div>
+      <div>{createdOn.split(" ")[1]}</div>
+    </>
+  );
   const statusColor =
     authorLogIn && !authorLogOff
       ? "blue"
@@ -73,28 +84,31 @@ export function Entry({
       : "Offline";
 
   return (
-    <StyledContainer
-      style={{ backgroundColor: "#4caf50" }}
-      onClick={
-        handleEntryClick
-          ? () =>
-              handleEntryClick({
-                title,
-                content,
-                createdOn,
-                authorName,
-                authorBgColor,
-                authorLogIn,
-                authorLogOff,
-                id,
-              })
-          : () => {
-              alert("szia fanom, mi jót csinálsz?");
-            }
-      }
-    >
-      <Title variant="h4">{title}</Title>
-      <LargeText style={{ paddingBottom: "5px" }}>{content}</LargeText>
+    <StyledContainer style={{ backgroundColor: "#4caf50" }}>
+      <div
+        onClick={
+          handleEntryClick
+            ? () =>
+                handleEntryClick({
+                  title,
+                  content,
+                  createdOn,
+                  currentUserId,
+                  authorId,
+                  authorName,
+                  authorBgColor,
+                  authorLogIn,
+                  authorLogOff,
+                  id,
+                })
+            : () => {
+                alert("szia fanom, mi jót csinálsz?");
+              }
+        }
+      >
+        <Title variant="h4">{title}</Title>
+        <LargeText style={{ paddingBottom: "5px" }}>{content}</LargeText>
+      </div>
       <div
         style={{
           display: "flex",
@@ -108,21 +122,35 @@ export function Entry({
           height: "auto",
         }}
       >
-        <Typography
-          variant="body2"
-          style={{
-            padding: "7px 5px",
-            backgroundColor: "#ba8d63",
-            borderRadius: "8px",
-            color: "#fff",
-            fontWeight: "bold",
-            height: "auto",
-            marginTop: "auto",
-          }}
-        >
-          {createdOn}
-        </Typography>
-
+        <div className='date-and-delete'>
+          <Typography
+            variant="body2"
+            style={{
+              padding: "7px 5px",
+              backgroundColor: "#ba8d63",
+              borderRadius: "8px",
+              color: "#fff",
+              fontWeight: "bold",
+              height: "auto",
+              marginTop: "auto",
+            }}
+          >
+            {formattedCreatedOn}
+          </Typography>
+          {handleDeleteClick ? (
+            Number(currentUserId) === authorId ? (
+              <Tooltip title="Bejegyzés törlése">
+                <IconButton onClick={handleDeleteClick} color="error" id={id}>
+                  <DeleteIcon />
+                </IconButton>
+              </Tooltip>
+            ) : (
+              <></>
+            )
+          ) : (
+            <></>
+          )}
+        </div>
         <Tooltip
           id="mouse-over-popover"
           sx={{
