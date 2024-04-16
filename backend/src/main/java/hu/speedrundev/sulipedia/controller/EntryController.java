@@ -161,6 +161,7 @@ public class EntryController {
   ) {
     return service.createEntry(entry, files, jwt);
   }
+
   // /**
   //  * <h3></h3>
   //  *
@@ -209,21 +210,31 @@ public class EntryController {
   //   return service.getEntriesNotKept();
   // }
 
-  // /**
-  //  * <h3></h3>
-  //  *
-  //  * @param id
-  //  * @return
-  //  */
-  // @Operation(
-  //   summary = "Delete one entry from DB logically",
-  //   description = "Az adatbázisban eltárolt bejegyzés logikai törlése"
-  // )
-  // @DeleteMapping("/entry/{id}")
-  // public GetEntry softDeleteEntry(@PathVariable Integer id) {
-  //   return service.logicalDeleteEntry(id);
-  // }
-
+  /**
+   * <h3>DELETE(/entry/{id})</h3>
+   *
+   * Delete an entry logically from the DB based on ID
+   *
+   * @param id the ID of the entry to be deleted logically
+   * @param jwt the JSON Web Token of the user requesting the creation of
+   * the new entry
+   *
+   * @return
+   */
+  @Operation(
+    summary = "Delete one entry from DB logically",
+    description = "Az adatbázisban eltárolt bejegyzés logikai törlése"
+  )
+  @DeleteMapping("/entry/{id}")
+  public GetEntryWithID softDeleteEntry(
+    @PathVariable Integer id,
+    @RequestHeader(name = "Authorization") String jwt
+  ) {
+    return service.logicalDeleteEntry(
+      id,
+      jwt.substring("Bearer".length()).trim()
+    );
+  }
   // /**
   //  * <h3></h3>
   //  *

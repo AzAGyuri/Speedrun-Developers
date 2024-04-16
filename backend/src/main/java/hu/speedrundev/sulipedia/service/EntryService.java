@@ -62,6 +62,7 @@ public class EntryService {
         .findAll()
         .stream()
         .filter(Predicate.not(Entry::getTest))
+        .filter(entry -> entry.getDeleted() == null)
         .sorted((o1, o2) ->
           (
             o1.getCreatedOn().isBefore(o2.getCreatedOn())
@@ -159,6 +160,7 @@ public class EntryService {
 
     return new GetEntryWithID((savedEntry));
   }
+
   // public GetEntry updateEntry(Integer id, UpdateEntry changes) {
   //   if (id == null || changes == null) throw nullPointer();
   //   if (changes.isAllNull()) throw badRequest("ENTRY_UPDATE_INPUTS_NULL");
@@ -233,17 +235,32 @@ public class EntryService {
   //   return new EntryList(entryRepository.findAllNotKept());
   // }
 
-  // public GetEntry logicalDeleteEntry(Integer id) {
-  //   if (id == null) throw nullPointer();
-  //   if (entryRepository.existsById(id)) throw modelNotFound("ENTRY_NOT_FOUND");
+  public GetEntryWithID logicalDeleteEntry(Integer id, String token) {
+    if (id == null) throw nullPointer();
 
-  //   Entry softDeletedEntry = entryRepository.getReferenceById(id);
-  //   softDeletedEntry.setDeleted(true);
-  //   softDeletedEntry.setDeletedOn(LocalDateTime.now());
+    Optional<User> deleter = userRepository.findByUsername(
+      jwtUtil.getSubject(token)
+    );
 
-  //   return new GetEntry(entryRepository.save(softDeletedEntry));
-  // }
+    if (deleter.isEmpty()) throw modelNotFound("USER_NOT_FOUND");
 
+    if (entryRepository.existsById(id)) throw modelNotFound("ENTRY_NOT_FOUND");
+
+    boolean userIsAuthor = false;
+    for (Entry entry : deleter.get().getEntries()) {
+      userIsAuthor |= entry.getAuthor().getId() == deleter.get().getId();
+    }
+
+    if (!userIsAuthor) throw noYouDont(
+      "USER_REQUESTING_DELETION_IS_NOT_ENTRY_AUTHOR"
+    );
+
+    Entry softDeletedEntry = entryRepository.getReferenceById(id);
+    softDeletedEntry.setDeleted(true);
+    softDeletedEntry.setDeletedOn(LocalDateTime.now());
+
+    return new GetEntryWithID(entryRepository.save(softDeletedEntry));
+  }
   // public NulledEntry nullDeleteEntry(Integer id) {
   //   if (id == null) throw nullPointer();
   //   if (entryRepository.existsById(id)) throw modelNotFound("ENTRY_NOT_FOUND");
