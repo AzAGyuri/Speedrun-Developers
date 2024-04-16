@@ -134,7 +134,7 @@ export function MyProfile({
             username: user.username,
             nickname: nickname,
             phoneNumber: user.phoneNumber ? user.phoneNumber : "N/A",
-            registrationDate: user.createdOn.split("T")[0],
+            registrationDate: user.createdOn,
             userId: currentUserId,
             profileImage: user.profilePictureBase64,
             randomAvatarBgColor: user.randomAvatarBgColor,
