@@ -26,7 +26,7 @@ public class UserRegistration extends PostUser {
   public boolean isAnyRequiredEmpty() {
     return (
       getUsername().isBlank() ||
-      getPhoneNumber().isBlank() ||
+      getEmail().isBlank() ||
       getPasswordRaw().isBlank()
     );
   }
