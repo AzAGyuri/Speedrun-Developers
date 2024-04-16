@@ -74,6 +74,7 @@ export function Settings({ children, setIsLoading, isLoading, jwt }) {
     nickname: null,
     password: null,
     confirmPassword: null,
+    oldPass : null
   });
   const [passwordError, setPasswordError] = useState(false);
   const [avatar, setAvatar] = useState("");
@@ -320,7 +321,7 @@ export function Settings({ children, setIsLoading, isLoading, jwt }) {
 
             <Grid item xs={12}>
               <div style={{border:"2px solid black", padding:"3%"}}>
-              <div>
+              <div style={{marginLeft:"20%", marginRight: "20%", marginBottom:"3%"}}>
               <TextField label="Régi jelszó megadása"
               InputProps={{
                 startAdornment: (
@@ -334,7 +335,7 @@ export function Settings({ children, setIsLoading, isLoading, jwt }) {
                   borderRight: "2px solid black",
                   borderLeft: "2px solid black",
                   borderBottom: "2px solid black",
-                  marginBottom: "2%"
+                  marginBottom: "2%",
                 }}></TextField>
               </div>
               <div>
