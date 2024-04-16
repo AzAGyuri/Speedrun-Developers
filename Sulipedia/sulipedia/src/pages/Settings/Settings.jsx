@@ -20,6 +20,7 @@ import { useNavigate } from "react-router-dom";
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import LockSharpIcon from "@mui/icons-material/LockSharp";
+import ElderlyIcon from '@mui/icons-material/Elderly';
 
 
 const styles = {
@@ -312,10 +313,31 @@ export function Settings({ children, setIsLoading, isLoading, jwt }) {
                     fontSize: "18px",
                     color: "black",
                     textShadow: "3px 3px 2px #fe7180",
-                  },
+                  },  
                 }}
               />
             </Grid>
+
+            <Grid item xs={12}>
+              <div style={{border:"2px solid black", padding:"3%"}}>
+              <div>
+              <TextField label="Régi jelszó megadása"
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <ElderlyIcon></ElderlyIcon>
+                    <LockSharpIcon></LockSharpIcon>
+                  </InputAdornment>
+                ),
+              }} style={{
+                  background: "#acc7f2",
+                  borderRight: "2px solid black",
+                  borderLeft: "2px solid black",
+                  borderBottom: "2px solid black",
+                  marginBottom: "2%"
+                }}></TextField>
+              </div>
+              <div>
             <Grid item xs={12}>
               <TextField
                 style={{ background: "#acc7f2", borderRight: "2px solid black", borderLeft: "2px solid black", borderBottom: "2px solid black" }}
@@ -377,6 +399,7 @@ export function Settings({ children, setIsLoading, isLoading, jwt }) {
                 value={formData.confirmPassword}
                 onChange={handleFormChange}
                 margin="normal"
+                label="Jelszó újra"
                 InputProps={{
                   startAdornment: (
                     <InputAdornment position="start">
@@ -400,6 +423,10 @@ export function Settings({ children, setIsLoading, isLoading, jwt }) {
                 }}
               />
             </Grid>
+            </div>
+            </div>
+            </Grid>
+            
           </Grid>
         </section>
         <Button
