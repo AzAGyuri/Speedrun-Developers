@@ -4,19 +4,23 @@ import static hu.speedrundev.sulipedia.util.ExceptionUtils.*;
 
 import hu.speedrundev.sulipedia.dto.user.GetUser;
 import hu.speedrundev.sulipedia.dto.user.GetUserWithAvailabilities;
+import hu.speedrundev.sulipedia.dto.user.GetUserWithGroups;
 import hu.speedrundev.sulipedia.dto.user.GetUserWithID;
 import hu.speedrundev.sulipedia.dto.user.NulledUser;
 import hu.speedrundev.sulipedia.dto.user.PostUser;
 import hu.speedrundev.sulipedia.dto.user.RoleDto;
 import hu.speedrundev.sulipedia.dto.user.UpdateUser;
 import hu.speedrundev.sulipedia.dto.user.UserList;
+import hu.speedrundev.sulipedia.model.Group;
 import hu.speedrundev.sulipedia.model.Roles;
 import hu.speedrundev.sulipedia.model.User;
+import hu.speedrundev.sulipedia.repository.GroupRepository;
 import hu.speedrundev.sulipedia.repository.UserRepository;
 import hu.speedrundev.sulipedia.util.JwtUtil;
 import java.time.LocalDateTime;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -26,6 +30,9 @@ public class UserService {
 
   @Autowired
   private UserRepository repository;
+
+  @Autowired
+  private GroupRepository groupRepository;
 
   @Autowired
   private JwtUtil jwtUtil;
@@ -81,6 +88,14 @@ public class UserService {
     if (token == null || changes == null) throw nullPointer();
     if (changes.isAllNull()) throw badRequest("INPUTS_ALL_NULL");
 
+    boolean isOldPassSupplied = false;
+    if (changes.getNewPasswordRaw() != null) if (
+      changes.getOldPasswordRaw() != null
+    ) isOldPassSupplied |= changes.getOldPasswordRaw().isBlank();
+    if (!isOldPassSupplied) throw badRequest(
+      "OLD_PASSWORD_REQUIRED_FOR_PASSWORD_CHANGE"
+    );
+
     Optional<User> updater = repository.findByUsername(
       jwtUtil.getSubject(token)
     );
@@ -91,7 +106,7 @@ public class UserService {
 
     if (
       passwordEncoder.matches(
-        changes.getPasswordRaw() == null ? "" : changes.getPasswordRaw(),
+        changes.getNewPasswordRaw() == null ? "" : changes.getNewPasswordRaw(),
         oldData.getUserPassword()
       ) &&
       oldData.doesAllMatch(changes)
@@ -113,19 +128,25 @@ public class UserService {
       if (oldData.getNickname() == null) updatingUser.setNickname(
         changes.getNickname()
       ); else if (
-        !oldData.getNickname().equalsIgnoreCase(changes.getPhoneNumber())
+        !oldData.getNickname().equalsIgnoreCase(changes.getNickname())
       ) updatingUser.setNickname(changes.getNickname());
     }
 
     if (
-      changes.getPasswordRaw() != null &&
+      changes.getNewPasswordRaw() != null &&
       !passwordEncoder.matches(
-        changes.getPasswordRaw(),
+        changes.getNewPasswordRaw(),
         oldData.getUserPassword()
       )
     ) {
+      if (
+        !passwordEncoder.matches(
+          changes.getOldPasswordRaw(),
+          updatingUser.getUserPassword()
+        )
+      ) throw unauthorized("PROVIDED_PASSWORD_DOES_NOT_MATCH_FOR_USER");
       updatingUser.setUserPassword(
-        passwordEncoder.encode(changes.getPasswordRaw())
+        passwordEncoder.encode(changes.getNewPasswordRaw())
       );
     }
 
@@ -204,5 +225,42 @@ public class UserService {
       new GetUser(oldData),
       new GetUser(repository.save(nulledUser))
     );
+  }
+
+  public GetUserWithGroups removeUserFromGroup(Integer id, String token) {
+    if (id == null || token == null) throw nullPointer();
+
+    if (!groupRepository.existsById(id)) throw modelNotFound("GROUP_NOT_FOUND");
+
+    Optional<User> user = repository.findByUsername(jwtUtil.getSubject(token));
+
+    if (user.isEmpty()) throw modelNotFound("USER_NOT_FOUND");
+
+    User realUser = user.get();
+
+    boolean isUserInGroup = false;
+    boolean isUserCreator = false;
+    for (Group joinedGroup : realUser.getJoinedGroups()) {
+      isUserInGroup |= joinedGroup.getId() == id.intValue();
+      isUserCreator |= joinedGroup.getCreator().getId() == realUser.getId();
+    }
+
+    if (!isUserInGroup) throw badRequest(
+      "USER_REQUESTING_EXIT_IS_NOT_MEMBER_IN_GROUP"
+    );
+
+    if (isUserCreator) throw badRequest(
+      "USER_REQUESTING_EXIT_IS_GROUP_CREATOR"
+    );
+
+    realUser.setJoinedGroups(
+      realUser
+        .getJoinedGroups()
+        .stream()
+        .filter(group -> group.getId() != id)
+        .collect(Collectors.toSet())
+    );
+
+    return new GetUserWithGroups(repository.save(realUser));
   }
 }

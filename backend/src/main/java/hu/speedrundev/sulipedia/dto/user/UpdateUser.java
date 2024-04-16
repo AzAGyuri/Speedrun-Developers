@@ -18,12 +18,14 @@ public class UpdateUser {
 
   private String email;
 
-  private String passwordRaw;
+  private String newPasswordRaw;
 
   private String phoneNumber;
 
+  private String oldPasswordRaw;
+
   @JsonIgnore
   public boolean isAllNull() {
-    return nickname == null && email == null && passwordRaw == null && phoneNumber == null;
+    return nickname == null && email == null && newPasswordRaw == null && phoneNumber == null;
   }
 }
