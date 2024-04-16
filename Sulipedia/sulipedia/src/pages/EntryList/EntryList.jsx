@@ -726,6 +726,15 @@ export function EntryList({
 
   const handleDeleteClick = (event) => {
     const entryId = event.currentTarget.id;
+    axios
+      .delete(`/entry/${entryId}`, { headers: { Authorization: jwt } })
+      .then((response) => {
+        setEntries(entries.filter((entry) => entry.id !== response.data.id));
+      })
+      .catch((error) => {
+        console.error("Hiba történt törlés során", error);
+        alert("Hiba történt törlés során");
+      });
   };
 
   if (isLoading) return <Loading />;
