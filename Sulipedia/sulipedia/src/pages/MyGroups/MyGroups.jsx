@@ -385,6 +385,7 @@ export function MyGroups({
   }
 
   function deleteGroup(id) {
+    if(window.confirm("Biztosan törlöd ezt a csoportot?")){
     if (
       groups.filter((group) => group.id === id)[0].ownerId !==
       Number(currentUserId)
@@ -430,7 +431,10 @@ export function MyGroups({
             alert("Váratlan hiba történt! Kérjük próbálja meg később");
             break;
         }
-      });
+      });}
+      else{
+        alert("A csoport nem lett törölve!");
+      }
   }
 
   function addMemberToGroup() {
@@ -521,6 +525,7 @@ export function MyGroups({
 
   } 
   const handleDeleteMember = (memberId) => {
+    if(window.confirm("Biztosan kidobod ezt a tagot a csoportból?")){
     setIsLoading(true);
     let updatedGroup = selectedGroup;
 
@@ -573,7 +578,10 @@ export function MyGroups({
             alert("Váratlan hiba történt! Kérjük próbálja meg később");
             break;
         }
-      });
+      });}
+      else{
+        alert("A tag nem lett kidobva a csoportból.");
+      }
   };
 
   if (isLoading) return <Loading />;

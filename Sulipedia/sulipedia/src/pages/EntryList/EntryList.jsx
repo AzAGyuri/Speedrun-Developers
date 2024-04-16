@@ -664,6 +664,7 @@ export function EntryList({
   }, [selectedEntry, open, jwt]);
 
   const handleCommentDelete = (index) => {
+    if(window.confirm("Biztosan törlöd ezt a kommentet?")){
     axios
       .delete(`/api/v1/comment/${index}`, {
         headers: { Authorization: jwt },
@@ -676,7 +677,11 @@ export function EntryList({
         console.error("Error deleting resource:", error);
         alert("Sikertelen törlés! Más felhasználó kommentjét nem törölheted");
       });
-  };
+    }
+    else{
+      alert("A komment nem lett törlve");
+    }
+  }; 
 
   const handleAllAuthorsSelect = () => {
     setSelectedAuthor(null);
@@ -728,6 +733,7 @@ export function EntryList({
   }, [setIsLoading, isLoading]);
 
   const handleDeleteClick = (event) => {
+    if(window.confirm("Biztosan törölni szeretnéd a bejegyzést?")){
     const entryId = event.currentTarget.id;
     axios
       .delete(`/api/v1/entry/${entryId}`, { headers: { Authorization: jwt } })
@@ -738,7 +744,10 @@ export function EntryList({
       .catch((error) => {
         console.error("Hiba történt törlés során", error);
         alert("Hiba történt törlés során");
-      });
+      }); }
+      else{
+        alert("A bejegyzés nem lett törölve.");
+      }
   };
 
   if (isLoading) return <Loading />;
