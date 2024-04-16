@@ -88,6 +88,14 @@ public class UserService {
     if (token == null || changes == null) throw nullPointer();
     if (changes.isAllNull()) throw badRequest("INPUTS_ALL_NULL");
 
+    boolean isOldPassSupplied = false;
+    if (changes.getNewPasswordRaw() != null) if (
+      changes.getOldPasswordRaw() != null
+    ) isOldPassSupplied |= changes.getOldPasswordRaw().isBlank();
+    if (!isOldPassSupplied) throw badRequest(
+      "OLD_PASSWORD_REQUIRED_FOR_PASSWORD_CHANGE"
+    );
+
     Optional<User> updater = repository.findByUsername(
       jwtUtil.getSubject(token)
     );
@@ -98,7 +106,7 @@ public class UserService {
 
     if (
       passwordEncoder.matches(
-        changes.getPasswordRaw() == null ? "" : changes.getPasswordRaw(),
+        changes.getNewPasswordRaw() == null ? "" : changes.getNewPasswordRaw(),
         oldData.getUserPassword()
       ) &&
       oldData.doesAllMatch(changes)
@@ -120,19 +128,25 @@ public class UserService {
       if (oldData.getNickname() == null) updatingUser.setNickname(
         changes.getNickname()
       ); else if (
-        !oldData.getNickname().equalsIgnoreCase(changes.getPhoneNumber())
+        !oldData.getNickname().equalsIgnoreCase(changes.getNickname())
       ) updatingUser.setNickname(changes.getNickname());
     }
 
     if (
-      changes.getPasswordRaw() != null &&
+      changes.getNewPasswordRaw() != null &&
       !passwordEncoder.matches(
-        changes.getPasswordRaw(),
+        changes.getNewPasswordRaw(),
         oldData.getUserPassword()
       )
     ) {
+      if (
+        !passwordEncoder.matches(
+          changes.getOldPasswordRaw(),
+          updatingUser.getUserPassword()
+        )
+      ) throw unauthorized("PROVIDED_PASSWORD_DOES_NOT_MATCH_FOR_USER");
       updatingUser.setUserPassword(
-        passwordEncoder.encode(changes.getPasswordRaw())
+        passwordEncoder.encode(changes.getNewPasswordRaw())
       );
     }
 
