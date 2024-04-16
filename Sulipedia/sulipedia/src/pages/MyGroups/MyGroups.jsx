@@ -235,7 +235,7 @@ export function MyGroups({
 
   useEffect(() => {
     axios
-      .get(`/group`, {
+      .get(`/api/v1/group`, {
         headers: { Authorization: jwt },
       })
       .then((response) => {
@@ -280,7 +280,7 @@ export function MyGroups({
       let localMembers = [];
 
       axios
-        .get(`/group/${group.id}`, {
+        .get(`/api/v1/group/${group.id}`, {
           headers: { Authorization: jwt },
         })
 
@@ -347,7 +347,7 @@ export function MyGroups({
     };
 
     axios
-      .post("/group", newGroup, { headers: { Authorization: jwt } })
+      .post("/api/v1/group", newGroup, { headers: { Authorization: jwt } })
       .then((response) => {
         setIsLoading(true);
         const group = response.data;
@@ -392,7 +392,7 @@ export function MyGroups({
     }
 
     axios
-      .delete(`/group/${id}`, { headers: { Authorization: jwt } })
+      .delete(`/api/v1/group/${id}`, { headers: { Authorization: jwt } })
       .then((response) => {
         setIsLoading(true);
         const updatedGroups = groups.filter(
@@ -464,7 +464,7 @@ export function MyGroups({
     const newMembers = [];
 
     axios
-      .put(`/group/${selectedGroup.id}`, newMembersNames, {
+      .put(`/api/v1/group/${selectedGroup.id}`, newMembersNames, {
         headers: { Authorization: jwt },
       })
       .then((response) => {
@@ -519,7 +519,7 @@ export function MyGroups({
     let updatedGroup = selectedGroup;
 
     axios
-      .delete(`/group/${selectedGroup.id}/${memberId}`, {
+      .delete(`/api/v1/group/${selectedGroup.id}/${memberId}`, {
         headers: { Authorization: jwt },
       })
       .then((response) => {

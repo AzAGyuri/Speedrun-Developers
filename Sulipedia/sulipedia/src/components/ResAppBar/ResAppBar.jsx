@@ -38,7 +38,7 @@ export function ResAppBar({ setIsLoading, jwt }) {
   };
 
   const handleLogOut = () => {
-    axios.get("/logout", { headers: { Authorization: jwt } }).catch((error) => {
+    axios.get("/api/v1/logout", { headers: { Authorization: jwt } }).catch((error) => {
       console.error(
         "Hiba történt kijelentkezés mentése során. Na mindegy.",
         error

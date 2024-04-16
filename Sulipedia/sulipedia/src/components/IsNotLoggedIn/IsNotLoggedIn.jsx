@@ -11,7 +11,7 @@ export function IsNotLoggedIn({ jwt, currentUserId }) {
 
     if (jwt !== null) {
       axios
-        .get("/validatetoken", { headers: { Authorization: jwt } })
+        .get("/api/v1/validatetoken", { headers: { Authorization: jwt } })
         .then((response) => {
           if (!response) navigate("/signIn");
         })

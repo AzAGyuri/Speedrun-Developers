@@ -320,7 +320,7 @@ export function Tests({ children, setIsLoading, isLoading, jwt }) {
 
   useEffect(() => {
     axios
-      .get("/entry/test", {
+      .get("/api/v1/entry/test", {
         headers: { Authorization: jwt },
       })
       .then((response) => {

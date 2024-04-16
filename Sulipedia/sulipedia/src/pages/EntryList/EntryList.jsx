@@ -627,7 +627,7 @@ export function EntryList({
   const handleCommentSubmit = () => {
     axios
       .post(
-        "/comment",
+        "/api/v1/comment",
         {
           content: newComment,
           entryId: selectedEntry.id,
@@ -647,7 +647,7 @@ export function EntryList({
   useEffect(() => {
     if (open && selectedEntry) {
       axios
-        .get(`/comment/${selectedEntry.id}`, {
+        .get(`/api/v1/comment/${selectedEntry.id}`, {
           headers: { Authorization: jwt },
         })
         .then((response) => {
@@ -663,7 +663,7 @@ export function EntryList({
 
   const handleCommentDelete = (index) => {
     axios
-      .delete(`/comment/${index}`, {
+      .delete(`/api/v1/comment/${index}`, {
         headers: { Authorization: jwt },
       })
       .then((response) => {
@@ -691,7 +691,7 @@ export function EntryList({
 
   useEffect(() => {
     axios
-      .get(`/entry?subject=${subject}`, {
+      .get(`/api/v1/entry?subject=${subject}`, {
         headers: { Authorization: jwt },
       })
       .then((response) => {
@@ -727,7 +727,7 @@ export function EntryList({
   const handleDeleteClick = (event) => {
     const entryId = event.currentTarget.id;
     axios
-      .delete(`/entry/${entryId}`, { headers: { Authorization: jwt } })
+      .delete(`/api/v1/entry/${entryId}`, { headers: { Authorization: jwt } })
       .then((response) => {
         setEntries(entries.filter((entry) => entry.id !== response.data.id));
       })

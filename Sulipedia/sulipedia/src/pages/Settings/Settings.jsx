@@ -143,7 +143,7 @@ export function Settings({ children, setIsLoading, isLoading, jwt }) {
     };
     if (!passwordError) {
       axios
-        .put(`/user`, requestData, {
+        .put(`/api/v1/user`, requestData, {
           headers: { Authorization: jwt },
         })
         .then((response) => {
@@ -175,7 +175,7 @@ export function Settings({ children, setIsLoading, isLoading, jwt }) {
   useEffect(() => {
     if (currentUserId !== 0) {
       axios
-        .get(`/user/${currentUserId}`, { headers: { Authorization: jwt } })
+        .get(`/api/v1/user/${currentUserId}`, { headers: { Authorization: jwt } })
         .then((response) => {
           const user = response.data;
           setFormData((prevData) => ({

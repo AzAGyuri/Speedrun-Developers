@@ -168,7 +168,7 @@ export function LandingPage({ children, setIsLoading, isLoading, jwt }) {
       setIsLoading(true);
 
       axios
-        .post(`/entry`, requestData, { headers: { Authorization: jwt } })
+        .post(`/api/v1/entry`, requestData, { headers: { Authorization: jwt } })
         .then((response) => {
           let newEntry = response.data;
           console.log("Entry sikeresen közzétéve:", newEntry);
@@ -201,7 +201,7 @@ export function LandingPage({ children, setIsLoading, isLoading, jwt }) {
 
   useEffect(() => {
     axios
-      .get(`/entry`, { headers: { Authorization: jwt } })
+      .get(`/api/v1/entry`, { headers: { Authorization: jwt } })
       .then((response) => {
         setEntries(response.data.entries);
       })

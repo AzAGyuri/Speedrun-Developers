@@ -120,7 +120,7 @@ export function MyProfile({
   useEffect(() => {
     if (currentUserId !== 0) {
       axios
-        .get(`/user/${currentUserId}`, {
+        .get(`/api/v1/user/${currentUserId}`, {
           headers: { Authorization: jwt },
         })
         .then((response) => {

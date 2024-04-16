@@ -31,7 +31,7 @@ export default function SignIn({ setIsLoading, jwt }) {
   useEffect(() => {
     if (jwt !== null) {
       axios
-        .get("/validatetoken", { headers: { Authorization: jwt } })
+        .get("/api/v1/validatetoken", { headers: { Authorization: jwt } })
         .then(() => {
           navigate("/kezdo");
           setIsLoading(true);
@@ -60,7 +60,7 @@ export default function SignIn({ setIsLoading, jwt }) {
       setIsLoading(true);
     } else {
       axios
-        .post(`/login`, formData)
+        .post(`/api/v1/login`, formData)
         .then((response) => {
           localStorage.setItem("jwt", "Bearer " + response.headers.jwt);
           localStorage.setItem("currentUserId", response.data.id);

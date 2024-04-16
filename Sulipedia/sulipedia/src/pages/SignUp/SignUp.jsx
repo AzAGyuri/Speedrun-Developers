@@ -48,7 +48,7 @@ export default function SignUp({ children, setIsLoading, jwt }) {
   useEffect(() => {
     if (jwt !== null) {
       axios
-        .get("/validatetoken", {
+        .get("/api/v1/validatetoken", {
           headers: { Authorization: jwt },
         })
         .then(() => {
@@ -78,7 +78,7 @@ export default function SignUp({ children, setIsLoading, jwt }) {
         phoneNumber: formData.phone,
       };
       axios
-        .post("/register", finalFormData)
+        .post("/api/v1/register", finalFormData)
         .then((response) => {
           localStorage.setItem("jwt", `Bearer ${response.headers.jwt}`);
           localStorage.setItem("currentUserId", response.data.id);
