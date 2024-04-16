@@ -244,7 +244,7 @@ public class EntryService {
 
     if (deleter.isEmpty()) throw modelNotFound("USER_NOT_FOUND");
 
-    if (entryRepository.existsById(id)) throw modelNotFound("ENTRY_NOT_FOUND");
+    if (!entryRepository.existsById(id)) throw modelNotFound("ENTRY_NOT_FOUND");
 
     boolean userIsAuthor = false;
     for (Entry entry : deleter.get().getEntries()) {
