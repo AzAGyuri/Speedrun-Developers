@@ -304,19 +304,17 @@ export function LandingPage({ children, setIsLoading, isLoading, jwt }) {
           </div>
           <div className="flex-container">
             <div className="flex-item">
-              {filteredEntries
-                .slice(0)
-                .map((entry) => (
-                  <div className="contente-flex" key={entry.id}>
-                    <div className="flexcontente-item">
-                      <div className="contente-box">
-                        <div className="contente-title">{entry.title}</div>
-                        <div className="contente">{entry.content}</div>
-                        <div className="post-date">{entry.createdOn}</div>
-                      </div>
+              {filteredEntries.map((entry) => (
+                <div className="contente-flex" key={entry.id}>
+                  <div className="flexcontente-item">
+                    <div className="contente-box">
+                      <div className="contente-title">{entry.title}</div>
+                      <div className="contente">{entry.content}</div>
+                      <div className="post-date">{entry.createdOn}</div>
                     </div>
                   </div>
-                ))}
+                </div>
+              ))}
             </div>
           </div>
         </>
@@ -447,19 +445,17 @@ export function LandingPage({ children, setIsLoading, isLoading, jwt }) {
             </div>
           </div>
           <div className="flex-item">
-            {filteredEntries
-              .slice(0)
-              .map((entry) => (
-                <div className="contente-flex" key={entry.id}>
-                  <div className="flexcontente-item">
-                    <div className="contente-box">
-                      <div className="contente-title">{entry.title}</div>
-                      <div className="contente">{entry.content}</div>
-                      <div className="post-date">{entry.createdOn}</div>
-                    </div>
+            {filteredEntries.map((entry) => (
+              <div className="contente-flex" key={entry.id}>
+                <div className="flexcontente-item">
+                  <div className="contente-box">
+                    <div className="contente-title">{entry.title}</div>
+                    <div className="contente">{entry.content}</div>
+                    <div className="post-date">{entry.createdOn}</div>
                   </div>
                 </div>
-              ))}
+              </div>
+            ))}
           </div>
 
           <div
