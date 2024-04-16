@@ -541,6 +541,7 @@ export function MyGroups({
 
         setGroups(updatedGroups);
         handleOpenMembers(updatedGroup);
+        alert("Tag sikeresen eltávolítva  a csoportból");
       })
       .catch((errResponse) => {
         const error = errResponse.response.data;

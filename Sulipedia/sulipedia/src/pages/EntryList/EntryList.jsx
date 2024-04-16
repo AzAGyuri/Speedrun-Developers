@@ -636,6 +636,7 @@ export function EntryList({
       )
       .then(function (response) {
         setComments(comments.concat(response.data));
+        alert("Komment sikeresen elküldve!");
       })
       .catch(function (error) {
         console.error("Error submitting comment:", error);
@@ -653,6 +654,7 @@ export function EntryList({
         .then((response) => {
           const receivedComments = response.data.comments;
           setComments(receivedComments);
+          
         })
         .catch((error) => {
           console.error("Error fetching comments:", error);
@@ -668,6 +670,7 @@ export function EntryList({
       })
       .then((response) => {
         setComments(comments.filter((comment) => comment.id !== index));
+        alert("Komment sikeresen törölve");
       })
       .catch((error) => {
         console.error("Error deleting resource:", error);
@@ -730,6 +733,7 @@ export function EntryList({
       .delete(`/api/v1/entry/${entryId}`, { headers: { Authorization: jwt } })
       .then((response) => {
         setEntries(entries.filter((entry) => entry.id !== response.data.id));
+        alert("Bejegyzés sikeresen törölve!");
       })
       .catch((error) => {
         console.error("Hiba történt törlés során", error);
