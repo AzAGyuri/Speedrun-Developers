@@ -6,8 +6,7 @@ import {
   TextField,
   Button,
   Grid,
-  Avatar,
-  Link,
+  Avatar
 } from "@mui/material";
 import "./Settings.css";
 import { Loading } from "../../components/Loading/Loading";
@@ -77,11 +76,6 @@ export function Settings({ children, setIsLoading, isLoading, jwt }) {
   });
   const [passwordError, setPasswordError] = useState(false);
   const [avatar, setAvatar] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
-
-  const handleConfirmPasswordChange = (event) => {
-    setConfirmPassword(event.target.value);
-  };
 
   const handleFormChange = (event) => {
     const { name, value } = event.target;
@@ -388,7 +382,8 @@ export function Settings({ children, setIsLoading, isLoading, jwt }) {
                     <InputAdornment position="start">
                       <EnhancedEncryptionIcon></EnhancedEncryptionIcon>
                     </InputAdornment>
-                  ),}
+                  ),
+                }
                 }
                 error={passwordError}
                 helperText={

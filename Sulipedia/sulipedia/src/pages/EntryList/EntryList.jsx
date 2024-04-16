@@ -654,7 +654,7 @@ export function EntryList({
         .then((response) => {
           const receivedComments = response.data.comments;
           setComments(receivedComments);
-          
+
         })
         .catch((error) => {
           console.error("Error fetching comments:", error);
@@ -664,24 +664,24 @@ export function EntryList({
   }, [selectedEntry, open, jwt]);
 
   const handleCommentDelete = (index) => {
-    if(window.confirm("Biztosan törlöd ezt a kommentet?")){
-    axios
-      .delete(`/api/v1/comment/${index}`, {
-        headers: { Authorization: jwt },
-      })
-      .then((response) => {
-        setComments(comments.filter((comment) => comment.id !== index));
-        alert("Komment sikeresen törölve");
-      })
-      .catch((error) => {
-        console.error("Error deleting resource:", error);
-        alert("Sikertelen törlés! Más felhasználó kommentjét nem törölheted");
-      });
+    if (window.confirm("Biztosan törlöd ezt a kommentet?")) {
+      axios
+        .delete(`/api/v1/comment/${index}`, {
+          headers: { Authorization: jwt },
+        })
+        .then((response) => {
+          setComments(comments.filter((comment) => comment.id !== index));
+          alert("Komment sikeresen törölve");
+        })
+        .catch((error) => {
+          console.error("Error deleting resource:", error);
+          alert("Sikertelen törlés! Más felhasználó kommentjét nem törölheted");
+        });
     }
-    else{
+    else {
       alert("A komment nem lett törlve");
     }
-  }; 
+  };
 
   const handleAllAuthorsSelect = () => {
     setSelectedAuthor(null);
@@ -733,21 +733,22 @@ export function EntryList({
   }, [setIsLoading, isLoading]);
 
   const handleDeleteClick = (event) => {
-    if(window.confirm("Biztosan törölni szeretnéd a bejegyzést?")){
-    const entryId = event.currentTarget.id;
-    axios
-      .delete(`/api/v1/entry/${entryId}`, { headers: { Authorization: jwt } })
-      .then((response) => {
-        setEntries(entries.filter((entry) => entry.id !== response.data.id));
-        alert("Bejegyzés sikeresen törölve!");
-      })
-      .catch((error) => {
-        console.error("Hiba történt törlés során", error);
-        alert("Hiba történt törlés során");
-      }); }
-      else{
-        alert("A bejegyzés nem lett törölve.");
-      }
+    if (window.confirm("Biztosan törölni szeretnéd a bejegyzést?")) {
+      const entryId = event.currentTarget.id;
+      axios
+        .delete(`/api/v1/entry/${entryId}`, { headers: { Authorization: jwt } })
+        .then((response) => {
+          setEntries(entries.filter((entry) => entry.id !== response.data.id));
+          alert("Bejegyzés sikeresen törölve!");
+        })
+        .catch((error) => {
+          console.error("Hiba történt törlés során", error);
+          alert("Hiba történt törlés során");
+        });
+    }
+    else {
+      alert("A bejegyzés nem lett törölve.");
+    }
   };
 
   if (isLoading) return <Loading />;
@@ -818,6 +819,25 @@ export function EntryList({
         <Title variant="h3">{title}</Title>
         {selectedAuthor === null
           ? entries.map((entry, index) => (
+            <Entry
+              key={index}
+              id={entry.id}
+              title={entry.title}
+              content={entry.content}
+              createdOn={entry.createdOn}
+              authorId={entry.author.id}
+              currentUserId={currentUserId}
+              authorName={entry.author.username}
+              authorBgColor={entry.author.randomAvatarBgColor}
+              authorLogIn={entry.author.lastLogin}
+              authorLogOff={entry.author.lastLogoff}
+              handleEntryClick={handleEntryClick}
+              handleDeleteClick={handleDeleteClick}
+            />
+          ))
+          : entries
+            .filter((entry) => entry.author.username === selectedAuthor)
+            .map((entry, index) => (
               <Entry
                 key={index}
                 id={entry.id}
@@ -833,26 +853,7 @@ export function EntryList({
                 handleEntryClick={handleEntryClick}
                 handleDeleteClick={handleDeleteClick}
               />
-            ))
-          : entries
-              .filter((entry) => entry.author.username === selectedAuthor)
-              .map((entry, index) => (
-                <Entry
-                  key={index}
-                  id={entry.id}
-                  title={entry.title}
-                  content={entry.content}
-                  createdOn={entry.createdOn}
-                  authorId={entry.author.id}
-                  currentUserId={currentUserId}
-                  authorName={entry.author.username}
-                  authorBgColor={entry.author.randomAvatarBgColor}
-                  authorLogIn={entry.author.lastLogin}
-                  authorLogOff={entry.author.lastLogoff}
-                  handleEntryClick={handleEntryClick}
-                  handleDeleteClick={handleDeleteClick}
-                />
-              ))}
+            ))}
       </StyledContainer>
 
       {selectedEntry && (

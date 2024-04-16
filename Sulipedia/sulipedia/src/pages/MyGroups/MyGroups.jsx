@@ -385,56 +385,57 @@ export function MyGroups({
   }
 
   function deleteGroup(id) {
-    if(window.confirm("Biztosan törlöd ezt a csoportot?")){
-    if (
-      groups.filter((group) => group.id === id)[0].ownerId !==
-      Number(currentUserId)
-    ) {
-      alert("Ez a csoport nem az ön készítménye; törlés megtagadva.");
-      return;
-    }
-
-    axios
-      .delete(`/api/v1/group/${id}`, { headers: { Authorization: jwt } })
-      .then((response) => {
-        setIsLoading(true);
-        const updatedGroups = groups.filter(
-          (group) => group.id !== response.data.id
-        );
-        setGroups(updatedGroups);
-      })
-      .catch((errResponse) => {
-        const error = errResponse.response.data;
-        console.error("Hiba történt csoport törlése közben", errResponse);
-        switch (error.status) {
-          case 404:
-            alert(
-              "A törlendő felhasználót, vagy a csoport, melyből törlést kell végrehajtani nem találtuk!"
-            );
-            break;
-          case 410:
-            alert(
-              "Sajnáljuk, de nem ön a csoport vezetője, így a törlés végrehajtása sikertelen!"
-            );
-            break;
-          case 400:
-            alert(
-              "A törlendő csoport nem üres! Törlés előtt rúgja ki a csapattagokat!"
-            );
-            break;
-          case 401:
-            alert(
-              "Sajnáljuk, de a bejelentkezése érvénytelen. Kérjük jelentkezzen be újból."
-            );
-            break;
-          default:
-            alert("Váratlan hiba történt! Kérjük próbálja meg később");
-            break;
-        }
-      });}
-      else{
-        alert("A csoport nem lett törölve!");
+    if (window.confirm("Biztosan törlöd ezt a csoportot?")) {
+      if (
+        groups.filter((group) => group.id === id)[0].ownerId !==
+        Number(currentUserId)
+      ) {
+        alert("Ez a csoport nem az ön készítménye; törlés megtagadva.");
+        return;
       }
+
+      axios
+        .delete(`/api/v1/group/${id}`, { headers: { Authorization: jwt } })
+        .then((response) => {
+          setIsLoading(true);
+          const updatedGroups = groups.filter(
+            (group) => group.id !== response.data.id
+          );
+          setGroups(updatedGroups);
+        })
+        .catch((errResponse) => {
+          const error = errResponse.response.data;
+          console.error("Hiba történt csoport törlése közben", errResponse);
+          switch (error.status) {
+            case 404:
+              alert(
+                "A törlendő felhasználót, vagy a csoport, melyből törlést kell végrehajtani nem találtuk!"
+              );
+              break;
+            case 410:
+              alert(
+                "Sajnáljuk, de nem ön a csoport vezetője, így a törlés végrehajtása sikertelen!"
+              );
+              break;
+            case 400:
+              alert(
+                "A törlendő csoport nem üres! Törlés előtt rúgja ki a csapattagokat!"
+              );
+              break;
+            case 401:
+              alert(
+                "Sajnáljuk, de a bejelentkezése érvénytelen. Kérjük jelentkezzen be újból."
+              );
+              break;
+            default:
+              alert("Váratlan hiba történt! Kérjük próbálja meg később");
+              break;
+          }
+        });
+    }
+    else {
+      alert("A csoport nem lett törölve!");
+    }
   }
 
   function addMemberToGroup() {
@@ -521,67 +522,68 @@ export function MyGroups({
     console.log(groups);
   }, [groups]);
 
-  const handleLeaveGroup = (groupId) =>{
+  const handleLeaveGroup = (groupId) => {
 
-  } 
+  }
   const handleDeleteMember = (memberId) => {
-    if(window.confirm("Biztosan kidobod ezt a tagot a csoportból?")){
-    setIsLoading(true);
-    let updatedGroup = selectedGroup;
+    if (window.confirm("Biztosan kidobod ezt a tagot a csoportból?")) {
+      setIsLoading(true);
+      let updatedGroup = selectedGroup;
 
-    axios
-      .delete(`/api/v1/group/${selectedGroup.id}/${memberId}`, {
-        headers: { Authorization: jwt },
-      })
-      .then((response) => {
-        updatedGroup = {
-          ...selectedGroup,
-          members: selectedGroup.members.filter(
-            (member) => member.id !== response.data.users.users[0].id
-          ),
-        };
-        const updatedGroups = groups.map((group) =>
-          group.id === selectedGroup.id ? updatedGroup : group
-        );
+      axios
+        .delete(`/api/v1/group/${selectedGroup.id}/${memberId}`, {
+          headers: { Authorization: jwt },
+        })
+        .then((response) => {
+          updatedGroup = {
+            ...selectedGroup,
+            members: selectedGroup.members.filter(
+              (member) => member.id !== response.data.users.users[0].id
+            ),
+          };
+          const updatedGroups = groups.map((group) =>
+            group.id === selectedGroup.id ? updatedGroup : group
+          );
 
-        setGroups(updatedGroups);
-        handleOpenMembers(updatedGroup);
-        alert("Tag sikeresen eltávolítva  a csoportból");
-      })
-      .catch((errResponse) => {
-        const error = errResponse.response.data;
-        console.error("Hiba történt felhasználó törlése közben", errResponse);
-        switch (error.status) {
-          case 404:
-            alert(
-              "A törlendő felhasználót, vagy a csoport, melyből törlést kell végrehajtani nem találtuk"
-            );
-            break;
-          case 410:
-            alert(
-              "Sajnáljuk, de nem ön a csoport vezetője, így a törlés végrehajtása sikertelen!"
-            );
-            break;
-          case 400:
-            if (error.message === "USER_NOT_IN_GROUP") {
-              alert("A felhasználó nem található a megadott csoportban!");
-            } else {
-              alert("Sajnáljuk, de a csoport vezető nem törölheti önmagát!");
-            }
-            break;
-          case 401:
-            alert(
-              "Sajnáljuk, de a bejelentkezése érvénytelen. Kérjük jelentkezzen be újból."
-            );
-            break;
-          default:
-            alert("Váratlan hiba történt! Kérjük próbálja meg később");
-            break;
-        }
-      });}
-      else{
-        alert("A tag nem lett kidobva a csoportból.");
-      }
+          setGroups(updatedGroups);
+          handleOpenMembers(updatedGroup);
+          alert("Tag sikeresen eltávolítva  a csoportból");
+        })
+        .catch((errResponse) => {
+          const error = errResponse.response.data;
+          console.error("Hiba történt felhasználó törlése közben", errResponse);
+          switch (error.status) {
+            case 404:
+              alert(
+                "A törlendő felhasználót, vagy a csoport, melyből törlést kell végrehajtani nem találtuk"
+              );
+              break;
+            case 410:
+              alert(
+                "Sajnáljuk, de nem ön a csoport vezetője, így a törlés végrehajtása sikertelen!"
+              );
+              break;
+            case 400:
+              if (error.message === "USER_NOT_IN_GROUP") {
+                alert("A felhasználó nem található a megadott csoportban!");
+              } else {
+                alert("Sajnáljuk, de a csoport vezető nem törölheti önmagát!");
+              }
+              break;
+            case 401:
+              alert(
+                "Sajnáljuk, de a bejelentkezése érvénytelen. Kérjük jelentkezzen be újból."
+              );
+              break;
+            default:
+              alert("Váratlan hiba történt! Kérjük próbálja meg később");
+              break;
+          }
+        });
+    }
+    else {
+      alert("A tag nem lett kidobva a csoportból.");
+    }
   };
 
   if (isLoading) return <Loading />;
@@ -934,7 +936,7 @@ export function MyGroups({
                   </Tooltip>
                 </ListItemAvatar>
                 <ListItemText primary={member.name} />
-                <Tooltip title={ Number(currentUserId) !== selectedGroup.ownerId ? `Kilépés a csoportból`:`${member.name} kidobása a csoportból`}>
+                <Tooltip title={Number(currentUserId) !== selectedGroup.ownerId ? `Kilépés a csoportból` : `${member.name} kidobása a csoportból`}>
                   {member.id === selectedGroup.ownerId ? (
                     <></>
                   ) : Number(currentUserId) !== selectedGroup.ownerId ? (
