@@ -14,7 +14,6 @@ const styles = {
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    height: "100vh",
     background: "linear-gradient(135deg, #3494E6 0%, #EC6EAD 100%)",
     border: "5px solid #fff",
     borderRadius: "12px",
@@ -101,7 +100,13 @@ const styles = {
   },
 };
 
-export function MyProfile({ children, setIsLoading, isLoading, jwt, currentUserId }) {
+export function MyProfile({
+  children,
+  setIsLoading,
+  isLoading,
+  jwt,
+  currentUserId,
+}) {
   const [userData, setUserData] = useState({
     email: "pelda@email.com",
     username: "John Doe",
@@ -172,7 +177,7 @@ export function MyProfile({ children, setIsLoading, isLoading, jwt, currentUserI
             </Typography>
             <Typography variant="body1" style={styles.infoValue}>
               <div>{userData.email.split("@")[0]}</div>
-              {"@"+userData.email.split("@")[1]}
+              {"@" + userData.email.split("@")[1]}
             </Typography>
           </div>
           <div style={styles.infoItem}>
