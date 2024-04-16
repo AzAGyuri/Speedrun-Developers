@@ -20,16 +20,16 @@ public class ExceptionUtils {
     );
   }
 
-  public static ResponseStatusException unauthorized(String reason) {
-    return new ResponseStatusException(UNAUTHORIZED, reason);
-  }
-
   public static ResponseStatusException modelNotFound(String reason) {
     return new ResponseStatusException(NOT_FOUND, reason);
   }
 
   public static ResponseStatusException badRequest(String reason) {
     return new ResponseStatusException(BAD_REQUEST, reason);
+  }
+  
+  public static ResponseStatusException noYouDont(String reason) {
+    return new ResponseStatusException(FORBIDDEN, reason);
   }
 
   public static ResponseStatusException notUnique(String reason) {
@@ -39,8 +39,8 @@ public class ExceptionUtils {
   public static ResponseStatusException itsGoneBud(String reason) {
     return new ResponseStatusException(GONE, reason);
   }
-  
-  public static ResponseStatusException noYouDont(String reason) {
-    return new ResponseStatusException(FORBIDDEN, reason);
+
+  public static ResponseStatusException unauthorized(String reason) {
+    return new ResponseStatusException(UNAUTHORIZED, reason);
   }
 }
