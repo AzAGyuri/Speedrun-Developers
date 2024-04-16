@@ -357,6 +357,8 @@ export function MyGroups({
           members.push({
             id: member.id,
             name: member.username,
+            memberSince: member.createdOn,
+            email: member.email,
           });
         });
 
@@ -473,6 +475,8 @@ export function MyGroups({
             newMembers.push({
               id: user.id,
               name: user.username,
+              memberSince: user.createdOn,
+              email: user.email,
             });
           });
 
@@ -501,9 +505,14 @@ export function MyGroups({
 
     setNewMemberName("");
   }
+
   const handleEmailClick = (email) => {
     window.location.href = `mailto:${email}`;
   };
+
+  useEffect(() => {
+    console.log(groups);
+  }, [groups]);
 
   const handleDeleteMember = (memberId) => {
     setIsLoading(true);
@@ -850,7 +859,7 @@ export function MyGroups({
                               <div
                                 style={{
                                   padding: "auto",
-                                  margin:"auto",
+                                  margin: "auto",
                                   fontSize: "15px",
                                   color: "#211ee3",
                                   border: "1px solid black",
@@ -871,9 +880,7 @@ export function MyGroups({
                                   backgroundColor: "#84adf0",
                                 }}
                               >
-                                <div>
-                                Regisztáció napja: 
-                                </div>
+                                <div>Regisztáció napja:</div>
                                 <div>{member.memberSince}</div>
                               </div>
                             </TableRow>
