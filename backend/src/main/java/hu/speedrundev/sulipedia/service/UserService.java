@@ -258,13 +258,8 @@ public class UserService {
       "USER_REQUESTING_EXIT_IS_GROUP_CREATOR"
     );
 
-    realUser.setJoinedGroups(
-      realUser
-        .getJoinedGroups()
-        .stream()
-        .filter(group -> group.getId() != id)
-        .collect(Collectors.toSet())
-    );
+    Group exitedGroup = groupRepository.getReferenceById(id);
+    realUser.getJoinedGroups().remove(exitedGroup);
 
     return new GetUserWithGroups(repository.save(realUser));
   }
