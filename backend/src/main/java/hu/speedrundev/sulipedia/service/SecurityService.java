@@ -102,6 +102,17 @@ public class SecurityService {
   }
 
   public boolean isJWTValid(String token) {
+    if (token == null) throw nullPointer();
+
+    Optional<User> user = repository.findByUsername(jwtUtil.getSubject(token));
+
+    if (user.isEmpty()) throw modelNotFound("USER_NOT_FOUND");
+
+    User realUser = user.get();
+
+    realUser.setLastLogin(LocalDateTime.now());
+    repository.save(realUser);
+
     return !jwtUtil.isTokenExpired(token);
   }
 }
