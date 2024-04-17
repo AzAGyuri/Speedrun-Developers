@@ -57,7 +57,7 @@ public class EntryService {
   private JwtUtil jwtUtil;
 
   public EntryList getEntriesByOptionalSubject(SubjectDto subject) {
-    if (subject == null) return new EntryList(
+    if (subject == null || subject.toString().isBlank()) return new EntryList(
       entryRepository
         .findAll()
         .stream()
@@ -90,7 +90,12 @@ public class EntryService {
 
   public EntryList getTestsByOptionalSubject(SubjectDto subject) {
     if (subject == null || subject.toString().isBlank()) return new EntryList(
-      entryRepository.findAll().stream().filter(Entry::getTest).toList()
+      entryRepository
+        .findAll()
+        .stream()
+        .filter(Entry::getTest)
+        .filter(entry -> entry.getDeleted() == null)
+        .toList()
     );
 
     return new EntryList(
@@ -108,14 +113,14 @@ public class EntryService {
   public GetEntryWithID createEntry(
     PostEntry entry,
     MultipartFile[] files,
-    String jwt
+    String token
   ) {
-    if (entry == null || jwt == null) throw nullPointer();
+    if (entry == null || token == null) throw nullPointer();
 
     if (entry.isAnyNull()) throw badRequest("INPUT_PARAMS_ARE_NULL");
 
     Optional<User> author = userRepository.findByUsername(
-      jwtUtil.getSubject(jwt.substring("Bearer".length()).trim())
+      jwtUtil.getSubject(token.substring("Bearer".length()).trim())
     );
 
     if (author.isEmpty()) throw modelNotFound("AUTHOR_NOT_FOUND");
@@ -236,7 +241,7 @@ public class EntryService {
   // }
 
   public GetEntryWithID logicalDeleteEntry(Integer id, String token) {
-    if (id == null) throw nullPointer();
+    if (id == null || token == null) throw nullPointer();
 
     Optional<User> deleter = userRepository.findByUsername(
       jwtUtil.getSubject(token)
