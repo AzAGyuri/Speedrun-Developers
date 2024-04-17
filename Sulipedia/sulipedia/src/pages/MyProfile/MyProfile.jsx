@@ -1,5 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { Container, Typography, Avatar, Paper, Button } from "@mui/material";
+import {
+  Container,
+  Typography,
+  Avatar,
+  Paper,
+  Button,
+  useMediaQuery,
+} from "@mui/material";
 import { Loading } from "../../components/Loading/Loading";
 import axios from "axios";
 import LocalPhoneIcon from "@mui/icons-material/LocalPhone";
@@ -111,11 +118,13 @@ export function MyProfile({
     email: "pelda@email.com",
     username: "John Doe",
     phoneNumber: "123-456-7890",
-    registrationDate: "2024-03-01",
+    nickname: "Jani",
+    registrationDate: "2024-03-01 12:00:00",
     userId: "123456789",
     profileImage: "path/to/profile-image.jpg",
     randomAvatarBgColor: "",
   });
+  const isSmallScreen = useMediaQuery("(max-width:950px)");
 
   useEffect(() => {
     if (currentUserId !== 0) {
@@ -201,10 +210,11 @@ export function MyProfile({
           <div style={styles.infoItem}>
             <Typography variant="body1" style={styles.infoLabel}>
               <DateRangeIcon></DateRangeIcon>
-              Regisztáció napja:
+              {isSmallScreen ? "Reg. napja:" : "Regisztáció napja:"}
             </Typography>
             <Typography variant="body1" style={styles.infoValue}>
-              {userData.registrationDate}
+              <div>{userData.registrationDate.split(" ")[0]}</div>
+              {userData.registrationDate.split(" ")[1]}
             </Typography>
           </div>
           <div style={styles.infoItem}>
