@@ -55,6 +55,8 @@
 
 ## API Dokumentáció
 
+[Admin API](backend-dev-docs/apis/admin-api.md)
+
 [Elérhetőség kezelő API](backend-dev-docs/apis/availability-api.md)
 
 [Komment kezelő API](backend-dev-docs/apis/comment-api.md)
