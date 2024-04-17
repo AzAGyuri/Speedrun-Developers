@@ -29,6 +29,7 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 import { Loading } from "../../components/Loading/Loading";
 import axios from "axios";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
+import { border } from "@mui/system";
 
 const styles = {
   container: {
@@ -194,18 +195,24 @@ export function MyGroups({
         name: "John Doe",
         email: "semmi@valami.com",
         memberSince: "2024-04-14 14:28:43",
+        login: "2024-04-14 14:28:43",
+        logoff: "2024-04-14 14:28:44"
       },
       {
         id: 2,
         name: "Alice Smith",
         email: "semmi@valami.com",
         memberSince: "2024-04-14 14:28:43",
+        login: "2024-04-14 14:28:43",
+        logoff: "2024-04-14 14:28:44"
       },
       {
         id: 3,
         name: "Bob Johnson",
         email: "semmi@valami.com",
         memberSince: "2024-04-14 14:28:43",
+        login: "2024-04-14 14:28:43",
+        logoff: "2024-04-14 14:28:44"
       },
     ],
     ownerId: 1,
@@ -292,6 +299,9 @@ export function MyGroups({
               name: user.username,
               email: user.email,
               memberSince: user.createdOn,
+              login:user.lastLogin,
+              logoff: user.lastLogoff,
+              avatarColor: user.randomAvatarBgColor
             });
           });
 
@@ -300,6 +310,7 @@ export function MyGroups({
           setGroups(localGroups);
           setSelectedGroup(group);
           setShowMembers(true);
+          console.log(localMembers);
         })
 
         .catch((error) => {
@@ -360,6 +371,8 @@ export function MyGroups({
             name: member.username,
             memberSince: member.createdOn,
             email: member.email,
+            login: member.lastLogin,
+            logoff: member.lastLogoff
           });
         });
 
@@ -483,9 +496,11 @@ export function MyGroups({
               name: user.username,
               memberSince: user.createdOn,
               email: user.email,
+              login: user.lastLogin,
+              logoff: user.lastLogoff,
+              avatarColor: user.randomAvatarBgColor
             });
           });
-
           const updatedGroup = {
             ...selectedGroup,
             members: [...selectedGroup.members, ...newMembers],
@@ -938,8 +953,10 @@ export function MyGroups({
                                 }}
                               >
                                 <Avatar
-                                  style={{
-                                    backgroundColor: "red",
+                                  style={{ 
+                                    border:
+                                      new Date(member.login).getTime() > new Date(member.logoff).getTime() ? ("2px solid blue") : ("2px solid red"),
+                                    backgroundColor: member.avatarColor,
                                     alignSelf: "center",
                                   }}
                                 >
@@ -952,7 +969,12 @@ export function MyGroups({
                       </div>
                     }
                   >
-                    <Avatar>{member.name[0]}</Avatar>
+                    <Avatar  style={{ 
+                                    border:
+                                      new Date(member.login).getTime() > new Date(member.logoff).getTime() ? ("2px solid blue") : ("2px solid red"),
+                                      backgroundColor: member.avatarColor,
+                                    alignSelf: "center",
+                                  }}>{member.name[0]}</Avatar>
                   </Tooltip>
                 </ListItemAvatar>
                 <ListItemText primary={member.name} />
