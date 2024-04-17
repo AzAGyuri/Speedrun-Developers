@@ -74,7 +74,7 @@ export function Settings({ children, setIsLoading, isLoading, jwt }) {
     nickname: null,
     password: null,
     confirmPassword: null,
-    oldPass : null
+    oldPass: null
   });
   const [passwordError, setPasswordError] = useState(false);
   const [avatar, setAvatar] = useState("");
@@ -236,7 +236,7 @@ export function Settings({ children, setIsLoading, isLoading, jwt }) {
             </Grid>
             <Grid item xs={12}>
               <TextField
-                style={{ background: "#acc7f2", borderRight: "2px solid black", borderLeft: "2px solid black", borderBottom: "2px solid black" }}
+                style={{ borderRadius: "6px", background: "#acc7f2", borderRight: "2px solid black", borderLeft: "2px solid black", borderBottom: "2px solid black" }}
                 InputProps={{
                   startAdornment: (
                     <InputAdornment position="start">
@@ -262,7 +262,7 @@ export function Settings({ children, setIsLoading, isLoading, jwt }) {
             </Grid>
             <Grid item xs={12}>
               <TextField
-                style={{ background: "#acc7f2", borderRight: "2px solid black", borderLeft: "2px solid black", borderBottom: "2px solid black" }}
+                style={{ borderRadius: "6px", background: "#acc7f2", borderRight: "2px solid black", borderLeft: "2px solid black", borderBottom: "2px solid black" }}
                 InputProps={{
                   startAdornment: (
                     <InputAdornment position="start">
@@ -294,7 +294,7 @@ export function Settings({ children, setIsLoading, isLoading, jwt }) {
             </Grid>
             <Grid item xs={12}>
               <TextField
-                style={{ background: "#acc7f2", borderRight: "2px solid black", borderLeft: "2px solid black", borderBottom: "2px solid black" }}
+                style={{ borderRadius: "6px", background: "#acc7f2", borderRight: "2px solid black", borderLeft: "2px solid black", borderBottom: "2px solid black" }}
                 InputProps={{
                   startAdornment: (
                     <InputAdornment position="start">
@@ -314,120 +314,121 @@ export function Settings({ children, setIsLoading, isLoading, jwt }) {
                     fontSize: "18px",
                     color: "black",
                     textShadow: "3px 3px 2px #fe7180",
-                  },  
+                  },
                 }}
               />
             </Grid>
 
             <Grid item xs={12}>
-              <div style={{border:"2px solid black", padding:"3%"}}>
-              <div style={{marginLeft:"20%", marginRight: "20%", marginBottom:"3%"}}>
-              <TextField label="Régi jelszó megadása"
-              InputProps={{
-                startAdornment: (
-                  <InputAdornment position="start">
-                    <ElderlyIcon></ElderlyIcon>
-                    <LockSharpIcon></LockSharpIcon>
-                  </InputAdornment>
-                ),
-              }} style={{
-                  background: "#acc7f2",
-                  borderRight: "2px solid black",
-                  borderLeft: "2px solid black",
-                  borderBottom: "2px solid black",
-                  marginBottom: "2%",
-                }}></TextField>
+              <div style={{ borderRadius: "6px", border: "2px solid black", padding: "3%" }}>
+                <div style={{ marginLeft: "20%", marginRight: "20%", marginBottom: "3%" }}>
+                  <TextField label="Régi jelszó"
+                    InputProps={{
+                      startAdornment: (
+                        <InputAdornment position="start">
+                          <LockSharpIcon></LockSharpIcon>
+                        </InputAdornment>
+                      ),
+                    }} style={{
+                      borderRadius: "6px",
+                      background: "#acc7f2",
+                      borderRight: "2px solid black",
+                      borderLeft: "2px solid black",
+                      borderBottom: "2px solid black",
+                      marginBottom: "2%",
+                    }}></TextField>
+                </div>
+                <div>
+                  <Grid item xs={12}>
+                    <TextField
+                      style={{borderRadius:"6px", background: "#acc7f2", borderRight: "2px solid black", borderLeft: "2px solid black", borderBottom: "2px solid black" }}
+                      fullWidth
+                      name="password"
+                      label="Jelszó megváltoztatása"
+                      type={showPassword ? "text" : "password"}
+                      autoComplete="new-password"
+                      value={formData.password}
+                      onChange={handleFormChange}
+                      error={passwordError}
+                      helperText={
+                        passwordError
+                          ? "A jelszónak legalább 8 karakter hosszúnak kell lennie, tartalmaznia kell betűt és számot"
+                          : ""
+                      }
+                      InputProps={{
+                        startAdornment: (
+                          <InputAdornment position="start">
+                            <EnhancedEncryptionIcon></EnhancedEncryptionIcon>
+                          </InputAdornment>
+                        ),
+                        endAdornment: (
+                          <InputAdornment style={{ cursor: "pointer" }} position="end">
+                            {showPassword ? (
+                              <VisibilityIcon onClick={togglePasswordVisibility} />
+                            ) : (
+                              <VisibilityOffIcon onClick={togglePasswordVisibility} />
+                            )}
+                          </InputAdornment>
+                        ),
+                      }}
+                      FormHelperTextProps={{
+                        style: {
+                          color: "#8B0000",
+                          fontSize: "13px",
+                        },
+                      }}
+                      InputLabelProps={{
+                        style: {
+                          fontSize: "18px",
+                          textShadow: "3px 3px 2px #fe7180",
+                          color: passwordError ? "#8B0000" : "black",
+                        },
+                      }}
+                    />
+                  </Grid>
+                  <Grid item xs={12}>
+                    <TextField
+                      style={{
+                        borderRadius:"6px",
+                        background: "#acc7f2",
+                        borderRight: "2px solid black",
+                        borderLeft: "2px solid black",
+                        borderBottom: "2px solid black",
+                      }}
+                      fullWidth
+                      name="confirmPassword"
+                      type={showPassword ? "text" : "password"}
+                      value={formData.confirmPassword}
+                      onChange={handleFormChange}
+                      margin="normal"
+                      label="Jelszó újra"
+                      InputProps={{
+                        startAdornment: (
+                          <InputAdornment position="start">
+                            <EnhancedEncryptionIcon></EnhancedEncryptionIcon>
+                          </InputAdornment>
+                        ),
+                      }
+                      }
+                      error={passwordError}
+                      helperText={
+                        passwordError
+                          ? "A jelszónak legalább 8 karakter hosszúnak kell lennie, tartalmaznia kell betűt és számot"
+                          : ""
+                      }
+                      InputLabelProps={{
+                        style: {
+                          fontSize: "18px",
+                          color: "black",
+                          textShadow: "3px 3px 2px #fe7180",
+                        },
+                      }}
+                    />
+                  </Grid>
+                </div>
               </div>
-              <div>
-            <Grid item xs={12}>
-              <TextField
-                style={{ background: "#acc7f2", borderRight: "2px solid black", borderLeft: "2px solid black", borderBottom: "2px solid black" }}
-                fullWidth
-                name="password"
-                label="Jelszó megváltoztatása"
-                type={showPassword ? "text" : "password"}
-                autoComplete="new-password"
-                value={formData.password}
-                onChange={handleFormChange}
-                error={passwordError}
-                helperText={
-                  passwordError
-                    ? "A jelszónak legalább 8 karakter hosszúnak kell lennie, tartalmaznia kell betűt és számot"
-                    : ""
-                }
-                InputProps={{
-                  startAdornment: (
-                    <InputAdornment position="start">
-                      <LockSharpIcon> </LockSharpIcon>
-                    </InputAdornment>
-                  ),
-                  endAdornment: (
-                    <InputAdornment style={{ cursor: "pointer" }} position="end">
-                      {showPassword ? (
-                        <VisibilityIcon onClick={togglePasswordVisibility} />
-                      ) : (
-                        <VisibilityOffIcon onClick={togglePasswordVisibility} />
-                      )}
-                    </InputAdornment>
-                  ),
-                }}
-                FormHelperTextProps={{
-                  style: {
-                    color: "#8B0000",
-                    fontSize: "13px",
-                  },
-                }}
-                InputLabelProps={{
-                  style: {
-                    fontSize: "18px",
-                    textShadow: "3px 3px 2px #fe7180",
-                    color: passwordError ? "#8B0000" : "black",
-                  },
-                }}
-              />
             </Grid>
-            <Grid item xs={12}>
-              <TextField
-                style={{
-                  background: "#acc7f2",
-                  borderRight: "2px solid black",
-                  borderLeft: "2px solid black",
-                  borderBottom: "2px solid black",
-                }}
-                fullWidth
-                name="confirmPassword"
-                type={showPassword ? "text" : "password"}
-                value={formData.confirmPassword}
-                onChange={handleFormChange}
-                margin="normal"
-                label="Jelszó újra"
-                InputProps={{
-                  startAdornment: (
-                    <InputAdornment position="start">
-                      <EnhancedEncryptionIcon></EnhancedEncryptionIcon>
-                    </InputAdornment>
-                  ),
-                }
-                }
-                error={passwordError}
-                helperText={
-                  passwordError
-                    ? "A jelszónak legalább 8 karakter hosszúnak kell lennie, tartalmaznia kell betűt és számot"
-                    : ""
-                }
-                InputLabelProps={{
-                  style: {
-                    fontSize: "18px",
-                    color: "black",
-                    textShadow: "3px 3px 2px #fe7180",
-                  },
-                }}
-              />
-            </Grid>
-            </div>
-            </div>
-            </Grid>
-            
+
           </Grid>
         </section>
         <Button
