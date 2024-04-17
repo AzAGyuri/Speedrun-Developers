@@ -397,6 +397,19 @@ export function Settings({ children, setIsLoading, isLoading, jwt }) {
                       borderBottom: "2px solid black",
                       marginBottom: "2%",
                     }}
+                    FormHelperTextProps={{
+                      style: {
+                        color: "#8B0000",
+                        fontSize: "13px",
+                      },
+                    }}
+                    InputLabelProps={{
+                      style: {
+                        fontSize: "18px",
+                        textShadow: "3px 3px 2px #fe7180",
+                        color: passwordError ? "#8B0000" : "black",
+                      },
+                    }}
                   ></TextField>
                 </div>
                 <div>
