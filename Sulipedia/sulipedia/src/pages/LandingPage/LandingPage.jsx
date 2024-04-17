@@ -173,7 +173,7 @@ export function LandingPage({ children, setIsLoading, isLoading, jwt }) {
           let newEntry = response.data;
           console.log("Entry sikeresen közzétéve:", newEntry);
           alert("Bejegyzés sikeresen közzétéve!");
-          setEntries(entries.concat(newEntry));
+          setEntries([newEntry].concat(entries));
         })
         .catch((error) => {
           console.error("Hiba történt a bejegyzés közzététele közben:", error);
