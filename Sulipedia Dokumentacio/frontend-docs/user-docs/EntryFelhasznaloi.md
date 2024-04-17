@@ -16,6 +16,8 @@ Az `Entry` komponens egy stílusos és interaktív bejegyzést jelenít meg az a
 
 4. **Szűrés közzétevő alapján**: A felhasználók egy fiók-szerű gomb segítségével könnyedén rászürhetnek megadott bejegyzést közzétevők bejegyzéseire.
 
+5. **Bejegyzést közzétevők elérhetősége**: A felhasználók láthatják a bejegyzést közzétevők elérhetőségét. Kék színnel az online, pirossal az offline állapot jelezve. 
+
 ---
 
 ### Fontos Megjegyzések
