@@ -64,6 +64,7 @@ export default function SignIn({ setIsLoading, jwt }) {
         .then((response) => {
           localStorage.setItem("jwt", "Bearer " + response.headers.jwt);
           localStorage.setItem("currentUserId", response.data.id);
+          localStorage.setItem("roles", JSON.stringify(response.data.roles));
           navigate("/kezdo");
           setIsLoading(true);
         })
