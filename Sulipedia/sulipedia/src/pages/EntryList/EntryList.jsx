@@ -636,11 +636,10 @@ export function EntryList({
       )
       .then(function (response) {
         setComments(comments.concat(response.data));
-        alert("Komment sikeresen elküldve!");
       })
       .catch(function (error) {
         console.error("Error submitting comment:", error);
-        alert("Hiba a komment elküldésekor");
+        alert("Hiba történt komment elküldésekor");
       });
     setNewComment("");
   };
@@ -654,7 +653,6 @@ export function EntryList({
         .then((response) => {
           const receivedComments = response.data.comments;
           setComments(receivedComments);
-
         })
         .catch((error) => {
           console.error("Error fetching comments:", error);
@@ -677,8 +675,7 @@ export function EntryList({
           console.error("Error deleting resource:", error);
           alert("Sikertelen törlés! Más felhasználó kommentjét nem törölheted");
         });
-    }
-    else {
+    } else {
       alert("A komment nem lett törlve");
     }
   };
@@ -745,8 +742,7 @@ export function EntryList({
           console.error("Hiba történt törlés során", error);
           alert("Hiba történt törlés során");
         });
-    }
-    else {
+    } else {
       alert("A bejegyzés nem lett törölve.");
     }
   };
@@ -819,25 +815,6 @@ export function EntryList({
         <Title variant="h3">{title}</Title>
         {selectedAuthor === null
           ? entries.map((entry, index) => (
-            <Entry
-              key={index}
-              id={entry.id}
-              title={entry.title}
-              content={entry.content}
-              createdOn={entry.createdOn}
-              authorId={entry.author.id}
-              currentUserId={currentUserId}
-              authorName={entry.author.username}
-              authorBgColor={entry.author.randomAvatarBgColor}
-              authorLogIn={entry.author.lastLogin}
-              authorLogOff={entry.author.lastLogoff}
-              handleEntryClick={handleEntryClick}
-              handleDeleteClick={handleDeleteClick}
-            />
-          ))
-          : entries
-            .filter((entry) => entry.author.username === selectedAuthor)
-            .map((entry, index) => (
               <Entry
                 key={index}
                 id={entry.id}
@@ -853,7 +830,26 @@ export function EntryList({
                 handleEntryClick={handleEntryClick}
                 handleDeleteClick={handleDeleteClick}
               />
-            ))}
+            ))
+          : entries
+              .filter((entry) => entry.author.username === selectedAuthor)
+              .map((entry, index) => (
+                <Entry
+                  key={index}
+                  id={entry.id}
+                  title={entry.title}
+                  content={entry.content}
+                  createdOn={entry.createdOn}
+                  authorId={entry.author.id}
+                  currentUserId={currentUserId}
+                  authorName={entry.author.username}
+                  authorBgColor={entry.author.randomAvatarBgColor}
+                  authorLogIn={entry.author.lastLogin}
+                  authorLogOff={entry.author.lastLogoff}
+                  handleEntryClick={handleEntryClick}
+                  handleDeleteClick={handleDeleteClick}
+                />
+              ))}
       </StyledContainer>
 
       {selectedEntry && (
@@ -922,13 +918,17 @@ export function EntryList({
                         {comment.author.username}
                       </CommentAuthor>
                       <CommentDate>{comment.createdOn}</CommentDate>
-                      <IconButton
-                        edge="end"
-                        color="inherit"
-                        onClick={() => handleCommentDelete(comment.id)}
-                      >
-                        <DeleteIcon />
-                      </IconButton>
+                      {comment.author.id === Number(currentUserId) ? (
+                        <IconButton
+                          edge="end"
+                          color="inherit"
+                          onClick={() => handleCommentDelete(comment.id)}
+                        >
+                          <DeleteIcon />
+                        </IconButton>
+                      ) : (
+                        <></>
+                      )}
                     </div>
                   </Comment>
                 ))}
