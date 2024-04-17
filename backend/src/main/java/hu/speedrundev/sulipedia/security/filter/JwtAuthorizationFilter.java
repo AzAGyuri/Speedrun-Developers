@@ -5,6 +5,8 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import hu.speedrundev.sulipedia.dto.ExceptionResponse;
+import hu.speedrundev.sulipedia.model.User;
+import hu.speedrundev.sulipedia.repository.UserRepository;
 import hu.speedrundev.sulipedia.util.JwtUtil;
 import io.jsonwebtoken.ExpiredJwtException;
 import jakarta.servlet.FilterChain;
@@ -13,6 +15,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -32,6 +35,9 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
 
   @Autowired
   private JwtUtil jwtUtil;
+
+  @Autowired
+  private UserRepository userRepository;
 
   @Override
   protected void doFilterInternal(
@@ -53,12 +59,11 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
         filterChain.doFilter(request, response);
         return;
       }
+      //extract token, then username from token
+      String token = authorizationHeader.substring("Bearer".length()).trim();
+      String username = jwtUtil.getSubject(token);
 
       try {
-        //extract token, then username from token
-        String token = authorizationHeader.substring("Bearer".length()).trim();
-        String username = jwtUtil.getSubject(token);
-
         if (
           jwtUtil.isTokenValid(username, token) &&
           SecurityContextHolder.getContext().getAuthentication() == null
@@ -76,7 +81,8 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
         } else {
           SecurityContextHolder.clearContext();
         }
-      } catch (ExpiredJwtException ejwte) { //catch the case where the jwt token is found to be expired
+      } catch (ExpiredJwtException ejwte) {
+        //catch the case where the jwt token is found to be expired
         //setup an unauthorized exception response
 
         ExceptionResponse exceptionResponse = new ExceptionResponse(
@@ -95,6 +101,17 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
           ),
           request.getServletPath()
         );
+
+        /* setup the user as logged out; it should exist, since
+         * otherwise much of the rest of this wouldn't even run to begin with
+         * the whole reason we got here is that the user does exist by jwt
+         * but its jwt is expired
+         */
+        
+        User loggedOut = userRepository.findByUsername(username).get();
+        loggedOut.setLastLogin(LocalDateTime.now());
+        loggedOut.setLastLogoff(LocalDateTime.now());
+        userRepository.save(loggedOut);
 
         response.setContentType(APPLICATION_JSON_VALUE);
         response.setStatus(UNAUTHORIZED.value());
