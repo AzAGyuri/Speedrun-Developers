@@ -314,40 +314,40 @@ public class UserController {
   //   );
   // }
 
-  // /**
-  //  * <h3>DELETE(/user/{id})</h3>
-  //  *
-  //  * Delete a user logically
-  //  *
-  //  * @param id the ID of the user to be set for deletion
-  //  * (required) ({@code @PathVariable} {@code Integer})
-  //  *
-  //  * @return a new {@code GetUser}
-  //  * as conformation of successful logical deletion
-  //  *
-  //  * @throws ResponseStatusException
-  //  * with {@code HttpStatus.INTERNAL_SERVER_ERROR}
-  //  * and reason {@code UNEXPECTED_NULL_POINTER_EXCEPTION}
-  //  * if the service for some reason
-  //  * recieves a {@code null} on any input params
-  //  *
-  //  * @throws ResponseStatusException
-  //  * with {@code HttpStatus.NOT_FOUND}
-  //  * and reason {@code USER_NOT_FOUND}
-  //  * if the user could not be properly extracted from the JWT
-  //  */
-  // @Operation(
-  //   summary = "Delete one user from DB logically",
-  //   description = "Az adatbázisban tárolt felhasználót logikailag töröljük"
-  // )
-  // @DeleteMapping("/user")
-  // public GetUser logicalDeletionOfUser(
-  //   @RequestHeader(name = "Authorization") String jwt
-  // ) {
-  //   return service.logicalDeletionOfUser(
-  //     jwt.substring("Bearer".length()).trim()
-  //   );
-  // }
+  /**
+   * <h3>DELETE(/user/{id})</h3>
+   *
+   * Delete a user logically
+   *
+   * @param id the ID of the user to be set for deletion
+   * (required) ({@code @PathVariable} {@code Integer})
+   *
+   * @return a new {@code GetUser}
+   * as conformation of successful logical deletion
+   *
+   * @throws ResponseStatusException
+   * with {@code HttpStatus.INTERNAL_SERVER_ERROR}
+   * and reason {@code UNEXPECTED_NULL_POINTER_EXCEPTION}
+   * if the service for some reason
+   * recieves a {@code null} on any input params
+   *
+   * @throws ResponseStatusException
+   * with {@code HttpStatus.NOT_FOUND}
+   * and reason {@code USER_NOT_FOUND}
+   * if the user could not be properly extracted from the JWT
+   */
+  @Operation(
+    summary = "Delete one user from DB logically",
+    description = "Az adatbázisban tárolt felhasználót logikailag töröljük"
+  )
+  @DeleteMapping("/user")
+  public GetUser logicalDeletionOfUser(
+    @RequestHeader(name = "Authorization") String jwt
+  ) {
+    return service.logicalDeletionOfUser(
+      jwt.substring("Bearer".length()).trim()
+    );
+  }
 
   // /**
   //  * <h3>DELETE(/user/nulled/{id})</h3>
