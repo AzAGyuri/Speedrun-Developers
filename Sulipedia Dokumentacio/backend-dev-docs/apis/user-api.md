@@ -37,7 +37,7 @@ Frissíti a felhasználó adatait az adatbázisban.
         "phoneNumber": "string"
       }
       ```
-    - Fejléc: `Authorization` - A felhasználó JSON Web Token-je.
+    - Fejléc: `jwt` - A felhasználó JSON Web Token-je.
 - **Válasz:**
   - Állapot: `200 OK`
   - Test: `GetUser` - A frissített felhasználó adataival.
@@ -50,6 +50,30 @@ Frissíti a felhasználó adatait az adatbázisban.
   - `USER_NOT_FOUND`: A felhasználó nem található a token alapján.
   - `USER_EMAIL_ALREADY_TAKEN`: Az új e-mail cím már foglalt.
 
+---
+
+#### `PUT(/user)`
+
+Frissíti a felhasználó adatait az adatbázisban.
+
+- **Kérés:**
+  - Metódus: `PUT`
+  - Végpont: `/user`
+  - Bemenet:
+    - Útvonal: `id` - Azon csoport azonosítója, melyből a felhasználó szándékozik kilépni.
+    - Fejléc: `jwt` - A felhasználó JSON Web Token-je.
+- **Válasz:**
+  - Állapot: `200 OK`
+  - Test: `GetUserWithGroups` - A felhasználó a kilépett csoport nélkül a csoport listájában.
+- **Kivételek:**
+  - `INTERNAL_SERVER_ERROR`: Váratlan null érték vagy belső szerverhiba.
+  - `NOT_FOUND`: Nem található.
+    - `GROUP_NOT_FOUND`: A kért csoport nem található azonosító alapján.
+    - `USER_NOT_FOUND`: A felhasználó nem található JWT alapján.
+  - `BAD_REQUEST`: Hibás kérés.
+    - `USER_REQUESTING_EXIT_IS_NOT_MEMBER_IN_GROUP`: A felhasználó, aki indítványozta a kérést az nem tagja a megadott csoportnak.
+    - `USER_REQUESTING_EXIT_IS_GROUP_CREATOR`: A felhasználó, aki indítványozta a kérést az a csoport készítője.
+
 ### Szolgáltatás
 
 A `UserService` osztály végzi a felhasználókkal kapcsolatos üzleti logikát és adatelérést.
@@ -58,6 +82,7 @@ A `UserService` osztály végzi a felhasználókkal kapcsolatos üzleti logikát
 
 - `getUser(id: Integer)`: Felhasználó összes adatainak lekérdezése, azonosítója alapján.
 - `updateUser(changes: UpdateUser, token: String)`: Felhasználó adatainak frissítése JWT alapján.
+- `removeUserFromGroup(id: Integer, token: String)`: Felhasználó kiléptetése a csoportból JWT alapján.
 
 ### Adatbázis
 
