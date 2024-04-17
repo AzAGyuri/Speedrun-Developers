@@ -166,14 +166,14 @@ public class User {
     return (
       (
         this.nickname == null
-          ? false
+          ? updatingUser.getNickname() == this.nickname
           : this.nickname.equalsIgnoreCase(updatingUser.getNickname())
       ) &&
       this.userPassword.equalsIgnoreCase(updatingUser.getUserPassword()) &&
       this.email.equalsIgnoreCase(updatingUser.getEmail()) &&
       (
         this.phoneNumber == null
-          ? false
+          ? updatingUser.getPhoneNumber() == this.phoneNumber
           : this.phoneNumber.equalsIgnoreCase(updatingUser.getPhoneNumber())
       )
     );
