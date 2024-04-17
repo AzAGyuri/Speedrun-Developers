@@ -52,13 +52,13 @@ Frissíti a felhasználó adatait az adatbázisban.
 
 ---
 
-#### `PUT(/user)`
+#### `PATCH(/user/group/{id})`
 
-Frissíti a felhasználó adatait az adatbázisban.
+Kilépteti a felhasználót egy útvonalban érkező ID alapján azonosított csoportból.
 
 - **Kérés:**
-  - Metódus: `PUT`
-  - Végpont: `/user`
+  - Metódus: `PATCH`
+  - Végpont: `/user/group/{id}`
   - Bemenet:
     - Útvonal: `id` - Azon csoport azonosítója, melyből a felhasználó szándékozik kilépni.
     - Fejléc: `jwt` - A felhasználó JSON Web Token-je.
