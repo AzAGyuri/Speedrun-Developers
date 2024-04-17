@@ -398,23 +398,28 @@ public class UserController {
    * 
    * @throws ResponseStatusException with status code
    * {@code HttpStatus.INTERNAL_SERVER_ERROR} with reason
-   * {@code UNEXPECTED_NULL_POINTER_EXCEPTION} if
+   * {@code UNEXPECTED_NULL_POINTER_EXCEPTION} if the service
+   * for some reason recieved a null value on any inputs
    * 
    * @throws ResponseStatusException with status code
    * {@code HttpStatus.NOT_FOUND} with reason
-   * {@code GROUP_NOT_FOUND} if
+   * {@code GROUP_NOT_FOUND} if the ID of the group did not
+   * correspond to any stored in the DB
    * 
    * @throws ResponseStatusException with status code
    * {@code HttpStatus.NOT_FOUND} with reason
-   * {@code USER_NOT_FOUND} if
+   * {@code USER_NOT_FOUND} if the user could not be properly
+   * extracted from the JWT
    * 
    * @throws ResponseStatusException with status code
    * {@code HttpStatus.BAD_REQUEST} with reason
    * {@code USER_REQUESTING_EXIT_IS_NOT_MEMBER_IN_GROUP} if
+   * the user making the exit request is not a member in the agiven group
    * 
    * @throws ResponseStatusException with status code
    * {@code HttpStatus.BAD_REQUEST} with reason
    * {@code USER_REQUESTING_EXIT_IS_GROUP_CREATOR} if
+   * the user making the exit request is the group's creator
    */
   @PatchMapping("/user/group/{id}")
   public GetUserWithGroups removeUserFromGroup(
