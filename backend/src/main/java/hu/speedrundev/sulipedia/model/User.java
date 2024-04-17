@@ -150,13 +150,13 @@ public class User {
     return (
       (
         this.nickname == null
-          ? false
+          ? changes.getNickname() == this.nickname
           : this.nickname.equalsIgnoreCase(changes.getNickname())
       ) &&
       this.email.equalsIgnoreCase(changes.getEmail()) &&
       (
         this.phoneNumber == null
-          ? false
+          ? changes.getPhoneNumber() == this.phoneNumber
           : this.phoneNumber.equalsIgnoreCase(changes.getPhoneNumber())
       )
     );
