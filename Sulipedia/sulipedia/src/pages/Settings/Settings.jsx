@@ -6,7 +6,7 @@ import {
   TextField,
   Button,
   Grid,
-  Avatar
+  Avatar,
 } from "@mui/material";
 import "./Settings.css";
 import { Loading } from "../../components/Loading/Loading";
@@ -17,11 +17,10 @@ import BadgeIcon from "@mui/icons-material/Badge";
 import InputAdornment from "@mui/material/InputAdornment";
 import LocalPhoneIcon from "@mui/icons-material/LocalPhone";
 import { useNavigate } from "react-router-dom";
-import VisibilityIcon from '@mui/icons-material/Visibility';
-import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
+import VisibilityIcon from "@mui/icons-material/Visibility";
+import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import LockSharpIcon from "@mui/icons-material/LockSharp";
-import ElderlyIcon from '@mui/icons-material/Elderly';
-
+import ElderlyIcon from "@mui/icons-material/Elderly";
 
 const styles = {
   container: {
@@ -68,13 +67,14 @@ export function Settings({ children, setIsLoading, isLoading, jwt }) {
   const [phoneLengthError, setPhoneLengthError] = useState(false);
   const [randomAvatarBgColor, setRandomPfPBgColor] = useState("#bdbdbd");
   const [showPassword, setShowPassword] = useState(false);
+  const [showOldPassword, setShowOldPassword] = useState(false);
   const [formData, setFormData] = useState({
     email: null,
     phoneNumber: null,
     nickname: null,
     password: null,
     confirmPassword: null,
-    oldPass: null
+    oldPass: null,
   });
   const [passwordError, setPasswordError] = useState(false);
   const [avatar, setAvatar] = useState("");
@@ -148,7 +148,8 @@ export function Settings({ children, setIsLoading, isLoading, jwt }) {
     const requestData = {
       nickname: formData.nickname,
       email: formData.email,
-      passwordRaw: formData.password,
+      newPasswordRaw: formData.password,
+      oldPasswordRaw: formData.oldPass,
       phoneNumber: formData.phoneNumber,
     };
     if (!passwordError) {
@@ -161,9 +162,7 @@ export function Settings({ children, setIsLoading, isLoading, jwt }) {
             "Felhasználói adatok sikeresen frissítve:",
             response.data
           );
-          alert(
-            "Felhasználói adatok sikeresen frissítve! "
-          );
+          alert("Felhasználói adatok sikeresen frissítve! ");
           setIsLoading(true);
           navigate("/MyProfile");
         })
@@ -173,9 +172,7 @@ export function Settings({ children, setIsLoading, isLoading, jwt }) {
             "Hiba történt a felhasználói adatok frissítése közben:",
             error
           );
-          alert(
-            "Hiba történt a felhasználói adatok frissítése közben!"
-          );
+          alert("Hiba történt a felhasználói adatok frissítése közben!");
         });
     }
   };
@@ -185,10 +182,16 @@ export function Settings({ children, setIsLoading, isLoading, jwt }) {
     setShowPassword(!showPassword);
   };
 
+  const toggleOldPasswordVisibility = () => {
+    setShowOldPassword(!showOldPassword);
+  };
+
   useEffect(() => {
     if (currentUserId !== 0) {
       axios
-        .get(`/api/v1/user/${currentUserId}`, { headers: { Authorization: jwt } })
+        .get(`/api/v1/user/${currentUserId}`, {
+          headers: { Authorization: jwt },
+        })
         .then((response) => {
           const user = response.data;
           setFormData((prevData) => ({
@@ -229,14 +232,24 @@ export function Settings({ children, setIsLoading, isLoading, jwt }) {
             <Grid item xs={12}>
               <Avatar
                 className="Avatar-icon"
-                style={{ ...styles.avatar, backgroundColor: randomAvatarBgColor }}
+                toggleOldPasswordVisibility
+                style={{
+                  ...styles.avatar,
+                  backgroundColor: randomAvatarBgColor,
+                }}
               >
                 {avatar.length > 0 ? avatar[0].toUpperCase() : null}
               </Avatar>
             </Grid>
             <Grid item xs={12}>
               <TextField
-                style={{ borderRadius: "6px", background: "#acc7f2", borderRight: "2px solid black", borderLeft: "2px solid black", borderBottom: "2px solid black" }}
+                style={{
+                  borderRadius: "6px",
+                  background: "#acc7f2",
+                  borderRight: "2px solid black",
+                  borderLeft: "2px solid black",
+                  borderBottom: "2px solid black",
+                }}
                 InputProps={{
                   startAdornment: (
                     <InputAdornment position="start">
@@ -262,7 +275,13 @@ export function Settings({ children, setIsLoading, isLoading, jwt }) {
             </Grid>
             <Grid item xs={12}>
               <TextField
-                style={{ borderRadius: "6px", background: "#acc7f2", borderRight: "2px solid black", borderLeft: "2px solid black", borderBottom: "2px solid black" }}
+                style={{
+                  borderRadius: "6px",
+                  background: "#acc7f2",
+                  borderRight: "2px solid black",
+                  borderLeft: "2px solid black",
+                  borderBottom: "2px solid black",
+                }}
                 InputProps={{
                   startAdornment: (
                     <InputAdornment position="start">
@@ -294,7 +313,13 @@ export function Settings({ children, setIsLoading, isLoading, jwt }) {
             </Grid>
             <Grid item xs={12}>
               <TextField
-                style={{ borderRadius: "6px", background: "#acc7f2", borderRight: "2px solid black", borderLeft: "2px solid black", borderBottom: "2px solid black" }}
+                style={{
+                  borderRadius: "6px",
+                  background: "#acc7f2",
+                  borderRight: "2px solid black",
+                  borderLeft: "2px solid black",
+                  borderBottom: "2px solid black",
+                }}
                 InputProps={{
                   startAdornment: (
                     <InputAdornment position="start">
@@ -320,28 +345,70 @@ export function Settings({ children, setIsLoading, isLoading, jwt }) {
             </Grid>
 
             <Grid item xs={12}>
-              <div style={{ borderRadius: "6px", border: "2px solid black", padding: "3%" }}>
-                <div style={{ marginLeft: "20%", marginRight: "20%", marginBottom: "3%" }}>
-                  <TextField label="Régi jelszó"
+              <div
+                style={{
+                  borderRadius: "6px",
+                  border: "2px solid black",
+                  padding: "3%",
+                }}
+              >
+                <div
+                  style={{
+                    marginLeft: "20%",
+                    marginRight: "20%",
+                    marginBottom: "3%",
+                  }}
+                >
+                  <TextField
+                    label="Régi jelszó"
                     InputProps={{
                       startAdornment: (
                         <InputAdornment position="start">
                           <LockSharpIcon></LockSharpIcon>
                         </InputAdornment>
                       ),
-                    }} style={{
+                      endAdornment: (
+                        <InputAdornment
+                          style={{ cursor: "pointer" }}
+                          position="end"
+                        >
+                          {showOldPassword ? (
+                            <VisibilityIcon
+                              onClick={toggleOldPasswordVisibility}
+                            />
+                          ) : (
+                            <VisibilityOffIcon
+                              onClick={toggleOldPasswordVisibility}
+                            />
+                          )}
+                        </InputAdornment>
+                      ),
+                    }}
+                    value={formData.oldPass}
+                    onChange={handleFormChange}
+                    name="oldPass"
+                    autoComplete="current-password"
+                    type={showOldPassword ? "text" : "password"}
+                    style={{
                       borderRadius: "6px",
                       background: "#acc7f2",
                       borderRight: "2px solid black",
                       borderLeft: "2px solid black",
                       borderBottom: "2px solid black",
                       marginBottom: "2%",
-                    }}></TextField>
+                    }}
+                  ></TextField>
                 </div>
                 <div>
                   <Grid item xs={12}>
                     <TextField
-                      style={{borderRadius:"6px", background: "#acc7f2", borderRight: "2px solid black", borderLeft: "2px solid black", borderBottom: "2px solid black" }}
+                      style={{
+                        borderRadius: "6px",
+                        background: "#acc7f2",
+                        borderRight: "2px solid black",
+                        borderLeft: "2px solid black",
+                        borderBottom: "2px solid black",
+                      }}
                       fullWidth
                       name="password"
                       label="Jelszó megváltoztatása"
@@ -362,11 +429,18 @@ export function Settings({ children, setIsLoading, isLoading, jwt }) {
                           </InputAdornment>
                         ),
                         endAdornment: (
-                          <InputAdornment style={{ cursor: "pointer" }} position="end">
+                          <InputAdornment
+                            style={{ cursor: "pointer" }}
+                            position="end"
+                          >
                             {showPassword ? (
-                              <VisibilityIcon onClick={togglePasswordVisibility} />
+                              <VisibilityIcon
+                                onClick={togglePasswordVisibility}
+                              />
                             ) : (
-                              <VisibilityOffIcon onClick={togglePasswordVisibility} />
+                              <VisibilityOffIcon
+                                onClick={togglePasswordVisibility}
+                              />
                             )}
                           </InputAdornment>
                         ),
@@ -389,7 +463,7 @@ export function Settings({ children, setIsLoading, isLoading, jwt }) {
                   <Grid item xs={12}>
                     <TextField
                       style={{
-                        borderRadius:"6px",
+                        borderRadius: "6px",
                         background: "#acc7f2",
                         borderRight: "2px solid black",
                         borderLeft: "2px solid black",
@@ -408,8 +482,7 @@ export function Settings({ children, setIsLoading, isLoading, jwt }) {
                             <EnhancedEncryptionIcon></EnhancedEncryptionIcon>
                           </InputAdornment>
                         ),
-                      }
-                      }
+                      }}
                       error={passwordError}
                       helperText={
                         passwordError
@@ -428,7 +501,6 @@ export function Settings({ children, setIsLoading, isLoading, jwt }) {
                 </div>
               </div>
             </Grid>
-
           </Grid>
         </section>
         <Button
