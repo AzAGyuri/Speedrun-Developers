@@ -73,4 +73,4 @@
 
 ![](./images/adatbazis_terv_kep.png)
 
-A backend fejlesztői dokumentációs mappában megtalálható db mappában megtalálható a draw.io-val készített [adatbazis_terv.drawio](./db/adatbazis_terv.drawio) forrás fájl is.
+A backend fejlesztői dokumentációs mappában, a db mappában megtalálható a draw.io-val készített [adatbazis_terv.drawio](./db/adatbazis_terv.drawio) forrás fájl a fenti képhez.
