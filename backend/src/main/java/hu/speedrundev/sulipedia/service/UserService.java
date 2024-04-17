@@ -88,13 +88,13 @@ public class UserService {
     if (token == null || changes == null) throw nullPointer();
     if (changes.isAllNull()) throw badRequest("INPUTS_ALL_NULL");
 
-    boolean isOldPassSupplied = false;
-    if (changes.getNewPasswordRaw() != null) if (
-      changes.getOldPasswordRaw() != null
-    ) isOldPassSupplied |= changes.getOldPasswordRaw().isBlank();
-    if (!isOldPassSupplied) throw badRequest(
-      "OLD_PASSWORD_REQUIRED_FOR_PASSWORD_CHANGE"
-    );
+    if (changes.getNewPasswordRaw() != null) {
+      if (changes.getOldPasswordRaw() == null) throw badRequest(
+        "OLD_PASSWORD_REQUIRED_FOR_PASSWORD_CHANGE"
+      ); else if (changes.getOldPasswordRaw().isBlank()) throw badRequest(
+        "OLD_PASSWORD_REQUIRED_FOR_PASSWORD_CHANGE"
+      );
+    }
 
     Optional<User> updater = repository.findByUsername(
       jwtUtil.getSubject(token)
@@ -132,8 +132,7 @@ public class UserService {
       ) updatingUser.setNickname(changes.getNickname());
     }
 
-    if (
-      changes.getNewPasswordRaw() != null &&
+    if (changes.getNewPasswordRaw() != null) if (
       !passwordEncoder.matches(
         changes.getNewPasswordRaw(),
         oldData.getUserPassword()
