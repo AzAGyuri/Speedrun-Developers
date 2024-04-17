@@ -16,6 +16,8 @@ A MyGroups komponens lehetővé teszi a felhasználók számára, hogy csoportok
 
 4. **Csoport Tagjainak Hozzáadása**: A "Tag hozzáadása" gombra kattintva a csoport vezetője új tagokat adhat a csoportba. Ezt követően meg kell adnia a tag nevét.
 
+5. **Csoporttagok elérhetősége és kapcsolattartás**: A csoporttagok láthatják, hogy más csoporttagok online vannak-e, valamint tudnak nekik e-mailt küldeni. Kék színnel az online, pirossal az offline állapot jelezve. 
+
 ---
 
 ### Fontos Megjegyzések
@@ -25,6 +27,6 @@ A MyGroups komponens lehetővé teszi a felhasználók számára, hogy csoportok
 
 ![Admin felhasználó összes csoportja](./images/myGroupsGroupImg.png)
 
-![Szakmai angol csoport össze tagja](./images/myGroupsmembersImg.png)
+![Szakmai angol csoport össze tagja](./images/myGroupsMembersImg.png)
 
 ![Szakmai angol csoport Polyák György tagjának adatai](./images/myGroupsMembersDataImg.png)
