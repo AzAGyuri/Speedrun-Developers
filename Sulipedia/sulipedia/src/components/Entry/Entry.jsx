@@ -176,12 +176,13 @@ export function Entry({
               style={{
                 ...styles.avatar,
                 backgroundColor: authorBgColor,
+                border:`2px solid ${statusColor}`
               }}
             >
               {authorName.charAt(0).toUpperCase()}
             </Avatar>
-            <div style={{ marginLeft: "10px" }}>
-              <Typography sx={{ fontWeight: "bold", marginBottom: "5px" }}>
+            <div style={{ border:"1px solid black", marginLeft: "10px" }}>
+              <Typography sx={{ borderBottom:`2px solid ${statusColor}`, fontWeight: "bold", marginBottom: "5px" }}>
                 {authorName}
               </Typography>
               <Typography

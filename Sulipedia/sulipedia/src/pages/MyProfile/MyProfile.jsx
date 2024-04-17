@@ -192,7 +192,7 @@ export function MyProfile({
           <div style={styles.infoItem}>
             <Typography variant="body1" style={styles.infoLabel}>
               <LocalPhoneIcon></LocalPhoneIcon>
-              Telefonszám:
+              Tel.Szám:
             </Typography>
             <Typography variant="body1" style={styles.infoValue}>
               {userData.phoneNumber}

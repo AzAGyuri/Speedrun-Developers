@@ -118,7 +118,7 @@ export function LearnMore({ children }) {
       </SectionContainer>
       <SectionContainer>
         <Title variant="h2" gutterBottom>
-          Szeretnének kérdést feltenni?
+          Szeretne kérdést feltenni?
         </Title>
         <Content variant="body1">
           Maguknak, az elnököknek lehetőségük lesz több kérdést feltenni az
