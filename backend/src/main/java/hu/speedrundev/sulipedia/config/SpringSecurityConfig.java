@@ -61,7 +61,7 @@ public class SpringSecurityConfig {
           .permitAll()
           .requestMatchers(PUBLIC_URLS)
           .permitAll()
-          .requestMatchers(HttpMethod.PATCH, "/user/{id}")
+          .requestMatchers(HttpMethod.PATCH, "/user/{id}", "/admin/**")
           .hasAuthority("ROLE_ADMIN")
           .anyRequest()
           .authenticated()
