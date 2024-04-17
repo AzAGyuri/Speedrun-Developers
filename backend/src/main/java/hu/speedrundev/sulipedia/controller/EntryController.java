@@ -226,7 +226,7 @@ public class EntryController {
     description = "Az adatbázisban eltárolt bejegyzés logikai törlése"
   )
   @DeleteMapping("/entry/{id}")
-  public GetEntryWithID softDeleteEntry(
+  public GetEntryWithID logicalDeleteEntry(
     @PathVariable Integer id,
     @RequestHeader(name = "Authorization") String jwt
   ) {
