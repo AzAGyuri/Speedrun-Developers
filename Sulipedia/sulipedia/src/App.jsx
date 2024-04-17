@@ -19,10 +19,13 @@ import { Copyright } from "./components/Copyright/Copyright";
 import axios from "axios";
 
 function App() {
-  axios.defaults.withCredentials = true;
   const [isLoading, setIsLoading] = useState(true);
   const jwt = localStorage.getItem("jwt");
   const currentUserId = localStorage.getItem("currentUserId");
+  window.onunload = (event) => {
+    event.preventDefault();
+    axios.get("/api/v1/logout", { headers: { Authorization: jwt } });
+  };
 
   return (
     <>
