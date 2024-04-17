@@ -525,6 +525,7 @@ export function MyGroups({
       })
       .then((response) => {
         console.log("Kilépés sikeresen megtörtént:", response.data);
+        alert("Kilépés sikeresen megtörtént:");
         setGroups(groups.filter((group) => group.id !== groupId));
       })
       .catch((error) => {
