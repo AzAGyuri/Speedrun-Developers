@@ -42,7 +42,6 @@ const Title = styled(Typography)({
 const LargeText = styled(Typography)({
   marginBottom: (theme) => theme.spacing(1),
   fontSize: "1.5rem",
-  textAlign: "justify",
   lineHeight: "1.6",
 });
 
