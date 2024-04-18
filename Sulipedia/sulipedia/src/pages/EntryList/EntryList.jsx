@@ -112,16 +112,15 @@ const CommentSection = styled("div")({
 });
 
 const CommentHeader = styled("div")({
-  marginBottom: (theme) => theme.spacing(2),
-  marginLeft: "5px",
+  margin: "5px 15px 10px",
   fontSize: "1.8rem",
   fontWeight: "bold",
   color: "#333",
 });
 
 const CommentInput = styled("textarea")({
-  marginBottom: (theme) => theme.spacing(2),
-  padding: (theme) => theme.spacing(1),
+  margin: "0 5px",
+  padding: "10px",
   fontSize: "1.2rem",
   minHeight: "80px",
   borderRadius: "5px",
@@ -130,6 +129,7 @@ const CommentInput = styled("textarea")({
 });
 
 const CommentButton = styled(Button)({
+  margin: "15px",
   alignSelf: "flex-start",
   backgroundColor: "#2f3826",
   color: "white",
@@ -139,15 +139,15 @@ const CommentButton = styled(Button)({
 });
 
 const Comment = styled("div")({
-  marginTop: (theme) => theme.spacing(2),
-  padding: (theme) => theme.spacing(2),
+  margin: "15px",
+  padding: "5px",
+  paddingBottom: "15px",
   backgroundColor: "#fff",
   borderRadius: "5px",
   boxShadow: "0px 3px 8px rgba(0, 0, 0, 0.1)",
 });
 
 const CommentContent = styled("p")({
-  marginBottom: (theme) => theme.spacing(1),
   fontSize: "1.4rem",
   textAlign: "justify",
   marginLeft: "5px",
@@ -156,7 +156,6 @@ const CommentContent = styled("p")({
 const CommentAuthor = styled("span")({
   fontSize: "1rem",
   color: "#777",
-  marginRight: (theme) => theme.spacing(1),
   marginLeft: "5px",
   fontWeight: "bold",
 });
@@ -609,6 +608,7 @@ export function EntryList({
 
   const [open, setOpen] = useState(false);
   const handleOpen = () => {
+    setIsLoading(true);
     setOpen(true);
     setNewComment("");
   };
@@ -663,11 +663,13 @@ export function EntryList({
 
   const handleCommentDelete = (index) => {
     if (window.confirm("Biztosan törlöd ezt a kommentet?")) {
+      setIsLoading(true);
       axios
         .delete(`/api/v1/comment/${index}`, {
           headers: { Authorization: jwt },
         })
         .then((response) => {
+          console.log("Sikeres törlés", response.data);
           setComments(comments.filter((comment) => comment.id !== index));
           alert("Komment sikeresen törölve");
         })
@@ -678,6 +680,73 @@ export function EntryList({
     } else {
       alert("A komment nem lett törlve");
     }
+  };
+
+  const roles = [].concat(JSON.parse(localStorage.getItem("roles")));
+
+  const handleAdminDeleteEntry = (event) => {
+    if (roles.includes("ROLE_ADMIN")) {
+      if (window.confirm("Biztosan szeretnéd törölni a bejegyzést?")) {
+        setIsLoading(true);
+        const id = event.currentTarget.id;
+        axios
+          .delete(`/api/v1/admin/entry/${id}`, {
+            headers: { Authorization: jwt },
+          })
+          .then((response) => {
+            console.log("Sikeres törlés", response.data);
+            setEntries(entries.filter((entry) => entry.id !== id));
+          })
+          .catch((error) => {
+            console.error("Hiba történt admin általi bejegyzés során", error);
+            const errorCode = error.response.data.status;
+            switch (errorCode) {
+              case 403:
+                alert("Szia fanom, mi jót csinálsz?");
+                break;
+              case 404:
+                alert("Bejegyzés nem található");
+                break;
+              default:
+                alert(
+                  "Váratlan hiba történt. Kérjük próbálja meg újra később."
+                );
+                break;
+            }
+          });
+      } else alert("A bejegyzés nem került törlésre!");
+    } else alert("szia fanom, mi jót cinálsz?");
+  };
+
+  const handleAdminCommentDelete = (event) => {
+    if (roles.includes("ROLE_ADMIN")) {
+      if (window.confirm("Biztosan szeretnéd törölni a kommentet?")) {
+        setIsLoading(true);
+        const commentId = 0;
+        axios
+          .delete(`/api/v1/admin/comment/${commentId}`)
+          .then((response) => {
+            console.log("Komment sikeresen törölve");
+            setComments(comments.filter((comment) => comment.id !== commentId));
+          })
+          .catch((error) => {
+            console.error("Hiba történt komment törlése során", error.response);
+            switch (error.response.data.status) {
+              case 403:
+                alert("Szia fanom, mi jót csinálsz?");
+                break;
+              case 404:
+                alert("A megadott komment nem található.");
+                break;
+              default:
+                alert(
+                  "Váratlan hiba történt. Kérjük próbálja meg újra később."
+                );
+                break;
+            }
+          });
+      } else alert("A komment nem került törlésre!");
+    } else alert("Szia fanom, mi jót csinálsz?");
   };
 
   const handleAllAuthorsSelect = () => {
@@ -710,7 +779,6 @@ export function EntryList({
         } else {
           setEntries(receivedEntries);
         }
-        console.log(receivedEntries);
       })
       .catch((error) => {
         setEntries(
@@ -726,7 +794,7 @@ export function EntryList({
   useEffect(() => {
     setTimeout(() => {
       setIsLoading(false);
-    }, 300);
+    }, 650);
   }, [setIsLoading, isLoading]);
 
   const handleDeleteClick = (event) => {
@@ -811,12 +879,10 @@ export function EntryList({
         </StyledList>
       </StyledDrawer>
 
-
       <StyledContainer style={{ backgroundColor: "#ccc" }}>
         <Title variant="h3">{title}</Title>
         {selectedAuthor === null
           ? entries.map((entry, index) => (
-            
               <Entry
                 key={index}
                 id={entry.id}
@@ -831,13 +897,18 @@ export function EntryList({
                 authorLogOff={entry.author.lastLogoff}
                 handleEntryClick={handleEntryClick}
                 handleDeleteClick={handleDeleteClick}
-                
+                handleAdminDeleteEntry={
+                  roles.includes("ROLE_ADMIN")
+                    ? handleAdminDeleteEntry
+                    : alert("szia fanom, mi jót csinálsz?")
+                }
+                roles={roles}
+                tooltipTitle={"Kattints a bejegyzésre, hogy kommentet írj!"}
               />
             ))
           : entries
               .filter((entry) => entry.author.username === selectedAuthor)
               .map((entry, index) => (
-                <Tooltip title="Kattints a bejegyzésre, hogy kommentet írj!">
                 <Entry
                   key={index}
                   id={entry.id}
@@ -852,8 +923,14 @@ export function EntryList({
                   authorLogOff={entry.author.lastLogoff}
                   handleEntryClick={handleEntryClick}
                   handleDeleteClick={handleDeleteClick}
+                  handleAdminDeleteEntry={
+                    roles.includes("ROLE_ADMIN")
+                      ? handleAdminDeleteEntry
+                      : alert("szia fanom, mi jót csinálsz?")
+                  }
+                  roles={roles}
+                  tooltipTitle={"Kattints a bejegyzésre, hogy kommentet írj!"}
                 />
-                </Tooltip>
               ))}
       </StyledContainer>
       {selectedEntry && (
@@ -927,6 +1004,14 @@ export function EntryList({
                           edge="end"
                           color="inherit"
                           onClick={() => handleCommentDelete(comment.id)}
+                        >
+                          <DeleteIcon />
+                        </IconButton>
+                      ) : roles.includes("ROLE_ADMIN") ? (
+                        <IconButton
+                          edge="end"
+                          color="error"
+                          onClick={() => handleAdminCommentDelete(comment.id)}
                         >
                           <DeleteIcon />
                         </IconButton>
