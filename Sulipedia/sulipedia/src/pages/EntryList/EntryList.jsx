@@ -718,11 +718,10 @@ export function EntryList({
     } else alert("szia fanom, mi jót cinálsz?");
   };
 
-  const handleAdminCommentDelete = (event) => {
+  const handleAdminCommentDelete = (commentId) => {
     if (roles.includes("ROLE_ADMIN")) {
       if (window.confirm("Biztosan szeretnéd törölni a kommentet?")) {
         setIsLoading(true);
-        const commentId = 0;
         axios
           .delete(`/api/v1/admin/comment/${commentId}`)
           .then((response) => {
