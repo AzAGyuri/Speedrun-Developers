@@ -131,8 +131,6 @@ public class EntryService {
 
     Entry savedEntry = entryRepository.save(new Entry(entry, author.get()));
 
-    System.out.println(savedEntry.getId());
-
     if (files != null) if (files.length != 0) {
       List<MultipartFile> fileList = Arrays.asList(files);
 
