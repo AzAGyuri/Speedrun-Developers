@@ -73,9 +73,9 @@ public class UserService {
 
   public GetUserWithID createUser(PostUser user) {
     if (user == null) throw nullPointer();
-    if (repository.existsUserByEmail(user.getEmail())) throw notUnique(
-      "USER_ALREADY_EXISTS"
-    );
+    if (
+      repository.existsUserByEmail(user.getEmail())
+    ) throw wereGoingToCourtOverThisConflict("USER_ALREADY_EXISTS");
 
     user.setPasswordRaw(
       new BCryptPasswordEncoder().encode(user.getPasswordRaw())
@@ -118,9 +118,9 @@ public class UserService {
       changes.getEmail() != null &&
       !oldData.getEmail().equalsIgnoreCase(changes.getEmail())
     ) {
-      if (repository.existsUserByEmail(changes.getEmail())) throw notUnique(
-        "USER_EMAIL_ALREADY_TAKEN"
-      );
+      if (
+        repository.existsUserByEmail(changes.getEmail())
+      ) throw wereGoingToCourtOverThisConflict("EMAIL_ALREADY_TAKEN");
       updatingUser.setEmail(changes.getEmail());
     }
 
@@ -192,6 +192,15 @@ public class UserService {
 
   public GetUser logicalDeletionOfUser(String token) {
     if (token == null) throw nullPointer();
+
+    long adminUserCnt = repository
+      .findAll()
+      .stream()
+      .filter(user -> user.getRoles().contains(Roles.ROLE_ADMIN))
+      .count();
+    if (adminUserCnt == 1) throw wereGoingToCourtOverThisConflict(
+      "DEFAULT_AND_ONE_AND_ONLY_ADMIN_DELETION_NOT_ALLOWED"
+    );
 
     Optional<User> deletedUser = repository.findByUsername(
       jwtUtil.getSubject(token)
