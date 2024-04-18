@@ -29,7 +29,6 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 import { Loading } from "../../components/Loading/Loading";
 import axios from "axios";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
-import { border } from "@mui/system";
 
 const styles = {
   container: {
