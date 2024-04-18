@@ -1,37 +1,27 @@
 package hu.speedrundev.sulipedia;
 
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
+import io.swagger.v3.oas.annotations.Hidden;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
+@RestController
+@Hidden
 /**
  * HomeController
  *
- * Manages some simple redirects and a hello world endpoint
+ * A simple Rest Controller, that returns a welcome message on root.
  */
-@Controller
 public class HomeController {
 
   /**
    * <h3>GET(/)</h3>
    * 
-   * a basic hello world endpoint on root
+   * A get mapping for root, that returns a hello world and greeting text message.
    * 
-   * @return a hello world and welcome message
+   * @return a string, containing the message
    */
-  @GetMapping("/")
-  public String getHome() {
+  @RequestMapping("/")
+  public String home() {
     return "Helló világ!\nÜdvözöljük a sulipédia vizsgaremek projekt API-jának root oldalán.";
-  }
-
-  /**
-   * <h3>GET(/swagger)</h3>
-   * 
-   * Redirect to the proper swagger-ui page
-   * 
-   * @return a redirect string, that hopefully does its magic
-   */
-  @GetMapping("/swagger-ui")
-  public String swaggerRedirect() {
-    return "redirect:/api/v1/swagger-ui/index.html";
   }
 }
