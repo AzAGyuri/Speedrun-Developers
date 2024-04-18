@@ -332,6 +332,12 @@ public class UserController {
    * recieves a {@code null} on any input params
    *
    * @throws ResponseStatusException
+   * with {@code HttpStatus.CONFLICT}
+   * and reason {@code DEFAULT_AND_ONE_AND_ONLY_ADMIN_DELETION_NOT_ALLOWED}
+   * if the user requesting its deletion is the only remaining admin user in
+   * the DB
+   *
+   * @throws ResponseStatusException
    * with {@code HttpStatus.NOT_FOUND}
    * and reason {@code USER_NOT_FOUND}
    * if the user could not be properly extracted from the JWT
