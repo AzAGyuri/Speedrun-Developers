@@ -13,7 +13,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
 @Component
-public class CommandLineAppStartupRunner implements CommandLineRunner {
+public class FirstTimeAppStartup implements CommandLineRunner {
 
   @Autowired
   private UserRepository userRepository;
