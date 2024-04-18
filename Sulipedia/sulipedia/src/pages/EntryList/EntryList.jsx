@@ -999,13 +999,15 @@ export function EntryList({
                       </CommentAuthor>
                       <CommentDate>{comment.createdOn}</CommentDate>
                       {comment.author.id === Number(currentUserId) ? (
-                        <IconButton
-                          edge="end"
-                          color="inherit"
-                          onClick={() => handleCommentDelete(comment.id)}
-                        >
-                          <DeleteIcon />
-                        </IconButton>
+                        <Tooltip title="Komment törlése">
+                          <IconButton
+                            edge="end"
+                            color="inherit"
+                            onClick={() => handleCommentDelete(comment.id)}
+                          >
+                            <DeleteIcon />
+                          </IconButton>
+                        </Tooltip>
                       ) : roles.includes("ROLE_ADMIN") ? (
                         <IconButton
                           edge="end"
