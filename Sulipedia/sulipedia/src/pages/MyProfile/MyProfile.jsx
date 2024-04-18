@@ -6,6 +6,7 @@ import {
   Paper,
   Button,
   useMediaQuery,
+  IconButton,
 } from "@mui/material";
 import { Loading } from "../../components/Loading/Loading";
 import axios from "axios";
@@ -14,6 +15,8 @@ import EmailSharpIcon from "@mui/icons-material/EmailSharp";
 import BadgeIcon from "@mui/icons-material/Badge";
 import NumbersIcon from "@mui/icons-material/Numbers";
 import DateRangeIcon from "@mui/icons-material/DateRange";
+import DeleteIcon from "@mui/icons-material/Delete";
+import { useNavigate } from "react-router-dom";
 
 const styles = {
   container: {
@@ -78,7 +81,6 @@ const styles = {
   },
   footer: {
     marginTop: "20px",
-    borderTop: "1px solid #ddd",
     paddingTop: "12px",
     display: "flex",
     justifyContent: "space-between",
@@ -125,6 +127,7 @@ export function MyProfile({
     randomAvatarBgColor: "",
   });
   const isSmallScreen = useMediaQuery("(max-width:950px)");
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (currentUserId !== 0) {
@@ -159,6 +162,27 @@ export function MyProfile({
     }, 300);
   }, [currentUserId, setIsLoading, isLoading, jwt]);
 
+  const deleteUser = () => {
+    axios
+      .delete(`/api/v1/user/${currentUserId}`, {
+        headers: { Authorization: jwt },
+      })
+      .then((response) => {
+        alert(
+          "Köszönjük, hogy minket választott. Várjuk vissza legközelebb is oldalunkra.\nNavigálás a belépési oldalra"
+        );
+        console.log("Törlésere kerülő adatok:", response.data);
+        localStorage.removeItem("currentUserId");
+        localStorage.removeItem("roles");
+        localStorage.removeItem("jwt");
+        navigate("/signin");
+      })
+      .catch((error) => {
+        console.error("Hiba történt felhasználó törlés során", error);
+        alert("Törlés sikeretelen");
+      });
+  };
+
   if (isLoading) return <Loading />;
 
   return (
@@ -181,7 +205,7 @@ export function MyProfile({
         <div style={styles.userInfo}>
           <div style={styles.infoItem}>
             <Typography variant="body1" style={styles.infoLabel}>
-              <EmailSharpIcon></EmailSharpIcon>
+              <EmailSharpIcon />
               Email:
             </Typography>
             <Typography variant="body1" style={styles.infoValue}>
@@ -191,7 +215,7 @@ export function MyProfile({
           </div>
           <div style={styles.infoItem}>
             <Typography variant="body1" style={styles.infoLabel}>
-              <BadgeIcon></BadgeIcon>
+              <BadgeIcon />
               Név:
             </Typography>
             <Typography variant="body1" style={styles.infoValue}>
@@ -200,7 +224,7 @@ export function MyProfile({
           </div>
           <div style={styles.infoItem}>
             <Typography variant="body1" style={styles.infoLabel}>
-              <LocalPhoneIcon></LocalPhoneIcon>
+              <LocalPhoneIcon />
               Tel.Szám:
             </Typography>
             <Typography variant="body1" style={styles.infoValue}>
@@ -209,7 +233,7 @@ export function MyProfile({
           </div>
           <div style={styles.infoItem}>
             <Typography variant="body1" style={styles.infoLabel}>
-              <DateRangeIcon></DateRangeIcon>
+              <DateRangeIcon />
               {isSmallScreen ? "Reg. napja:" : "Regisztáció napja:"}
             </Typography>
             <Typography variant="body1" style={styles.infoValue}>
@@ -219,11 +243,22 @@ export function MyProfile({
           </div>
           <div style={styles.infoItem}>
             <Typography variant="body1" style={styles.infoLabel}>
-              <NumbersIcon></NumbersIcon>
+              <NumbersIcon />
               ID:
             </Typography>
             <Typography variant="body1" style={styles.infoValue}>
               {userData.userId}
+            </Typography>
+          </div>
+          <div style={styles.infoItem}>
+            <Typography variant="body1" style={styles.infoLabel}>
+              <DeleteIcon />
+              Törlés:
+            </Typography>
+            <Typography variant="body1" style={styles.infoValue}>
+              <IconButton onClick={deleteUser} sx={{ color: "#f0f0f0" }}>
+                <DeleteIcon />
+              </IconButton>
             </Typography>
           </div>
         </div>
