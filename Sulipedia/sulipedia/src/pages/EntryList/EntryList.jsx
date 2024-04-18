@@ -811,10 +811,12 @@ export function EntryList({
         </StyledList>
       </StyledDrawer>
 
+
       <StyledContainer style={{ backgroundColor: "#ccc" }}>
         <Title variant="h3">{title}</Title>
         {selectedAuthor === null
           ? entries.map((entry, index) => (
+            
               <Entry
                 key={index}
                 id={entry.id}
@@ -829,11 +831,13 @@ export function EntryList({
                 authorLogOff={entry.author.lastLogoff}
                 handleEntryClick={handleEntryClick}
                 handleDeleteClick={handleDeleteClick}
+                
               />
             ))
           : entries
               .filter((entry) => entry.author.username === selectedAuthor)
               .map((entry, index) => (
+                <Tooltip title="Kattints a bejegyzésre, hogy kommentet írj!">
                 <Entry
                   key={index}
                   id={entry.id}
@@ -849,9 +853,9 @@ export function EntryList({
                   handleEntryClick={handleEntryClick}
                   handleDeleteClick={handleDeleteClick}
                 />
+                </Tooltip>
               ))}
       </StyledContainer>
-
       {selectedEntry && (
         <div>
           <Modal

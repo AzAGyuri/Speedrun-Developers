@@ -58,6 +58,7 @@ export function Entry({
   authorLogOff,
   handleEntryClick,
   handleDeleteClick,
+  
 }) {
   const formattedCreatedOn = (
     <>
@@ -83,6 +84,7 @@ export function Entry({
       : "Offline";
 
   return (
+    <Tooltip title="Kattints a bejegyzésre, hogy kommentet írj!">
     <StyledContainer style={{ backgroundColor: "#4caf50" }}>
       <div
         onClick={
@@ -202,5 +204,6 @@ export function Entry({
         </Tooltip>
       </div>
     </StyledContainer>
+    </Tooltip>
   );
 }
