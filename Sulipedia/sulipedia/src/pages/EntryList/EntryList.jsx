@@ -923,6 +923,7 @@ export function EntryList({
                       </CommentAuthor>
                       <CommentDate>{comment.createdOn}</CommentDate>
                       {comment.author.id === Number(currentUserId) ? (
+                        <Tooltip title="Komment törlése">
                         <IconButton
                           edge="end"
                           color="inherit"
@@ -930,6 +931,7 @@ export function EntryList({
                         >
                           <DeleteIcon />
                         </IconButton>
+                        </Tooltip>
                       ) : (
                         <></>
                       )}
