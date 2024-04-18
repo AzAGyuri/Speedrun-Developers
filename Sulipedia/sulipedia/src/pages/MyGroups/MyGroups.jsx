@@ -310,7 +310,6 @@ export function MyGroups({
           setGroups(localGroups);
           setSelectedGroup(group);
           setShowMembers(true);
-          console.log(localMembers);
         })
 
         .catch((error) => {
