@@ -84,7 +84,6 @@ export default function SignUp({ children, setIsLoading, jwt }) {
           localStorage.setItem("currentUserId", response.data.id);
           setIsLoading(true);
           navigate("/kezdo");
-          console.log(formData.phone);
         })
         .catch((error) => {
           let errorCode = error.config.data.status;
@@ -151,7 +150,6 @@ export default function SignUp({ children, setIsLoading, jwt }) {
       [name]: formattedValue,
     }));
     resetErrorState(name);
-    console.log(formattedValue);
   };
 
   const resetErrorState = (name) => {
