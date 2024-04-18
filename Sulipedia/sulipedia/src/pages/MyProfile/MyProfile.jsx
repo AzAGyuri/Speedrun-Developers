@@ -7,6 +7,7 @@ import {
   Button,
   useMediaQuery,
   IconButton,
+  Tooltip,
 } from "@mui/material";
 import { Loading } from "../../components/Loading/Loading";
 import axios from "axios";
@@ -163,24 +164,26 @@ export function MyProfile({
   }, [currentUserId, setIsLoading, isLoading, jwt]);
 
   const deleteUser = () => {
-    axios
-      .delete(`/api/v1/user/${currentUserId}`, {
-        headers: { Authorization: jwt },
-      })
-      .then((response) => {
-        alert(
-          "Köszönjük, hogy minket választott. Várjuk vissza legközelebb is oldalunkra.\nNavigálás a belépési oldalra"
-        );
-        console.log("Törlésere kerülő adatok:", response.data);
-        localStorage.removeItem("currentUserId");
-        localStorage.removeItem("roles");
-        localStorage.removeItem("jwt");
-        navigate("/signin");
-      })
-      .catch((error) => {
-        console.error("Hiba történt felhasználó törlés során", error);
-        alert("Törlés sikeretelen");
-      });
+    if (window.confirm("Biztosan folytatja felhasználója törlését?")) {
+      axios
+        .delete(`/api/v1/user/${currentUserId}`, {
+          headers: { Authorization: jwt },
+        })
+        .then((response) => {
+          alert(
+            "Köszönjük, hogy minket választott. Várjuk vissza legközelebb is oldalunkra.\nNavigálás a belépési oldalra"
+          );
+          console.log("Törlésere kerülő adatok:", response.data);
+          localStorage.removeItem("currentUserId");
+          localStorage.removeItem("roles");
+          localStorage.removeItem("jwt");
+          navigate("/signin");
+        })
+        .catch((error) => {
+          console.error("Hiba történt felhasználó törlés során", error);
+          alert("Törlés sikeretelen");
+        });
+    } else alert("Profilja nem lett törölve.");
   };
 
   if (isLoading) return <Loading />;
@@ -253,12 +256,14 @@ export function MyProfile({
           <div style={styles.infoItem}>
             <Typography variant="body1" style={styles.infoLabel}>
               <DeleteIcon />
-              Törlés:
+              Profil törlése:
             </Typography>
             <Typography variant="body1" style={styles.infoValue}>
-              <IconButton onClick={deleteUser} sx={{ color: "#f0f0f0" }}>
-                <DeleteIcon />
-              </IconButton>
+              <Tooltip title={"FIGYELEM! Ez a folyamat nem visszafordítható."}>
+                <IconButton onClick={deleteUser} sx={{ color: "red" }}>
+                  <DeleteIcon />
+                </IconButton>
+              </Tooltip>
             </Typography>
           </div>
         </div>
