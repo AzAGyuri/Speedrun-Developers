@@ -899,7 +899,9 @@ export function EntryList({
                 handleAdminDeleteEntry={
                   roles.includes("ROLE_ADMIN")
                     ? handleAdminDeleteEntry
-                    : alert("szia fanom, mi jót csinálsz?")
+                    : () => {
+                        alert("szia fanom, mi jót csinálsz?");
+                      }
                 }
                 roles={roles}
                 tooltipTitle={
@@ -927,7 +929,9 @@ export function EntryList({
                   handleAdminDeleteEntry={
                     roles.includes("ROLE_ADMIN")
                       ? handleAdminDeleteEntry
-                      : alert("szia fanom, mi jót csinálsz?")
+                      : () => {
+                          alert("szia fanom, mi jót csinálsz?");
+                        }
                   }
                   roles={roles}
                   tooltipTitle={
