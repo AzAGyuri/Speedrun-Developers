@@ -4,54 +4,54 @@
 
 - Tananyagok oldal:
 
-![Bejegyzések megjelnítése](./images/bejegyzesek_megjelenitese.png)
+![Bejegyzések megjelnítése](backend-dev-docs/images/bejegyzesek_megjelenitese.png)
 
 - Kiválasztott bejegyzés:
 
-![Egy bejegyzés megjelenítése kommentekkel](./images/bejegyzes_kommentekkel_megjelenitese.png)
+![Egy bejegyzés megjelenítése kommentekkel](backend-dev-docs/images/bejegyzes_kommentekkel_megjelenitese.png)
 
 - Főoldal:
 
-![Bejegyzések megjelenítése, főoldal](./images/bejegyzesek_megjelenitese_fooldal.png)
+![Bejegyzések megjelenítése, főoldal](backend-dev-docs/images/bejegyzesek_megjelenitese_fooldal.png)
 
 - Tesztek oldal:
 
-![Tesztek megjelnítése](./images/tesztek_megjelenitese.png)
+![Tesztek megjelnítése](backend-dev-docs/images/tesztek_megjelenitese.png)
 
 - Csoportjaim oldal:
 
-![Csoportjaim megjelnítése](./images/csoportjaim_megjelenitese.png)
+![Csoportjaim megjelnítése](backend-dev-docs/images/csoportjaim_megjelenitese.png)
 
 - Kiválasztott csoport tagjai:
 
-![Csoporttagok megjelnítése](./images/csoporttagok_megjelenitese.png)
+![Csoporttagok megjelnítése](backend-dev-docs/images/csoporttagok_megjelenitese.png)
 
 - Profilom oldal:
 
-![Profilom megjelnítése](./images/profilom_megjelenitese.png)
+![Profilom megjelnítése](backend-dev-docs/images/profilom_megjelenitese.png)
 
 - Beállítások oldal:
 
-![Beállítások megjelnítése](./images/beallitasok_megjelenitese.png)
+![Beállítások megjelnítése](backend-dev-docs/images/beallitasok_megjelenitese.png)
 
 - Bejelentkező oldal:
 
-![Bejelentkező felület](./images/bejelentkezes.png)
+![Bejelentkező felület](backend-dev-docs/images/bejelentkezes.png)
 
 - Regisztrációs oldal:
 
-![Regisztrációs felület](./images/regisztracio.png)
+![Regisztrációs felület](backend-dev-docs/images/regisztracio.png)
 
 ---
 
-- [Answer](./backend-dev-docs/entities/entity-answer.md)
-- [Attachment](./backend-dev-docs/entities/entity-attachment.md)
-- [Availability](./backend-dev-docs/entities/entity-availability.md)
-- [Comment](./backend-dev-docs/entities/entity-comment.md)
-- [Entry](./backend-dev-docs/entities/entity-entry.md)
-- [Group](./backend-dev-docs/entities/entity-group.md)
-- [Question](./backend-dev-docs/entities/entity-question.md)
-- [User](./backend-dev-docs/entities/entity-user.md)
+- [Answer](backend-dev-docs/entities/entity-answer.md)
+- [Attachment](backend-dev-docs/entities/entity-attachment.md)
+- [Availability](backend-dev-docs/entities/entity-availability.md)
+- [Comment](backend-dev-docs/entities/entity-comment.md)
+- [Entry](backend-dev-docs/entities/entity-entry.md)
+- [Group](backend-dev-docs/entities/entity-group.md)
+- [Question](backend-dev-docs/entities/entity-question.md)
+- [User](backend-dev-docs/entities/entity-user.md)
 
 ## API Dokumentáció
 
@@ -71,6 +71,10 @@
 
 ## Adatbázis terv
 
-![](./images/adatbazis_terv_kep.png)
+![](backend-dev-docs/images/adatbazis_terv_kep.png)
 
-A backend fejlesztői dokumentációs mappában, a db mappában megtalálható a draw.io-val készített [adatbazis_terv.drawio](./db/adatbazis_terv.drawio) forrás fájl a fenti képhez.
+A backend fejlesztői dokumentációs mappában, a db mappában megtalálható a draw.io-val készített [adatbazis_terv.drawio](backend-dev-docs/db/adatbazis_terv.drawio) forrás fájl a fenti képhez.
+
+## Swagger-ui használata
+
+FONTOS! Amennyiben localhost-on futó backend API fut fejlesztői környezetben, fontos a swagger-ui-ban a servers-nél kiválasztani a megfelelő szerver opciót. Más különben a swagger-ui a PROD szerverre fog dolgozni.
