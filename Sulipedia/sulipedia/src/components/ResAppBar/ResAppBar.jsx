@@ -45,6 +45,7 @@ export function ResAppBar({ setIsLoading, jwt }) {
       );
     });
     localStorage.removeItem("currentUserId");
+    localStorage.removeItem("roles");
     localStorage.removeItem("jwt");
     handleCloseUserMenu();
   };
