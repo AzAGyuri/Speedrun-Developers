@@ -84,8 +84,8 @@ export function Entry({
       : "Offline";
 
   return (
-    <Tooltip title="Kattints a bejegyzésre, hogy kommentet írj!">
-    <StyledContainer style={{ backgroundColor: "#4caf50" }}>
+    <Tooltip title="Kattints a bejegyzés szövegére, hogy kommentet írj!">
+    <StyledContainer style={{ backgroundColor: "#4caf50", cursor:"pointer" }}>
       <div
         onClick={
           handleEntryClick
