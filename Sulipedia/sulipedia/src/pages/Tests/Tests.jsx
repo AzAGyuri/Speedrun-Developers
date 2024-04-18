@@ -315,7 +315,7 @@ export function Tests({ children, setIsLoading, isLoading, jwt }) {
   useEffect(() => {
     setTimeout(() => {
       setIsLoading(false);
-    }, 300);
+    }, 650);
   }, [isLoading, setIsLoading]);
 
   useEffect(() => {

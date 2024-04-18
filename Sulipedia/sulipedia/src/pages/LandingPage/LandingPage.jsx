@@ -220,7 +220,7 @@ export function LandingPage({ children, setIsLoading, isLoading, jwt }) {
   useEffect(() => {
     setTimeout(() => {
       setIsLoading(false);
-    }, 300);
+    }, 650);
   }, [isLoading, setIsLoading]);
 
   if (isLoading) return <Loading />;

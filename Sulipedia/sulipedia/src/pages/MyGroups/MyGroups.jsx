@@ -237,7 +237,7 @@ export function MyGroups({
   useEffect(() => {
     setTimeout(() => {
       setIsLoading(false);
-    }, 300);
+    }, 650);
   }, [isLoading, setIsLoading]);
 
   useEffect(() => {

@@ -159,7 +159,7 @@ export function MyProfile({
     }
     setTimeout(() => {
       setIsLoading(false);
-    }, 300);
+    }, 650);
   }, [currentUserId, setIsLoading, isLoading, jwt]);
 
   const deleteUser = () => {
