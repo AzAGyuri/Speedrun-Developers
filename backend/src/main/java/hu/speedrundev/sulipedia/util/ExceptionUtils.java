@@ -32,7 +32,7 @@ public class ExceptionUtils {
     return new ResponseStatusException(FORBIDDEN, reason);
   }
 
-  public static ResponseStatusException notUnique(String reason) {
+  public static ResponseStatusException wereGoingToCourtOverThisConflict(String reason) {
     return new ResponseStatusException(CONFLICT, reason);
   }
 
