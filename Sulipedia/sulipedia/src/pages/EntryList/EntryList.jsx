@@ -902,7 +902,9 @@ export function EntryList({
                     : alert("szia fanom, mi jót csinálsz?")
                 }
                 roles={roles}
-                tooltipTitle={"Kattints a bejegyzésre, hogy kommentet írj!"}
+                tooltipTitle={
+                  "Kattints a bejegyzés szövegére, hogy kommentet írj!"
+                }
               />
             ))
           : entries
@@ -928,7 +930,9 @@ export function EntryList({
                       : alert("szia fanom, mi jót csinálsz?")
                   }
                   roles={roles}
-                  tooltipTitle={"Kattints a bejegyzésre, hogy kommentet írj!"}
+                  tooltipTitle={
+                    "Kattints a bejegyzés szövegére, hogy kommentet írj!"
+                  }
                 />
               ))}
       </StyledContainer>
@@ -1009,13 +1013,15 @@ export function EntryList({
                           </IconButton>
                         </Tooltip>
                       ) : roles.includes("ROLE_ADMIN") ? (
-                        <IconButton
-                          edge="end"
-                          color="error"
-                          onClick={() => handleAdminCommentDelete(comment.id)}
-                        >
-                          <DeleteIcon />
-                        </IconButton>
+                        <Tooltip title="Komment admin általi törlése">
+                          <IconButton
+                            edge="end"
+                            color="error"
+                            onClick={() => handleAdminCommentDelete(comment.id)}
+                          >
+                            <DeleteIcon />
+                          </IconButton>
+                        </Tooltip>
                       ) : (
                         <></>
                       )}
