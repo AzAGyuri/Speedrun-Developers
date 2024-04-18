@@ -837,7 +837,7 @@ export function EntryList({
           : entries
               .filter((entry) => entry.author.username === selectedAuthor)
               .map((entry, index) => (
-                <Tooltip title="Kattints a bejegyzésre, hogy kommentet írj!">
+                <Tooltip title="Kattints a bejegyzés szövegére re, hogy kommentet írj!">
                 <Entry
                   key={index}
                   id={entry.id}
