@@ -195,7 +195,7 @@ export function MyGroups({
         email: "semmi@valami.com",
         memberSince: "2024-04-14 14:28:43",
         login: "2024-04-14 14:28:43",
-        logoff: "2024-04-14 14:28:44"
+        logoff: "2024-04-14 14:28:44",
       },
       {
         id: 2,
@@ -203,7 +203,7 @@ export function MyGroups({
         email: "semmi@valami.com",
         memberSince: "2024-04-14 14:28:43",
         login: "2024-04-14 14:28:43",
-        logoff: "2024-04-14 14:28:44"
+        logoff: "2024-04-14 14:28:44",
       },
       {
         id: 3,
@@ -211,7 +211,7 @@ export function MyGroups({
         email: "semmi@valami.com",
         memberSince: "2024-04-14 14:28:43",
         login: "2024-04-14 14:28:43",
-        logoff: "2024-04-14 14:28:44"
+        logoff: "2024-04-14 14:28:44",
       },
     ],
     ownerId: 1,
@@ -298,9 +298,9 @@ export function MyGroups({
               name: user.username,
               email: user.email,
               memberSince: user.createdOn,
-              login:user.lastLogin,
+              login: user.lastLogin,
               logoff: user.lastLogoff,
-              avatarColor: user.randomAvatarBgColor
+              avatarColor: user.randomAvatarBgColor,
             });
           });
 
@@ -370,7 +370,7 @@ export function MyGroups({
             memberSince: member.createdOn,
             email: member.email,
             login: member.lastLogin,
-            logoff: member.lastLogoff
+            logoff: member.lastLogoff,
           });
         });
 
@@ -496,7 +496,7 @@ export function MyGroups({
               email: user.email,
               login: user.lastLogin,
               logoff: user.lastLogoff,
-              avatarColor: user.randomAvatarBgColor
+              avatarColor: user.randomAvatarBgColor,
             });
           });
           const updatedGroup = {
@@ -951,9 +951,12 @@ export function MyGroups({
                                 }}
                               >
                                 <Avatar
-                                  style={{ 
+                                  style={{
                                     border:
-                                      new Date(member.login).getTime() > new Date(member.logoff).getTime() ? ("2px solid blue") : ("2px solid red"),
+                                      new Date(member.login).getTime() >
+                                      new Date(member.logoff).getTime()
+                                        ? "2px solid blue"
+                                        : "2px solid red",
                                     backgroundColor: member.avatarColor,
                                     alignSelf: "center",
                                   }}
@@ -967,12 +970,19 @@ export function MyGroups({
                       </div>
                     }
                   >
-                    <Avatar  style={{ 
-                                    border:
-                                      new Date(member.login).getTime() > new Date(member.logoff).getTime() ? ("2px solid blue") : ("2px solid red"),
-                                      backgroundColor: member.avatarColor,
-                                    alignSelf: "center",
-                                  }}>{member.name[0]}</Avatar>
+                    <Avatar
+                      style={{
+                        border:
+                          new Date(member.login).getTime() >
+                          new Date(member.logoff).getTime()
+                            ? "2px solid blue"
+                            : "2px solid red",
+                        backgroundColor: member.avatarColor,
+                        alignSelf: "center",
+                      }}
+                    >
+                      {member.name[0]}
+                    </Avatar>
                   </Tooltip>
                 </ListItemAvatar>
                 <ListItemText primary={member.name} />
@@ -1002,13 +1012,17 @@ export function MyGroups({
           </List>
           <Divider sx={{ my: 2 }} />
           <Stack direction="row" spacing={2} justifyContent="flex-end">
-            <Button
-              variant="contained"
-              color="primary"
-              onClick={handleOpenAddMember}
-            >
-              Tag hozzáadása
-            </Button>
+            {Number(currentUserId) === selectedGroup.ownerId ? (
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={handleOpenAddMember}
+              >
+                Tag hozzáadása
+              </Button>
+            ) : (
+              <></>
+            )}
             <Button
               variant="outlined"
               color="error"
