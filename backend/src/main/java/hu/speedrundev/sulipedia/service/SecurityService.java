@@ -62,9 +62,9 @@ public class SecurityService {
     if (registrationInfo == null) throw nullPointer();
 
     if (
-      repository.existsUserByUsername(registrationInfo.getUsername()) &&
+      repository.existsUserByUsername(registrationInfo.getUsername()) ||
       repository.existsUserByEmail(registrationInfo.getEmail())
-    ) throw notUnique("USERNAME_AND_OR_EMAIL_ALREADY_TAKEN");
+    ) throw notUnique("USERNAME_OR_EMAIL_ALREADY_TAKEN");
 
     if (registrationInfo.isAnyRequiredNull()) throw badRequest(
       "SOME_REQUIRED_INPUT_DATA_IS_NULL"
